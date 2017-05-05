@@ -6,7 +6,7 @@
 package project.o;
 import java.sql.*;
 import project.o.*;
-import javax.swing.JOptionPane;
+
 /** 
  *  Classe per la gestione di una connessione ad un database MySQL
  *  La classe utilizza i driver JDBC per gestire la connessione.
