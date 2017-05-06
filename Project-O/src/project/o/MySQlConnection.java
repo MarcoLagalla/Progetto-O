@@ -5,7 +5,8 @@
  */
 package project.o;
 import java.sql.*;
-import project.o.*;
+import java.util.ArrayList;
+
 
 /** 
  *  Classe per la gestione di una connessione ad un database MySQL
@@ -59,9 +60,29 @@ public class MySQlConnection {
     ResultSet res = null;
     
     
+   /*
+     Costanti con i nomi delle tabelle della base di dati
+    */
     
-    // Numero massimo di persone gestibili
-    static final int MAX = 1024;
+    static final String DB_PERSONE = "PERSONE";
+    static final String DB_VOTANTI = "VOTANTI";
+    static final String DB_CANDIDATI = "CANDIDATI";
+    static final String DB_VOTAZIONI = "VOTAZIONI";
+   
+    
+    /*
+        Costanti con i nomi delle colonne della base di dati
+    */
+    static final String TABCODICEFISCALE = "CodiceFiscale";
+    static final String TABNOME = "Nome";
+    static final String TABCOGNOME = "Cognome";
+    static final String TABSESSO = "Sesso";
+    static final String TABDATANASCITA = "DataNascita";
+    static final String TABCOMUNE = "Comune";
+    static final String TABCODICETESSERA = "CodiceTessera";
+    static final String TABPARTITO = "Partito";
+    static final String TABVOTI = "Voti";
+    
     
     /**
      * Metodo costruttore, inizializza la connessione e il caricamento del driver
@@ -100,35 +121,33 @@ public class MySQlConnection {
     
     /**
      * Funzione che legge tutti i campi della tabella PERSONE nel db e restituisce 
-     * un vettore di oggetti 'persone' per ogni record estratto.
+     * un ArrayList di oggetti 'persone' per ogni record estratto.
      * @return Oggetto della classe persone
      */
     // submit a query
-    public persone[] ReadPersoneColumns() {
+    public ArrayList<persone> ReadPersoneColumns() {
        
-        String QUERY = "SELECT * FROM PERSONE;";
-        persone[] pers = new persone[MAX];
+        String QUERY = String.format("SELECT * FROM %s;" , DB_PERSONE );
+        ArrayList<persone> pers = new ArrayList();
         try{
             
             stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY); //submit query
-            
-            int i = 0;
+            res = stmt.executeQuery(QUERY); //submit query    
             
             while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
                 persone p;
-                int id = res.getInt("id");
-                String CF = res.getString("CF");
-                String Nome = res.getString("Nome");
-                String Cognome = res.getString("Cognome");
-                String Sesso = res.getString("Sesso");
-                String DataNascita = res.getString("DataNascita");
-                String Comune = res.getString("Comune");
+          
+                String CF = res.getString(TABCODICEFISCALE);
+                String Nome = res.getString(TABNOME);
+                String Cognome = res.getString(TABCOGNOME);
+                String Sesso = res.getString(TABSESSO);
+                String DataNascita = res.getString(TABDATANASCITA);
+                String Comune = res.getString(TABCOMUNE);
                 
-                p = new persone(id, CF, Nome, Cognome, Sesso, DataNascita, Comune);
-                pers[i] = p; // inserisce un nuovo elemento nel vettore
-                i++;
+                p = new persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
+                pers.add(p); // inserimento nell' ArrayList del nuovo record p
+
             }
             
         }catch(SQLException se){
@@ -148,7 +167,111 @@ public class MySQlConnection {
         return pers;
     }
     
-    public votanti[] ReadVotantiColumns() {
+      /**
+     * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce 
+     * un ArrayList di oggetti 'votanti' per ogni record estratto.
+     * @return Oggetto della classe persone
+     */
+    // submit a query
+    public ArrayList<votanti> ReadVotantiColumns() {
+       
         
+        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera FROM db.PERSONE\n" +
+                       "JOIN db.VOTANTI on PERSONE.CodiceFiscale = VOTANTI.CodiceFiscale;";
+        
+        ArrayList<votanti> vot = new ArrayList();
+        try
+        {
+            
+            stmt = conn.createStatement();
+            res = stmt.executeQuery(QUERY); //submit query    
+            
+            while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
+                
+                votanti v;
+
+                String CF = res.getString(TABCODICEFISCALE);
+                String Nome = res.getString(TABNOME);
+                String Cognome = res.getString(TABCOGNOME);
+                String Sesso = res.getString(TABSESSO);
+                String DataNascita = res.getString(TABDATANASCITA);
+                String Comune = res.getString(TABCOMUNE);
+                String CodiceTessera = res.getString(TABCODICETESSERA);
+               
+                v = new votanti(CF, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera);
+                vot.add(v);
+
+            }
+            
+        }catch(SQLException se){
+            se.printStackTrace();   
+        }catch(Exception e){ //handles error for Class.forName
+            e.printStackTrace();
+        }finally{
+            try {
+                // rilascia le risorse
+            stmt.close();   
+            res.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        
+        return vot;
     }
+    
+    
+     /**
+     * Funzione che legge tutti i campi della tabella CANDIDATI nel db e restituisce 
+     * un ArrayList di oggetti 'candidati' per ogni record estratto.
+     * @return Oggetto della classe persone
+     */
+    // submit a query
+    public ArrayList<candidati> ReadCandidatiColumns() {
+       
+        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera FROM db.PERSONE\n" +
+                       "JOIN db.VOTANTI on PERSONE.CodiceFiscale = VOTANTI.CodiceFiscale;";
+        
+        ArrayList<candidati> can = new ArrayList();
+        try
+        {
+            
+            stmt = conn.createStatement();
+            res = stmt.executeQuery(QUERY); //submit query    
+            
+            while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
+                
+                candidati c;
+
+                String CF = res.getString(TABCODICEFISCALE);
+                String Nome = res.getString(TABNOME);
+                String Cognome = res.getString(TABCOGNOME);
+                String Sesso = res.getString(TABSESSO);
+                String DataNascita = res.getString(TABDATANASCITA);
+                String Comune = res.getString(TABCOMUNE);
+                String Partito = res.getString(TABPARTITO);
+                int Voti = res.getInt(TABVOTI);
+               
+                c = new candidati(CF, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti);
+                can.add(c);
+
+            }
+            
+        }catch(SQLException se){
+            se.printStackTrace();   
+        }catch(Exception e){ //handles error for Class.forName
+            e.printStackTrace();
+        }finally{
+            try {
+                // rilascia le risorse
+            stmt.close();   
+            res.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        
+        return can;
+    }
+    
 }

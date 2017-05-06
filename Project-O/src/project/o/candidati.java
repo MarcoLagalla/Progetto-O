@@ -14,8 +14,8 @@ public class candidati extends persone {
     private String Partito;
     private int Voti;
     
-    public candidati(int id, String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String Partito, int Voti) {
-        super( id,  CF,  Nome,  Cognome,  Sesso,  DataNascita,  Comune);
+    public candidati(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String Partito, int Voti) {
+        super( CF,  Nome,  Cognome,  Sesso,  DataNascita,  Comune);
         this.Partito = Partito;
         this.Voti = Voti;
     }
