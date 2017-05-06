@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package project.o;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author marco
@@ -62,6 +62,11 @@ public class mainFrame extends javax.swing.JFrame {
         CT.setText("jTextField1");
 
         Enter.setText("jButton1");
+        Enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterActionPerformed(evt);
+            }
+        });
 
         Intestazione.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Intestazione.setText("jLabel1");
@@ -148,6 +153,16 @@ public class mainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
+        // TODO add your handling code here:
+        MySQlConnection mysql = new MySQlConnection();
+        java.util.ArrayList<persone> pers = mysql.ReadPersoneColumns();
+        JOptionPane.showMessageDialog ( 
+   null, pers.get(0).getCF());
+        mysql.ExecuteQuery("UPDATE PERSONE set Nome='Marco' where Comune='Tortona';");
+     
+    }//GEN-LAST:event_EnterActionPerformed
 
     /**
      * @param args the command line arguments
