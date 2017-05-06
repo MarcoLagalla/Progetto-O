@@ -98,7 +98,11 @@ public class MySQlConnection {
         }
     }    
     
-
+    /**
+     * Funzione che legge tutti i campi della tabella PERSONE nel db e restituisce 
+     * un vettore di oggetti 'persone' per ogni record estratto.
+     * @return Oggetto della classe persone
+     */
     // submit a query
     public persone[] ReadPersoneColumns() {
        
@@ -111,7 +115,7 @@ public class MySQlConnection {
             
             int i = 0;
             
-            while(res.next()){
+            while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
                 persone p;
                 int id = res.getInt("id");
@@ -123,7 +127,7 @@ public class MySQlConnection {
                 String Comune = res.getString("Comune");
                 
                 p = new persone(id, CF, Nome, Cognome, Sesso, DataNascita, Comune);
-                pers[i] = p;
+                pers[i] = p; // inserisce un nuovo elemento nel vettore
                 i++;
             }
             
@@ -131,10 +135,20 @@ public class MySQlConnection {
             se.printStackTrace();   
         }catch(Exception e){ //handles error for Class.forName
             e.printStackTrace();
+        }finally{
+            try {
+                // rilascia le risorse
+            stmt.close();   
+            res.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
         
         return pers;
     }
     
-    
+    public votanti[] ReadVotantiColumns() {
+        
+    }
 }
