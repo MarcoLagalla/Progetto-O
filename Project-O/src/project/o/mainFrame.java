@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package project.o;
-
 /**
  *
  * @author marco
@@ -62,6 +61,11 @@ public class mainFrame extends javax.swing.JFrame {
         CT.setText("jTextField1");
 
         Enter.setText("jButton1");
+        Enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterActionPerformed(evt);
+            }
+        });
 
         Intestazione.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Intestazione.setText("jLabel1");
@@ -148,6 +152,11 @@ public class mainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_EnterActionPerformed
 
     /**
      * @param args the command line arguments

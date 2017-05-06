@@ -82,6 +82,7 @@ public class MySQlConnection {
     static final String TABCODICETESSERA = "CodiceTessera";
     static final String TABPARTITO = "Partito";
     static final String TABVOTI = "Voti";
+    static final String TABIMMAGINE = "Immagine";
     
     
     /**
@@ -147,7 +148,7 @@ public class MySQlConnection {
                 
                 p = new persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
                 pers.add(p); // inserimento nell' ArrayList del nuovo record p
-
+              
             }
             
         }catch(SQLException se){
@@ -167,7 +168,7 @@ public class MySQlConnection {
         return pers;
     }
     
-      /**
+     /**
      * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce 
      * un ArrayList di oggetti 'votanti' per ogni record estratto.
      * @return Oggetto della classe persone
@@ -229,8 +230,8 @@ public class MySQlConnection {
     // submit a query
     public ArrayList<candidati> ReadCandidatiColumns() {
        
-        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera FROM db.PERSONE\n" +
-                       "JOIN db.VOTANTI on PERSONE.CodiceFiscale = VOTANTI.CodiceFiscale;";
+        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine FROM db.PERSONE\n" +
+                       "JOIN db.CANDIDATI on PERSONE.CodiceFiscale = CANDIDATI.CodiceFiscale;";
         
         ArrayList<candidati> can = new ArrayList();
         try
@@ -251,8 +252,8 @@ public class MySQlConnection {
                 String Comune = res.getString(TABCOMUNE);
                 String Partito = res.getString(TABPARTITO);
                 int Voti = res.getInt(TABVOTI);
-               
-                c = new candidati(CF, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti);
+                String Immagine = res.getString(TABIMMAGINE);
+                c = new candidati(CF, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
                 can.add(c);
 
             }
@@ -272,6 +273,25 @@ public class MySQlConnection {
         }
         
         return can;
+    }
+    
+    /**
+     * Esegue una query SQL generica
+     * @param QUERY contiene la query da eseguire
+     * @return Restituisce un oggetto ResultSet
+     */
+    public ResultSet ExecuteQuery(String QUERY) {
+        try {
+            
+            if (!QUERY.endsWith(";")) {  // se la query non termina con ; lo aggiungo
+                QUERY = QUERY.concat(";"); 
+            }
+            stmt = conn.createStatement();
+            res = stmt.executeQuery(QUERY); //submit query   
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
+        return res;
     }
     
 }
