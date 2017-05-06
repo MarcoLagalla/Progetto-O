@@ -11,7 +11,7 @@ package project.o;
  */
 public class persone {
     
-    private int id;
+
     private String CF;
     private String Nome;
     private String Cognome;
@@ -24,8 +24,8 @@ public class persone {
         
     }
     
-    public persone(int id, String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
-        this.id = id;
+    public persone(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
+
         this.CF = CF;
         this.Nome = Nome;
         this.Cognome = Cognome;
@@ -36,7 +36,7 @@ public class persone {
     
     // metodi getter
     
-    public int getID() { return id; }
+
     public String getCF() { return CF; }
     public String getNome() { return Nome; }
     public String getCognome() { return Cognome; }
@@ -46,7 +46,7 @@ public class persone {
     
     // metodi setter
     
-    public void setID(int id) { this.id = id; }
+
     public void setCF(String CF) { this.CF = CF; }
     public void setNome(String Nome) { this.Nome = Nome; } 
     public void setCognome(String Cognome) { this.Cognome = Cognome; }
