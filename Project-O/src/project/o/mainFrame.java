@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package project.o;
-import javax.swing.JOptionPane;
 /**
  *
  * @author marco
@@ -156,11 +155,6 @@ public class mainFrame extends javax.swing.JFrame {
 
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
         // TODO add your handling code here:
-        MySQlConnection mysql = new MySQlConnection();
-        java.util.ArrayList<persone> pers = mysql.ReadPersoneColumns();
-        JOptionPane.showMessageDialog ( 
-   null, pers.get(0).getCF());
-        mysql.ExecuteQuery("UPDATE PERSONE set Nome='Marco' where Comune='Tortona';");
      
     }//GEN-LAST:event_EnterActionPerformed
 
