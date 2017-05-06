@@ -147,7 +147,7 @@ public class MySQlConnection {
                 
                 p = new persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
                 pers.add(p); // inserimento nell' ArrayList del nuovo record p
-
+              
             }
             
         }catch(SQLException se){
@@ -167,7 +167,7 @@ public class MySQlConnection {
         return pers;
     }
     
-      /**
+     /**
      * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce 
      * un ArrayList di oggetti 'votanti' per ogni record estratto.
      * @return Oggetto della classe persone
@@ -272,6 +272,25 @@ public class MySQlConnection {
         }
         
         return can;
+    }
+    
+    /**
+     * Esegue una query SQL generica
+     * @param QUERY contiene la query da eseguire
+     * @return Restituisce un oggetto ResultSet
+     */
+    public ResultSet ExecuteQuery(String QUERY) {
+        try {
+            
+            if (!QUERY.endsWith(";")) {  // se la query non termina con ; lo aggiungo
+                QUERY = QUERY.concat(";"); 
+            }
+            stmt = conn.createStatement();
+            res = stmt.executeQuery(QUERY); //submit query   
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
+        return res;
     }
     
 }
