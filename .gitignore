@@ -12,8 +12,9 @@
 hs_err_pid*
 
 # folder nbproject
-nbproject/
-/nbproject/private/
-/nbproject\build-impl.xml
-/build/
-/dist/
+Project-O/nbproject/
+Project-O/nbproject/private
+Project-O/nbproject\build-impl.xml
+Project-O/nbproject/*
+Project-O/build/
+Project-O/dist/
