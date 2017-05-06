@@ -82,6 +82,7 @@ public class MySQlConnection {
     static final String TABCODICETESSERA = "CodiceTessera";
     static final String TABPARTITO = "Partito";
     static final String TABVOTI = "Voti";
+    static final String TABIMMAGINE = "Immagine";
     
     
     /**
@@ -229,8 +230,8 @@ public class MySQlConnection {
     // submit a query
     public ArrayList<candidati> ReadCandidatiColumns() {
        
-        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera FROM db.PERSONE\n" +
-                       "JOIN db.VOTANTI on PERSONE.CodiceFiscale = VOTANTI.CodiceFiscale;";
+        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine FROM db.PERSONE\n" +
+                       "JOIN db.CANDIDATI on PERSONE.CodiceFiscale = CANDIDATI.CodiceFiscale;";
         
         ArrayList<candidati> can = new ArrayList();
         try
@@ -251,8 +252,8 @@ public class MySQlConnection {
                 String Comune = res.getString(TABCOMUNE);
                 String Partito = res.getString(TABPARTITO);
                 int Voti = res.getInt(TABVOTI);
-               
-                c = new candidati(CF, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti);
+                String Immagine = res.getString(TABIMMAGINE);
+                c = new candidati(CF, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
                 can.add(c);
 
             }
