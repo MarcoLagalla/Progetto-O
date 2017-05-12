@@ -148,7 +148,8 @@ public class MySQlConnection {
         return pers;
     }
     
-    public votanti[] ReadVotantiColumns() {
-        
-    }
+    /*public votanti[] ReadVotantiColumns() {
+    
+     
+    }*/
 }
