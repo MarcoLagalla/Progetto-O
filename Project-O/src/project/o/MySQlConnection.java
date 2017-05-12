@@ -294,4 +294,60 @@ public class MySQlConnection {
         return res;
     }
     
+    /**
+     * Metodo che popola la tabella CANDIDATI
+     * @param CodiceFiscale Codice Fiscale del candidato
+     * @param Partito Partito di appartenenza
+     * @param Voti Numero Voti
+     * @param Immagine URL Immagine profilo
+     */
+    public void WriteCandidatiColumns(String CodiceFiscale, String Partito, String Voti, String Immagine) {
+        String QUERY = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
+                "VALUES (" + CodiceFiscale + "," + Partito + "," + Voti + "," + Immagine + ");";
+              
+        try {
+            stmt = conn.createStatement();
+            res = stmt.executeQuery(QUERY);
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }finally{
+            try {
+                stmt.close();
+                res.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+            
+        }
+        
+    }
+    
+    /**
+     * Metodo che inserisce il codice tessera elettorale di chi ha votato nella rispettiva colonna indicante la votazione
+     * Questo sistema impedisce voti multipli dalla stessa persona.
+     * 
+     * @param Votazione Identifica un turno elettorale o una votazione
+     * @param CodiceTessera Identifica in maniera univoca una persona e tiene traccia dell' avvenuto voto.
+     */
+    public void WriteVotazioniColumns(String Votazione, String CodiceTessera) {
+        String QUERY = "INSERT INTO VOTAZIONI (" + Votazione +  ") VALUES (" + CodiceTessera + ");";
+              
+        try {
+            stmt = conn.createStatement();
+            res = stmt.executeQuery(QUERY);
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }finally{
+            try {
+                stmt.close();
+                res.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+            
+        }
+        
+    }
+    
+    
 }
