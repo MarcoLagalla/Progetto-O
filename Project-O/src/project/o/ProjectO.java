@@ -29,9 +29,14 @@ public class ProjectO {
     
     // Elementi Grafici Swing per CLIENT_FRAME
     private JFrame clientFrame;
-    private JPanel client_background_panel;
+    private JPanel client_panel; //GRIGLIA
     private JLabel Client_Label;
     private JButton Vote_Button;
+    private JPanel Candidato_panel;
+    private JButton foto; 
+    private JTextField nome;
+    private JTextField cognome;
+    private JTextField partito;
     
     // Elementi Grafici per SERVER_FRAME
     private JFrame serverFrame;
@@ -119,25 +124,34 @@ public class ProjectO {
     private void prepareClientGUI(){
         // CLIENT FRAME
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
-        clientFrame.setLayout(null);
+        BorderLayout Griglia_Vot = new BorderLayout();
+        clientFrame.setLayout(Griglia_Vot);
         clientFrame.setSize(1276, 802);
         clientFrame.setResizable(false);
         
-        client_background_panel = new JPanel(null);
-        client_background_panel.setSize(1276, 802);
-        clientFrame.add(client_background_panel);
         
-        Client_Label = new JLabel();
+        Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
         Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
-        Client_Label.setText("SCEGLIERE CANDIDATO");
-        Client_Label.setBounds(638, 10, 50, 30);
-        client_background_panel.add(Client_Label);
+        clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
-        Vote_Button = new JButton("VOTA");
+        client_panel = new JPanel(new GridLayout(0,4)); 
+        
+        
+        
+       // TODO for()
+        
+        
+        
+        clientFrame.add(client_panel,BorderLayout.CENTER);
+        
+        /*Vote_Button = new JButton("VOTA");
         Vote_Button.setActionCommand("Vota");
         Vote_Button.addActionListener(new ButtonClickListener());
-        Vote_Button.setBounds(1100, 750, 100, 50);
-        client_background_panel.add(Vote_Button);
+        Vote_Button.setBounds(890, 700, 300, 50);
+        clientFrame.add(Vote_Button);*/
+        
+        clientFrame.setVisible(true);
+        
     }
     
     private void prepareServerGUI(){
@@ -178,7 +192,30 @@ public class ProjectO {
         Close_Vot_Button.addActionListener(new ButtonClickListener());
         Close_Vot_Button.setBounds(1100, 750, 100, 50);
         server_background_panel.add(Close_Vot_Button);
+        
+        serverFrame.setVisible(true);
 
+    }
+    
+    private void cratePan(){
+        Candidato_panel = new JPanel();
+        Candidato_panel.setLayout(null);
+        
+        foto = new JLabel(/*INSERIRE FOTO*/);
+        foto.setBounds(0, 0, 0, 0);
+        Candidato_panel.add(foto);
+        
+        nome = new JTextField();
+        nome.setText("");
+        nome.setBounds(0, 0, 0, 0);
+        Candidato_panel.add(nome);
+        
+        cognome = new JTextField();
+        cognome.setText("");
+        cognome.setBounds(0, 0, 0, 0);
+        Candidato_panel.add(cognome);
+        
+  
     }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -189,12 +226,15 @@ public class ProjectO {
            
         // BUTTONS MAINFRAME
            if(command.equals("Enter")){
-           
+               /*
+                * Inserire controllo del codice fiscale e del codice elett. sul db
+               */
+               prepareClientGUI();
            
            
            }
            else{
-           
+               prepareServerGUI();
            
            }
            
