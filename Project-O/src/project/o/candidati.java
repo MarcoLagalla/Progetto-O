@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package project.o;
+import java.net.URL;
 
 /**
  *
@@ -12,11 +13,11 @@ package project.o;
 public class candidati extends persone {
     
     private String Partito;
-    private String Immagine;
+    private URL Immagine;
     private int Voti;
     
-    public candidati(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String Partito, int Voti, String Immagine) {
-        super( CF,  Nome,  Cognome,  Sesso,  DataNascita,  Comune);
+    public candidati(String CF,  String Partito, int Voti,URL Immagine) {
+        super(CF);
         this.Partito = Partito;
         this.Voti = Voti;
         this.Immagine = Immagine;
@@ -25,13 +26,14 @@ public class candidati extends persone {
     // metodi getter
     
     public String getPartito() { return Partito; }
-    public String getImmagine() { return Immagine; }
+    public URL getImmagine() { return Immagine; }
     public int getVoti() { return Voti; }
+    
     
     // metodi setter
     
     public void setPartito(String Partito) { this.Partito = Partito; }
-    public void setImmagine(String Immagine) { this.Immagine = Immagine; }
+    public void setImmagine(URL Immagine) { this.Immagine = Immagine; }
     public void setVoti(int Voti) { this.Voti = Voti; }
     
 }

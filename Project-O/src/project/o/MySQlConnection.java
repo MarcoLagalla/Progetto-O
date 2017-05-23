@@ -6,6 +6,7 @@
 package project.o;
 import java.sql.*;
 import java.util.ArrayList;
+import java.net.URL;
 
 
 /** 
@@ -140,13 +141,13 @@ public class MySQlConnection {
                 persone p;
           
                 String CF = res.getString(TABCODICEFISCALE);
-                String Nome = res.getString(TABNOME);
-                String Cognome = res.getString(TABCOGNOME);
-                String Sesso = res.getString(TABSESSO);
-                String DataNascita = res.getString(TABDATANASCITA);
-                String Comune = res.getString(TABCOMUNE);
+                //String Nome = res.getString(TABNOME);
+                //String Cognome = res.getString(TABCOGNOME);
+                //String Sesso = res.getString(TABSESSO);
+                //String DataNascita = res.getString(TABDATANASCITA);
+                //String Comune = res.getString(TABCOMUNE);
                 
-                p = new persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
+                p = new persone(CF);
                 pers.add(p); // inserimento nell' ArrayList del nuovo record p
               
             }
@@ -192,14 +193,14 @@ public class MySQlConnection {
                 votanti v;
 
                 String CF = res.getString(TABCODICEFISCALE);
-                String Nome = res.getString(TABNOME);
-                String Cognome = res.getString(TABCOGNOME);
-                String Sesso = res.getString(TABSESSO);
-                String DataNascita = res.getString(TABDATANASCITA);
-                String Comune = res.getString(TABCOMUNE);
+                //String Nome = res.getString(TABNOME);
+                //String Cognome = res.getString(TABCOGNOME);
+                //String Sesso = res.getString(TABSESSO);
+                //String DataNascita = res.getString(TABDATANASCITA);
+                //String Comune = res.getString(TABCOMUNE);
                 String CodiceTessera = res.getString(TABCODICETESSERA);
                
-                v = new votanti(CF, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera);
+                v = new votanti(CF, CodiceTessera);
                 vot.add(v);
 
             }
@@ -245,15 +246,15 @@ public class MySQlConnection {
                 candidati c;
 
                 String CF = res.getString(TABCODICEFISCALE);
-                String Nome = res.getString(TABNOME);
-                String Cognome = res.getString(TABCOGNOME);
-                String Sesso = res.getString(TABSESSO);
-                String DataNascita = res.getString(TABDATANASCITA);
-                String Comune = res.getString(TABCOMUNE);
+                //String Nome = res.getString(TABNOME);
+                //String Cognome = res.getString(TABCOGNOME);
+                //String Sesso = res.getString(TABSESSO);
+                //String DataNascita = res.getString(TABDATANASCITA);
+                //String Comune = res.getString(TABCOMUNE);
                 String Partito = res.getString(TABPARTITO);
                 int Voti = res.getInt(TABVOTI);
-                String Immagine = res.getString(TABIMMAGINE);
-                c = new candidati(CF, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
+                URL Immagine = res.getURL(TABIMMAGINE);
+                c = new candidati(CF, Partito, Voti, Immagine);
                 can.add(c);
 
             }
@@ -271,10 +272,10 @@ public class MySQlConnection {
                 se.printStackTrace();
             }
         }
-        
+       
         return can;
     }
-    
+
     /**
      * Esegue una query SQL generica
      * @param QUERY contiene la query da eseguire
@@ -301,7 +302,7 @@ public class MySQlConnection {
      * @param Voti Numero Voti
      * @param Immagine URL Immagine profilo
      */
-    public void WriteCandidatiColumns(String CodiceFiscale, String Partito, String Voti, String Immagine) {
+    public void WriteCandidatiColumns(String CodiceFiscale, String Partito, String Voti, URL Immagine) {
         String QUERY = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
                 "VALUES (" + CodiceFiscale + "," + Partito + "," + Voti + "," + Immagine + ");";
               
