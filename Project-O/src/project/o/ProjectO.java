@@ -136,8 +136,9 @@ public class ProjectO {
         
         client_panel = new JPanel(new GridLayout(0,4)); 
         
-        
-        
+        client_panel.add(createPan());
+        client_panel.add(createPan());
+        client_panel.add(createPan());
        // TODO for()
         
         
@@ -197,25 +198,32 @@ public class ProjectO {
 
     }
     
-    private void cratePan(){
+    private JPanel createPan(){
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
         
-        foto = new JLabel(/*INSERIRE FOTO*/);
-        foto.setBounds(0, 0, 0, 0);
+        foto = new JButton(/*INSERIRE FOTO*/);
+        foto.setBounds(10, 10, 200, 200);
         Candidato_panel.add(foto);
         
         nome = new JTextField();
         nome.setText("");
-        nome.setBounds(0, 0, 0, 0);
+        nome.setBounds(10, 220 , 200, 25);
         Candidato_panel.add(nome);
         
         cognome = new JTextField();
         cognome.setText("");
-        cognome.setBounds(0, 0, 0, 0);
+        cognome.setBounds(10, 250, 200, 25 );
         Candidato_panel.add(cognome);
         
-  
+        partito = new JTextField();
+        partito.setText("");
+        partito.setBounds(10, 280, 200, 25 );
+        Candidato_panel.add(partito);
+        
+        // COSA CAZZO è SUCCESSO
+        
+        return Candidato_panel;
     }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -254,13 +262,5 @@ public class ProjectO {
  
        }
     }
-
-
-
-
-
-
-
-
 
 }
