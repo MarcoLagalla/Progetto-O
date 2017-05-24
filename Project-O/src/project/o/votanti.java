@@ -13,8 +13,8 @@ public class votanti extends persone {
     
     private String CodiceTessera;
     
-    public votanti(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String CodiceTessera) {
-        super(CF,  Nome,  Cognome,  Sesso,  DataNascita,  Comune);
+    public votanti(String CF, String CodiceTessera) {
+        super(CF);
         this.CodiceTessera = CodiceTessera;
     }
     
