@@ -1,16 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+MAIN CLASS
+
+*/
 package project.o;
 
-/**
- *
- * @author marcolagalla
- */
-public class ProjectO {
+import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
+////////////////////////////////////////////////////////////////////////////////
+
+public class ProjectO {
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JCheckBox Admin;
@@ -134,7 +136,6 @@ public class ProjectO {
         
         client_panel = new JPanel(new GridLayout(0,4)); 
         
-        
         client_panel.add(createPan());
         client_panel.add(createPan());
         client_panel.add(createPan());
@@ -195,7 +196,9 @@ public class ProjectO {
         
         serverFrame.setVisible(true);
 
-private JPanel createPan(){
+    }
+    
+    private JPanel createPan(){
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
         
@@ -217,6 +220,8 @@ private JPanel createPan(){
         partito.setText("");
         partito.setBounds(10, 280, 200, 25 );
         Candidato_panel.add(partito);
+        
+        // COSA CAZZO è SUCCESSO
         
         return Candidato_panel;
     }
@@ -257,7 +262,5 @@ private JPanel createPan(){
  
        }
     }
-
-
 
 }
