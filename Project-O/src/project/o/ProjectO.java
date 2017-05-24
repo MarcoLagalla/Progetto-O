@@ -10,8 +10,7 @@ package project.o;
  * @author marcolagalla
  */
 public class ProjectO {
-<<<<<<< HEAD
-=======
+
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JCheckBox Admin;
@@ -195,17 +194,7 @@ public class ProjectO {
         server_background_panel.add(Close_Vot_Button);
         
         serverFrame.setVisible(true);
->>>>>>> origin/master
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
-<<<<<<< HEAD
-=======
 private JPanel createPan(){
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
@@ -270,12 +259,4 @@ private JPanel createPan(){
     }
 
 
-
-
-
-
-
-
-
->>>>>>> origin/master
 }
