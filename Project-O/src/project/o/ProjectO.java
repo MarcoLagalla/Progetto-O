@@ -1,18 +1,16 @@
 /*
-
-MAIN CLASS
-
-*/
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package project.o;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
-////////////////////////////////////////////////////////////////////////////////
-
+/**
+ *
+ * @author marcolagalla
+ */
 public class ProjectO {
+<<<<<<< HEAD
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JCheckBox Admin;
@@ -196,9 +194,17 @@ public class ProjectO {
         server_background_panel.add(Close_Vot_Button);
         
         serverFrame.setVisible(true);
+=======
+>>>>>>> master
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
     }
     
+<<<<<<< HEAD
 private JPanel createPan(){
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
@@ -270,4 +276,6 @@ private JPanel createPan(){
 
 
 
+=======
+>>>>>>> master
 }
