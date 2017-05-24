@@ -201,7 +201,7 @@ public class ProjectO {
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
         
-        foto = new JLabel(/*INSERIRE FOTO*/);
+        foto = new JButton(/*INSERIRE FOTO*/);
         foto.setBounds(0, 0, 0, 0);
         Candidato_panel.add(foto);
         
