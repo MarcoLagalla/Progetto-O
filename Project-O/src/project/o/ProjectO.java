@@ -12,9 +12,13 @@ package project.o;
 public class ProjectO {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> master
+=======
+
+>>>>>>> origin/Lagalla_branch
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JCheckBox Admin;
@@ -199,6 +203,7 @@ public class ProjectO {
         
         serverFrame.setVisible(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> master
 =======
@@ -217,6 +222,9 @@ public class ProjectO {
 =======
 =======
 >>>>>>> master
+=======
+
+>>>>>>> origin/Lagalla_branch
 private JPanel createPan(){
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
@@ -281,6 +289,7 @@ private JPanel createPan(){
     }
 
 
+<<<<<<< HEAD
 
 
 
@@ -294,4 +303,6 @@ private JPanel createPan(){
 =======
 >>>>>>> origin/master
 >>>>>>> master
+=======
+>>>>>>> origin/Lagalla_branch
 }
