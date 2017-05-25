@@ -17,9 +17,13 @@ public class FTPConnection {
     static String USERNAME = "root";
     static String PASSWORD = "progettoO";
     
+<<<<<<< HEAD
     
    public FTPConnection() {
        // do connection
    }
     
+=======
+    // prova m
+>>>>>>> origin/master
 }
