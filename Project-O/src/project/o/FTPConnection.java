@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package project.o;
-
+import org.apache.commons.net.*;
 /**
  *
  * @author marcolagalla
@@ -17,5 +17,9 @@ public class FTPConnection {
     static String USERNAME = "root";
     static String PASSWORD = "progettoO";
     
+    
+   public FTPConnection() {
+       // do connection
+   }
     
 }
