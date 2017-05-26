@@ -6,6 +6,11 @@
 package progetto.o;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 /**
  *
  * @author marcolagalla
@@ -26,9 +31,11 @@ public class FTPConnection {
                   
        ftpclient = new FTPClient();
        ftpclient.connect(SERVER, PORT);
-       
+
             try {
                 ftpclient.login(USERNAME, PASSWORD);
+                ftpclient.setFileType(FTP.BINARY_FILE_TYPE);
+                ftpclient.enterLocalPassiveMode();
             }catch(java.io.IOException ex) {
                 System.out.print("FTP - Unable to login");
             }
@@ -56,13 +63,10 @@ public class FTPConnection {
                remotePath = remotePath.concat("/" + fileName);
            }
 
-            java.io.File downloadFile = new java.io.File(localPath);
-            java.io.OutputStream outputStream = new java.io.BufferedOutputStream(new java.io.FileOutputStream(downloadFile));
-            boolean success = ftpclient.retrieveFile(remotePath, outputStream);
-            outputStream.close();
-            return success;
+           InputStream input = new FileInputStream(new File(localPath));
+            return ftpclient.storeFile(remotePath, input);
        } catch(java.io.IOException ex) {
-           System.out.print("FTP - Error uploading file");
+           System.out.print("FTP - Error uploading file " + ex.getMessage());
            return false;
        }
 

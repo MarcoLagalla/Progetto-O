@@ -50,6 +50,8 @@ public class ProgettoO {
     private JTextField Num_Partiti_Inseriti; //Si riferirà al Database
     private JPanel server_background_panel;
     
+    
+    final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     public ProgettoO() {
         prepareGUI();
     }
@@ -201,13 +203,7 @@ public class ProgettoO {
     
     private JPanel createPan(){
         
-        
-        MySQlConnection mysql = new MySQlConnection();
-        ArrayList<persone> person = mysql.ReadPersoneColumns();
-        
-        for (persone pers_prof: person) {
-            JOptionPane.showMessageDialog(null,pers_prof.getNome());
-        }
+       
         
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
@@ -249,7 +245,7 @@ public class ProgettoO {
                */
                
                FTPConnection myftp = new FTPConnection();
-               myftp.loadFile("/root/progettoO/img/", "/Users/marcolagalla/Desktop/", "uomo.jpg");
+               myftp.loadFile("/Users/marcolagalla/Desktop/",IMG_REMOTE_FOLDER, "uomo.jpg");
                prepareClientGUI();
            
            
