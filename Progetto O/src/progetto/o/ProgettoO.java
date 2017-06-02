@@ -244,11 +244,13 @@ public class ProgettoO {
                 * Inserire controllo del codice fiscale e del codice elett. sul db
                */
                
-               FTPConnection myftp = new FTPConnection();
+             /* SNIPPET UPLOAD FOTO FTP
+               
+                FTPConnection myftp = new FTPConnection();
                myftp.loadFile("/Users/marcolagalla/Desktop/",IMG_REMOTE_FOLDER, "uomo.jpg");
                prepareClientGUI();
-           
-           
+               
+            */
            }
            else{
                prepareServerGUI();
@@ -272,4 +274,5 @@ public class ProgettoO {
        }
     }
 
+  
 }
