@@ -9,7 +9,9 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import java.net.URL;
+import java.net.MalformedURLException;
+import javax.swing.BoxLayout;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -53,6 +55,7 @@ public class ProgettoO {
     
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
+    MySQlConnection mysql = new MySQlConnection();
     
     public ProgettoO() {
         prepareGUI();
@@ -60,6 +63,7 @@ public class ProgettoO {
 ///////////////// MAIN /////////////////////////////////////////////////////////
     public static void main(String[] args) {
        ProgettoO SwingControl = new ProgettoO();
+
       
     }
 ////////////////////////////////////////////////////////////////////////////////  
@@ -140,14 +144,18 @@ public class ProgettoO {
         Client_Label.setBounds(50, 10, 1000, 50);
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
+        
+        
         client_panel = new JPanel(new GridLayout(0,4)); 
         client_panel.setBounds(50,100,500,500);
-        client_panel.add(createPan());
-        client_panel.add(createPan());
-        client_panel.add(createPan());
+        
        // TODO for()
-        
-        
+       
+       ArrayList<candidati> can = mysql.ReadCandidatiColumns();
+       
+       for (candidati object: can) {
+           client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getPartito()));
+        }
         
         clientFrame.add(client_panel,BorderLayout.CENTER);
     
@@ -165,21 +173,22 @@ public class ProgettoO {
     }
 
     
-    private JPanel createPan(){
-        
+    private JPanel createPan(URL Immagine, String Nome, String Partito){
+    
         Candidato_panel = new JPanel();
-        Candidato_panel.setLayout(null);
-        foto = new JButton(/*INSERIRE FOTO*/);
+       
+        foto = new JButton(new ImageIcon(Immagine));
         foto.setBounds(10, 10, 200, 200);
+       
         Candidato_panel.add(foto);
         
         nome = new JTextField();
-        nome.setText("");
+        nome.setText(Nome);
         nome.setBounds(10, 220 , 200, 25);
         Candidato_panel.add(nome);
         
         cognome = new JTextField();
-        cognome.setText("");
+        cognome.setText(Partito);
         cognome.setBounds(10, 250, 200, 25 );
         Candidato_panel.add(cognome);
         
@@ -190,6 +199,7 @@ public class ProgettoO {
         Candidato_panel.setVisible(true);
       
         return Candidato_panel;
+        
     }
     
 
@@ -250,6 +260,7 @@ public class ProgettoO {
            switch(command) {
                case "Registrazione": 
                {
+                 
                     prepareClientGUI();break;
                }
                case "Admin_Log":
