@@ -52,6 +52,8 @@ public class ProgettoO {
     
     
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
+    
+    
     public ProgettoO() {
         prepareGUI();
     }
@@ -67,6 +69,7 @@ public class ProgettoO {
         mainFrame = new JFrame();
         mainFrame.setLayout(null);
         mainFrame.setSize(1276, 802);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         
         background_panel = new JPanel(null);
