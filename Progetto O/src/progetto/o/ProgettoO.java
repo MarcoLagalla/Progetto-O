@@ -264,20 +264,32 @@ public class ProgettoO {
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
-           
+           String CT_regex = "[0-9]{9}";
            
            switch(command) {
                case "Registrazione": 
                {
-                   if(CF.getText().matches(CF_regex)){
+                   if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_regex)){    // DA FINIRE
+                       ArrayList<votanti> vot = mysql.ReadVotantiColumns();
+                       
+                       for (votanti v: vot){
+                         if(v.getCF() == CF.getText()){  
+                            prepareClientGUI();break;
+                         }
+                         else{
+                             JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare","ERRORE",JOptionPane.ERROR_MESSAGE);
+                             CF.setText("");
+                         }
+                        }   
+                       
                        
                    }
                    
 
-                 
-
-                    prepareClientGUI();break;
+                    
+                    
                }
+               
                case "Admin_Log":
                {
                    prepareServerGUI();break;
