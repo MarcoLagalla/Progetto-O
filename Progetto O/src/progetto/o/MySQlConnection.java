@@ -127,7 +127,7 @@ public class MySQlConnection {
      * @return Oggetto della classe persone
      */
     // submit a query
-    public ArrayList<persone> ReadPersoneColumns() {
+    public  ArrayList<persone> ReadPersoneColumns() {
        
         String QUERY = String.format("SELECT * FROM %s;" , DB_PERSONE );
         ArrayList<persone> pers = new ArrayList();
