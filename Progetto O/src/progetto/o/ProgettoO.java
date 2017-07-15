@@ -172,15 +172,10 @@ public class ProgettoO {
         
     }
 
-<<<<<<< HEAD
+
 //////////////////////////////////////////////////////////////////////////////// 
-    private JPanel createPan(){
-        
-=======
-    
+
     private JPanel createPan(URL Immagine, String Nome, String Partito){
-    
->>>>>>> origin/master
         Candidato_panel = new JPanel();
        
         foto = new JButton(new ImageIcon(Immagine));
@@ -269,14 +264,13 @@ public class ProgettoO {
            switch(command) {
                case "Registrazione": 
                {
-<<<<<<< HEAD
                    if(CF.getText().matches(CF_regex)){
                        
                    }
                    
-=======
+
                  
->>>>>>> origin/master
+
                     prepareClientGUI();break;
                }
                case "Admin_Log":
