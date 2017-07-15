@@ -80,7 +80,7 @@ public class ProgettoO {
         Intestazione = new JLabel();
         Intestazione.setFont(new Font("Intestazione", Font.ITALIC,25));
         Intestazione.setText("SISTEMA ELETTORALE ELETTRONICO");
-        Intestazione.setBounds(420, 10, 1000, 30);
+        Intestazione.setBounds(440, 10, 1000, 30);
         background_panel.add(Intestazione);
         
         CodiceFis = new JLabel("Inserire CODICE FISCALE");
@@ -126,7 +126,8 @@ public class ProgettoO {
         // Spawn MAINFRAME
         mainFrame.setVisible(true);
     }
-    
+
+////////////////////////////////////////////////////////////////////////////////    
     private void prepareClientGUI(){
         // CLIENT FRAME
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
@@ -160,7 +161,7 @@ public class ProgettoO {
         clientFrame.setVisible(true);
         
     }
-    
+////////////////////////////////////////////////////////////////////////////////   
     private void prepareServerGUI(){
         // SERVER FRAME
         serverFrame = new JFrame("GESTIONE SISTEMA ELETTORALE ELETTRONICO");
@@ -169,45 +170,47 @@ public class ProgettoO {
         serverFrame.setResizable(false);
         
         server_background_panel = new JPanel(null);
+        server_background_panel.setBackground(Color.white);
         server_background_panel.setSize(1276, 802);
         serverFrame.add(server_background_panel);
         
         Server_Label = new JLabel();
         Server_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
         Server_Label.setText("GESTIONE SISTEMA ELETTORALE");
-        Server_Label.setBounds(638, 10, 50, 30);
+        Server_Label.setBounds(440, 10, 800, 30);
         server_background_panel.add(Server_Label);
         
         Num_Votanti = new JLabel("NUMERO VOTANTI: ");
-        Num_Votanti.setBounds(20, 50, 40, 30);
+        Num_Votanti.setBounds(20, 50, 150, 30);
         server_background_panel.add(Num_Votanti);
         
         Num_Var = new JTextField();
-        Num_Var.setBounds(65, 50, 10, 20);
+        Num_Var.setEditable(false);
+        Num_Var.setBounds(165, 55, 150, 20);
         server_background_panel.add(Num_Var);
         
         Num_Partiti = new JLabel("NUMERO PARTITI: ");
-        Num_Partiti.setBounds(20, 84, 40, 30);
+        Num_Partiti.setBounds(20, 84, 150, 30);
         server_background_panel.add(Num_Partiti);
         
         Num_Partiti_Inseriti = new JTextField();
-        Num_Partiti_Inseriti.setBounds(65, 84, 10, 20);
+        Num_Partiti_Inseriti.setEditable(false);
+        Num_Partiti_Inseriti.setBounds(165, 89, 150, 20);
         server_background_panel.add(Num_Partiti_Inseriti);
         
         Close_Vot_Button = new JButton("CHIUSURA IMMEDIATA VOTAZIONI");
         Close_Vot_Button.setActionCommand("Close_Vot");
         Close_Vot_Button.addActionListener(new ButtonClickListener());
-        Close_Vot_Button.setBounds(1100, 750, 100, 50);
+        Close_Vot_Button.setBounds(1000, 690, 260, 50);
         server_background_panel.add(Close_Vot_Button);
         
         serverFrame.setVisible(true);
 
     }
-    
+
+////////////////////////////////////////////////////////////////////////////////
     private JPanel createPan(){
-        
-       
-        
+
         Candidato_panel = new JPanel();
         Candidato_panel.setLayout(null);
         
@@ -230,8 +233,7 @@ public class ProgettoO {
         partito.setBounds(10, 280, 200, 25 );
         Candidato_panel.add(partito);
         
-        
-        
+ 
         return Candidato_panel;
     }
 ////////////////////////////////////////////////////////////////////////////////
