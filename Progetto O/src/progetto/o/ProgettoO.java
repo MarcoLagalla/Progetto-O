@@ -177,9 +177,14 @@ public class ProgettoO {
 
     private JPanel createPan(URL Immagine, String Nome, String Partito){
         Candidato_panel = new JPanel();
-       
-        foto = new JButton(new ImageIcon(Immagine));
-        foto.setBounds(10, 10, 200, 200);
+       Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
+        ImageIcon img = new ImageIcon(Immagine);
+        
+        foto = new JButton(img);
+        
+        foto.setBounds(0, 0, 200, 200);
+        
+        
        
         Candidato_panel.add(foto);
         
