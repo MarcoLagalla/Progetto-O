@@ -164,7 +164,7 @@ public class ProgettoO {
         
     }
 
-    
+//////////////////////////////////////////////////////////////////////////////// 
     private JPanel createPan(){
         
         Candidato_panel = new JPanel();
@@ -192,7 +192,8 @@ public class ProgettoO {
         return Candidato_panel;
     }
     
-
+////////////////////////////////////////////////////////////////////////////////
+    
     private void prepareServerGUI(){
         // SERVER FRAME
         serverFrame = new JFrame("GESTIONE SISTEMA ELETTORALE ELETTRONICO");
@@ -240,16 +241,22 @@ public class ProgettoO {
     }
 
 
-
+////////////////////////////////////////////////////////////////////////////////
 
     public class ButtonClickListener implements ActionListener{
 
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
+           String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
+           
            
            switch(command) {
                case "Registrazione": 
                {
+                   if(CF.getText().matches(CF_regex)){
+                       
+                   }
+                   
                     prepareClientGUI();break;
                }
                case "Admin_Log":
