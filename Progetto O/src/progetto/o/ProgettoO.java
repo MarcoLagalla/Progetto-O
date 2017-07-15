@@ -100,7 +100,7 @@ public class ProgettoO {
         background_panel.add(CT);
         
         Enter = new JButton("REGISTRAZIONE");
-        Enter.setActionCommand("Enter");
+        Enter.setActionCommand("Registrazione");
         Enter.addActionListener(new ButtonClickListener());
         Enter.setBounds(560, 110, 200, 50);
         background_panel.add(Enter);
@@ -131,18 +131,17 @@ public class ProgettoO {
     private void prepareClientGUI(){
         // CLIENT FRAME
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
-        BorderLayout Griglia_Vot = new BorderLayout();
-        clientFrame.setLayout(Griglia_Vot);
+        clientFrame.setLayout(null);
         clientFrame.setSize(1276, 802);
         clientFrame.setResizable(false);
         
-        
         Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
         Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
+        Client_Label.setBounds(50, 10, 1000, 50);
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
         client_panel = new JPanel(new GridLayout(0,4)); 
-        
+        client_panel.setBounds(50,100,500,500);
         client_panel.add(createPan());
         client_panel.add(createPan());
         client_panel.add(createPan());
@@ -151,17 +150,49 @@ public class ProgettoO {
         
         
         clientFrame.add(client_panel,BorderLayout.CENTER);
+    
+        client_panel.setVisible(true);
         
-        /*Vote_Button = new JButton("VOTA");
+        Vote_Button = new JButton("VOTA");
         Vote_Button.setActionCommand("Vota");
         Vote_Button.addActionListener(new ButtonClickListener());
         Vote_Button.setBounds(890, 700, 300, 50);
-        clientFrame.add(Vote_Button);*/
+        Vote_Button.setVisible(false);
+        clientFrame.add(Vote_Button);
         
         clientFrame.setVisible(true);
         
     }
-////////////////////////////////////////////////////////////////////////////////   
+
+    
+    private JPanel createPan(){
+        
+        Candidato_panel = new JPanel();
+        Candidato_panel.setLayout(null);
+        foto = new JButton(/*INSERIRE FOTO*/);
+        foto.setBounds(10, 10, 200, 200);
+        Candidato_panel.add(foto);
+        
+        nome = new JTextField();
+        nome.setText("");
+        nome.setBounds(10, 220 , 200, 25);
+        Candidato_panel.add(nome);
+        
+        cognome = new JTextField();
+        cognome.setText("");
+        cognome.setBounds(10, 250, 200, 25 );
+        Candidato_panel.add(cognome);
+        
+        partito = new JTextField();
+        partito.setText("");
+        partito.setBounds(10, 280, 200, 25 );
+        Candidato_panel.add(partito);
+        Candidato_panel.setVisible(true);
+      
+        return Candidato_panel;
+    }
+    
+
     private void prepareServerGUI(){
         // SERVER FRAME
         serverFrame = new JFrame("GESTIONE SISTEMA ELETTORALE ELETTRONICO");
@@ -208,73 +239,37 @@ public class ProgettoO {
 
     }
 
-////////////////////////////////////////////////////////////////////////////////
-    private JPanel createPan(){
 
-        Candidato_panel = new JPanel();
-        Candidato_panel.setLayout(null);
-        
-        foto = new JButton(/*INSERIRE FOTO*/);
-        foto.setBounds(10, 10, 200, 200);
-        Candidato_panel.add(foto);
-        
-        nome = new JTextField();
-        nome.setText("");
-        nome.setBounds(10, 220 , 200, 25);
-        Candidato_panel.add(nome);
-        
-        cognome = new JTextField();
-        cognome.setText("");
-        cognome.setBounds(10, 250, 200, 25 );
-        Candidato_panel.add(cognome);
-        
-        partito = new JTextField();
-        partito.setText("");
-        partito.setBounds(10, 280, 200, 25 );
-        Candidato_panel.add(partito);
-        
- 
-        return Candidato_panel;
-    }
-////////////////////////////////////////////////////////////////////////////////
+
 
     public class ButtonClickListener implements ActionListener{
 
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
            
-        // BUTTONS MAINFRAME
-           if(command.equals("Enter")){
-               /*
-                * Inserire controllo del codice fiscale e del codice elett. sul db
-               */
-               
-             /* SNIPPET UPLOAD FOTO FTP
-               
-                FTPConnection myftp = new FTPConnection();
-               myftp.loadFile("/Users/marcolagalla/Desktop/",IMG_REMOTE_FOLDER, "uomo.jpg");
-               prepareClientGUI();
-               
-            */
+           switch(command) {
+               case "Registrazione": 
+               {
+                    prepareClientGUI();break;
+               }
+               case "Admin_Log":
+               {
+                   prepareServerGUI();break;
+               }
+               case "Vota":
+               {
+                   // aggiungere
+                   break;
+               }
+               case "Close_Vot":
+               {
+                   //
+                   break;
+               }
+               default: break;
+                   
            }
-           else{
-               prepareServerGUI();
-           
-           }
-           
-        // BUTTON CLIENT_FRAME
-           if(command.equals("Vota")){
-           
-           
-           
-           }
-           
-        // BUTTON SERVER FRAME
-            if(command.equals("Close_Vot")){
-            
-            
-            }
-           
+
  
        }
     }
