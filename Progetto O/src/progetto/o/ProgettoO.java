@@ -92,6 +92,7 @@ public class ProgettoO {
         background_panel.add(CodiceFis);
         
         CF = new JTextField();
+        CF.setText("LGLMRC94D20L304U");                                         // PER TEST DA RIMUOVERE
         CF.setBounds(240, 100, 300, 30);
         background_panel.add(CF);
         
@@ -100,6 +101,7 @@ public class ProgettoO {
         background_panel.add(CodiceTes);
         
         CT = new JTextField();
+        CT.setText("AT12349876");                                               // PER TEST DA RIMUOVERE
         CT.setBounds(240, 140, 300, 30);
         background_panel.add(CT);
         
@@ -181,8 +183,9 @@ public class ProgettoO {
         ImageIcon img = new ImageIcon(Immagine);
         
         foto = new JButton(img);
-        
         foto.setBounds(0, 0, 200, 200);
+        int offset = foto.getInsets().left;
+        foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
         
         
        
@@ -269,30 +272,31 @@ public class ProgettoO {
            switch(command) {
                case "Registrazione": 
                {
-                   if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_regex)){    // DA FINIRE
-                       ArrayList<votanti> vot = mysql.ReadVotantiColumns();
+                   //  if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_regex)){
+                    if(CF.getText().matches(CF_regex)){    // DA FINIRE
+                        ArrayList<votanti> vot = mysql.ReadVotantiColumns();
                        
-                       for (votanti v: vot){
-                         if(v.getCF() == CF.getText()){  
-                            prepareClientGUI();break;
-                         }
-                         else{
-                             JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare","ERRORE",JOptionPane.ERROR_MESSAGE);
-                             CF.setText("");
-                         }
+                        boolean founded = false;
+                        for (votanti v: vot){
+                            if(v.getCF().toString().equals(CF.getText())){  
+                                founded = true;
+                                prepareClientGUI(); break; 
+                            }
                         }   
-                       
-                       
-                   }
+                        if (!founded) {
+                            JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare","ERRORE",JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                      JOptionPane.showMessageDialog(null,"Il codice fiscale inserito non sembra avere un formato corretto.\nRiprova.", "ERRORE", JOptionPane.ERROR_MESSAGE);
+                    }
                    
-
-                    
+                    break;
                     
                }
                
                case "Admin_Log":
                {
-                   prepareServerGUI();break;
+                  prepareServerGUI();break;
                }
                case "Vota":
                {
@@ -313,4 +317,10 @@ public class ProgettoO {
     }
 
   
+    
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize immagini per fit jButton
+    Image img = icon.getImage();  
+    Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+    return new ImageIcon(resizedImage);
+}
 }
