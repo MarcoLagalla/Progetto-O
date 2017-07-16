@@ -137,6 +137,7 @@ public class ProgettoO {
     private void prepareClientGUI(){
         // CLIENT FRAME
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
+       
         clientFrame.setLayout(null);
         clientFrame.setSize(1276, 802);
         clientFrame.setResizable(false);
@@ -147,9 +148,11 @@ public class ProgettoO {
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
         
-        
-        client_panel = new JPanel(new GridLayout(0,4)); 
-        client_panel.setBounds(50,100,500,500);
+                GridLayout experimentLayout = new GridLayout(0,4);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
+                experimentLayout.setHgap(150);                      // GRIDLAYOUT
+                experimentLayout.setVgap(30);
+        client_panel = new JPanel(experimentLayout); 
+        client_panel.setBounds(50,100,1000,1000);   // dimensioni pannello
         
        // TODO for()
        
@@ -179,7 +182,9 @@ public class ProgettoO {
 
     private JPanel createPan(URL Immagine, String Nome, String Partito){
         Candidato_panel = new JPanel();
+
        Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
+       
         ImageIcon img = new ImageIcon(Immagine);
         
         foto = new JButton(img);
