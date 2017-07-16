@@ -51,8 +51,9 @@ public class ProgettoO {
     private JButton Set_Num_Partiti_Button;
     private JTextField Num_Partiti_Inseriti; //Si riferirà al Database
     private JPanel server_background_panel;
+    private JLabel error_AdminLogin;
     
-    
+    private final String admin_pwd = "abc123";
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
     MySQlConnection mysql = new MySQlConnection();
@@ -113,7 +114,7 @@ public class ProgettoO {
         
         Admin = new JCheckBox("ADMINISTRATOR");
         Admin.setBounds(650, 500, 200, 20);
-        background_panel.add(Admin);
+       // background_panel.add(Admin);  ->          a cosa serve? In teoria basterebbe mettere password e cliccare su admin login
         
         Admin_Pass = new JLabel("ADMIN_PASSWORD: ");
         Admin_Pass.setBounds(650, 530, 200, 20);
@@ -126,8 +127,13 @@ public class ProgettoO {
         Admin_Log = new JButton("ADMIN_LOGIN");
         Admin_Log.setActionCommand("Admin_Log");
         Admin_Log.addActionListener(new ButtonClickListener());
-        Admin_Log.setBounds(760, 580, 150, 40);
+        Admin_Log.setBounds(670, 580, 150, 40);
         background_panel.add(Admin_Log);
+        
+        error_AdminLogin = new JLabel();
+        error_AdminLogin.setBounds(850, 590, 200, 25);
+       //error_AdminLogin.setBorder(BorderFactory.createLineBorder(Color.black));
+        background_panel.add(error_AdminLogin);
         
         // Spawn MAINFRAME
         mainFrame.setVisible(true);
@@ -301,7 +307,21 @@ public class ProgettoO {
                
                case "Admin_Log":
                {
-                  prepareServerGUI();break;
+                  if (Pass_A.getText().equals(admin_pwd)) {
+                         prepareServerGUI();
+                         Pass_A.setText(null);
+                         error_AdminLogin.setText(null);
+                         break; 
+                  }
+                  else {
+                      error_AdminLogin.setText("Password errata: accesso negato");
+                      error_AdminLogin.setForeground(Color.red);
+                      /*try {
+                            Thread.sleep(5000);
+                            error_AdminLogin.setText(null);
+                      } catch (InterruptedException excp) {excp.printStackTrace();}         -> vedere come mettere un delay, questo non funziona */
+                      break;
+                  }
                }
                case "Vota":
                {
