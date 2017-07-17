@@ -56,6 +56,8 @@ public class ProgettoO {
     private final String admin_pwd = "abc123";
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
+    java.util.Timer timer = new java.util.Timer(); // timer usato per effetto comparsa Label
+    TimerTask task = new MyTask();
     MySQlConnection mysql = new MySQlConnection();
     
     public ProgettoO() {
@@ -68,7 +70,12 @@ public class ProgettoO {
       
     }
 ////////////////////////////////////////////////////////////////////////////////  
-
+public class MyTask extends TimerTask {
+    public void run() {
+        error_AdminLogin.setText(null);
+        Pass_A.setText(null);
+    }
+}
     private void prepareGUI() {
         // MAIN FRAME
         mainFrame = new JFrame();
@@ -305,8 +312,10 @@ public class ProgettoO {
                          break; 
                   }
                   else {
+                      
                       error_AdminLogin.setText("Password errata: accesso negato");
                       error_AdminLogin.setForeground(Color.red);
+                      timer.schedule( task, 2000 );
                       /*try {
                             Thread.sleep(5000);
                             error_AdminLogin.setText(null);
