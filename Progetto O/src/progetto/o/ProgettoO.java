@@ -15,7 +15,7 @@ import javax.swing.BoxLayout;
 
 /*____________________________________STATO INTERNO________________________________________*/
 
-public class ProgettoO {
+public class ProgettoO{
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JTextField CF;
@@ -62,18 +62,30 @@ public class ProgettoO {
     java.util.Timer timer = new java.util.Timer(); // timer usato per la scomparsa del JLabel AdmLog_ErrPwd
     TimerTask task = new MyTask();
     MySQlConnection mysql = new MySQlConnection();
+<<<<<<< HEAD
     
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
 
 /*____________________________________COSTRUTTORI__________________________________________*/
     
+=======
+
+
+>>>>>>> origin/master
     public ProgettoO() {
         prepareGUI();
+      
     }
     
+<<<<<<< HEAD
 /*_______________________________________METODI____________________________________________*/
     
 ///////////////// MAIN ///////////////////
+=======
+    
+  
+///////////////// MAIN /////////////////////////////////////////////////////////
+>>>>>>> origin/master
     public static void main(String[] args) {
        ProgettoO SwingControl = new ProgettoO();
     }
@@ -310,7 +322,10 @@ public class ButtonClickListener implements ActionListener{
                     if(CF.getText().matches(CF_regex)){    // DA FINIRE
                         
                         boolean founded = canVote(CF.getText(), CT.getText());
-                        if (!founded) {
+                        if (founded) {
+                            prepareClientGUI();
+                        }
+                        else {
                             JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare","ERRORE",JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
