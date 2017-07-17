@@ -62,30 +62,18 @@ public class ProgettoO{
     java.util.Timer timer = new java.util.Timer(); // timer usato per la scomparsa del JLabel AdmLog_ErrPwd
     TimerTask task = new MyTask();
     MySQlConnection mysql = new MySQlConnection();
-<<<<<<< HEAD
     
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
 
 /*____________________________________COSTRUTTORI__________________________________________*/
-    
-=======
 
-
->>>>>>> origin/master
     public ProgettoO() {
         prepareGUI();
-      
     }
     
-<<<<<<< HEAD
 /*_______________________________________METODI____________________________________________*/
-    
-///////////////// MAIN ///////////////////
-=======
-    
   
-///////////////// MAIN /////////////////////////////////////////////////////////
->>>>>>> origin/master
+///////////////// MAIN ///////////////////
     public static void main(String[] args) {
        ProgettoO SwingControl = new ProgettoO();
     }
