@@ -13,21 +13,17 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import javax.swing.BoxLayout;
 
-////////////////////////////////////////////////////////////////////////////////
+/*____________________________________STATO INTERNO________________________________________*/
 
 public class ProgettoO {
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
-    private JCheckBox Admin;
-    private JButton Admin_Log;
-    private JLabel Admin_Pass;
     private JTextField CF;
     private JTextField CT;
     private JLabel CodiceFis;
     private JLabel CodiceTes;
     private JButton Enter;
     private JLabel Intestazione;
-    private JPasswordField Pass_A;
     private JPanel background_panel;
     
     // Elementi Grafici Swing per CLIENT_FRAME
@@ -41,7 +37,14 @@ public class ProgettoO {
     private JLabel cognome;
     private JLabel partito;
     
-    // Elementi Grafici per SERVER_FRAME
+    // Elementi grafici per login Admin
+    private JFrame Admin_Login;
+    private JLabel AdmLog_ErrPwd;
+    private JPasswordField AdmLog_pwd;
+    private JButton AdmLog_button;
+    private JLabel AdmLog_title;
+
+    // Elementi Grafici per SERVER_FRAME 
     private JFrame serverFrame;
     private JButton Close_Vot_Button;
     private JLabel Num_Partiti;
@@ -49,35 +52,38 @@ public class ProgettoO {
     private JLabel Num_Votanti;
     private JLabel Server_Label;
     private JButton Set_Num_Partiti_Button;
-    private JTextField Num_Partiti_Inseriti; //Si riferirà al Database
+    private JTextField Num_Partiti_Inseriti;      //  Si riferirà al Database
     private JPanel server_background_panel;
-    private JLabel error_AdminLogin;
-    
+  
+    // altro
     private final String admin_pwd = "abc123";
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
-    java.util.Timer timer = new java.util.Timer(); // timer usato per effetto comparsa Label
+    java.util.Timer timer = new java.util.Timer(); // timer usato per la scomparsa del JLabel AdmLog_ErrPwd
     TimerTask task = new MyTask();
     MySQlConnection mysql = new MySQlConnection();
+    
+    private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
+
+/*____________________________________COSTRUTTORI__________________________________________*/
     
     public ProgettoO() {
         prepareGUI();
     }
-///////////////// MAIN /////////////////////////////////////////////////////////
+    
+/*_______________________________________METODI____________________________________________*/
+    
+///////////////// MAIN ///////////////////
     public static void main(String[] args) {
        ProgettoO SwingControl = new ProgettoO();
+    }
+///////////////////////////////////////////
+    
 
-      
-    }
-////////////////////////////////////////////////////////////////////////////////  
-public class MyTask extends TimerTask {
-    public void run() {
-        error_AdminLogin.setText(null);
-        Pass_A.setText(null);
-    }
-}
-    private void prepareGUI() {
-        // MAIN FRAME
+private void prepareGUI() {         // Creazione finestra principale (login user)
+    
+    int c = JComponent.WHEN_IN_FOCUSED_WINDOW;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
+    
         mainFrame = new JFrame();
         mainFrame.setLayout(null);
         mainFrame.setSize(1276, 802);
@@ -119,118 +125,55 @@ public class MyTask extends TimerTask {
         Enter.setBounds(560, 110, 200, 50);
         background_panel.add(Enter);
         
-        Admin = new JCheckBox("ADMINISTRATOR");
-        Admin.setBounds(650, 500, 200, 20);
-       // background_panel.add(Admin);  ->          a cosa serve? In teoria basterebbe mettere password e cliccare su admin login
+        // Creo la shortcut (CTRL+H) che apre la finestra di Admin Login
+         JButton AdmLog_Button = new JButton();
+         AdmLog_Button.setAction(new AbstractAction("call AdmLogin") {
+            @Override
+            public void actionPerformed(ActionEvent call_AdmLog) {
+                prepareAdminLoginGUI();
+            }
+        }); 
+         background_panel.add(AdmLog_Button);
         
-        Admin_Pass = new JLabel("ADMIN_PASSWORD: ");
-        Admin_Pass.setBounds(650, 530, 200, 20);
-        background_panel.add(Admin_Pass);
-        
-        Pass_A = new JPasswordField();
-        Pass_A.setBounds(860, 530, 200, 20);
-        background_panel.add(Pass_A);
-        
-        Admin_Log = new JButton("ADMIN_LOGIN");
-        Admin_Log.setActionCommand("Admin_Log");
-        Admin_Log.addActionListener(new ButtonClickListener());
-        Admin_Log.setBounds(670, 580, 150, 40);
-        background_panel.add(Admin_Log);
-        
-        error_AdminLogin = new JLabel();
-        error_AdminLogin.setBounds(850, 590, 200, 25);
-       //error_AdminLogin.setBorder(BorderFactory.createLineBorder(Color.black));
-        background_panel.add(error_AdminLogin);
+        background_panel.getInputMap(c).put(key, "call_Action");
+        background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
         
         // Spawn MAINFRAME
         mainFrame.setVisible(true);
-    }
-
-////////////////////////////////////////////////////////////////////////////////    
-    private void prepareClientGUI(){
-        // CLIENT FRAME
-        clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
-       
-        clientFrame.setLayout(null);
-        clientFrame.setSize(1276, 802);
-        clientFrame.setResizable(false);
-        
-        Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
-        Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
-        Client_Label.setBounds(50, 10, 1000, 50);
-        clientFrame.add(Client_Label,BorderLayout.PAGE_START);
-        
-        
-                GridLayout experimentLayout = new GridLayout(0,4,8,8);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
-        client_panel = new JPanel(experimentLayout); 
-        client_panel.setBounds(50,100,500,500);   // dimensioni pannello
-        
-       // TODO for()
-       
-       ArrayList<candidati> can = mysql.ReadCandidatiColumns();
-       
-       for (candidati object: can) {
-           client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));
-        }
-        
-        clientFrame.add(client_panel,BorderLayout.CENTER);
+    }       
     
-        client_panel.setVisible(true);
+
+private void prepareAdminLoginGUI() {        // Creazione finestra Login per Admin (accede alla finestra Server)
+        Admin_Login = new JFrame("ADMINISTRATOR LOGIN");
+        Admin_Login.setLayout(null);
+        Admin_Login.setSize(500, 300);
+        Admin_Login.setResizable(false);
         
-        Vote_Button = new JButton("VOTA");
-        Vote_Button.setActionCommand("Vota");
-        Vote_Button.addActionListener(new ButtonClickListener());
-        Vote_Button.setBounds(890, 700, 300, 50);
-        Vote_Button.setVisible(false);
-        clientFrame.add(Vote_Button);
-        clientFrame.setContentPane(client_panel);
-        clientFrame.setVisible(true);
+        AdmLog_title = new JLabel("Admin password: ");
+        AdmLog_title.setBounds(70, 70, 120, 25);
+        Admin_Login.add(AdmLog_title);
         
-    }
+        AdmLog_pwd = new JPasswordField();
+        AdmLog_pwd.setBounds(210, 70, 200, 25);
+        Admin_Login.add(AdmLog_pwd);
+        
+        AdmLog_button = new JButton("LOGIN");
+        AdmLog_button.setActionCommand("Admin_Log");
+        AdmLog_button.addActionListener(new ButtonClickListener());
+        AdmLog_button.setBounds(170, 150, 150, 50);
+        Admin_Login.add(AdmLog_button);
+        
+        AdmLog_ErrPwd = new JLabel();
+        AdmLog_ErrPwd.setBounds(150, 220, 200, 25);
+       //error_AdminLogin.setBorder(BorderFactory.createLineBorder(Color.black));       -> attivare per vedere la posizione del JLabel sulla finestra, anche se non ha testo
+        Admin_Login.add(AdmLog_ErrPwd);
+        
+        Admin_Login.setVisible(true);
+    }      
 
 
-//////////////////////////////////////////////////////////////////////////////// 
-
-    private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){
-        Candidato_panel = new JPanel();
-
-       Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
-       
-        ImageIcon img = new ImageIcon(Immagine);
-        
-        foto = new JButton(img);
-        foto.setBounds(0, 0, 200, 200);
-        int offset = foto.getInsets().left;
-        foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
-        
-        
-       
-        Candidato_panel.add(foto);
-        
-        nome = new JLabel(Nome, SwingConstants.CENTER);
-        nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
-        nome.setBounds(10, 220 , 200, 25);
-        Candidato_panel.add(nome);
-        
-        cognome = new JLabel(Cognome, SwingConstants.CENTER);
-        cognome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
-        cognome.setBounds(10, 250, 200, 25 );
-        Candidato_panel.add(cognome);
-        
-        partito = new JLabel(Partito, SwingConstants.CENTER);
-        partito.setFont(new Font(nome.getFont().getName(), Font.BOLD, 20));
-        partito.setBounds(10, 280, 200, 20);
-        Candidato_panel.add(partito);
-        Candidato_panel.setVisible(true);
-      
-        return Candidato_panel;
-        
-    }
+private void prepareServerGUI(){        // Creazione finestra Server (dopo Admin Login)
     
-////////////////////////////////////////////////////////////////////////////////
-    
-    private void prepareServerGUI(){
-        // SERVER FRAME
         serverFrame = new JFrame("GESTIONE SISTEMA ELETTORALE ELETTRONICO");
         serverFrame.setLayout(null);
         serverFrame.setSize(1276, 802);
@@ -273,12 +216,87 @@ public class MyTask extends TimerTask {
         
         serverFrame.setVisible(true);
 
+    }        
+
+
+private void prepareClientGUI(){            // Creazione finestra votazione ( dopo user login)
+
+        clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
+       
+        clientFrame.setLayout(null);
+        clientFrame.setSize(1276, 802);
+        clientFrame.setResizable(false);
+        
+        Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
+        Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
+        Client_Label.setBounds(50, 10, 1000, 50);
+        clientFrame.add(Client_Label,BorderLayout.PAGE_START);
+        
+        
+                GridLayout experimentLayout = new GridLayout(0,4,8,8);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
+        client_panel = new JPanel(experimentLayout); 
+        client_panel.setBounds(50,100,500,500);   // dimensioni pannello
+        
+       // TODO for()
+       
+       ArrayList<candidati> can = mysql.ReadCandidatiColumns();
+       
+       for (candidati object: can) {
+           client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));
+        }
+        
+        clientFrame.add(client_panel,BorderLayout.CENTER);
+    
+        client_panel.setVisible(true);
+        
+        Vote_Button = new JButton("VOTA");
+        Vote_Button.setActionCommand("Vota");
+        Vote_Button.addActionListener(new ButtonClickListener());
+        Vote_Button.setBounds(890, 700, 300, 50);
+        Vote_Button.setVisible(false);
+        clientFrame.add(Vote_Button);
+        clientFrame.setContentPane(client_panel);
+        clientFrame.setVisible(true);
+        
+    }       
+
+
+private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){        // restituisce un pannello con i dati del candidato.
+    
+        Candidato_panel = new JPanel();
+
+       Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
+       
+        ImageIcon img = new ImageIcon(Immagine);
+        
+        foto = new JButton(img);
+        foto.setBounds(0, 0, 200, 200);
+        int offset = foto.getInsets().left;
+        foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
+
+        Candidato_panel.add(foto);
+        
+        nome = new JLabel(Nome, SwingConstants.CENTER);
+        nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
+        nome.setBounds(10, 220 , 200, 25);
+        Candidato_panel.add(nome);
+        
+        cognome = new JLabel(Cognome, SwingConstants.CENTER);
+        cognome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
+        cognome.setBounds(10, 250, 200, 25 );
+        Candidato_panel.add(cognome);
+        
+        partito = new JLabel(Partito, SwingConstants.CENTER);
+        partito.setFont(new Font(nome.getFont().getName(), Font.BOLD, 20));
+        partito.setBounds(10, 280, 200, 20);
+        Candidato_panel.add(partito);
+        Candidato_panel.setVisible(true);
+      
+        return Candidato_panel;
+        
     }
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-    public class ButtonClickListener implements ActionListener{
+    
+public class ButtonClickListener implements ActionListener{
 
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
@@ -305,21 +323,17 @@ public class MyTask extends TimerTask {
                
                case "Admin_Log":
                {
-                  if (Pass_A.getText().equals(admin_pwd)) {
+                  if (AdmLog_pwd.getText().equals(admin_pwd)) {
                          prepareServerGUI();
-                         Pass_A.setText(null);
-                         error_AdminLogin.setText(null);
+                         AdmLog_pwd.setText(null);
+                         AdmLog_ErrPwd.setText(null);
                          break; 
                   }
                   else {
                       
-                      error_AdminLogin.setText("Password errata: accesso negato");
-                      error_AdminLogin.setForeground(Color.red);
+                      AdmLog_ErrPwd.setText("Password errata: accesso negato");
+                      AdmLog_ErrPwd.setForeground(Color.red);
                       timer.schedule( task, 2000 );
-                      /*try {
-                            Thread.sleep(5000);
-                            error_AdminLogin.setText(null);
-                      } catch (InterruptedException excp) {excp.printStackTrace();}         -> vedere come mettere un delay, questo non funziona */
                       break;
                   }
                }
@@ -341,15 +355,13 @@ public class MyTask extends TimerTask {
        }
     }
 
-  
-    
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize immagini per fit jButton
+private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
 }
     
-    private boolean canVote(String CF, String CT) {
+private boolean canVote(String CF, String CT) {
     
         ArrayList<votanti> vot = mysql.ReadVotantiColumns();
                        
@@ -360,4 +372,13 @@ public class MyTask extends TimerTask {
         }
         return false;
     }
+
+public class MyTask extends TimerTask {
+    @Override
+    public void run() {
+        AdmLog_ErrPwd.setText(null);
+        AdmLog_pwd.setText(null);
+    }
+    }
+
 }
