@@ -37,9 +37,9 @@ public class ProgettoO {
     private JButton Vote_Button;
     private JPanel Candidato_panel;
     private JButton foto; 
-    private JTextField nome;
-    private JTextField cognome;
-    private JTextField partito;
+    private JLabel nome;
+    private JLabel cognome;
+    private JLabel partito;
     
     // Elementi Grafici per SERVER_FRAME
     private JFrame serverFrame;
@@ -154,18 +154,16 @@ public class ProgettoO {
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
         
-                GridLayout experimentLayout = new GridLayout(0,4);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
-                experimentLayout.setHgap(150);                      // GRIDLAYOUT
-                experimentLayout.setVgap(30);
+                GridLayout experimentLayout = new GridLayout(0,4,8,8);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
         client_panel = new JPanel(experimentLayout); 
-        client_panel.setBounds(50,100,1000,1000);   // dimensioni pannello
+        client_panel.setBounds(50,100,500,500);   // dimensioni pannello
         
        // TODO for()
        
        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
        
        for (candidati object: can) {
-           client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getPartito()));
+           client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));
         }
         
         clientFrame.add(client_panel,BorderLayout.CENTER);
@@ -178,7 +176,7 @@ public class ProgettoO {
         Vote_Button.setBounds(890, 700, 300, 50);
         Vote_Button.setVisible(false);
         clientFrame.add(Vote_Button);
-        
+        clientFrame.setContentPane(client_panel);
         clientFrame.setVisible(true);
         
     }
@@ -186,7 +184,7 @@ public class ProgettoO {
 
 //////////////////////////////////////////////////////////////////////////////// 
 
-    private JPanel createPan(URL Immagine, String Nome, String Partito){
+    private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){
         Candidato_panel = new JPanel();
 
        Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
@@ -202,19 +200,19 @@ public class ProgettoO {
        
         Candidato_panel.add(foto);
         
-        nome = new JTextField();
-        nome.setText(Nome);
+        nome = new JLabel(Nome, SwingConstants.CENTER);
+        nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
         nome.setBounds(10, 220 , 200, 25);
         Candidato_panel.add(nome);
         
-        cognome = new JTextField();
-        cognome.setText(Partito);
+        cognome = new JLabel(Cognome, SwingConstants.CENTER);
+        cognome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
         cognome.setBounds(10, 250, 200, 25 );
         Candidato_panel.add(cognome);
         
-        partito = new JTextField();
-        partito.setText("");
-        partito.setBounds(10, 280, 200, 25 );
+        partito = new JLabel(Partito, SwingConstants.CENTER);
+        partito.setFont(new Font(nome.getFont().getName(), Font.BOLD, 20));
+        partito.setBounds(10, 280, 200, 20);
         Candidato_panel.add(partito);
         Candidato_panel.setVisible(true);
       
@@ -285,15 +283,8 @@ public class ProgettoO {
                {
                    //  if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_regex)){
                     if(CF.getText().matches(CF_regex)){    // DA FINIRE
-                        ArrayList<votanti> vot = mysql.ReadVotantiColumns();
-                       
-                        boolean founded = false;
-                        for (votanti v: vot){
-                            if(v.getCF().toString().equals(CF.getText())){  
-                                founded = true;
-                                prepareClientGUI(); break; 
-                            }
-                        }   
+                        
+                        boolean founded = canVote(CF.getText(), CT.getText());
                         if (!founded) {
                             JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare","ERRORE",JOptionPane.ERROR_MESSAGE);
                         }
@@ -348,4 +339,16 @@ public class ProgettoO {
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
 }
+    
+    private boolean canVote(String CF, String CT) {
+    
+        ArrayList<votanti> vot = mysql.ReadVotantiColumns();
+                       
+        for (votanti v: vot){
+            if(v.getCF().toString().equals(CF)){  
+                     return true;
+            }
+        }
+        return false;
+    }
 }
