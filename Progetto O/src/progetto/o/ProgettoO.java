@@ -15,7 +15,7 @@ import javax.swing.BoxLayout;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-public class ProgettoO {
+public class ProgettoO{
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JCheckBox Admin;
@@ -59,10 +59,15 @@ public class ProgettoO {
     java.util.Timer timer = new java.util.Timer(); // timer usato per effetto comparsa Label
     TimerTask task = new MyTask();
     MySQlConnection mysql = new MySQlConnection();
-    
+
+
     public ProgettoO() {
         prepareGUI();
+      
     }
+    
+    
+  
 ///////////////// MAIN /////////////////////////////////////////////////////////
     public static void main(String[] args) {
        ProgettoO SwingControl = new ProgettoO();
@@ -292,7 +297,10 @@ public class MyTask extends TimerTask {
                     if(CF.getText().matches(CF_regex)){    // DA FINIRE
                         
                         boolean founded = canVote(CF.getText(), CT.getText());
-                        if (!founded) {
+                        if (founded) {
+                            prepareClientGUI();
+                        }
+                        else {
                             JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare","ERRORE",JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
