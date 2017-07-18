@@ -54,7 +54,8 @@ public class ProgettoO{
     private JButton Set_Num_Partiti_Button;
     private JTextField Num_Partiti_Inseriti;      //  Si riferirà al Database
     private JPanel server_background_panel;
-  
+
+    
     // altro
     private final String admin_pwd = "abc123";
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
@@ -133,11 +134,12 @@ private void prepareGUI() {         // Creazione finestra principale (login user
                 prepareAdminLoginGUI();
             }
         }); 
+
          background_panel.add(AdmLog_Button);
         
         background_panel.getInputMap(c).put(key, "call_Action");
         background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
-        
+
         // Spawn MAINFRAME
         mainFrame.setVisible(true);
     }       
@@ -214,6 +216,8 @@ private void prepareServerGUI(){        // Creazione finestra Server (dopo Admin
         Close_Vot_Button.setBounds(1000, 690, 260, 50);
         server_background_panel.add(Close_Vot_Button);
         
+       
+        
         serverFrame.setVisible(true);
 
     }        
@@ -276,7 +280,7 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
 
         Candidato_panel.add(foto);
         
-        nome = new JLabel(Nome, SwingConstants.CENTER);
+        nome = new JLabel(Nome, SwingConstants.RIGHT);
         nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
         nome.setBounds(10, 220 , 200, 25);
         Candidato_panel.add(nome);
@@ -327,7 +331,8 @@ public class ButtonClickListener implements ActionListener{
                case "Admin_Log":
                {
                   if (AdmLog_pwd.getText().equals(admin_pwd)) {
-                         prepareServerGUI();
+                     //    prepareServerGUI();
+                   new serverFrame_().setVisible(true);
                          AdmLog_pwd.setText(null);
                          AdmLog_ErrPwd.setText(null);
                          break; 
