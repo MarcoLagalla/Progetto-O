@@ -21,7 +21,7 @@ public class serverFrame_ extends javax.swing.JFrame {
      */
     public serverFrame_() {
         initComponents();
-        loadCandidati();
+        loadCandidati();                // popola la jList con l' elenco dei candidati
     }
     private void loadCandidati() {
         ArrayList<candidati> can = mysql.ReadCandidatiColumns();
