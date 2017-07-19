@@ -395,8 +395,6 @@ private boolean canVoteCT(String CT) {
         return false;
     }
 
-
-
 // Metodo Timer
 
 public class MyTask extends TimerTask {
