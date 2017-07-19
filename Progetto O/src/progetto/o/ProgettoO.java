@@ -276,9 +276,11 @@ public class ButtonClickListener implements ActionListener{
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
-           String CT_regex = "[0-9]{9}";
+          // String CT_regex = "[0-9]{9}";
+          String CT_regex = "[A-Z]{2}[0-9]{8}";
            String CF_INV_regex = "(?![A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})"; // DA PROVARE
-           String CT_INV_regex = "(?![0-9]{9})";
+          // String CT_INV_regex = "(?![0-9]{9})";
+          String CT_INV_regex = "(?![A-Z]{2}[0-9]{8})";
            
 //______________________________________________________________________________     
 
