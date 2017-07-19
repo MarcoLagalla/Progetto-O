@@ -9,9 +9,10 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.BoxLayout;
 import java.net.URL;
 import java.net.MalformedURLException;
-import javax.swing.BoxLayout;
+
 
 /*____________________________________STATO INTERNO________________________________________*/
 
@@ -56,13 +57,19 @@ public class ProgettoO{
     private JPanel server_background_panel;
 
     
-    // altro
+    // Istanzio Oggetti Utili
+    
     private final String admin_pwd = "abc123";
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
     java.util.Timer timer = new java.util.Timer(); // timer usato per la scomparsa del JLabel AdmLog_ErrPwd
     TimerTask task = new MyTask();
     MySQlConnection mysql = new MySQlConnection();
+    
+    // Istanzio serverFrame_ creato con JFrame Form
+    serverFrame_ prepareServerGUI = new serverFrame_();
+    
+    // Definisco HotKey
     
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
 
@@ -126,7 +133,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         Enter.setBounds(560, 110, 200, 50);
         background_panel.add(Enter);
         
-        // Creo la shortcut (CTRL+H) che apre la finestra di Admin Login
+        // Creo la shortcut (CTRL+A) che apre la finestra di Admin Login
          JButton AdmLog_Button = new JButton();
          AdmLog_Button.setAction(new AbstractAction("call AdmLogin") {
             @Override
@@ -144,6 +151,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         mainFrame.setVisible(true);
     }       
     
+////////////////////////////////////////////////////////////////////////////////
 
 private void prepareAdminLoginGUI() {        // Creazione finestra Login per Admin (accede alla finestra Server)
         Admin_Login = new JFrame("ADMINISTRATOR LOGIN");
@@ -173,55 +181,15 @@ private void prepareAdminLoginGUI() {        // Creazione finestra Login per Adm
         Admin_Login.setVisible(true);
     }      
 
+////////////////////////////////////////////////////////////////////////////////
 
-private void prepareServerGUI(){        // Creazione finestra Server (dopo Admin Login)
+/*private void prepareServerGUI(){        // Creazione finestra Server (dopo Admin Login)
     
-        serverFrame = new JFrame("GESTIONE SISTEMA ELETTORALE ELETTRONICO");
-        serverFrame.setLayout(null);
-        serverFrame.setSize(1276, 802);
-        serverFrame.setResizable(false);
-        
-        server_background_panel = new JPanel(null);
-        server_background_panel.setBackground(Color.white);
-        server_background_panel.setSize(1276, 802);
-        serverFrame.add(server_background_panel);
-        
-        Server_Label = new JLabel();
-        Server_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
-        Server_Label.setText("GESTIONE SISTEMA ELETTORALE");
-        Server_Label.setBounds(440, 10, 800, 30);
-        server_background_panel.add(Server_Label);
-        
-        Num_Votanti = new JLabel("NUMERO VOTANTI: ");
-        Num_Votanti.setBounds(20, 50, 150, 30);
-        server_background_panel.add(Num_Votanti);
-        
-        Num_Var = new JTextField();
-        Num_Var.setEditable(false);
-        Num_Var.setBounds(165, 55, 150, 20);
-        server_background_panel.add(Num_Var);
-        
-        Num_Partiti = new JLabel("NUMERO PARTITI: ");
-        Num_Partiti.setBounds(20, 84, 150, 30);
-        server_background_panel.add(Num_Partiti);
-        
-        Num_Partiti_Inseriti = new JTextField();
-        Num_Partiti_Inseriti.setEditable(false);
-        Num_Partiti_Inseriti.setBounds(165, 89, 150, 20);
-        server_background_panel.add(Num_Partiti_Inseriti);
-        
-        Close_Vot_Button = new JButton("CHIUSURA IMMEDIATA VOTAZIONI");
-        Close_Vot_Button.setActionCommand("Close_Vot");
-        Close_Vot_Button.addActionListener(new ButtonClickListener());
-        Close_Vot_Button.setBounds(1000, 690, 260, 50);
-        server_background_panel.add(Close_Vot_Button);
-        
-       
-        
-        serverFrame.setVisible(true);
 
     }        
+*/
 
+////////////////////////////////////////////////////////////////////////////////
 
 private void prepareClientGUI(){            // Creazione finestra votazione ( dopo user login)
 
@@ -264,8 +232,9 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
         
     }       
 
+////////////////////////////////////////////////////////////////////////////////
 
-private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){        // restituisce un pannello con i dati del candidato.
+private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){        // Restituisce un pannello con i dati del candidato.
     
         Candidato_panel = new JPanel();
 
@@ -299,57 +268,80 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
         return Candidato_panel;
         
     }
-    
+
+/*_________________________BUTTON LISTENER____________________________________*/
+
 public class ButtonClickListener implements ActionListener{
 
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
            String CT_regex = "[0-9]{9}";
+           String CF_INV_regex = "(?![A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})"; // DA PROVARE
+           String CT_INV_regex = "(?![0-9]{9})";
            
+//______________________________________________________________________________     
+
            switch(command) {
+               
                case "Registrazione": 
                {
-                   //  if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_regex)){
-                    if(CF.getText().matches(CF_regex)){    // DA FINIRE
+                if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_regex)){
+                        boolean founded_CF = canVoteCF(CF.getText()); // Booleano definito dal Metodo
+                        boolean founded_CT = canVoteCT(CT.getText()); // Booleano definito dal Metodo
                         
-                        boolean founded = canVote(CF.getText(), CT.getText());
-                        if (founded) {
+                        if (founded_CF==true && founded_CT==true) { // Se VERE sia CF sia CT allora Spawna la ClientGUI
                             prepareClientGUI();
                         }
-                        else {
-                            JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare","ERRORE",JOptionPane.ERROR_MESSAGE);
+                        if(founded_CF==true && founded_CT==false) {
+                            JOptionPane.showMessageDialog(null,"Codice Tessera Elettorale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
+                            CT.setText("");
                         }
-                    } else {
-                      JOptionPane.showMessageDialog(null,"Il codice fiscale inserito non sembra avere un formato corretto.\nRiprova.", "ERRORE", JOptionPane.ERROR_MESSAGE);
-                    }
-                   
+                        if(founded_CF==false && founded_CT==true){
+                            JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare.\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
+                            CF.setText("");
+                        }
+                        if(founded_CF==false && founded_CT==false){
+                           JOptionPane.showMessageDialog(null,"Codice Fiscale e Codice Tessera non Trovati.\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
+                           CF.setText("");
+                           CT.setText("");
+                        }
+                        
+                } if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_regex)) {
+                      JOptionPane.showMessageDialog(null,"Il Codice Fiscale inserito non sembra avere un formato corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
+                  }
+                  if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_INV_regex)) {
+                      JOptionPane.showMessageDialog(null,"Il Codice della Tessera Elettorale inserito non sembra avere un formato corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
+                  } 
+                  if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_INV_regex)) {
+                      JOptionPane.showMessageDialog(null,"Entrabi i Dati non sono nel Formato Corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
+                  }
                     break;
-                    // rifinire
                }
-               
+
+//______________________________________________________________________________               
                case "Admin_Log":
                {
-                  if (AdmLog_pwd.getText().equals(admin_pwd)) {
-                     //    prepareServerGUI();
-                   new serverFrame_().setVisible(true);
+                  if (AdmLog_pwd.getPassword().equals(admin_pwd)) {  // Usato getPassword() in quanto getText() è deprecato poichè lascia la Pass in memoria
+                         prepareServerGUI.setVisible(true);
                          AdmLog_pwd.setText(null);
                          AdmLog_ErrPwd.setText(null);
                          break; 
                   }
-                  else {
-                      
-                      AdmLog_ErrPwd.setText("Password errata: accesso negato");
+                  else { 
+                      AdmLog_ErrPwd.setText("Password Errata: Accesso Negato");
                       AdmLog_ErrPwd.setForeground(Color.red);
                       timer.schedule( task, 2000 );
                       break;
                   }
                }
+//______________________________________________________________________________ 
                case "Vota":
                {
                    // aggiungere
                    break;
                }
+//______________________________________________________________________________                
                case "Close_Vot":
                {
                    //
@@ -363,23 +355,49 @@ public class ButtonClickListener implements ActionListener{
        }
     }
 
+////////////////////////////////////////////////////////////////////////////////
+
+// Metodo Grafico per definire dimensioni Immagine
+
 private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
 }
-    
-private boolean canVote(String CF, String CT) {
+
+// Metodo di Ricerca Dati Elettorali
+
+private boolean canVoteCF(String CF) {
     
         ArrayList<votanti> vot = mysql.ReadVotantiColumns();
                        
         for (votanti v: vot){
             if(v.getCF().toString().equals(CF)){  
-                     return true;
+                     return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
             }
+            
         }
         return false;
     }
+
+//______________________________________________________________________________
+
+private boolean canVoteCT(String CT) {
+    
+        ArrayList<votanti> vot = mysql.ReadVotantiColumns();
+                       
+        for (votanti v: vot){
+            if(v.getCodiceTessera().toString().equals(CT)){  
+                     return true; // Vuol dire che il CT del Votante Esiste ed è Abilitato
+            }
+            
+        }
+        return false;
+    }
+
+
+
+// Metodo Timer
 
 public class MyTask extends TimerTask {
     @Override
