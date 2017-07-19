@@ -293,27 +293,27 @@ public class ButtonClickListener implements ActionListener{
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia CF sia CT allora Spawna la ClientGUI
                             prepareClientGUI();
                         }
-                        if(founded_CF==true && founded_CT==false) {
+                        else if(founded_CF==true && founded_CT==false) {
                             JOptionPane.showMessageDialog(null,"Codice Tessera Elettorale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
                             CT.setText("");
                         }
-                        if(founded_CF==false && founded_CT==true){
+                        else if(founded_CF==false && founded_CT==true){
                             JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare.\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
                             CF.setText("");
                         }
-                        if(founded_CF==false && founded_CT==false){
+                        else if(founded_CF==false && founded_CT==false){
                            JOptionPane.showMessageDialog(null,"Codice Fiscale e Codice Tessera non Trovati.\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
                            CF.setText("");
                            CT.setText("");
                         }
                         
-                } if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_regex)) {
+                } else if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_regex)) {
                       JOptionPane.showMessageDialog(null,"Il Codice Fiscale inserito non sembra avere un formato corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
                   }
-                  if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_INV_regex)) {
+                else if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_INV_regex)) {
                       JOptionPane.showMessageDialog(null,"Il Codice della Tessera Elettorale inserito non sembra avere un formato corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
                   } 
-                  if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_INV_regex)) {
+                else if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_INV_regex)) {
                       JOptionPane.showMessageDialog(null,"Entrabi i Dati non sono nel Formato Corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
                   }
                     break;
