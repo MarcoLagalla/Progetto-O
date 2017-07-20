@@ -23,6 +23,7 @@ public class ProgettoO{
     private JTextField CT;
     private JLabel CodiceFis;
     private JLabel CodiceTes;
+    private JLabel Image_Icon;
     private JButton Enter;
     private JLabel Intestazione;
     private JPanel background_panel;
@@ -38,25 +39,14 @@ public class ProgettoO{
     private JLabel cognome;
     private JLabel partito;
     
-    // Elementi grafici per login Admin
+    // Elementi grafici per Login Admin
     private JFrame Admin_Login;
     private JLabel AdmLog_ErrPwd;
     private JPasswordField AdmLog_pwd;
     private JButton AdmLog_button;
     private JLabel AdmLog_title;
 
-    // Elementi Grafici per SERVER_FRAME 
-    private JFrame serverFrame;
-    private JButton Close_Vot_Button;
-    private JLabel Num_Partiti;
-    private JTextField Num_Var;
-    private JLabel Num_Votanti;
-    private JLabel Server_Label;
-    private JButton Set_Num_Partiti_Button;
-    private JTextField Num_Partiti_Inseriti;      //  Si riferirà al Database
-    private JPanel server_background_panel;
 
-    
     // Istanzio Oggetti Utili
     
     private final String admin_pwd = "abc123";
@@ -103,34 +93,51 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         background_panel.setSize(1276, 802);
         mainFrame.add(background_panel);
         
-        Intestazione = new JLabel();
-        Intestazione.setFont(new Font("Intestazione", Font.ITALIC,25));
-        Intestazione.setText("SISTEMA ELETTORALE ELETTRONICO");
-        Intestazione.setBounds(440, 10, 1000, 30);
-        background_panel.add(Intestazione);
+        Image_Icon = new JLabel();
+        Image_Icon.setIcon(new ImageIcon("C:\\Users\\Federico\\Desktop\\Fede23\\Programmazione JAVA\\Logo.png")); // Da Caricare sul Database Immagini
+        Image_Icon.setBounds(860,180, 350, 395);
+        background_panel.add(Image_Icon);
         
+        Intestazione = new JLabel();
+        Intestazione.setFont(new Font("Intestazione", Font.ITALIC,35));
+        Intestazione.setText("SISTEMA ELETTORALE ELETTRONICO");
+        Intestazione.setBounds(330, 10, 1000, 30);
+        background_panel.add(Intestazione);
+//______________________________________________________________________________        
         CodiceFis = new JLabel("Inserire CODICE FISCALE");
-        CodiceFis.setBounds(30, 100, 200, 30);
+        CodiceFis.setFont(new Font("CF",Font.BOLD,18));
+        CodiceFis.setBounds(200, 280, 250, 30);
         background_panel.add(CodiceFis);
         
         CF = new JTextField();
         CF.setText("LGLMRC94D20L304U");                                         // PER TEST DA RIMUOVERE
-        CF.setBounds(240, 100, 300, 30);
+        CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,14));
+        CF.setBounds(460, 280, 300, 30);
         background_panel.add(CF);
         
-        CodiceTes = new JLabel("Inserire TESSERA ELETTORALE");
-        CodiceTes.setBounds(30, 140, 200, 30);
+        CodiceTes = new JLabel("Inserire CODICE TESSERA");
+        CodiceTes.setFont(new Font("CT",Font.BOLD,18));
+        CodiceTes.setBounds(200, 340, 255, 30);
         background_panel.add(CodiceTes);
         
         CT = new JTextField();
         CT.setText("AT12349876");                                               // PER TEST DA RIMUOVERE
-        CT.setBounds(240, 140, 300, 30);
+        CT.setFont(new Font("CT_Field",Font.ROMAN_BASELINE,14));
+        CT.setBounds(460, 340, 300, 30);
         background_panel.add(CT);
-        
-        Enter = new JButton("REGISTRAZIONE");
+//______________________________________________________________________________
+
+        Enter = new JButton("REGISTRAZIONE");   // COMPLETARE  RESIZE
         Enter.setActionCommand("Registrazione");
+        Enter.setBounds(280, 400, 300, 90);
+        
+        ImageIcon icon = new ImageIcon("C:\\Users\\Federico\\Desktop\\Fede23\\Programmazione JAVA\\Button_Registrazione.png");
+        Enter.setIcon(icon);
+        int offset = Enter.getInsets().left;
+        Enter.setIcon(resizeIcon(icon, Enter.getWidth() - offset, Enter.getHeight() - offset));
+        
         Enter.addActionListener(new ButtonClickListener());
-        Enter.setBounds(560, 110, 200, 50);
+
         background_panel.add(Enter);
         
         // Creo la shortcut (CTRL+A) che apre la finestra di Admin Login
@@ -205,7 +212,7 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
         
-                GridLayout experimentLayout = new GridLayout(0,4,8,8);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
+        GridLayout experimentLayout = new GridLayout(0,4,8,8);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
         client_panel = new JPanel(experimentLayout); 
         client_panel.setBounds(50,100,500,500);   // dimensioni pannello
         
@@ -275,11 +282,13 @@ public class ButtonClickListener implements ActionListener{
 
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
+           
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
-          // String CT_regex = "[0-9]{9}";
-          String CT_regex = "[A-Z]{2}[0-9]{8}";
            String CF_INV_regex = "(?![A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})"; // DA PROVARE
-          // String CT_INV_regex = "(?![0-9]{9})";
+           
+          // String CT_regex = "[0-9]{9}";  // DA definire come da Database
+          String CT_regex = "[A-Z]{2}[0-9]{8}";
+          // String CT_INV_regex = "(?![0-9]{9})"; // DA definire come da Database
           String CT_INV_regex = "(?![A-Z]{2}[0-9]{8})";
            
 //______________________________________________________________________________     
