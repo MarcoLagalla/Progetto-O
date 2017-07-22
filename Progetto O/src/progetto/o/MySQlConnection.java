@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package progetto.o;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.net.URL;

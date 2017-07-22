@@ -5,24 +5,143 @@
  */
 package progetto.o;
 
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.*;
-/**
- *
- * @author marco
- */
+// Imports needed from JFREECHART_LIBRARY
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+//______________________________________________________________________________
+
 public class serverFrame_ extends javax.swing.JFrame {
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public serverFrame_() {
+            super("SERVER");
+                
+            initComponents(); // Provenienti dal precedente Costruttore
+            loadCandidati(); //
+            
+            JPanel chartPanel = createChartPanel();
+            Pannello_LineChart.add(chartPanel,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
+            //add(chartPanel, BorderLayout.CENTER);
+            
+            setSize(653, 579); // Definisco la Size uguale a quella del Pannello dove andrà sopra
+            
+            //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null);
+        }
+
+        // CREAZIONE CHART PANEL (Pannello del Grafico)
     
+        private JPanel createChartPanel() {
+            String chartTitle = "Andamento Votazioni a chiusura Elezioni"; // NOME GRAFICO
+            String xAxisLabel = "VOTANTI"; // NOME ASSE ASCISSE
+            String yAxisLabel = "GIORNI"; // NOME ASSE ORDINATE
+            
+            /* 
+            QUESTO è quello che ha dentro la Classe CREATE_CHART_PANEL:
+            
+            createXYLineChart(title, categoryAxisLabel, valueAxisLabel, dataset)
+            createXYLineChart(title, categoryAxisLabel, valueAxisLabel, dataset, orientation, legend, tooltips, urls)
+            
+            */
+            
+            XYDataset dataset = createDataset();
+
+            JFreeChart chart = ChartFactory.createXYLineChart(chartTitle,xAxisLabel, yAxisLabel, dataset);
+            
+            // CUSTOM GRAPHICS
+            
+            XYPlot plot = chart.getXYPlot();
+            XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+            plot.setRenderer(renderer);
+            
+            // sets paint color for each series
+            renderer.setSeriesPaint(0, Color.RED);
+
+            // sets thickness for series (using strokes)
+            renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+
+           
+            
+            plot.setRenderer(renderer);
+
+            // BackGround Color
+            plot.setBackgroundPaint(Color.DARK_GRAY);
+            
+            // BackGround Grid Color
+            plot.setRangeGridlinesVisible(true);
+            plot.setRangeGridlinePaint(Color.GRAY);
+            
+            plot.setDomainGridlinesVisible(true);
+            plot.setDomainGridlinePaint(Color.GRAY);
+            
+            /*
+            // SAVING CHART AS IMAGE
+            File imageFile = new File("XYLineChart.png");
+            int width = 640;
+            int height = 480;
+
+            try {
+                ChartUtilities.saveChartAsPNG(imageFile, chart, width, height);
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+            */
+            
+            
+            return new ChartPanel(chart);
+        }
+
+        // CREAZIONE DATASET:__________________________DA RIEMPIRE CON DATI VERI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
+        private XYDataset createDataset() {
+                XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series fanno parte dell' IMPORT
+                XYSeries series1 = new XYSeries("Object 1"); // DataSet
+                
+                // Qui ci vogliono i GET
+                series1.add(1.0, 2.0); 
+                series1.add(2.0, 3.0);
+                series1.add(3.0, 2.5);
+                series1.add(3.5, 2.8);
+                series1.add(4.2, 6.0);
+                
+                // Questa di Default aggiunge in ordine di Sort quindi se voglio metterli in ordine che deicido, ovvero di Aggiunta devo fare:
+               /* 
+                
+                boolean autoSort = false;
+                XYSeries series = new XYSeries("Object 1", autoSort);
+                
+                */
+                
+                dataset.addSeries(series1);
+
+
+                return dataset;
+            
+        }                                                                                                                        
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     
     MySQlConnection mysql = new MySQlConnection();
     /**
      * Creates new form serverFrame_
      */
-    public serverFrame_() {
+    /*public serverFrame_() {
         initComponents();
         loadCandidati();                // popola la jList con l' elenco dei candidati
-    }
+    }*/
+    
     private void loadCandidati() {
         ArrayList<candidati> can = mysql.ReadCandidatiColumns();
         javax.swing.DefaultListModel listModel;
@@ -51,15 +170,14 @@ public class serverFrame_ extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        Aggiungi_Candidato = new javax.swing.JButton();
+        Rimuovi_Candidato = new javax.swing.JButton();
+        Modifica_Candidato = new javax.swing.JButton();
+        Pannello_LineChart = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -126,33 +244,30 @@ public class serverFrame_ extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\marco\\Desktop\\esempi17.gif")); // NOI18N
-        jScrollPane1.setViewportView(jButton6);
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setText("Gestione candidati");
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jList1);
 
-        jButton7.setText("Aggiungi");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        Aggiungi_Candidato.setText("Aggiungi");
+        Aggiungi_Candidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                Aggiungi_CandidatoActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Rimuovi");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        Rimuovi_Candidato.setText("Rimuovi");
+        Rimuovi_Candidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                Rimuovi_CandidatoActionPerformed(evt);
             }
         });
 
-        jButton9.setText("Modifica");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        Modifica_Candidato.setText("Modifica");
+        Modifica_Candidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                Modifica_CandidatoActionPerformed(evt);
             }
         });
 
@@ -164,11 +279,11 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Aggiungi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Modifica_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Rimuovi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(177, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,10 +302,21 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8)
-                    .addComponent(jButton9))
+                    .addComponent(Aggiungi_Candidato)
+                    .addComponent(Rimuovi_Candidato)
+                    .addComponent(Modifica_Candidato))
                 .addContainerGap(201, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout Pannello_LineChartLayout = new javax.swing.GroupLayout(Pannello_LineChart);
+        Pannello_LineChart.setLayout(Pannello_LineChartLayout);
+        Pannello_LineChartLayout.setHorizontalGroup(
+            Pannello_LineChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 653, Short.MAX_VALUE)
+        );
+        Pannello_LineChartLayout.setVerticalGroup(
+            Pannello_LineChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 579, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,8 +328,8 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Pannello_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -245,27 +371,27 @@ public class serverFrame_ extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(38, 38, 38))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pannello_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void Aggiungi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Aggiungi_CandidatoActionPerformed
         // TODO add your handling code here:
         new addCandidati_frame().setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_Aggiungi_CandidatoActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void Rimuovi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Rimuovi_CandidatoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_Rimuovi_CandidatoActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void Modifica_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modifica_CandidatoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_Modifica_CandidatoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,12 +430,12 @@ public class serverFrame_ extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Aggiungi_Candidato;
+    private javax.swing.JButton Modifica_Candidato;
+    private javax.swing.JPanel Pannello_LineChart;
+    private javax.swing.JButton Rimuovi_Candidato;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -319,7 +445,6 @@ public class serverFrame_ extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

@@ -49,7 +49,7 @@ public class ProgettoO{
 
     // Istanzio Oggetti Utili
     
-    private final String admin_pwd = "abc123";
+    private final String admin_pwd = ""; // DA MOD
     final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
     java.util.Timer timer = new java.util.Timer(); // timer usato per la scomparsa del JLabel AdmLog_ErrPwd
@@ -232,8 +232,10 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
         Vote_Button.setActionCommand("Vota");
         Vote_Button.addActionListener(new ButtonClickListener());
         Vote_Button.setBounds(890, 700, 300, 50);
+        
         Vote_Button.setVisible(false);
-        clientFrame.add(Vote_Button);
+        
+        clientFrame.add(Vote_Button);  
         clientFrame.setContentPane(client_panel);
         clientFrame.setVisible(true);
         
@@ -284,12 +286,12 @@ public class ButtonClickListener implements ActionListener{
            String command = e.getActionCommand();
            
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
-           String CF_INV_regex = "(?![A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})"; // DA PROVARE
+           String CF_INV_regex = "^(?!.*([A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})).*$"; // DA PROVARE
            
           // String CT_regex = "[0-9]{9}";  // DA definire come da Database
           String CT_regex = "[A-Z]{2}[0-9]{8}";
           // String CT_INV_regex = "(?![0-9]{9})"; // DA definire come da Database
-          String CT_INV_regex = "(?![A-Z]{2}[0-9]{8})";
+          String CT_INV_regex = "^(?!.*([A-Z]{2}[0-9]{8})).*$";
            
 //______________________________________________________________________________     
 
@@ -333,7 +335,7 @@ public class ButtonClickListener implements ActionListener{
 //______________________________________________________________________________               
                case "Admin_Log":
                {
-                  if (AdmLog_pwd.getPassword().equals(admin_pwd)) {  // Usato getPassword() in quanto getText() è deprecato poichè lascia la Pass in memoria
+                  if (AdmLog_pwd.getText().equals(admin_pwd)) {  // Usato getPassword() in quanto getText() è deprecato poichè lascia la Pass in memoria
                          prepareServerGUI.setVisible(true);
                          AdmLog_pwd.setText(null);
                          AdmLog_ErrPwd.setText(null);
@@ -347,9 +349,9 @@ public class ButtonClickListener implements ActionListener{
                   }
                }
 //______________________________________________________________________________ 
-               case "Vota":
+               case "Vota": // è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "serverFrame_"
                {
-                   // aggiungere
+                   
                    break;
                }
 //______________________________________________________________________________                
@@ -358,6 +360,7 @@ public class ButtonClickListener implements ActionListener{
                    //
                    break;
                }
+               
                default: break;
                    
            }
