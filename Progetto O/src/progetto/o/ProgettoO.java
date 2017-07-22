@@ -245,7 +245,7 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
 
 private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){        // Restituisce un pannello con i dati del candidato.
     
-        Candidato_panel = new JPanel();
+       Candidato_panel = new JPanel();
 
        Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
        
