@@ -33,6 +33,7 @@ public class serverFrame_ extends javax.swing.JFrame {
             
             JPanel chartPanel = createChartPanel();
             Pannello_LineChart.add(chartPanel,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
+            Pannello_LineChart.validate();
             //add(chartPanel, BorderLayout.CENTER);
             
             setSize(653, 579); // Definisco la Size uguale a quella del Pannello dove andrà sopra
@@ -308,16 +309,7 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addContainerGap(201, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout Pannello_LineChartLayout = new javax.swing.GroupLayout(Pannello_LineChart);
-        Pannello_LineChart.setLayout(Pannello_LineChartLayout);
-        Pannello_LineChartLayout.setHorizontalGroup(
-            Pannello_LineChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
-        );
-        Pannello_LineChartLayout.setVerticalGroup(
-            Pannello_LineChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
-        );
+        Pannello_LineChart.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
