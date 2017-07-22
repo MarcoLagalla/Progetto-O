@@ -24,12 +24,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="452" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="436" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -59,22 +59,19 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton3" max="32767" attributes="0"/>
+                                  <Component id="confermaButton" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="label_nome_candidato2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="label_nome_candidato1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="label_nome_candidato" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="label_nome_candidato3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="label_nome_candidato6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="label_nome_candidato5" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="label_nome_candidato7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="sfogliaButton" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="label_nome_candidato2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="label_nome_candidato1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="label_nome_candidato" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="label_nome_candidato3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="label_nome_candidato6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="label_nome_candidato5" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="label_nome_candidato7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="sfogliaButton" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -99,7 +96,7 @@
                                   </Group>
                               </Group>
                               <Component id="input_codicefiscale_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                              <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="fotoCandidato" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
@@ -163,15 +160,13 @@
                           <Component id="label_nome_candidato7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="sfogliaButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="fotoCandidato" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="confermaButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -247,7 +242,7 @@
             <Property name="text" type="java.lang.String" value="Foto Profilo:"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="fotoCandidato">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -285,10 +280,13 @@
             <Property name="text" type="java.lang.String" value="Reset"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="confermaButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Conferma"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confermaButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -296,11 +294,6 @@
               <Font name="Tahoma" size="13" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Creazione nuovo candidato"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel2"/>
           </Properties>
         </Component>
       </SubComponents>
