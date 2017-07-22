@@ -303,9 +303,39 @@ public class MySQlConnection {
      * @param Voti Numero Voti
      * @param Immagine URL Immagine profilo
      */
-    public void WriteCandidatiColumns(String CodiceFiscale, String Partito, String Voti, URL Immagine) {
+    public void WriteCandidatiColumns(String CodiceFiscale, String Partito, String Voti, String Immagine) {
         String QUERY = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
                 "VALUES (" + CodiceFiscale + "," + Partito + "," + Voti + "," + Immagine + ");";
+              
+        try {
+            stmt = conn.createStatement();
+            res = stmt.executeQuery(QUERY);
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }finally{
+            try {
+                stmt.close();
+                res.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+            
+        }
+        
+    }
+    
+        /**
+     * Metodo che popola la tabella PERSONE
+     * @param CodiceFiscale Codice Fiscale della persona
+     * @param Nome nome persona
+     * @param Cognome cognome persona
+     * @param Sesso sesso persona
+     * @param DataNascita data di nascita
+     * @param Comune comune di orgine
+     */
+    public void WritePersoneColumns(String CodiceFiscale, String Nome, String Cognome, String Sesso, String DataNascita, String Comune) {
+        String QUERY = "INSERT INTO PERSONE (CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune)\n" +
+                "VALUES (" + CodiceFiscale + "," + Nome + "," + Cognome + "," + Sesso + "," + DataNascita + "," + Comune + ");";
               
         try {
             stmt = conn.createStatement();

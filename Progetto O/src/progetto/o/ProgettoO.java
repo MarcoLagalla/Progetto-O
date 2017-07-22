@@ -50,7 +50,7 @@ public class ProgettoO{
     // Istanzio Oggetti Utili
     
     private final String admin_pwd = ""; // DA MOD
-    final String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
+    final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
     java.util.Timer timer = new java.util.Timer(); // timer usato per la scomparsa del JLabel AdmLog_ErrPwd
     TimerTask task = new MyTask();
