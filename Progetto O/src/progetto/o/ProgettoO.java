@@ -223,7 +223,7 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
        for (candidati object: can) {
            client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));
         }
-        
+   
         clientFrame.add(client_panel,BorderLayout.CENTER);
     
         client_panel.setVisible(true);

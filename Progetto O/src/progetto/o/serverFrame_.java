@@ -375,6 +375,7 @@ public class serverFrame_ extends javax.swing.JFrame {
     private void Aggiungi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Aggiungi_CandidatoActionPerformed
         // TODO add your handling code here:
         new addCandidati_frame().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_Aggiungi_CandidatoActionPerformed
 
     private void Rimuovi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Rimuovi_CandidatoActionPerformed

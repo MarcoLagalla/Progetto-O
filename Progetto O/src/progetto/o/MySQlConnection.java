@@ -8,6 +8,7 @@ package progetto.o;
 import java.sql.*;
 import java.util.ArrayList;
 import java.net.URL;
+import javax.swing.JOptionPane;
 
 
 /** 
@@ -303,25 +304,25 @@ public class MySQlConnection {
      * @param Voti Numero Voti
      * @param Immagine URL Immagine profilo
      */
-    public void WriteCandidatiColumns(String CodiceFiscale, String Partito, String Voti, String Immagine) {
+    public int WriteCandidatiColumns(String CodiceFiscale, String Partito, int Voti, String Immagine) {
         String QUERY = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
-                "VALUES (" + CodiceFiscale + "," + Partito + "," + Voti + "," + Immagine + ");";
-              
+                "VALUES ('" + CodiceFiscale + "','" + Partito + "','" + Voti + "','" + Immagine + "');";
         try {
             stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY);
+           return stmt.executeUpdate(QUERY);
         }catch(SQLException se) {
             se.printStackTrace();
         }finally{
             try {
                 stmt.close();
                 res.close();
+                return 0;
             }catch(SQLException se){
                 se.printStackTrace();
             }
             
         }
-        
+        return 0;
     }
     
         /**
@@ -333,25 +334,26 @@ public class MySQlConnection {
      * @param DataNascita data di nascita
      * @param Comune comune di orgine
      */
-    public void WritePersoneColumns(String CodiceFiscale, String Nome, String Cognome, String Sesso, String DataNascita, String Comune) {
+    public int WritePersoneColumns(String CodiceFiscale, String Nome, String Cognome, String Sesso, String DataNascita, String Comune) {
         String QUERY = "INSERT INTO PERSONE (CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune)\n" +
-                "VALUES (" + CodiceFiscale + "," + Nome + "," + Cognome + "," + Sesso + "," + DataNascita + "," + Comune + ");";
+                "VALUES ('" + CodiceFiscale + "','" + Nome + "','" + Cognome + "','" + Sesso + "','" + DataNascita + "','" + Comune + "');";
               
         try {
             stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY);
+            return stmt.executeUpdate(QUERY);
         }catch(SQLException se) {
             se.printStackTrace();
         }finally{
             try {
                 stmt.close();
                 res.close();
+                return 0;
             }catch(SQLException se){
                 se.printStackTrace();
             }
             
         }
-        
+        return 0;
     }
     
     /**
@@ -361,24 +363,25 @@ public class MySQlConnection {
      * @param Votazione Identifica un turno elettorale o una votazione
      * @param CodiceTessera Identifica in maniera univoca una persona e tiene traccia dell' avvenuto voto.
      */
-    public void WriteVotazioniColumns(String Votazione, String CodiceTessera) {
-        String QUERY = "INSERT INTO VOTAZIONI (" + Votazione +  ") VALUES (" + CodiceTessera + ");";
+    public int WriteVotazioniColumns(String Votazione, String CodiceTessera) {
+        String QUERY = "INSERT INTO VOTAZIONI (" + Votazione +  ") VALUES ('" + CodiceTessera + "');";
               
         try {
             stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY);
+            return stmt.executeUpdate(QUERY);
         }catch(SQLException se) {
             se.printStackTrace();
         }finally{
             try {
                 stmt.close();
                 res.close();
+                return 0;
             }catch(SQLException se){
                 se.printStackTrace();
             }
             
         }
-        
+        return 0;
     }
     
     

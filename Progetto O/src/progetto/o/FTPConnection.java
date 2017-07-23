@@ -48,10 +48,10 @@ public class FTPConnection {
    }
     
    
-   public boolean loadFile(String localPath, String remotePath, String fileName) {
+   public boolean loadFile(String localPath, String remotePath) {
        
        try {
-            
+      /*      
            if (localPath.endsWith("/")) {                 // controlla che la path inserita termini con /
                localPath = localPath.concat(fileName);    // diversamente aggiunge lo slash
            } else {
@@ -63,7 +63,7 @@ public class FTPConnection {
            } else {
                remotePath = remotePath.concat("/" + fileName);
            }
-
+*/
            InputStream input = new FileInputStream(new File(localPath));
             return ftpclient.storeFile(remotePath, input);
        } catch(java.io.IOException ex) {
