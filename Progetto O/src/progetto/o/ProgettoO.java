@@ -49,11 +49,8 @@ public class ProgettoO{
 
     // Istanzio Oggetti Utili
     
-    private final String admin_pwd = ""; // DA MOD
+    private final char[] admin_pwd = { 'a', 'b', 'c', '1', '2', '3'};                          
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
-    
-    java.util.Timer timer = new java.util.Timer(); // timer usato per la scomparsa del JLabel AdmLog_ErrPwd
-    TimerTask task = new MyTask();
     MySQlConnection mysql = new MySQlConnection();
     
     // Istanzio serverFrame_ creato con JFrame Form
@@ -305,6 +302,7 @@ public class ButtonClickListener implements ActionListener{
                         
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia CF sia CT allora Spawna la ClientGUI
                             prepareClientGUI();
+                            mainFrame.dispose();
                         }
                         else if(founded_CF==true && founded_CT==false) {
                             JOptionPane.showMessageDialog(null,"Codice Tessera Elettorale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
@@ -335,23 +333,23 @@ public class ButtonClickListener implements ActionListener{
 //______________________________________________________________________________               
                case "Admin_Log":
                {
-                  if (AdmLog_pwd.getText().equals(admin_pwd)) {  // Usato getPassword() in quanto getText() è deprecato poichè lascia la Pass in memoria
-                         prepareServerGUI.setVisible(true);
-                         AdmLog_pwd.setText(null);
-                         AdmLog_ErrPwd.setText(null);
-                         break; 
-                  }
-                  else { 
-                      AdmLog_ErrPwd.setText("Password Errata: Accesso Negato");
-                      AdmLog_ErrPwd.setForeground(Color.red);
-                      timer.schedule( task, 2000 );
-                      break;
-                  }
+                   if (AdmLog_pwd.getPassword().length == admin_pwd.length) // se la lunghezza è diversa, evito il controllo
+                        if (Arrays.equals(AdmLog_pwd.getPassword(), admin_pwd)) { 
+                               prepareServerGUI.setVisible(true);
+                               Arrays.fill(AdmLog_pwd.getPassword(), '0');  // dopo che l'ho usato, azzero il char[] per ragioni di sicurezza
+                               Admin_Login.dispose();
+                               break; 
+                        }
+                   AdmLog_ErrPwd.setText("Password Errata: Accesso Negato");
+                   AdmLog_ErrPwd.setForeground(Color.red);
+                   break;
                }
 //______________________________________________________________________________ 
                case "Vota": // è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "serverFrame_"
                {
-                   
+
+                   prepareGUI();    // ricrea la home e killa la clientGUI 
+                   clientFrame.dispose();
                    break;
                }
 //______________________________________________________________________________                
