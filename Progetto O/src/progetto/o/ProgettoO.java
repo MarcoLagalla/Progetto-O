@@ -93,7 +93,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         mainFrame.add(background_panel);
         
         Image_Icon = new JLabel();
-        Image_Icon.setIcon(new ImageIcon("C:\\Users\\Federico\\Desktop\\Fede23\\Programmazione JAVA\\Logo.png")); // Da Caricare sul Database Immagini
+        Image_Icon.setIcon(new ImageIcon(".\\Immagini\\Logo.png")); // RELATIVE PATH
         Image_Icon.setBounds(860,180, 350, 395);
         background_panel.add(Image_Icon);
         
@@ -130,7 +130,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         Enter.setActionCommand("Registrazione");
         Enter.setBounds(280, 400, 300, 90);
         
-        ImageIcon icon = new ImageIcon("C:\\Users\\Federico\\Desktop\\Fede23\\Programmazione JAVA\\Button_Registrazione.png");
+        ImageIcon icon = new ImageIcon(".\\Immagini\\Button_Registrazione.png");
         Enter.setIcon(icon);
         int offset = Enter.getInsets().left;
         Enter.setIcon(resizeIcon(icon, Enter.getWidth() - offset, Enter.getHeight() - offset));
@@ -291,10 +291,15 @@ public class ButtonClickListener implements ActionListener{
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
            String CF_INV_regex = "^(?!.*([A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})).*$"; // DA PROVARE
            
+<<<<<<< HEAD
           String CT_regex = "[0-9]{9}";  // DA definire come da Database
           //String CT_regex = "[A-Z]{2}[0-9]{8}";
           String CT_INV_regex = "(?![0-9]{9})"; // DA definire come da Database
           //String CT_INV_regex = "^(?!.*([A-Z]{2}[0-9]{8})).*$";
+=======
+          String CT_regex = "[0-9]{9}"; 
+          String CT_INV_regex = "^(?!.*([0-9]{9})).*$";           
+>>>>>>> origin/master
            
 //______________________________________________________________________________     
 
