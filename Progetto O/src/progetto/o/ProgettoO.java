@@ -32,14 +32,24 @@ public class ProgettoO{
     
     // Elementi Grafici Swing per CLIENT_FRAME
     private JFrame clientFrame;
-    private JPanel client_panel; //GRIGLIA
+    
+    private javax.swing.JLabel CognomeLab;
+    private javax.swing.JLabel FotoLab;
+    private javax.swing.JLabel NomeLab;
+    private javax.swing.JLabel PartitoLab;
+    private javax.swing.JButton Vota;
+    private javax.swing.JPanel jPanel1;
     private JLabel Client_Label;
+    private JPanel client_panel; //GRIGLIA
+    
+ /* 
     private JButton Vote_Button;
     private JPanel Candidato_panel;
     private JButton foto; 
     private JLabel nome;
     private JLabel cognome;
     private JLabel partito;
+*/    
     
     // Elementi grafici per Login Admin
     private JFrame Admin_Login;
@@ -197,7 +207,7 @@ private void prepareAdminLoginGUI() {        // Creazione finestra Login per Adm
 
 ////////////////////////////////////////////////////////////////////////////////
 
-private void prepareClientGUI(){            // Creazione finestra votazione ( dopo user login)
+private void prepareClientGUI(){            // Creazione finestra votazione (dopo user login)
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
        
@@ -215,7 +225,6 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
         client_panel = new JPanel(experimentLayout); 
         client_panel.setBounds(50,100,500,500);   // dimensioni pannello
         
-       // TODO for()
        
        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
        
@@ -227,6 +236,7 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
     
         client_panel.setVisible(true);
         
+        /*
         Vote_Button = new JButton("VOTA");
         Vote_Button.setActionCommand("Vota");
         Vote_Button.addActionListener(new ButtonClickListener());
@@ -234,7 +244,9 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
         
         Vote_Button.setVisible(false);
         
-        clientFrame.add(Vote_Button);  
+        clientFrame.add(Vote_Button); 
+        */ 
+        
         clientFrame.setContentPane(client_panel);
         clientFrame.setVisible(true);
         
@@ -244,7 +256,101 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
 
 private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){        // Restituisce un pannello con i dati del candidato.
     
-       Candidato_panel = new JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        NomeLab = new javax.swing.JLabel(Nome);
+        CognomeLab = new javax.swing.JLabel(Cognome); // Ho messo Lab perchè sono Label e altrimenti avrebbero avuto lo stesso nome con i vecchi che sono String
+        PartitoLab = new javax.swing.JLabel(Partito);
+        Vota = new javax.swing.JButton();
+        FotoLab = new javax.swing.JLabel();
+        
+
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        
+        NomeLab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        CognomeLab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        PartitoLab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        Vota.setFont(new java.awt.Font("Calibri", 0, 20)); 
+        Vota.setText("Vota");
+        
+        /*Vota.addActionListener(new java.awt.event.ActionListener() {
+           
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            VotaActionPerformed(evt);
+        } 
+        });*/
+
+        FotoLab.setBackground(new java.awt.Color(102, 102, 102));
+        ImageIcon img = new ImageIcon();
+            try {
+                img = new ImageIcon(Immagine);
+            }catch (Exception ex) {
+                img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
+            }
+            
+            int offset = FotoLab.getInsets().left;
+            FotoLab.setIcon(resizeIcon(img, FotoLab.getWidth() - offset, FotoLab.getHeight() - offset));
+            
+          
+//____________________________________________________________________________________________        
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Vota, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(FotoLab, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(CognomeLab, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                                .addComponent(NomeLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(PartitoLab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(74, 74, 74))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(FotoLab, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(NomeLab, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(CognomeLab, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(PartitoLab, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(Vota, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+/*        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(224, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(215, 215, 215))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(131, 131, 131))
+        );
+*/
+//______________________________________________________________________________
+
+//______________________________________________________________________________
+    /*Candidato_panel = new JPanel();
 
        Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
        ImageIcon img = new ImageIcon();
@@ -252,7 +358,7 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
            img = new ImageIcon(Immagine);
        }catch (Exception ex) {
            img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
-           //
+           
        }
         
         foto = new JButton(img);
@@ -262,9 +368,6 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
 
         Candidato_panel.add(foto);
 
-        
-        
-        
         
         nome = new JLabel(Nome, SwingConstants.RIGHT);
         nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
@@ -282,8 +385,11 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
         Candidato_panel.add(partito);
         Candidato_panel.setVisible(true);
       
-        return Candidato_panel;
-        
+        return Candidato_panel; */
+//______________________________________________________________________________
+
+    return jPanel1;     // Sarebbe il pannello che ha come "figli" tutti gli altri elementi grafici
+
     }
 
 /*_________________________BUTTON LISTENER____________________________________*/
