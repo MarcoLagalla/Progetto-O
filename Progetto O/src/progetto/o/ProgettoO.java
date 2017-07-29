@@ -126,7 +126,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         background_panel.add(CT);
 //______________________________________________________________________________
 
-        Enter = new JButton("REGISTRAZIONE");   // COMPLETARE  RESIZE
+        Enter = new JButton("");   // COMPLETARE  RESIZE
         Enter.setActionCommand("Registrazione");
         Enter.setBounds(280, 400, 300, 90);
         
@@ -247,9 +247,14 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
        Candidato_panel = new JPanel();
 
        Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
-       
- 
-        ImageIcon img = new ImageIcon(Immagine);
+       ImageIcon img = new ImageIcon();
+       try {
+           img = new ImageIcon(Immagine);
+       }catch (Exception ex) {
+           img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
+           //
+       }
+        
         foto = new JButton(img);
         foto.setBounds(0, 0, 200, 200);
         int offset = foto.getInsets().left;
@@ -291,15 +296,10 @@ public class ButtonClickListener implements ActionListener{
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
            String CF_INV_regex = "^(?!.*([A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})).*$"; // DA PROVARE
            
-<<<<<<< HEAD
-          String CT_regex = "[0-9]{9}";  // DA definire come da Database
-          //String CT_regex = "[A-Z]{2}[0-9]{8}";
-          String CT_INV_regex = "(?![0-9]{9})"; // DA definire come da Database
-          //String CT_INV_regex = "^(?!.*([A-Z]{2}[0-9]{8})).*$";
-=======
+
           String CT_regex = "[0-9]{9}"; 
           String CT_INV_regex = "^(?!.*([0-9]{9})).*$";           
->>>>>>> origin/master
+
            
 //______________________________________________________________________________     
 
