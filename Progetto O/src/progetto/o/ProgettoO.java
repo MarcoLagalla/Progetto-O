@@ -261,10 +261,6 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
         foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
 
         Candidato_panel.add(foto);
-
-        
-        
-        
         
         nome = new JLabel(Nome, SwingConstants.RIGHT);
         nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
