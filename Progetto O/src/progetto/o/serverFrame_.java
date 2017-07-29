@@ -24,6 +24,9 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class serverFrame_ extends javax.swing.JFrame {
 
+    
+        public String nome = "";
+        public String cognome = "";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public serverFrame_() {
             super("SERVER");
@@ -148,9 +151,10 @@ public class serverFrame_ extends javax.swing.JFrame {
         javax.swing.DefaultListModel listModel;
         listModel = new javax.swing.DefaultListModel();
         for (candidati object: can) {
-            listModel.addElement(object.getNome().toString() + " " + object.getCognome().toString());
+            String str = String.format("%s  %s",object.getNome().toString(), object.getCognome().toString());
+            listModel.addElement(str);
         }
-        jList1.setModel(listModel);
+        Candidati_list.setModel(listModel);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -174,7 +178,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        Candidati_list = new javax.swing.JList<>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
@@ -248,8 +252,8 @@ public class serverFrame_ extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setText("Gestione candidati");
 
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane2.setViewportView(jList1);
+        Candidati_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(Candidati_list);
 
         Aggiungi_Candidato.setText("Aggiungi");
         Aggiungi_Candidato.addActionListener(new java.awt.event.ActionListener() {
@@ -384,6 +388,15 @@ public class serverFrame_ extends javax.swing.JFrame {
 
     private void Modifica_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modifica_CandidatoActionPerformed
         // TODO add your handling code here:
+        String candidato = Candidati_list.getSelectedValue();
+        if (!(candidato.equals("")) ) {
+            String[] tokens = candidato.split("   ");    // slitta su un carattere di TAB ( non sono spazi )
+             nome = tokens[0];
+             cognome = tokens[1];
+             new editCandidati_frame().setVisible(true);
+             this.setVisible(false);
+            
+        }
     }//GEN-LAST:event_Modifica_CandidatoActionPerformed
 
     /**
@@ -424,6 +437,7 @@ public class serverFrame_ extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aggiungi_Candidato;
+    private javax.swing.JList<String> Candidati_list;
     private javax.swing.JButton Modifica_Candidato;
     private javax.swing.JPanel Pannello_LineChart;
     private javax.swing.JButton Rimuovi_Candidato;
@@ -434,7 +448,6 @@ public class serverFrame_ extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
