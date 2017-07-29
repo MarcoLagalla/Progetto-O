@@ -390,11 +390,11 @@ public class serverFrame_ extends javax.swing.JFrame {
         // TODO add your handling code here:
         String candidato = Candidati_list.getSelectedValue();
         if (!(candidato.equals("")) ) {
-            String[] tokens = candidato.split("   ");    // slitta su un carattere di TAB ( non sono spazi )
+            String[] tokens = candidato.split(" ");    // slitta su un carattere di TAB ( non sono spazi )
              nome = tokens[0];
              cognome = tokens[1];
-             new editCandidati_frame().setVisible(true);
-             this.setVisible(false);
+          new editCandidati_frame().setVisible(true);
+         this.setVisible(false);
             
         }
     }//GEN-LAST:event_Modifica_CandidatoActionPerformed

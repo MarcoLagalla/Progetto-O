@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+
 /*____________________________________STATO INTERNO________________________________________*/
 
 public class ProgettoO{
@@ -200,32 +201,53 @@ private void prepareAdminLoginGUI() {        // Creazione finestra Login per Adm
 private void prepareClientGUI(){            // Creazione finestra votazione ( dopo user login)
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
-       
-        clientFrame.setLayout(null);
-        clientFrame.setSize(1276, 802);
-        clientFrame.setResizable(false);
+        
+       clientFrame.setDefaultCloseOperation(3);
+        clientFrame.setLayout(new BorderLayout());
+         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+         clientFrame.setPreferredSize(screenSize);
+         clientFrame.setSize(screenSize);
+       clientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        clientFrame.setResizable(true);
         
         Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
         Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
         Client_Label.setBounds(50, 10, 1000, 50);
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
+        JPanel contPane = new JPanel();
         
-        GridLayout experimentLayout = new GridLayout(0,4,8,8);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
+    //    contPane.setBounds(0,0,1276,802);
+        clientFrame.setContentPane(contPane);
+        GridLayout experimentLayout = new GridLayout(0,4,8,20);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
+        
         client_panel = new JPanel(experimentLayout); 
-        client_panel.setBounds(50,100,500,500);   // dimensioni pannello
         
        // TODO for()
        
        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
        
        for (candidati object: can) {
-           client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));
+           com.schedaCandidato scheda = new com.schedaCandidato(object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
+          client_panel.add(scheda);
+          
+        //   scheda.setBounds(0, 0, 300, 500);
+          // client_panel.add(scheda);
+          // client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));
         }
-   
-        clientFrame.add(client_panel,BorderLayout.CENTER);
-    
+       
         client_panel.setVisible(true);
+        
+       JScrollPane scrollable = new JScrollPane(client_panel);
+       scrollable.setViewportView(client_panel);
+       scrollable.setPreferredSize(clientFrame.getPreferredSize());
+       scrollable.setSize(clientFrame.getSize());
+       scrollable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+       scrollable.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+      clientFrame.getContentPane().add(scrollable);
+      
+
+       
         
         Vote_Button = new JButton("VOTA");
         Vote_Button.setActionCommand("Vota");
@@ -235,9 +257,10 @@ private void prepareClientGUI(){            // Creazione finestra votazione ( do
         Vote_Button.setVisible(false);
         
         clientFrame.add(Vote_Button);  
-        clientFrame.setContentPane(client_panel);
+
         clientFrame.setVisible(true);
         
+        clientFrame.pack();
     }       
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -427,3 +450,6 @@ public class MyTask extends TimerTask {
     }
 
 }
+
+
+
