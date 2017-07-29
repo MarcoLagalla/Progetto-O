@@ -12,6 +12,8 @@ import javax.swing.*;
 import javax.swing.BoxLayout;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /*____________________________________STATO INTERNO________________________________________*/
@@ -49,7 +51,7 @@ public class ProgettoO{
 
     // Istanzio Oggetti Utili
     
-    private final char[] admin_pwd = { 'a', 'b', 'c', '1', '2', '3'};                          
+    private  char[] admin_pwd;                          
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     MySQlConnection mysql = new MySQlConnection();
     
@@ -107,7 +109,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         background_panel.add(CodiceFis);
         
         CF = new JTextField();
-        CF.setText("LGLMRC94D20L304U");                                         // PER TEST DA RIMUOVERE
+        CF.setText("GRRFRC94S23M109E");                                         // PER TEST DA RIMUOVERE
         CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,14));
         CF.setBounds(460, 280, 300, 30);
         background_panel.add(CF);
@@ -118,7 +120,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         background_panel.add(CodiceTes);
         
         CT = new JTextField();
-        CT.setText("AT12349876");                                               // PER TEST DA RIMUOVERE
+        CT.setText("231119994");                                               // PER TEST DA RIMUOVERE
         CT.setFont(new Font("CT_Field",Font.ROMAN_BASELINE,14));
         CT.setBounds(460, 340, 300, 30);
         background_panel.add(CT);
@@ -246,14 +248,18 @@ private JPanel createPan(URL Immagine, String Nome, String Cognome, String Parti
 
        Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
        
+ 
         ImageIcon img = new ImageIcon(Immagine);
-        
         foto = new JButton(img);
         foto.setBounds(0, 0, 200, 200);
         int offset = foto.getInsets().left;
         foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
 
         Candidato_panel.add(foto);
+
+        
+        
+        
         
         nome = new JLabel(Nome, SwingConstants.RIGHT);
         nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
@@ -285,10 +291,10 @@ public class ButtonClickListener implements ActionListener{
            String CF_regex = "[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}";
            String CF_INV_regex = "^(?!.*([A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})).*$"; // DA PROVARE
            
-          // String CT_regex = "[0-9]{9}";  // DA definire come da Database
-          String CT_regex = "[A-Z]{2}[0-9]{8}";
-          // String CT_INV_regex = "(?![0-9]{9})"; // DA definire come da Database
-          String CT_INV_regex = "^(?!.*([A-Z]{2}[0-9]{8})).*$";
+          String CT_regex = "[0-9]{9}";  // DA definire come da Database
+          //String CT_regex = "[A-Z]{2}[0-9]{8}";
+          String CT_INV_regex = "(?![0-9]{9})"; // DA definire come da Database
+          //String CT_INV_regex = "^(?!.*([A-Z]{2}[0-9]{8})).*$";
            
 //______________________________________________________________________________     
 
@@ -333,10 +339,12 @@ public class ButtonClickListener implements ActionListener{
 //______________________________________________________________________________               
                case "Admin_Log":
                {
+                   admin_pwd = new char[] {'a', 'b', 'c', '1', '2', '3'};
+              
                    if (AdmLog_pwd.getPassword().length == admin_pwd.length) // se la lunghezza è diversa, evito il controllo
                         if (Arrays.equals(AdmLog_pwd.getPassword(), admin_pwd)) { 
                                prepareServerGUI.setVisible(true);
-                               Arrays.fill(AdmLog_pwd.getPassword(), '0');  // dopo che l'ho usato, azzero il char[] per ragioni di sicurezza
+                               //Arrays.fill(AdmLog_pwd.getPassword(), '0');  // dopo che l'ho usato, azzero il char[] per ragioni di sicurezza
                                Admin_Login.dispose();
                                break; 
                         }
