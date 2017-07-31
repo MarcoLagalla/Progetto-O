@@ -36,6 +36,7 @@ public class FTPConnection {
             try {
                 ftpclient.login(USERNAME, PASSWORD);
                 ftpclient.setFileType(FTP.BINARY_FILE_TYPE);
+                
                 ftpclient.enterLocalPassiveMode();
             }catch(java.io.IOException ex) {
                 System.out.print("FTP - Unable to login");
@@ -65,7 +66,8 @@ public class FTPConnection {
            }
 */
            InputStream input = new FileInputStream(new File(localPath));
-            return ftpclient.storeFile(remotePath, input);
+           boolean done = ftpclient.storeFile(remotePath, input);
+            return done;
        } catch(java.io.IOException ex) {
            System.out.print("FTP - Error uploading file " + ex.getMessage());
            return false;

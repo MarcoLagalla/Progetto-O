@@ -24,26 +24,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="436" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
-              </Group>
-          </Group>
+          <Component id="panel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="488" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panel1" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
+          <Component id="panel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -76,30 +62,34 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="input_datanascita_candidato" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                                          <Component id="input_comune_candidato" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="label_nome_candidato4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="input_sesso_candidato" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="input_nome_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                                      <Component id="input_cognome_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                                      <Component id="input_partito_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="input_codicefiscale_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                              <Component id="fotoCandidato" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="input_datanascita_candidato" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                                                  <Component id="input_comune_candidato" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="label_nome_candidato4" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="input_sesso_candidato" min="-2" pref="37" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                              <Component id="input_nome_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                              <Component id="input_cognome_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                              <Component id="input_partito_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="input_codicefiscale_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                      <Component id="foto" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -156,12 +146,12 @@
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="label_nome_candidato7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="sfogliaButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="fotoCandidato" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="foto" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -210,19 +200,6 @@
             <Property name="text" type="java.lang.String" value="Sesso:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="input_sesso_candidato">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="M"/>
-                <StringItem index="1" value="F"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JLabel" name="label_nome_candidato5">
           <Properties>
             <Property name="text" type="java.lang.String" value="CodiceFiscale:"/>
@@ -242,31 +219,6 @@
             <Property name="text" type="java.lang.String" value="Foto Profilo:"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="fotoCandidato">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[200, 200]"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="198" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="198" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
         <Component class="javax.swing.JButton" name="sfogliaButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sfoglia"/>
@@ -294,6 +246,34 @@
               <Font name="Tahoma" size="13" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Creazione nuovo candidato"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="input_sesso_candidato">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="M"/>
+                <StringItem index="1" value="F"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="foto">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 200]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 200]"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

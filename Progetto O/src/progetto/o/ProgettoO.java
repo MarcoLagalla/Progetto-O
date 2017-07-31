@@ -7,6 +7,7 @@ package progetto.o;
 
 import java.util.*;
 import java.awt.*;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.BoxLayout;
@@ -93,31 +94,34 @@ private void prepareGUI() {         // Creazione finestra principale (login user
     int c = JComponent.WHEN_IN_FOCUSED_WINDOW;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
     
         mainFrame = new JFrame();
-        mainFrame.setLayout(null);
-        mainFrame.setSize(1276, 802);
+        mainFrame.setLayout(new BorderLayout());
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        mainFrame.setPreferredSize(screenSize);
+        mainFrame.setSize(screenSize);
+        mainFrame.setExtendedState(MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         
         background_panel = new JPanel(null);
         background_panel.setBackground(Color.white);
-        background_panel.setSize(1276, 802);
+        background_panel.setSize(screenSize);
         mainFrame.add(background_panel);
         
         Image_Icon = new JLabel();
         Image_Icon.setIcon(new ImageIcon(".\\Immagini\\Logo.png")); // RELATIVE PATH
         Image_Icon.setBounds(860,180, 350, 395);
-        background_panel.add(Image_Icon);
+        background_panel.add(Image_Icon, BorderLayout.CENTER);
         
         Intestazione = new JLabel();
         Intestazione.setFont(new Font("Intestazione", Font.ITALIC,35));
         Intestazione.setText("SISTEMA ELETTORALE ELETTRONICO");
         Intestazione.setBounds(330, 10, 1000, 30);
-        background_panel.add(Intestazione);
+        background_panel.add(Intestazione, BorderLayout.NORTH);
 //______________________________________________________________________________        
         CodiceFis = new JLabel("Inserire CODICE FISCALE");
         CodiceFis.setFont(new Font("CF",Font.BOLD,18));
         CodiceFis.setBounds(200, 280, 250, 30);
-        background_panel.add(CodiceFis);
+        background_panel.add(CodiceFis , BorderLayout.CENTER);
         
         CF = new JTextField();
         CF.setText("GRRFRC94S23M109E");                                         // PER TEST DA RIMUOVERE
@@ -175,7 +179,7 @@ private void prepareAdminLoginGUI() {        // Creazione finestra Login per Adm
         Admin_Login.setLayout(null);
         Admin_Login.setSize(500, 300);
         Admin_Login.setResizable(false);
-        
+        Admin_Login.setLocationRelativeTo(null);
         AdmLog_title = new JLabel("Admin password: ");
         AdmLog_title.setBounds(70, 70, 120, 25);
         Admin_Login.add(AdmLog_title);
@@ -212,14 +216,20 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
         
-       clientFrame.setDefaultCloseOperation(3);
+       clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         clientFrame.setLayout(new BorderLayout());
          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-         clientFrame.setPreferredSize(screenSize);
-         clientFrame.setSize(screenSize);
+        clientFrame.setPreferredSize(screenSize);
+        clientFrame.setSize(screenSize);
        clientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        clientFrame.setResizable(true);
+        clientFrame.setResizable(false);
         
+        
+        clientFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+               prepareGUI();
+            }
+        });
         Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
         Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
         Client_Label.setBounds(50, 10, 1000, 50);
@@ -247,7 +257,6 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
        
         client_panel.setVisible(true);
         
-<<<<<<< HEAD
        JScrollPane scrollable = new JScrollPane(client_panel);
        scrollable.setViewportView(client_panel);
        scrollable.setPreferredSize(clientFrame.getPreferredSize());
@@ -258,173 +267,13 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
       
 
        
+      
         
-=======
-        /*
->>>>>>> origin/master
-        Vote_Button = new JButton("VOTA");
-        Vote_Button.setActionCommand("Vota");
-        Vote_Button.addActionListener(new ButtonClickListener());
-        Vote_Button.setBounds(890, 700, 300, 50);
-        
-        Vote_Button.setVisible(false);
-        
-<<<<<<< HEAD
-        clientFrame.add(Vote_Button);  
-
-=======
-        clientFrame.add(Vote_Button); 
-        */ 
-        
-        clientFrame.setContentPane(client_panel);
->>>>>>> origin/master
+       // clientFrame.setContentPane(client_panel);
         clientFrame.setVisible(true);
         
         clientFrame.pack();
     }       
-
-////////////////////////////////////////////////////////////////////////////////
-
-private JPanel createPan(URL Immagine, String Nome, String Cognome, String Partito){        // Restituisce un pannello con i dati del candidato.
-    
-        jPanel1 = new javax.swing.JPanel();
-        NomeLab = new javax.swing.JLabel(Nome);
-        CognomeLab = new javax.swing.JLabel(Cognome); // Ho messo Lab perchè sono Label e altrimenti avrebbero avuto lo stesso nome con i vecchi che sono String
-        PartitoLab = new javax.swing.JLabel(Partito);
-        Vota = new javax.swing.JButton();
-        FotoLab = new javax.swing.JLabel();
-        
-
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
-        
-        NomeLab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        CognomeLab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        PartitoLab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        Vota.setFont(new java.awt.Font("Calibri", 0, 20)); 
-        Vota.setText("Vota");
-        
-        /*Vota.addActionListener(new java.awt.event.ActionListener() {
-           
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            VotaActionPerformed(evt);
-        } 
-        });*/
-
-        FotoLab.setBackground(new java.awt.Color(102, 102, 102));
-        ImageIcon img = new ImageIcon();
-            try {
-                img = new ImageIcon(Immagine);
-            }catch (Exception ex) {
-                img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
-            }
-            
-            int offset = FotoLab.getInsets().left;
-            FotoLab.setIcon(resizeIcon(img, FotoLab.getWidth() - offset, FotoLab.getHeight() - offset));
-            
-          
-//____________________________________________________________________________________________        
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Vota, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(FotoLab, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(CognomeLab, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                                .addComponent(NomeLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(PartitoLab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(74, 74, 74))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(FotoLab, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(NomeLab, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(CognomeLab, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(PartitoLab, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(Vota, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-/*        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(224, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(215, 215, 215))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
-        );
-*/
-//______________________________________________________________________________
-
-//______________________________________________________________________________
-    /*Candidato_panel = new JPanel();
-
-       Candidato_panel.setLayout(new BoxLayout(Candidato_panel,BoxLayout.Y_AXIS));
-       ImageIcon img = new ImageIcon();
-       try {
-           img = new ImageIcon(Immagine);
-       }catch (Exception ex) {
-           img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
-           
-       }
-        
-        foto = new JButton(img);
-        foto.setBounds(0, 0, 200, 200);
-        int offset = foto.getInsets().left;
-        foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
-
-        Candidato_panel.add(foto);
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-        
-        nome = new JLabel(Nome, SwingConstants.RIGHT);
-        nome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
-        nome.setBounds(10, 220 , 200, 25);
-        Candidato_panel.add(nome);
-        
-        cognome = new JLabel(Cognome, SwingConstants.CENTER);
-        cognome.setFont(new Font(nome.getFont().getName(), Font.BOLD, 25));
-        cognome.setBounds(10, 250, 200, 25 );
-        Candidato_panel.add(cognome);
-        
-        partito = new JLabel(Partito, SwingConstants.CENTER);
-        partito.setFont(new Font(nome.getFont().getName(), Font.BOLD, 20));
-        partito.setBounds(10, 280, 200, 20);
-        Candidato_panel.add(partito);
-        Candidato_panel.setVisible(true);
-      
-        return Candidato_panel; */
-//______________________________________________________________________________
-
-    return jPanel1;     // Sarebbe il pannello che ha come "figli" tutti gli altri elementi grafici
-
-    }
 
 /*_________________________BUTTON LISTENER____________________________________*/
 

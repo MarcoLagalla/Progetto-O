@@ -25,12 +25,11 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class serverFrame_ extends javax.swing.JFrame {
 
     
-        public String nome = "";
-        public String cognome = "";
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public serverFrame_() {
             super("SERVER");
-                
+            setExtendedState(MAXIMIZED_BOTH);
             initComponents(); // Provenienti dal precedente Costruttore
             loadCandidati(); //
             
@@ -39,7 +38,7 @@ public class serverFrame_ extends javax.swing.JFrame {
             Pannello_LineChart.validate();
             //add(chartPanel, BorderLayout.CENTER);
             
-            setSize(653, 579); // Definisco la Size uguale a quella del Pannello dove andrà sopra
+     //       setSize(653, 579); // Definisco la Size uguale a quella del Pannello dove andrà sopra
             
             //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
@@ -151,7 +150,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         javax.swing.DefaultListModel listModel;
         listModel = new javax.swing.DefaultListModel();
         for (candidati object: can) {
-            String str = String.format("%s  %s",object.getNome().toString(), object.getCognome().toString());
+            String str = String.format("%s %s - %s",object.getNome().toString(), object.getCognome().toString(), object.getCF().toString());
             listModel.addElement(str);
         }
         Candidati_list.setModel(listModel);
@@ -205,7 +204,7 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -390,10 +389,10 @@ public class serverFrame_ extends javax.swing.JFrame {
         // TODO add your handling code here:
         String candidato = Candidati_list.getSelectedValue();
         if (!(candidato.equals("")) ) {
-            String[] tokens = candidato.split(" ");    // slitta su un carattere di TAB ( non sono spazi )
-             nome = tokens[0];
-             cognome = tokens[1];
-          new editCandidati_frame().setVisible(true);
+            String[] tokens = candidato.split("-");    // slitta per ottenere il CF
+             String _cf = tokens[1];
+             _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
+          new editCandidati_frame(_cf).setVisible(true);
          this.setVisible(false);
             
         }

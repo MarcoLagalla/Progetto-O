@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package progetto.o;
+import java.awt.Image;
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.filechooser.*;
 /**
  *
@@ -18,14 +20,17 @@ public class editCandidati_frame extends javax.swing.JFrame {
     FTPConnection myftp = new FTPConnection();
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     String path_img = "";
+    
+    String candidatoCF;
     /**
      * Creates new form editCandidati_frame
      */
-    public editCandidati_frame() {
+    public editCandidati_frame(String _candidatoCF) {
         initComponents();
-         
+        candidatoCF = _candidatoCF;
+        fill();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,13 +56,19 @@ public class editCandidati_frame extends javax.swing.JFrame {
         label_nome_candidato6 = new javax.swing.JLabel();
         input_datanascita_candidato = new javax.swing.JTextField();
         label_nome_candidato7 = new javax.swing.JLabel();
-        fotoCandidato = new javax.swing.JPanel();
         sfogliaButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         confermaButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        foto = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Modifica angrafica candidato");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         label_nome_candidato.setText("Nome:");
 
@@ -83,20 +94,6 @@ public class editCandidati_frame extends javax.swing.JFrame {
 
         label_nome_candidato7.setText("Foto Profilo:");
 
-        fotoCandidato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        fotoCandidato.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        javax.swing.GroupLayout fotoCandidatoLayout = new javax.swing.GroupLayout(fotoCandidato);
-        fotoCandidato.setLayout(fotoCandidatoLayout);
-        fotoCandidatoLayout.setHorizontalGroup(
-            fotoCandidatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 198, Short.MAX_VALUE)
-        );
-        fotoCandidatoLayout.setVerticalGroup(
-            fotoCandidatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 198, Short.MAX_VALUE)
-        );
-
         sfogliaButton.setText("Sfoglia");
         sfogliaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +112,10 @@ public class editCandidati_frame extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("Modifica anagrafica candidato");
+
+        foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        foto.setMaximumSize(new java.awt.Dimension(200, 200));
+        foto.setMinimumSize(new java.awt.Dimension(200, 200));
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -139,26 +140,28 @@ public class editCandidati_frame extends javax.swing.JFrame {
                                     .addComponent(label_nome_candidato7)
                                     .addComponent(sfogliaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(panel1Layout.createSequentialGroup()
-                                    .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(input_datanascita_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(input_comune_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(label_nome_candidato4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(input_sesso_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(input_nome_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(input_cognome_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(input_partito_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(input_codicefiscale_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fotoCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                .addGap(219, 219, 219)
-                                .addComponent(jButton2))))
+                                .addGap(226, 226, 226)
+                                .addComponent(jButton2))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(panel1Layout.createSequentialGroup()
+                                            .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(input_datanascita_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(input_comune_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(label_nome_candidato4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(input_sesso_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(input_nome_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(input_cognome_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(input_partito_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(input_codicefiscale_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -203,7 +206,7 @@ public class editCandidati_frame extends javax.swing.JFrame {
                         .addComponent(label_nome_candidato7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sfogliaButton))
-                    .addComponent(fotoCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -218,7 +221,7 @@ public class editCandidati_frame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(706, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,6 +249,9 @@ public class editCandidati_frame extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             path_img = file.getAbsolutePath();
+            ImageIcon img = new ImageIcon(path_img);
+            int offset = foto.getInsets().left;
+            foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
         }
     }//GEN-LAST:event_sfogliaButtonActionPerformed
 
@@ -262,6 +268,48 @@ public class editCandidati_frame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_confermaButtonActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        new serverFrame_().setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
+    
+    private void fill() {
+           ArrayList<candidati> can = mysql.ReadCandidatiColumns();
+           ArrayList<persone> pers = mysql.ReadPersoneColumns();
+           
+       for (candidati object: can) {
+            if (object.getCF().equals(candidatoCF)) {  // match 
+               ImageIcon img = new ImageIcon();
+               input_partito_candidato.setText(object.getPartito().toString());
+               input_codicefiscale_candidato.setText(object.getCF().toString());
+             //  JOptionPane.showMessageDialog(null,object.getImmagine()., pers);
+            try {
+                img = new ImageIcon(object.getImmagine());
+            }catch (Exception ex) {
+                img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
+            }
+            
+            int offset = foto.getInsets().left;
+            foto.setIcon(resizeIcon(img, foto.getWidth() - offset, foto.getHeight() - offset));
+            
+            break;
+           }
+    }
+       
+    for (persone object: pers) {
+        if (object.getCF().equals(candidatoCF)) {  // match 
+            input_nome_candidato.setText(object.getNome().toString());
+            input_cognome_candidato.setText(object.getCognome().toString());
+            input_comune_candidato.setText(object.getComune().toString());
+            input_datanascita_candidato.setText(object.getDataNascita().toString());
+            
+            if ( object.getSesso().toString().equals("M") )   // hard coded, non mi piace molto
+                input_sesso_candidato.setSelectedIndex(0);
+            else
+                input_sesso_candidato.setSelectedIndex(1);
+        }
+    }
+    }
     /**
      * @param args the command line arguments
      */
@@ -292,15 +340,21 @@ public class editCandidati_frame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new editCandidati_frame().setVisible(true);
+                new editCandidati_frame("").setVisible(true);
               
             }
         });
     }
+    
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
+    Image img = icon.getImage();  
+    Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+    return new ImageIcon(resizedImage);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confermaButton;
-    private javax.swing.JPanel fotoCandidato;
+    private javax.swing.JLabel foto;
     private javax.swing.JTextField input_codicefiscale_candidato;
     private javax.swing.JTextField input_cognome_candidato;
     private javax.swing.JTextField input_comune_candidato;

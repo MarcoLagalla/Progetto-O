@@ -306,7 +306,8 @@ public class MySQlConnection {
      */
     public int WriteCandidatiColumns(String CodiceFiscale, String Partito, int Voti, String Immagine) {
         String QUERY = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
-                "VALUES ('" + CodiceFiscale + "','" + Partito + "','" + Voti + "','" + Immagine + "');";
+                "VALUES ('" + CodiceFiscale + "','" + Partito + "'," + Voti + ",'" + Immagine + "');";
+
         try {
             stmt = conn.createStatement();
            return stmt.executeUpdate(QUERY);
@@ -315,8 +316,6 @@ public class MySQlConnection {
         }finally{
             try {
                 stmt.close();
-                res.close();
-                return 0;
             }catch(SQLException se){
                 se.printStackTrace();
             }
@@ -338,6 +337,7 @@ public class MySQlConnection {
         String QUERY = "INSERT INTO PERSONE (CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune)\n" +
                 "VALUES ('" + CodiceFiscale + "','" + Nome + "','" + Cognome + "','" + Sesso + "','" + DataNascita + "','" + Comune + "');";
               
+       
         try {
             stmt = conn.createStatement();
             return stmt.executeUpdate(QUERY);
@@ -346,8 +346,6 @@ public class MySQlConnection {
         }finally{
             try {
                 stmt.close();
-                res.close();
-                return 0;
             }catch(SQLException se){
                 se.printStackTrace();
             }
@@ -374,8 +372,6 @@ public class MySQlConnection {
         }finally{
             try {
                 stmt.close();
-                res.close();
-                return 0;
             }catch(SQLException se){
                 se.printStackTrace();
             }
