@@ -43,15 +43,7 @@ public class ProgettoO{
     private javax.swing.JPanel jPanel1;
     private JLabel Client_Label;
     private JPanel client_panel; //GRIGLIA
-    
- /* 
-    private JButton Vote_Button;
-    private JPanel Candidato_panel;
-    private JButton foto; 
-    private JLabel nome;
-    private JLabel cognome;
-    private JLabel partito;
-*/    
+     
     
     // Elementi grafici per Login Admin
     private JFrame Admin_Login;
@@ -87,12 +79,22 @@ public class ProgettoO{
        ProgettoO SwingControl = new ProgettoO();
     }
 ///////////////////////////////////////////
-    
+   
+         
 
 private void prepareGUI() {         // Creazione finestra principale (login user)
     
-    int c = JComponent.WHEN_IN_FOCUSED_WINDOW;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
+        int c = JComponent.WHEN_IN_FOCUSED_WINDOW;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
     
+        if ( clientFrame != null) {
+            clientFrame.dispose();
+        }
+        if (mainFrame != null) {
+            mainFrame.dispose();
+        }
+        
+        mainFrame = null;
+        
         mainFrame = new JFrame();
         mainFrame.setLayout(new BorderLayout());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -247,12 +249,13 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
        
        for (candidati object: can) {
-           com.schedaCandidato scheda = new com.schedaCandidato(object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
+          
+         schedaCandidato scheda = new schedaCandidato(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
           client_panel.add(scheda);
           
         //   scheda.setBounds(0, 0, 300, 500);
           // client_panel.add(scheda);
-          // client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));
+          // client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));, 
         }
        
         client_panel.setVisible(true);
@@ -303,6 +306,7 @@ public class ButtonClickListener implements ActionListener{
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia CF sia CT allora Spawna la ClientGUI
                             prepareClientGUI();
                             mainFrame.dispose();
+                            
                         }
                         else if(founded_CF==true && founded_CT==false) {
                             JOptionPane.showMessageDialog(null,"Codice Tessera Elettorale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);

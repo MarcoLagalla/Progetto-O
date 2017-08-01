@@ -297,6 +297,25 @@ public class MySQlConnection {
         return res;
     }
     
+    public int UpdateQuery(String QUERY) {
+        try {
+            if (!QUERY.endsWith(";")) {
+                QUERY = QUERY.concat(";");
+            }
+            stmt = conn.createStatement();
+            return stmt.executeUpdate(QUERY);
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return 0;
+    }
+    
     /**
      * Metodo che popola la tabella CANDIDATI
      * @param CodiceFiscale Codice Fiscale del candidato
