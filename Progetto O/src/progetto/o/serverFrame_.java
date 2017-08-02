@@ -165,16 +165,11 @@ public class serverFrame_ extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        Intestazione = new javax.swing.JLabel();
+        Avvia_Vot = new javax.swing.JButton();
+        Logo01 = new javax.swing.JLabel();
+        Logo02 = new javax.swing.JLabel();
+        DataAvvio = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -182,72 +177,60 @@ public class serverFrame_ extends javax.swing.JFrame {
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
+        LabelAffluenza = new javax.swing.JLabel();
+        LabelVoti = new javax.swing.JLabel();
+        Vot_Status = new javax.swing.JLabel();
+        Vot_Status_Lab = new javax.swing.JLabel();
+        DataAvvio_Lab = new javax.swing.JLabel();
+        DataChiusura_Lab = new javax.swing.JLabel();
+        DataChiusura = new javax.swing.JTextField();
+        Pannello_ColumnChart = new javax.swing.JPanel();
+        Avvia_Vot1 = new javax.swing.JButton();
+        LabelVoti1 = new javax.swing.JLabel();
         Pannello_LineChart = new javax.swing.JPanel();
+        Pannello_CakeChart = new javax.swing.JPanel();
+        LabelVoti2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
+        setResizable(false);
+        getContentPane().setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 255, 0));
-        jLabel3.setText("VOTAZIONI APERTE");
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Intestazione.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        Intestazione.setText("PANNELLO AMMINISTRAZIONE ELEZIONI");
+        getContentPane().add(Intestazione);
+        Intestazione.setBounds(690, 100, 500, 63);
 
-        jButton4.setText("Avvia");
+        Avvia_Vot.setText("Stop");
+        Avvia_Vot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Avvia_VotActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Avvia_Vot);
+        Avvia_Vot.setBounds(430, 330, 201, 43);
 
-        jButton5.setText("Stop");
+        Logo01.setIcon(new ImageIcon("Immagini/Logo_Server.png")); // RELATIVE PATH
+        getContentPane().add(Logo01);
+        Logo01.setBounds(490, 31, 190, 190);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 549, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
+        Logo02.setIcon(new ImageIcon("Immagini/Logo_Server.png")); // RELATIVE PATH
+        getContentPane().add(Logo02);
+        Logo02.setBounds(1216, 31, 190, 190);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel2.setText("Informazioni:");
-
-        jLabel4.setText("Voti totali:");
-
-        jTextField1.setEditable(false);
-
-        jLabel5.setText("Numero candidati");
-
-        jTextField2.setEditable(false);
-
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel3.setPreferredSize(new java.awt.Dimension(1, 100));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        DataAvvio.setEditable(false);
+        DataAvvio.setText("GG - MM - YYYY");
+        DataAvvio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DataAvvioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(DataAvvio);
+        DataAvvio.setBounds(63, 452, 246, 48);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setText("Gestione candidati");
@@ -289,7 +272,7 @@ public class serverFrame_ extends javax.swing.JFrame {
                         .addComponent(Modifica_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Rimuovi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(177, Short.MAX_VALUE))
+                        .addContainerGap(152, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -310,68 +293,83 @@ public class serverFrame_ extends javax.swing.JFrame {
                     .addComponent(Aggiungi_Candidato)
                     .addComponent(Rimuovi_Candidato)
                     .addComponent(Modifica_Candidato))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(70, 670, 503, 372);
+
+        LabelAffluenza.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelAffluenza.setText("Affluenza Votanti nelle relative Giornate");
+        getContentPane().add(LabelAffluenza);
+        LabelAffluenza.setBounds(1380, 260, 390, 40);
+
+        LabelVoti.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelVoti.setText("VINCITORE");
+        getContentPane().add(LabelVoti);
+        LabelVoti.setBounds(970, 260, 110, 43);
+
+        Vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        getContentPane().add(Vot_Status);
+        Vot_Status.setBounds(40, 280, 352, 84);
+
+        Vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        Vot_Status_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        Vot_Status_Lab.setText("Status Votazioni :");
+        getContentPane().add(Vot_Status_Lab);
+        Vot_Status_Lab.setBounds(63, 239, 171, 30);
+
+        Vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        DataAvvio_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        DataAvvio_Lab.setText("Data Inizio Elezioni :");
+        getContentPane().add(DataAvvio_Lab);
+        DataAvvio_Lab.setBounds(63, 400, 198, 43);
+
+        Vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        DataChiusura_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        DataChiusura_Lab.setText("Data Chiusura Elezioni :");
+        getContentPane().add(DataChiusura_Lab);
+        DataChiusura_Lab.setBounds(63, 527, 232, 43);
+
+        DataChiusura.setEditable(false);
+        DataChiusura.setText("GG - MM - YYYY");
+        DataChiusura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DataChiusuraActionPerformed(evt);
+            }
+        });
+        getContentPane().add(DataChiusura);
+        DataChiusura.setBounds(63, 579, 246, 48);
+
+        Pannello_ColumnChart.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(Pannello_ColumnChart);
+        Pannello_ColumnChart.setBounds(1280, 330, 550, 330);
+
+        Avvia_Vot1.setText("Avvia");
+        getContentPane().add(Avvia_Vot1);
+        Avvia_Vot1.setBounds(430, 280, 201, 43);
+
+        LabelVoti1.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelVoti1.setText("Voti relativi ai Candidati");
+        getContentPane().add(LabelVoti1);
+        LabelVoti1.setBounds(1450, 680, 220, 43);
 
         Pannello_LineChart.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(Pannello_LineChart);
+        Pannello_LineChart.setBounds(1280, 730, 550, 330);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Pannello_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(96, 96, 96))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)))
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Pannello_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        Pannello_CakeChart.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(Pannello_CakeChart);
+        Pannello_CakeChart.setBounds(720, 730, 550, 330);
+
+        LabelVoti2.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelVoti2.setText("Percentuale Uomini/Donne");
+        getContentPane().add(LabelVoti2);
+        LabelVoti2.setBounds(880, 690, 260, 43);
+
+        jLabel1.setText("FOTO VINCITORE");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(900, 340, 250, 250);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -398,6 +396,18 @@ public class serverFrame_ extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_Modifica_CandidatoActionPerformed
+
+    private void DataAvvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataAvvioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DataAvvioActionPerformed
+
+    private void DataChiusuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataChiusuraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DataChiusuraActionPerformed
+
+    private void Avvia_VotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Avvia_VotActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Avvia_VotActionPerformed
 
     /**
      * @param args the command line arguments
@@ -437,22 +447,30 @@ public class serverFrame_ extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aggiungi_Candidato;
+    private javax.swing.JButton Avvia_Vot;
+    private javax.swing.JButton Avvia_Vot1;
     private javax.swing.JList<String> Candidati_list;
+    private javax.swing.JTextField DataAvvio;
+    private javax.swing.JLabel DataAvvio_Lab;
+    private javax.swing.JTextField DataChiusura;
+    private javax.swing.JLabel DataChiusura_Lab;
+    private javax.swing.JLabel Intestazione;
+    private javax.swing.JLabel LabelAffluenza;
+    private javax.swing.JLabel LabelVoti;
+    private javax.swing.JLabel LabelVoti1;
+    private javax.swing.JLabel LabelVoti2;
+    private javax.swing.JLabel Logo01;
+    private javax.swing.JLabel Logo02;
     private javax.swing.JButton Modifica_Candidato;
+    private javax.swing.JPanel Pannello_CakeChart;
+    private javax.swing.JPanel Pannello_ColumnChart;
     private javax.swing.JPanel Pannello_LineChart;
     private javax.swing.JButton Rimuovi_Candidato;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel Vot_Status;
+    private javax.swing.JLabel Vot_Status_Lab;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

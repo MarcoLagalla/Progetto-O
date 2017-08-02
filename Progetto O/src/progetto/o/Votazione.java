@@ -18,10 +18,8 @@ public class Votazione {
     public Votazione(String _idVotazione) { // costruttore
         this.idVotazione = _idVotazione;
     }
+
     
     
-    public apriVotazione() {
-        
-    }
     
 }
