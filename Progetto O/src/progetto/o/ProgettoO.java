@@ -31,12 +31,6 @@ public class ProgettoO{
     // Elementi Grafici Swing per CLIENT_FRAME
     public static JFrame clientFrame;
     
-    private javax.swing.JLabel CognomeLab;
-    private javax.swing.JLabel FotoLab;
-    private javax.swing.JLabel NomeLab;
-    private javax.swing.JLabel PartitoLab;
-    private javax.swing.JButton Vota;
-    private javax.swing.JPanel jPanel1;
     private JLabel Client_Label;
     private JPanel client_panel; //GRIGLIA
      
@@ -141,12 +135,10 @@ private void prepareGUI() {         // Creazione finestra principale (login user
 
         Enter = new JButton("");   // COMPLETARE  RESIZE
         Enter.setActionCommand("Registrazione");
-        Enter.setBounds(280, 400, 300, 90);
+        Enter.setBounds(460, 400, 300, 90);
         
         ImageIcon icon = new ImageIcon(".\\Immagini\\Button_Registrazione.png");
-        Enter.setIcon(icon);
-        int offset = Enter.getInsets().left;
-        Enter.setIcon(resizeIcon(icon, Enter.getWidth() - offset, Enter.getHeight() - offset));
+        Enter.setIcon(resizeIcon(icon, Enter.getWidth() , Enter.getHeight() ));
         
         Enter.addActionListener(new ButtonClickListener());
 
@@ -161,7 +153,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
             }
         }); 
 
-         background_panel.add(AdmLog_Button);
+        background_panel.add(AdmLog_Button);
         
         background_panel.getInputMap(c).put(key, "call_Action");
         background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
