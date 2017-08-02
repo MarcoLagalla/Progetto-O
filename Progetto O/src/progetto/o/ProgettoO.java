@@ -10,11 +10,7 @@ import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.BoxLayout;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 
@@ -198,7 +194,6 @@ private void prepareAdminLoginGUI() {        // Creazione finestra Login per Adm
         
         AdmLog_ErrPwd = new JLabel();
         AdmLog_ErrPwd.setBounds(150, 220, 200, 25);
-       //error_AdminLogin.setBorder(BorderFactory.createLineBorder(Color.black));       -> attivare per vedere la posizione del JLabel sulla finestra, anche se non ha testo
         Admin_Login.add(AdmLog_ErrPwd);
         
         Admin_Login.setVisible(true);
@@ -320,8 +315,7 @@ public class ButtonClickListener implements ActionListener{
               
                    if (AdmLog_pwd.getPassword().length == admin_pwd.length) // se la lunghezza è diversa, evito il controllo
                         if (Arrays.equals(AdmLog_pwd.getPassword(), admin_pwd)) { 
-                               prepareServerGUI.setVisible(true);
-                               //Arrays.fill(AdmLog_pwd.getPassword(), '0');  // dopo che l'ho usato, azzero il char[] per ragioni di sicurezza
+                               prepareServerGUI.setVisible(true);                           
                                Admin_Login.dispose();
                                break; 
                         }
