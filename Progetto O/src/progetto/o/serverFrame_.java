@@ -200,10 +200,10 @@ public class serverFrame_ extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        Intestazione.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        Intestazione.setFont(new java.awt.Font("Calibri", 0, 28)); // NOI18N
         Intestazione.setText("PANNELLO AMMINISTRAZIONE ELEZIONI");
         getContentPane().add(Intestazione);
-        Intestazione.setBounds(690, 100, 500, 63);
+        Intestazione.setBounds(710, 100, 464, 63);
 
         Avvia_Vot.setText("Stop");
         Avvia_Vot.addActionListener(new java.awt.event.ActionListener() {
