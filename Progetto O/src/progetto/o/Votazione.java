@@ -43,5 +43,6 @@ public class Votazione {
     
     public void chiudiVotazione() {} 
     public void addVoto() {}
+    public void terminaGiornata() {}
 
 }
