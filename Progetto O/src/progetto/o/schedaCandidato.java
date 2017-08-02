@@ -177,7 +177,7 @@ public class schedaCandidato extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VotaActionPerformed
-        // TODO add your handling code here:
+  
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler votare per: " + Nome.getText() + " " + Cognome.getText() + " del " + Partito.getText() + "?", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION)
             {
@@ -189,7 +189,7 @@ public class schedaCandidato extends javax.swing.JPanel {
                    voti = voti +1;
                    int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + CF.getText() + "';");
                    if (res != 0 ) {
-                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
+                      JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
                       ProgettoO.clientFrame.dispose();
                        
                    } else {

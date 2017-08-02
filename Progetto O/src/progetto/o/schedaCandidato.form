@@ -26,7 +26,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" max="-2" attributes="0"/>
+          <Component id="jPanel1" min="535" pref="535" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -80,7 +80,7 @@
                   <Component id="Cognome" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="Partito" min="-2" pref="45" max="-2" attributes="0"/>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="Vota" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
