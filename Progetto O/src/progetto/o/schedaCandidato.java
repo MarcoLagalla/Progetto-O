@@ -183,7 +183,7 @@ public class schedaCandidato extends javax.swing.JPanel {
             {
                int voti;
                ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + CF.getText() + "';");
-<<<<<<< HEAD
+
             try {
                 while (voti_.next()) {
                    voti = voti_.getInt("Voti");
@@ -196,19 +196,6 @@ public class schedaCandidato extends javax.swing.JPanel {
                    } else {
                        JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
                    }
-=======
-                try {
-                    while (voti_.next()) {
-                        voti = voti_.getInt("Voti");
-                        voti = voti +1;
-                        int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + CF.getText() + "';");
-                        if (res != 0 ) {
-                            JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
-                            ProgettoO.clientFrame.dispose();                       
-                        } else {
-                            JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
-                        }
->>>>>>> origin/master
                 }
                 } catch (SQLException ex) {
                
