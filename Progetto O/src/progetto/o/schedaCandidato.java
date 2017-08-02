@@ -43,7 +43,7 @@ public class schedaCandidato extends javax.swing.JPanel {
         setPartito(Partito);
     }
     
-    public void setImage(URL img_) {
+    private void setImage(URL img_) {
         ImageIcon img;
        try {
            img = new ImageIcon(img_);
@@ -58,16 +58,16 @@ public class schedaCandidato extends javax.swing.JPanel {
         Foto.setIcon(resizeIcon(img, Foto.getWidth(), Foto.getHeight()));
     }
     
-    public void setCF(String cf) {
+    private void setCF(String cf) {
         CF.setText(cf);
     }
-    public void setNome(String nome) {
+    private void setNome(String nome) {
         Nome.setText(nome);
     }
-    public void setCognome(String cognome) {
+    private void setCognome(String cognome) {
         Cognome.setText(cognome);
     }
-    public void setPartito(String partito) {
+    private void setPartito(String partito) {
         Partito.setText(partito);
     }
     
@@ -183,6 +183,7 @@ public class schedaCandidato extends javax.swing.JPanel {
             {
                int voti;
                ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + CF.getText() + "';");
+<<<<<<< HEAD
             try {
                 while (voti_.next()) {
                    voti = voti_.getInt("Voti");
@@ -195,10 +196,23 @@ public class schedaCandidato extends javax.swing.JPanel {
                    } else {
                        JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
                    }
+=======
+                try {
+                    while (voti_.next()) {
+                        voti = voti_.getInt("Voti");
+                        voti = voti +1;
+                        int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + CF.getText() + "';");
+                        if (res != 0 ) {
+                            JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
+                            ProgettoO.clientFrame.dispose();                       
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
+                        }
+>>>>>>> origin/master
                 }
-            } catch (SQLException ex) {
+                } catch (SQLException ex) {
                
-            }
+                }
             }
     }//GEN-LAST:event_VotaActionPerformed
 private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
@@ -207,23 +221,7 @@ private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeig
     return new ImageIcon(resizedImage);
 }
 
-public void restart() {
-          StringBuilder cmd = new StringBuilder();
-            cmd.append(System.getProperty("java.home") + File.separator + "bin" + File.separator + "java ");
-            for (String jvmArg : ManagementFactory.getRuntimeMXBean().getInputArguments()) {
-                cmd.append(jvmArg + " ");
-            }
-            cmd.append("-cp ").append(ManagementFactory.getRuntimeMXBean().getClassPath()).append(" ");
-            cmd.append(Window.class.getName()).append(" ");
 
-            try {
-                Runtime.getRuntime().exec(cmd.toString());
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            System.exit(0);
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CF;
     private javax.swing.JLabel Cognome;
