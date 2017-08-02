@@ -110,7 +110,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         mainFrame.add(background_panel);
         
         Image_Icon = new JLabel();
-        Image_Icon.setIcon(new ImageIcon(".\\Immagini\\Logo.png")); // RELATIVE PATH
+        Image_Icon.setIcon(new ImageIcon("Immagini/Logo.png")); // RELATIVE PATH
         Image_Icon.setBounds(860,180, 350, 395);
         background_panel.add(Image_Icon, BorderLayout.CENTER);
         
@@ -147,7 +147,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         Enter.setActionCommand("Registrazione");
         Enter.setBounds(280, 400, 300, 90);
         
-        ImageIcon icon = new ImageIcon(".\\Immagini\\Button_Registrazione.png");
+        ImageIcon icon = new ImageIcon("Immagini/Button_Registrazione.png");
         Enter.setIcon(icon);
         int offset = Enter.getInsets().left;
         Enter.setIcon(resizeIcon(icon, Enter.getWidth() - offset, Enter.getHeight() - offset));
