@@ -7,11 +7,15 @@ package progetto.o;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+
+
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import javax.swing.JOptionPane;
 /**
  *
  * @author marcolagalla
@@ -65,7 +69,7 @@ public class FTPConnection {
                remotePath = remotePath.concat("/" + fileName);
            }
 */
-           InputStream input = new FileInputStream(new File(localPath));
+            InputStream input = new FileInputStream(new File(localPath));
            boolean done = ftpclient.storeFile(remotePath, input);
             return done;
        } catch(java.io.IOException ex) {
@@ -84,6 +88,5 @@ public class FTPConnection {
        }
         
    }
-   
-   
+    
 }

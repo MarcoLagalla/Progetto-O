@@ -137,7 +137,7 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         Enter.setActionCommand("Registrazione");
         Enter.setBounds(460, 400, 300, 90);
         
-        ImageIcon icon = new ImageIcon(".\\Immagini\\Button_Registrazione.png");
+        ImageIcon icon = new ImageIcon("Immagini/Button_Registrazione.png");
         Enter.setIcon(resizeIcon(icon, Enter.getWidth() , Enter.getHeight() ));
 
         Enter.addActionListener(new ButtonClickListener());

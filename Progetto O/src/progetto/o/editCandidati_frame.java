@@ -20,7 +20,7 @@ public class editCandidati_frame extends javax.swing.JFrame {
     FTPConnection myftp = new FTPConnection();
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     String path_img = "";
-    
+    static String SERVER = "http://91.134.138.244/progettoO/img/";
     String candidatoCF;
     /**
      * Creates new form editCandidati_frame
@@ -263,14 +263,20 @@ public class editCandidati_frame extends javax.swing.JFrame {
     private void confermaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButtonActionPerformed
         // TODO add your handling code here:
         myftp.loadFile(path_img,IMG_REMOTE_FOLDER + "/" + input_codicefiscale_candidato.getText() + ".jpg");
-        
+        int ret = mysql.UpdateQuery("UPDATE CANDIDATI SET Partito='" + input_partito_candidato.getText() + "' , Immagine='" + SERVER + input_codicefiscale_candidato.getText() + ".jpg" + "' WHERE CodiceFiscale='" + input_codicefiscale_candidato.getText() + "';");
      
-      //  int ret = mysql.UpdateQuery("UPDATE CANDIDATI SET Partito='" + input_partito_candidato.getText() + "' , Immagine='" + + "' WHERE CodiceFiscale='" + input_codicefiscale_candidato.getText()+ "';");
-        int ret = 0;
-      //  int ret = mysql.WritePersoneColumns(input_codicefiscale_candidato.getText(), input_nome_candidato.getText(), input_cognome_candidato.getText(), input_sesso_candidato.getSelectedItem().toString(), input_datanascita_candidato.getText(), input_comune_candidato.getText());
-        int ret2 = mysql.WriteCandidatiColumns(input_codicefiscale_candidato.getText(), input_partito_candidato.getText(), 0,IMG_REMOTE_FOLDER + "/" + input_codicefiscale_candidato.getText() + ".jpg");
-        if (ret != 0 && ret2 != 0) {
-            JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
+        /*
+        
+        ======>>>  mettere update di persone!!!
+        
+        */
+
+
+//  int ret = mysql.WritePersoneColumns(input_codicefiscale_candidato.getText(), input_nome_candidato.getText(), input_cognome_candidato.getText(), input_sesso_candidato.getSelectedItem().toString(), input_datanascita_candidato.getText(), input_comune_candidato.getText());
+      //  int ret2 = mysql.WriteCandidatiColumns(input_codicefiscale_candidato.getText(), input_partito_candidato.getText(), 0,IMG_REMOTE_FOLDER + "/" + input_codicefiscale_candidato.getText() + ".jpg");
+        if (ret != 0 ) {
+            JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
             new serverFrame_().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
@@ -284,6 +290,11 @@ public class editCandidati_frame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione svuoterà tutti i campi.", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION)
+            {
+                clear();
+            }
     }//GEN-LAST:event_jButton2ActionPerformed
     
     private void fill() {
@@ -322,6 +333,17 @@ public class editCandidati_frame extends javax.swing.JFrame {
                 input_sesso_candidato.setSelectedIndex(1);
         }
     }
+    }
+    
+    
+    private void clear() {
+        input_nome_candidato.setText(null);
+        input_cognome_candidato.setText(null);
+        input_codicefiscale_candidato.setText(null);
+        input_partito_candidato.setText(null);
+        input_comune_candidato.setText(null);
+        input_datanascita_candidato.setText(null);
+        foto.setIcon(null);
     }
     /**
      * @param args the command line arguments

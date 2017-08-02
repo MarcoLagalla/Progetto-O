@@ -19,9 +19,9 @@ public class Votazione {
         this.idVotazione = _idVotazione;
     }
     
-    
+    /*
     public apriVotazione() {
         
     }
-    
+    */
 }
