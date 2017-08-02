@@ -66,6 +66,7 @@ public class serverFrame_ extends javax.swing.JFrame {
             // CUSTOM GRAPHICS
             
             XYPlot plot = chart.getXYPlot();
+            
             XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
             plot.setRenderer(renderer);
             

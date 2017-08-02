@@ -102,6 +102,11 @@ public class editCandidati_frame extends javax.swing.JFrame {
         });
 
         jButton2.setText("Reset");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         confermaButton.setText("Conferma");
         confermaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +263,11 @@ public class editCandidati_frame extends javax.swing.JFrame {
     private void confermaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButtonActionPerformed
         // TODO add your handling code here:
         myftp.loadFile(path_img,IMG_REMOTE_FOLDER + "/" + input_codicefiscale_candidato.getText() + ".jpg");
-        int ret = mysql.WritePersoneColumns(input_codicefiscale_candidato.getText(), input_nome_candidato.getText(), input_cognome_candidato.getText(), input_sesso_candidato.getSelectedItem().toString(), input_datanascita_candidato.getText(), input_comune_candidato.getText());
+        
+     
+      //  int ret = mysql.UpdateQuery("UPDATE CANDIDATI SET Partito='" + input_partito_candidato.getText() + "' , Immagine='" + + "' WHERE CodiceFiscale='" + input_codicefiscale_candidato.getText()+ "';");
+        int ret = 0;
+      //  int ret = mysql.WritePersoneColumns(input_codicefiscale_candidato.getText(), input_nome_candidato.getText(), input_cognome_candidato.getText(), input_sesso_candidato.getSelectedItem().toString(), input_datanascita_candidato.getText(), input_comune_candidato.getText());
         int ret2 = mysql.WriteCandidatiColumns(input_codicefiscale_candidato.getText(), input_partito_candidato.getText(), 0,IMG_REMOTE_FOLDER + "/" + input_codicefiscale_candidato.getText() + ".jpg");
         if (ret != 0 && ret2 != 0) {
             JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
@@ -272,6 +281,10 @@ public class editCandidati_frame extends javax.swing.JFrame {
         // TODO add your handling code here:
         new serverFrame_().setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void fill() {
            ArrayList<candidati> can = mysql.ReadCandidatiColumns();

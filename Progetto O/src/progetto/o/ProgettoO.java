@@ -33,7 +33,7 @@ public class ProgettoO{
     private JPanel background_panel;
     
     // Elementi Grafici Swing per CLIENT_FRAME
-    private JFrame clientFrame;
+    public static JFrame clientFrame;
     
     private javax.swing.JLabel CognomeLab;
     private javax.swing.JLabel FotoLab;
@@ -204,26 +204,17 @@ private void prepareAdminLoginGUI() {        // Creazione finestra Login per Adm
         Admin_Login.setVisible(true);
     }      
 
-////////////////////////////////////////////////////////////////////////////////
-
-/*private void prepareServerGUI(){        // Creazione finestra Server (dopo Admin Login)
-    
-
-    }        
-*/
-
-////////////////////////////////////////////////////////////////////////////////
 
 private void prepareClientGUI(){            // Creazione finestra votazione (dopo user login)
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
         
-       clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         clientFrame.setLayout(new BorderLayout());
          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         clientFrame.setPreferredSize(screenSize);
         clientFrame.setSize(screenSize);
-       clientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        clientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         clientFrame.setResizable(false);
         
         
@@ -232,33 +223,28 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
                prepareGUI();
             }
         });
+        
         Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
         Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
         Client_Label.setBounds(50, 10, 1000, 50);
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
         JPanel contPane = new JPanel();
-        
-    //    contPane.setBounds(0,0,1276,802);
+
         clientFrame.setContentPane(contPane);
         GridLayout experimentLayout = new GridLayout(0,4,8,20);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
         
-        client_panel = new JPanel(experimentLayout); 
-        
-       
-       ArrayList<candidati> can = mysql.ReadCandidatiColumns();
+      client_panel = new JPanel(experimentLayout); 
+        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
        
        for (candidati object: can) {
           
          schedaCandidato scheda = new schedaCandidato(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
-          client_panel.add(scheda);
-          
-        //   scheda.setBounds(0, 0, 300, 500);
-          // client_panel.add(scheda);
-          // client_panel.add(createPan(object.getImmagine(),object.getNome(), object.getCognome(), object.getPartito()));, 
+         client_panel.add(scheda);
+        
         }
        
-        client_panel.setVisible(true);
+       client_panel.setVisible(true);
         
        JScrollPane scrollable = new JScrollPane(client_panel);
        scrollable.setViewportView(client_panel);
@@ -266,16 +252,9 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
        scrollable.setSize(clientFrame.getSize());
        scrollable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
        scrollable.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-      clientFrame.getContentPane().add(scrollable);
-      
-
-       
-      
-        
-       // clientFrame.setContentPane(client_panel);
-        clientFrame.setVisible(true);
-        
-        clientFrame.pack();
+       clientFrame.getContentPane().add(scrollable);
+       clientFrame.setVisible(true);
+       clientFrame.pack();
     }       
 
 /*_________________________BUTTON LISTENER____________________________________*/
@@ -374,6 +353,9 @@ public class ButtonClickListener implements ActionListener{
     }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 // Metodo Grafico per definire dimensioni Immagine
 

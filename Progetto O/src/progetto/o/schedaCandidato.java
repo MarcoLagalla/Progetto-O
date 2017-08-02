@@ -6,6 +6,7 @@
 package progetto.o;
 
 import java.awt.Image;
+import java.awt.Window;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -15,8 +16,9 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.lang.management.ManagementFactory;
+import java.io.File;
+import java.io.IOException;
 /**
  *
  * @author marco
@@ -188,9 +190,8 @@ public class schedaCandidato extends javax.swing.JPanel {
                    int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + CF.getText() + "';");
                    if (res != 0 ) {
                        JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
-                       JFrame frm = (JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-                       frm.dispose();
-                       new ProgettoO();
+                      ProgettoO.clientFrame.dispose();
+                       
                    } else {
                        JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
                    }
@@ -205,6 +206,24 @@ private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeig
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
 }
+
+public void restart() {
+          StringBuilder cmd = new StringBuilder();
+            cmd.append(System.getProperty("java.home") + File.separator + "bin" + File.separator + "java ");
+            for (String jvmArg : ManagementFactory.getRuntimeMXBean().getInputArguments()) {
+                cmd.append(jvmArg + " ");
+            }
+            cmd.append("-cp ").append(ManagementFactory.getRuntimeMXBean().getClassPath()).append(" ");
+            cmd.append(Window.class.getName()).append(" ");
+
+            try {
+                Runtime.getRuntime().exec(cmd.toString());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            System.exit(0);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CF;
     private javax.swing.JLabel Cognome;
