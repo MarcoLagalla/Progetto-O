@@ -5,6 +5,8 @@
  */
 package progetto.o;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -14,12 +16,20 @@ import java.util.Calendar;
 public class Votazione {
     
     private String idVotazione;
+    private final DateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+    private String dataCorrente;
+    private String dataInizioVot;
+    private String dataFineVot;
     
-    public Votazione(String _idVotazione) { // costruttore
+    public Votazione(String _idVotazione, String dataFine) { // costruttore
         this.idVotazione = _idVotazione;
+        Calendar cal = Calendar.getInstance();
+        String data = f.format(cal);
+        this.dataInizioVot = dataCorrente;
+        this.dataFineVot = dataFine;
     }
 
-    
+
     
     
 }
