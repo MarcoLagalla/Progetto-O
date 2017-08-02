@@ -185,12 +185,13 @@ public class serverFrame_ extends javax.swing.JFrame {
         DataChiusura_Lab = new javax.swing.JLabel();
         DataChiusura = new javax.swing.JTextField();
         Pannello_ColumnChart = new javax.swing.JPanel();
-        Avvia_Vot1 = new javax.swing.JButton();
+        AvanzaGiorno = new javax.swing.JButton();
         LabelVoti1 = new javax.swing.JLabel();
         Pannello_LineChart = new javax.swing.JPanel();
         Pannello_CakeChart = new javax.swing.JPanel();
         LabelVoti2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        Avvia_Vot2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -345,9 +346,16 @@ public class serverFrame_ extends javax.swing.JFrame {
         getContentPane().add(Pannello_ColumnChart);
         Pannello_ColumnChart.setBounds(1280, 330, 550, 330);
 
-        Avvia_Vot1.setText("Avvia");
-        getContentPane().add(Avvia_Vot1);
-        Avvia_Vot1.setBounds(430, 280, 201, 43);
+        AvanzaGiorno.setFont(new java.awt.Font("28 Days Later", 0, 24)); // NOI18N
+        AvanzaGiorno.setForeground(new java.awt.Color(120, 29, 3));
+        AvanzaGiorno.setText("Avanza Giorno");
+        AvanzaGiorno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AvanzaGiornoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AvanzaGiorno);
+        AvanzaGiorno.setBounds(430, 510, 201, 43);
 
         LabelVoti1.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         LabelVoti1.setText("Voti relativi ai Candidati");
@@ -370,6 +378,10 @@ public class serverFrame_ extends javax.swing.JFrame {
         jLabel1.setText("FOTO VINCITORE");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(900, 340, 250, 250);
+
+        Avvia_Vot2.setText("Avvia");
+        getContentPane().add(Avvia_Vot2);
+        Avvia_Vot2.setBounds(430, 280, 201, 43);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -409,6 +421,10 @@ public class serverFrame_ extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Avvia_VotActionPerformed
 
+    private void AvanzaGiornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvanzaGiornoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AvanzaGiornoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,8 +463,9 @@ public class serverFrame_ extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aggiungi_Candidato;
+    private javax.swing.JButton AvanzaGiorno;
     private javax.swing.JButton Avvia_Vot;
-    private javax.swing.JButton Avvia_Vot1;
+    private javax.swing.JButton Avvia_Vot2;
     private javax.swing.JList<String> Candidati_list;
     private javax.swing.JTextField DataAvvio;
     private javax.swing.JLabel DataAvvio_Lab;
