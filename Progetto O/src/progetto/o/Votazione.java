@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Votazione {
 
@@ -41,8 +43,27 @@ public class Votazione {
     
 /*_______________________________________METODI____________________________________________*/
     
-    public void chiudiVotazione() {} 
-    public void addVoto() {}
-    public void terminaGiornata() {}
+    public void chiudiVotazione() { // chiude il turno delle votazioni.
+        resetVoti();
+    } 
+    public void addVoto() { // incrementa il numero dei voti nella giornata corrente, nella tabella VOTAZIONI
+        int voti;
+        ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM VOTAZIONI WHERE Data = '" + dataCorrente + "';");
+        try {
+            voti = voti_.getInt("Voti");
+            voti++;
+            mysql.UpdateQuery("UPDATE VOTAZIONI SET Voti=" + voti + ";");
+        } catch (SQLException ex) {
+            Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    public void terminaGiornata() { // incrementa la data corrente
+        // 1) incrementa la data
+        // 2) aggiungi una riga in VOTAZIONI, con la data corrente (cioè di domani)
+    }
 
+    private void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
+            mysql.UpdateQuery("UPDATE VOTANTI SET Voti=" + 0 + ";");
+    }
 }
