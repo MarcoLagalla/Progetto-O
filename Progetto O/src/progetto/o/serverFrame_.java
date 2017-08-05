@@ -10,6 +10,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 // Imports needed from JFREECHART_LIBRARY
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -24,7 +27,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class serverFrame_ extends javax.swing.JFrame {
 
-    
+    MySQlConnection mysql = new MySQlConnection();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public serverFrame_() {
@@ -113,6 +116,29 @@ public class serverFrame_ extends javax.swing.JFrame {
                 XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series fanno parte dell' IMPORT
                 XYSeries series1 = new XYSeries("Object 1"); // DataSet
                 
+                // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
+                
+                /*
+                ResultSet data_ = mysql.ExecuteQuery("SELECT Data FROM" ++ "WHERE CodiceFiscale='" + CF.getText() + "';");
+                
+                try {
+                    while (voti_.next()) {
+                       voti = voti_.getInt("Voti");
+                       voti = voti +1;
+                       int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + CF.getText() + "';");
+                       if (res != 0 ) {
+                          JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
+                          ProgettoO.clientFrame.dispose();
+                       
+                   }else{
+                       JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
+                   }
+                }
+                } catch (SQLException ex) {
+               
+                }
+                */
+                
                 // Qui ci vogliono i GET
                 series1.add(1.0, 2.0); 
                 series1.add(2.0, 3.0);
@@ -137,7 +163,6 @@ public class serverFrame_ extends javax.swing.JFrame {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     
-    MySQlConnection mysql = new MySQlConnection();
     /**
      * Creates new form serverFrame_
      */

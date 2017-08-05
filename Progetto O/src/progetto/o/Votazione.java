@@ -18,18 +18,29 @@ public class Votazione {
 
 /*____________________________________STATO INTERNO________________________________________*/
     
-    private String idVotazione;
-    private final DateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-    private Calendar dataCorrente;
-    private Calendar dataInizioVot;
-    private Calendar dataFineVot;
-    private MySQlConnection mysql = new MySQlConnection();
-    private int Affluenza = 0;
+    private static String idVotazione;
+    private static final DateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+    private static Calendar dataCorrente;
+    private static Calendar dataInizioVot;
+    private static Calendar dataFineVot;
+    private static MySQlConnection mysql = new MySQlConnection();
+    private static int Affluenza = 0;
  
 /*____________________________________COSTRUTTORI__________________________________________*/
     
-    public Votazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
-        this.idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
+    private Votazione(){} // Costruttore Privato in Quanto Classe di Metodi Statici
+    
+/*____________________________________METODI GET SET________________________________________*/
+
+    public static String getIdVotazione() {
+        return idVotazione;
+    }
+    
+/*_______________________________________METODI____________________________________________*/
+    
+   public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
+        idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
+        
         
         try {   
             int res = mysql.UpdateQuery("CREATE TABLE `db`.`" + idVotazione+ "` ( ` Data` VARCHAR(45) NULL DEFAULT NULL,`Affluenza` INT NULL DEFAULT 0, PRIMARY KEY (`Data`)) ENGINE = InnoDB DEFAULT CHARACTER SET = latin1;");
@@ -38,28 +49,24 @@ public class Votazione {
                        }
             Calendar cal = Calendar.getInstance();
             String data = f.format(cal);
-            this.dataCorrente = cal;
+            dataCorrente = cal;
             
             
-            this.dataInizioVot = dataCorrente;
-            cal.setTime(f.parse(dataFine));// all done
-            this.dataFineVot = cal;
-        } catch (Exception ex) {ex.printStackTrace();}
+            dataInizioVot = dataCorrente;
+            cal.setTime(f.parse(dataFine));
+            dataFineVot = cal;
+        } catch (Exception ex) {ex.printStackTrace();}   
+    }    
+//__________________________________________________________________________________________________________________________________________ 
+    public static void chiudiVotazione() { // chiude il turno delle votazioni.       
+        resetVoti();   
     }
-    
-/*_______________________________________METODI____________________________________________*/
-    
-    public void chiudiVotazione() { // chiude il turno delle votazioni.
-        
-        resetVoti();
-        
-    } 
-    public void addAffluenza() { // incrementa il numero dei voti nella giornata corrente, nella tabella PRIMO TURNO(idVotazione)
-        Affluenza++;
-       
+//__________________________________________________________________________________________________________________________________________      
+    public static void addAffluenza() { // incrementa il numero dei voti nella giornata corrente, nella tabella PRIMO TURNO(idVotazione)
+        Affluenza++;     
     }
-    
-    public void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno
+//__________________________________________________________________________________________________________________________________________  
+    public static void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno
         
         // Update dell'Attributo AFFLUENZA e Azzeramento
         try {
@@ -79,12 +86,15 @@ public class Votazione {
 
         
     }
-
-    private void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
+//__________________________________________________________________________________________________________________________________________  
+    private static void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
             ArrayList<persone> pers = mysql.ReadPersoneColumns();
             for (persone obj: pers) {
                 mysql.UpdateQuery("UPDATE VOTANTI SET Voti=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
             }
             
     }
+    
+    
+    
 }
