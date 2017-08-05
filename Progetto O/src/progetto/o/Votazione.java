@@ -51,21 +51,16 @@ public class Votazione {
     } 
     public void addAffluenza() { // incrementa il numero dei voti nella giornata corrente, nella tabella PRIMO TURNO(idVotazione)
         Affluenza++;
-        
-        ResultSet voti_ = mysql.ExecuteQuery("SELECT Affluenza FROM " + idVotazione + "WHERE Data = '" + dataCorrente + "';");
        
-        try {
-            
-            mysql.UpdateQuery("UPDATE VOTAZIONI SET Voti=" + voti + ";");
-        } catch (SQLException ex) {
-            Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
     }
     
     public void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno
         
+        try {
+            mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + Affluenza + ";");
+        } catch (Exception ex) {
+            Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         // 1) incrementa la data
