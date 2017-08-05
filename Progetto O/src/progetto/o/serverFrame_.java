@@ -150,6 +150,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         ArrayList<candidati> can = mysql.ReadCandidatiColumns();
         javax.swing.DefaultListModel listModel;
         listModel = new javax.swing.DefaultListModel();
+        listModel.removeAllElements();
         for (candidati object: can) {
             String str = String.format("%s %s - %s",object.getNome().toString(), object.getCognome().toString(), object.getCF().toString());
             listModel.addElement(str);
@@ -234,6 +235,8 @@ public class serverFrame_ extends javax.swing.JFrame {
         getContentPane().add(DataAvvio);
         DataAvvio.setBounds(63, 452, 246, 48);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setText("Gestione candidati");
 
@@ -299,7 +302,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(70, 670, 503, 372);
+        jPanel4.setBounds(70, 670, 496, 358);
 
         LabelAffluenza.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         LabelAffluenza.setText("Affluenza Votanti nelle relative Giornate");
@@ -343,6 +346,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         getContentPane().add(DataChiusura);
         DataChiusura.setBounds(63, 579, 246, 48);
 
+        Pannello_ColumnChart.setBackground(new java.awt.Color(255, 255, 255));
         Pannello_ColumnChart.setLayout(new java.awt.BorderLayout());
         getContentPane().add(Pannello_ColumnChart);
         Pannello_ColumnChart.setBounds(1280, 330, 550, 330);
@@ -363,10 +367,12 @@ public class serverFrame_ extends javax.swing.JFrame {
         getContentPane().add(LabelVoti1);
         LabelVoti1.setBounds(1450, 680, 220, 43);
 
+        Pannello_LineChart.setBackground(new java.awt.Color(255, 255, 255));
         Pannello_LineChart.setLayout(new java.awt.BorderLayout());
         getContentPane().add(Pannello_LineChart);
         Pannello_LineChart.setBounds(1280, 730, 550, 330);
 
+        Pannello_CakeChart.setBackground(new java.awt.Color(255, 255, 255));
         Pannello_CakeChart.setLayout(new java.awt.BorderLayout());
         getContentPane().add(Pannello_CakeChart);
         Pannello_CakeChart.setBounds(720, 730, 550, 330);
@@ -411,6 +417,20 @@ public class serverFrame_ extends javax.swing.JFrame {
 
     private void Rimuovi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Rimuovi_CandidatoActionPerformed
         // TODO add your handling code here:
+        String candidato = Candidati_list.getSelectedValue();
+        if (!(candidato.equals("")) ) {
+            String[] tokens = candidato.split("-");    // slitta per ottenere il CF
+             String _cf = tokens[1];
+             _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
+        int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione cancellerà in maniera definitiva il candidato " + tokens[0] + ".", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION)
+            {
+                try {
+                    mysql.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + _cf + "';");
+                    loadCandidati();
+                } catch (Exception ex) {}
+            }
+        }
     }//GEN-LAST:event_Rimuovi_CandidatoActionPerformed
 
     private void Modifica_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modifica_CandidatoActionPerformed

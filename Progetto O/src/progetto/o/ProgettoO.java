@@ -229,11 +229,12 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
         clientFrame.add(Client_Label,BorderLayout.PAGE_START);
         
         JPanel contPane = new JPanel();
-
+        contPane.setBackground(Color.WHITE);
         clientFrame.setContentPane(contPane);
         GridLayout experimentLayout = new GridLayout(0,4,8,20);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
         
       client_panel = new JPanel(experimentLayout); 
+      client_panel.setBackground(Color.WHITE);
         ArrayList<candidati> can = mysql.ReadCandidatiColumns();
        
        for (candidati object: can) {
