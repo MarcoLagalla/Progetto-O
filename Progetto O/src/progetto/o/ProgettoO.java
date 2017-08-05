@@ -10,13 +10,16 @@ import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.*;
 import javax.swing.*;
-
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.MalformedURLException;
+import java.io.IOException;
 
 
 
 /*____________________________________STATO INTERNO________________________________________*/
 
-public class ProgettoO{
+public class ProgettoO {
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JTextField CF;
@@ -47,10 +50,10 @@ public class ProgettoO{
     
     private  char[] admin_pwd;                          
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
-    MySQlConnection mysql = new MySQlConnection();
+    MySQlConnection mysql; 
     
     // Istanzio serverFrame_ creato con JFrame Form
-    serverFrame_ prepareServerGUI = new serverFrame_();
+    serverFrame_ prepareServerGUI;
     
     // Definisco HotKey
     
@@ -59,7 +62,16 @@ public class ProgettoO{
 /*____________________________________COSTRUTTORI__________________________________________*/
 
     public ProgettoO() {
-        prepareGUI();
+        if ( netIsAvailable() ) {
+            mysql = new MySQlConnection();
+            prepareServerGUI = new serverFrame_();
+            prepareGUI();
+            
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"Non è stata rilevata alcuna connessione a internet.\nPer il funzionamento del programma è necessaria la connesiona a internet.\nVerificare la connessione di rete e riprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
     }
     
 /*_______________________________________METODI____________________________________________*/
@@ -340,7 +352,18 @@ public class ButtonClickListener implements ActionListener{
 
 ////////////////////////////////////////////////////////////////////////////////
 
-
+private static boolean netIsAvailable() {
+    try {
+        final URL url = new URL("http://www.google.com");
+        final URLConnection conn = url.openConnection();
+        conn.connect();
+        return true;
+    } catch (MalformedURLException e) {
+        throw new RuntimeException(e);
+    } catch (IOException e) {
+        return false;
+    }
+}
 
 
 // Metodo Grafico per definire dimensioni Immagine

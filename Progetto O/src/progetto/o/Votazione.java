@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 public class Votazione {
 
@@ -75,6 +76,10 @@ public class Votazione {
     }
 
     private void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
-            mysql.UpdateQuery("UPDATE VOTANTI SET Voti=" + 0 + ";");
+            ArrayList<persone> pers = mysql.ReadPersoneColumns();
+            for (persone obj: pers) {
+                mysql.UpdateQuery("UPDATE VOTANTI SET Voti=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
+            }
+            
     }
 }
