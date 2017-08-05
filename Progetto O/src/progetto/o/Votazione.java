@@ -23,19 +23,21 @@ public class Votazione {
     private String dataInizioVot;
     private String dataFineVot;
     private MySQlConnection mysql = new MySQlConnection();
+    private int Affluenza = 0;
     
 /*____________________________________COSTRUTTORI__________________________________________*/
     
-    public Votazione(String _idVotazione, String dataFine) { // il costruttore crea una tabella nel db, rileva la data corrente e definisce lo stato interno
-        this.idVotazione = _idVotazione;
+    public Votazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
+        this.idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
         
-        try {   // 
-            int res = mysql.UpdateQuery("CREATE TABLE " + idVotazione + "(Data String, NumeroVoti int)");
+        try {   
+            int res = mysql.UpdateQuery("CREATE TABLE `db`.`" + idVotazione+ "` ( ` Data` VARCHAR(45) NULL DEFAULT NULL,`Affluenza` INT NULL DEFAULT 0, PRIMARY KEY (`Data`)) ENGINE = InnoDB DEFAULT CHARACTER SET = latin1;");
                        if (res == 0 ) {
-                           System.out.println("errore query");
+                           System.out.println("Errore Query");
                        }
             Calendar cal = Calendar.getInstance();
             String data = f.format(cal);
+            
             this.dataInizioVot = dataCorrente;
             this.dataFineVot = dataFine;
         } catch (Exception ex) {ex.printStackTrace();}
@@ -46,21 +48,30 @@ public class Votazione {
     public void chiudiVotazione() { // chiude il turno delle votazioni.
         resetVoti();
     } 
-    public void addVoto() { // incrementa il numero dei voti nella giornata corrente, nella tabella VOTAZIONI
-        int voti;
-        ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM VOTAZIONI WHERE Data = '" + dataCorrente + "';");
+    public void addAffluenza() { // incrementa il numero dei voti nella giornata corrente, nella tabella PRIMO TURNO(idVotazione)
+        Affluenza++;
+        
+        ResultSet voti_ = mysql.ExecuteQuery("SELECT Affluenza FROM " + idVotazione + "WHERE Data = '" + dataCorrente + "';");
+       
         try {
-            voti = voti_.getInt("Voti");
-            voti++;
+            
             mysql.UpdateQuery("UPDATE VOTAZIONI SET Voti=" + voti + ";");
         } catch (SQLException ex) {
             Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
     }
-    public void terminaGiornata() { // incrementa la data corrente
+    
+    public void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno
+        
+        
+        
         // 1) incrementa la data
-        // 2) aggiungi una riga in VOTAZIONI, con la data corrente (cioè di domani)
+        
+        // 2) aggiungi una riga in N_TURNO, con la data corrente (cioè di domani)
+        
+        
     }
 
     private void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe

@@ -192,6 +192,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         LabelVoti2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Avvia_Vot2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -383,6 +384,22 @@ public class serverFrame_ extends javax.swing.JFrame {
         getContentPane().add(Avvia_Vot2);
         Avvia_Vot2.setBounds(430, 280, 201, 43);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1940, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1100, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(-10, -10, 1940, 1100);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -487,6 +504,7 @@ public class serverFrame_ extends javax.swing.JFrame {
     private javax.swing.JLabel Vot_Status_Lab;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
