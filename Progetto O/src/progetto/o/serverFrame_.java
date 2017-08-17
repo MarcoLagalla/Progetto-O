@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package progetto.o;
 
 import java.awt.BasicStroke;
@@ -23,13 +18,20 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-//______________________________________________________________________________
+
+// imports needed for DatePicker
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.border.EmptyBorder;
+
 
 public class serverFrame_ extends javax.swing.JFrame {
 
     MySQlConnection mysql = new MySQlConnection();
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*____________________________________COSTRUTTORI__________________________________________*/
+    
     public serverFrame_() {
             super("SERVER");
             setExtendedState(MAXIMIZED_BOTH);
@@ -46,6 +48,8 @@ public class serverFrame_ extends javax.swing.JFrame {
             //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
         }
+    
+/*_______________________________________METODI____________________________________________*/
 
         // CREAZIONE CHART PANEL (Pannello del Grafico)
     
@@ -159,9 +163,7 @@ public class serverFrame_ extends javax.swing.JFrame {
 
                 return dataset;
             
-        }                                                                                                                        
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+        }                                                                                                                          
     
     /**
      * Creates new form serverFrame_
@@ -199,7 +201,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<>();
+        Candidati_list = new javax.swing.JList<String>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
@@ -219,6 +221,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Avvia_Vot2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -327,7 +330,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(70, 670, 496, 358);
+        jPanel4.setBounds(70, 670, 492, 350);
 
         LabelAffluenza.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         LabelAffluenza.setText("Affluenza Votanti nelle relative Giornate");
@@ -417,15 +420,28 @@ public class serverFrame_ extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jButton1.setText("Scegli Data");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1940, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(338, 338, 338)
+                .addComponent(jButton1)
+                .addContainerGap(1517, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(598, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(479, 479, 479))
         );
 
         getContentPane().add(jPanel1);
@@ -487,9 +503,13 @@ public class serverFrame_ extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AvanzaGiornoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         //create frame new object  f
+         final JFrame f = new JFrame();
+         //set text which is collected by date picker i.e. set date 
+         DataChiusura.setText(new DatePicker(f).setPickedDate());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -523,6 +543,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         });
     }
 
+/*____________________________________STATO INTERNO________________________________________*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aggiungi_Candidato;
     private javax.swing.JButton AvanzaGiorno;
@@ -547,6 +568,7 @@ public class serverFrame_ extends javax.swing.JFrame {
     private javax.swing.JButton Rimuovi_Candidato;
     private javax.swing.JLabel Vot_Status;
     private javax.swing.JLabel Vot_Status_Lab;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
