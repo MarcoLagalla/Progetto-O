@@ -78,7 +78,6 @@ public class Votazione {
         Affluenza = 0;
         
         // Incrementa la data
-        
         dataCorrente.add(Calendar.DATE, 1); 
         
         // Aggiungi una riga in N_TURNO, con la data corrente (cioè di domani)
