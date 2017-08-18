@@ -193,6 +193,7 @@ public class schedaCandidato extends javax.swing.JPanel {
                    int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + CF.getText() + "';");
                    if (res != 0 ) {
                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
+                      Votazione.addAffluenza();
                       ProgettoO.clientFrame.dispose();
                        
                    } else {

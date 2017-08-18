@@ -21,7 +21,7 @@ public class DatePicker  {
         {
                 d = new JDialog();
                 d.setModal(true);
-                String[] header = { "Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat" };
+                String[] header = { "Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab" };
                 JPanel p1 = new JPanel(new GridLayout(7, 7));
                 p1.setPreferredSize(new Dimension(430, 120));
                 for (int x = 0; x < button.length; x++) 
@@ -42,13 +42,14 @@ public class DatePicker  {
                         if (x < 7)
                         {
                                 button[x].setText(header[x]);
-                                button[x].setForeground(Color.red);
+                                button[x].setForeground(Color.black);
+                                button[x].setBackground(Color.LIGHT_GRAY);
                         }
                         p1.add(button[x]);
                 }
                 JPanel p2 = new JPanel(new GridLayout(1, 3));
                 
-                JButton previous = new JButton("<< Previous");
+                JButton previous = new JButton("<< Indietro");
                 previous.addActionListener(new ActionListener() 
                 {
                         public void actionPerformed(ActionEvent ae) 
@@ -59,7 +60,7 @@ public class DatePicker  {
                 });
                 p2.add(previous);
                 p2.add(l);
-                JButton next = new JButton("Next >>");
+                JButton next = new JButton("Avanti >>");
                 next.addActionListener(new ActionListener()
                 {
                         public void actionPerformed(ActionEvent ae) 
@@ -82,7 +83,7 @@ public class DatePicker  {
         {
         	for (int x = 7; x < button.length; x++)
         	button[x].setText("");
-      	        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");	
+      	        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");	
                 java.util.Calendar cal = java.util.Calendar.getInstance();			
         	cal.set(year, month, 1);
         	int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
@@ -90,7 +91,7 @@ public class DatePicker  {
         	for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
         	button[x].setText("" + day);
         	l.setText(sdf.format(cal.getTime()));
-        	d.setTitle("Date Picker");
+        	d.setTitle("Selezionare una data");
         }
  
         public String setPickedDate() 

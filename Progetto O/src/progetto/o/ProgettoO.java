@@ -27,7 +27,7 @@ public class ProgettoO {
     private JLabel CodiceFis;
     private JLabel CodiceTes;
     private JLabel Image_Icon;
-    private JButton Enter;
+    private static JButton registrazione; // dichiaro statico per poterlo chiamare da altre classi
     private JLabel Intestazione;
     private JPanel background_panel;
     
@@ -56,7 +56,6 @@ public class ProgettoO {
     serverFrame_ prepareServerGUI;
     
     // Definisco HotKey
-    
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
 
 /*____________________________________COSTRUTTORI__________________________________________*/
@@ -81,8 +80,10 @@ public class ProgettoO {
        ProgettoO SwingControl = new ProgettoO();
     }
 ///////////////////////////////////////////
-   
-         
+
+    public static JButton getRegistrazione() {
+        return registrazione;
+    }
 
 private void prepareGUI() {         // Creazione finestra principale (login user)
     
@@ -145,16 +146,16 @@ private void prepareGUI() {         // Creazione finestra principale (login user
         background_panel.add(CT);
 //______________________________________________________________________________
 
-        Enter = new JButton("");   // COMPLETARE  RESIZE
-        Enter.setActionCommand("Registrazione");
-        Enter.setBounds(460, 400, 300, 90);
-        
-        ImageIcon icon = new ImageIcon("Immagini/Button_Registrazione.png");
-        Enter.setIcon(resizeIcon(icon, Enter.getWidth() , Enter.getHeight() ));
+        registrazione = new JButton("");   // COMPLETARE  RESIZE
+        registrazione.setActionCommand("Registrazione");
+        registrazione.setBounds(460, 400, 300, 90);
+        registrazione.setEnabled(false);
+        ImageIcon icon = new ImageIcon("Immagini/Button_Registrazione_Disabled.png");
+        registrazione.setIcon(resizeIcon(icon, registrazione.getWidth() , registrazione.getHeight() ));
 
-        Enter.addActionListener(new ButtonClickListener());
+        registrazione.addActionListener(new ButtonClickListener());
 
-        background_panel.add(Enter);
+        background_panel.add(registrazione);
         
         // Creo la shortcut (CTRL+A) che apre la finestra di Admin Login
          JButton AdmLog_Button = new JButton();
@@ -316,7 +317,7 @@ public class ButtonClickListener implements ActionListener{
 //______________________________________________________________________________               
                case "Admin_Log":
                {
-                   admin_pwd = new char[] {'a', 'b', 'c', '1', '2', '3'};
+                   admin_pwd = new char[] {'q', 'w', 'e', '1', '2', '3'};
               
                    if (AdmLog_pwd.getPassword().length == admin_pwd.length) // se la lunghezza è diversa, evito il controllo
                         if (Arrays.equals(AdmLog_pwd.getPassword(), admin_pwd)) { 
