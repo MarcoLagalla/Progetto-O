@@ -550,7 +550,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         Votazione.chiudiVotazione();
         avvia_Vot.setEnabled(true);
         stop_Vot.setEnabled(false);
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse_v2.png"));
         ProgettoO.getRegistrazione().setEnabled(false);
         ProgettoO.getRegistrazione().setIcon(new ImageIcon("Immagini/Button_Registrazione_Disabled.png"));
         fotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
@@ -578,7 +578,7 @@ public class serverFrame_ extends javax.swing.JFrame {
                 stop_Vot.setEnabled(true);
                 ProgettoO.getRegistrazione().setEnabled(true);
                 ProgettoO.getRegistrazione().setIcon(new ImageIcon("Immagini/Button_Registrazione.png"));
-                vot_Status.setIcon(new ImageIcon("Immagini/Vot_Aperte.png"));
+                vot_Status.setIcon(new ImageIcon("Immagini/Vot_Aperte_v2.png"));
             }   else error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!");
         }   else error_msg.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!");
     }//GEN-LAST:event_avvia_VotActionPerformed
