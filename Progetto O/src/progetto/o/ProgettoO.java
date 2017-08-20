@@ -110,7 +110,7 @@ public class ProgettoO {
         background_panel = new JPanel(null);
         background_panel.setBackground(Color.white);
         background_panel.setSize(screenSize);
-        mainFrame.add(background_panel);
+        mainFrame.add(background_panel,BorderLayout.CENTER);
         
         Image_Icon = new JLabel();
         Image_Icon.setIcon(new ImageIcon("Immagini/Logo.png")); // RELATIVE PATH
