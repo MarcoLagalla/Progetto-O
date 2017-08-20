@@ -85,7 +85,7 @@ public class ProgettoO {
         return registrazione;
     }
 
-private void prepareGUI() {         // Creazione finestra principale (login user)
+    private void prepareGUI() {         // Creazione finestra principale (login user)
     
         int c = JComponent.WHEN_IN_FOCUSED_WINDOW;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
     
@@ -211,7 +211,7 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
         
         clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         clientFrame.setLayout(new BorderLayout());
-         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         clientFrame.setPreferredSize(screenSize);
         clientFrame.setSize(screenSize);
         clientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);

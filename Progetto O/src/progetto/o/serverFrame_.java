@@ -3,6 +3,7 @@ package progetto.o;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.sql.ResultSet;
@@ -21,9 +22,11 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 // imports needed for DatePicker
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
+import static progetto.o.ProgettoO.clientFrame;
 
 
 public class serverFrame_ extends javax.swing.JFrame {
@@ -36,7 +39,18 @@ public class serverFrame_ extends javax.swing.JFrame {
             super("SERVER");
             setExtendedState(MAXIMIZED_BOTH);
             initComponents(); // Provenienti dal precedente Costruttore
-            loadCandidati(); //
+            
+            // FULLSCREEN MODE
+            
+            Toolkit screen = Toolkit.getDefaultToolkit();
+                int xsize = (int) screen.getScreenSize().getWidth();
+                int ysize = (int) screen.getScreenSize().getHeight();
+                this.setSize(xsize, ysize);
+            
+            
+                
+                
+            loadCandidati(); 
             
             JPanel chartPanel = createChartPanel();
             Pannello_LineChart.add(chartPanel,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
@@ -54,7 +68,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         // CREAZIONE CHART PANEL (Pannello del Grafico)
     
         private JPanel createChartPanel() {
-            String chartTitle = "Andamento Votazioni a chiusura Elezioni"; // NOME GRAFICO
+            String chartTitle = ""; // NOME GRAFICO
             String xAxisLabel = "VOTANTI"; // NOME ASSE ASCISSE
             String yAxisLabel = "GIORNI"; // NOME ASSE ORDINATE
             
@@ -192,23 +206,10 @@ public class serverFrame_ extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        Intestazione = new javax.swing.JLabel();
-        Logo01 = new javax.swing.JLabel();
-        Logo02 = new javax.swing.JLabel();
-        LabelAffluenza = new javax.swing.JLabel();
-        LabelVoti = new javax.swing.JLabel();
-        vot_Status = new javax.swing.JLabel();
-        vot_Status_Lab = new javax.swing.JLabel();
-        Pannello_ColumnChart = new javax.swing.JPanel();
-        LabelVoti1 = new javax.swing.JLabel();
-        Pannello_LineChart = new javax.swing.JPanel();
-        Pannello_CakeChart = new javax.swing.JPanel();
-        LabelVoti2 = new javax.swing.JLabel();
-        fotoWinner = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        SuperContenitore_Panel = new javax.swing.JPanel();
         openDatePicker = new javax.swing.JButton();
-        avanzaGiorno = new javax.swing.JButton();
         stop_Vot = new javax.swing.JButton();
         avvia_Vot = new javax.swing.JButton();
         DataAvvio_Lab1 = new javax.swing.JLabel();
@@ -217,7 +218,7 @@ public class serverFrame_ extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<String>();
+        Candidati_list = new javax.swing.JList<>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
@@ -225,90 +226,35 @@ public class serverFrame_ extends javax.swing.JFrame {
         dataAvvio_Lab = new javax.swing.JLabel();
         dataChiusura_Lab = new javax.swing.JLabel();
         error_msg = new javax.swing.JLabel();
+        Intestazione_Panel = new javax.swing.JPanel();
+        Intestazione = new javax.swing.JLabel();
+        Logo01 = new javax.swing.JLabel();
+        Logo02 = new javax.swing.JLabel();
+        LabelAffluenza = new javax.swing.JLabel();
+        LabelVoti = new javax.swing.JLabel();
+        vot_Status = new javax.swing.JLabel();
+        vot_Status_Lab = new javax.swing.JLabel();
+        Pannello_ColumnChart = new javax.swing.JPanel();
+        Pannello_LineChart = new javax.swing.JPanel();
+        Pannello_CakeChart = new javax.swing.JPanel();
+        LabelVoti2 = new javax.swing.JLabel();
+        fotoWinner = new javax.swing.JLabel();
+        LabelVoti3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
         setResizable(false);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        Intestazione.setFont(new java.awt.Font("Calibri", 0, 28)); // NOI18N
-        Intestazione.setText("PANNELLO AMMINISTRAZIONE ELEZIONI");
-        getContentPane().add(Intestazione);
-        Intestazione.setBounds(710, 100, 464, 63);
-
-        Logo01.setIcon(new ImageIcon("Immagini/Logo_Server.png")); // RELATIVE PATH
-        getContentPane().add(Logo01);
-        Logo01.setBounds(490, 31, 190, 190);
-
-        Logo02.setIcon(new ImageIcon("Immagini/Logo_Server.png")); // RELATIVE PATH
-        getContentPane().add(Logo02);
-        Logo02.setBounds(1216, 31, 190, 190);
-
-        LabelAffluenza.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
-        LabelAffluenza.setText("Affluenza Votanti nelle relative Giornate");
-        getContentPane().add(LabelAffluenza);
-        LabelAffluenza.setBounds(1380, 260, 390, 40);
-
-        LabelVoti.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
-        LabelVoti.setText("VINCITORE");
-        getContentPane().add(LabelVoti);
-        LabelVoti.setBounds(970, 260, 110, 43);
-
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
-        getContentPane().add(vot_Status);
-        vot_Status.setBounds(40, 280, 352, 84);
-
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
-        vot_Status_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        vot_Status_Lab.setText("Status Votazioni :");
-        getContentPane().add(vot_Status_Lab);
-        vot_Status_Lab.setBounds(63, 239, 171, 30);
-
-        Pannello_ColumnChart.setBackground(new java.awt.Color(255, 255, 255));
-        Pannello_ColumnChart.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(Pannello_ColumnChart);
-        Pannello_ColumnChart.setBounds(1280, 330, 550, 330);
-
-        LabelVoti1.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
-        LabelVoti1.setText("Voti relativi ai Candidati");
-        getContentPane().add(LabelVoti1);
-        LabelVoti1.setBounds(1450, 680, 220, 43);
-
-        Pannello_LineChart.setBackground(new java.awt.Color(255, 255, 255));
-        Pannello_LineChart.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(Pannello_LineChart);
-        Pannello_LineChart.setBounds(1280, 730, 550, 330);
-
-        Pannello_CakeChart.setBackground(new java.awt.Color(255, 255, 255));
-        Pannello_CakeChart.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(Pannello_CakeChart);
-        Pannello_CakeChart.setBounds(720, 730, 550, 330);
-
-        LabelVoti2.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
-        LabelVoti2.setText("Percentuale Uomini/Donne");
-        getContentPane().add(LabelVoti2);
-        LabelVoti2.setBounds(880, 690, 260, 43);
-        getContentPane().add(fotoWinner);
-        fotoWinner.setBounds(900, 340, 250, 250);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        SuperContenitore_Panel.setBackground(new java.awt.Color(255, 255, 255));
+        SuperContenitore_Panel.setPreferredSize(new java.awt.Dimension(2560, 1600));
 
         openDatePicker.setText("Scegli Data");
         openDatePicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openDatePickerActionPerformed(evt);
-            }
-        });
-
-        avanzaGiorno.setFont(new java.awt.Font("28 Days Later", 0, 24)); // NOI18N
-        avanzaGiorno.setForeground(new java.awt.Color(120, 29, 3));
-        avanzaGiorno.setText("Avanza Giorno");
-        avanzaGiorno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avanzaGiornoActionPerformed(evt);
             }
         });
 
@@ -381,20 +327,18 @@ public class serverFrame_ extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(Aggiungi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Modifica_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Rimuovi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(357, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2))
-                        .addGap(29, 29, 29))))
+                                .addComponent(Aggiungi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Modifica_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Rimuovi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6))
+                        .addGap(0, 167, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,74 +373,213 @@ public class serverFrame_ extends javax.swing.JFrame {
 
         error_msg.setForeground(new java.awt.Color(255, 0, 0));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataAvvio, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(dataAvvio_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(id_elezione, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(DataAvvio_Lab1)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(dataChiusura, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dataChiusura_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(openDatePicker)
-                            .addGap(119, 119, 119)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(avanzaGiorno, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                .addComponent(avvia_Vot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(stop_Vot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(error_msg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(1176, Short.MAX_VALUE))
+        Intestazione_Panel.setBackground(new java.awt.Color(255, 255, 255));
+
+        Intestazione.setFont(new java.awt.Font("Calibri", 0, 28)); // NOI18N
+        Intestazione.setText("PANNELLO AMMINISTRAZIONE ELEZIONI");
+
+        Logo01.setIcon(new ImageIcon("Immagini/Logo_Server.png")); // RELATIVE PATH
+
+        Logo02.setIcon(new ImageIcon("Immagini/Logo_Server.png")); // RELATIVE PATH
+
+        javax.swing.GroupLayout Intestazione_PanelLayout = new javax.swing.GroupLayout(Intestazione_Panel);
+        Intestazione_Panel.setLayout(Intestazione_PanelLayout);
+        Intestazione_PanelLayout.setHorizontalGroup(
+            Intestazione_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 916, Short.MAX_VALUE)
+            .addGroup(Intestazione_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Intestazione_PanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(Intestazione)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(Intestazione_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Intestazione_PanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(Logo01, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(536, 536, 536)
+                    .addComponent(Logo02, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(230, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(avanzaGiorno, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136)
-                        .addComponent(dataAvvio_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(DataAvvio_Lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(id_elezione, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dataAvvio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(dataChiusura_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(openDatePicker)
-                            .addComponent(dataChiusura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(avvia_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+        Intestazione_PanelLayout.setVerticalGroup(
+            Intestazione_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 190, Short.MAX_VALUE)
+            .addGroup(Intestazione_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Intestazione_PanelLayout.createSequentialGroup()
+                    .addGap(0, 63, Short.MAX_VALUE)
+                    .addComponent(Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 64, Short.MAX_VALUE)))
+            .addGroup(Intestazione_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Intestazione_PanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(Intestazione_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Logo01, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Logo02, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1940, 1100);
+        LabelAffluenza.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelAffluenza.setText("Affluenza Votanti nelle relative Giornate");
+
+        LabelVoti.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelVoti.setText("VINCITORE");
+
+        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+
+        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        vot_Status_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        vot_Status_Lab.setText("Status Votazioni :");
+
+        Pannello_ColumnChart.setBackground(new java.awt.Color(255, 255, 255));
+        Pannello_ColumnChart.setLayout(new java.awt.BorderLayout());
+
+        Pannello_LineChart.setBackground(new java.awt.Color(255, 255, 255));
+        Pannello_LineChart.setLayout(new java.awt.BorderLayout());
+
+        Pannello_CakeChart.setBackground(new java.awt.Color(255, 255, 255));
+        Pannello_CakeChart.setLayout(new java.awt.BorderLayout());
+
+        LabelVoti2.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelVoti2.setText("Andamento Votazioni a chiusura Elezioni");
+
+        LabelVoti3.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        LabelVoti3.setText("Percentuale Uomini/Donne");
+
+        javax.swing.GroupLayout SuperContenitore_PanelLayout = new javax.swing.GroupLayout(SuperContenitore_Panel);
+        SuperContenitore_Panel.setLayout(SuperContenitore_PanelLayout);
+        SuperContenitore_PanelLayout.setHorizontalGroup(
+            SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SuperContenitore_PanelLayout.createSequentialGroup()
+                                .addComponent(dataChiusura_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(dataAvvio_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                                .addComponent(dataChiusura, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(openDatePicker))
+                            .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                                .addComponent(vot_Status_Lab)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(LabelVoti, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(339, 339, 339)
+                        .addComponent(LabelAffluenza, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(236, 236, 236))
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(184, 184, 184)
+                        .addComponent(Pannello_CakeChart, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Pannello_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167)
+                        .addComponent(LabelVoti3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelVoti2)
+                        .addGap(246, 246, 246))))
+            .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(dataAvvio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(vot_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61)
+                .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DataAvvio_Lab1)
+                            .addComponent(id_elezione, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(245, 245, 245)
+                        .addComponent(fotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123)
+                        .addComponent(Pannello_ColumnChart, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(avvia_Vot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                .addGap(562, 562, 562)
+                .addComponent(Intestazione_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        SuperContenitore_PanelLayout.setVerticalGroup(
+            SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SuperContenitore_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Intestazione_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                            .addGap(57, 57, 57)
+                            .addComponent(vot_Status_Lab)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(vot_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(dataAvvio_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                            .addGap(27, 27, 27)
+                            .addComponent(LabelAffluenza, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(Pannello_ColumnChart, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(LabelVoti, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addGap(198, 198, 198)
+                        .addComponent(DataAvvio_Lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dataAvvio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id_elezione, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(dataChiusura_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(openDatePicker)
+                                    .addComponent(dataChiusura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addComponent(avvia_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(LabelVoti2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LabelVoti3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Pannello_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Pannello_CakeChart, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(72, 72, 72))
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = -24;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(SuperContenitore_Panel, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -555,10 +638,6 @@ public class serverFrame_ extends javax.swing.JFrame {
         ProgettoO.getRegistrazione().setIcon(new ImageIcon("Immagini/Button_Registrazione_Disabled.png"));
         fotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
     }//GEN-LAST:event_stop_VotActionPerformed
-
-    private void avanzaGiornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzaGiornoActionPerformed
-        Votazione.AvanzaGiornata();
-    }//GEN-LAST:event_avanzaGiornoActionPerformed
 
     private void openDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDatePickerActionPerformed
          //create frame new object  f
@@ -626,10 +705,11 @@ public class serverFrame_ extends javax.swing.JFrame {
     private javax.swing.JList<String> Candidati_list;
     private javax.swing.JLabel DataAvvio_Lab1;
     private javax.swing.JLabel Intestazione;
+    private javax.swing.JPanel Intestazione_Panel;
     private javax.swing.JLabel LabelAffluenza;
     private javax.swing.JLabel LabelVoti;
-    private javax.swing.JLabel LabelVoti1;
     private javax.swing.JLabel LabelVoti2;
+    private javax.swing.JLabel LabelVoti3;
     private javax.swing.JLabel Logo01;
     private javax.swing.JLabel Logo02;
     private javax.swing.JButton Modifica_Candidato;
@@ -637,7 +717,7 @@ public class serverFrame_ extends javax.swing.JFrame {
     private javax.swing.JPanel Pannello_ColumnChart;
     private javax.swing.JPanel Pannello_LineChart;
     private javax.swing.JButton Rimuovi_Candidato;
-    private javax.swing.JButton avanzaGiorno;
+    private javax.swing.JPanel SuperContenitore_Panel;
     private javax.swing.JButton avvia_Vot;
     private javax.swing.JTextField dataAvvio;
     private javax.swing.JLabel dataAvvio_Lab;
@@ -647,7 +727,6 @@ public class serverFrame_ extends javax.swing.JFrame {
     private javax.swing.JLabel fotoWinner;
     private javax.swing.JTextField id_elezione;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton openDatePicker;
