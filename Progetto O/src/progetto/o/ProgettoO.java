@@ -100,55 +100,58 @@ public class ProgettoO {
         
         mainFrame = new JFrame();
         mainFrame.setLayout(new BorderLayout());
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        mainFrame.setPreferredSize(screenSize);
-        mainFrame.setSize(screenSize);
-        mainFrame.setExtendedState(MAXIMIZED_BOTH);
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        //mainFrame.setPreferredSize(screenSize);
+        //mainFrame.setSize(screenSize);
+        //mainFrame.setExtendedState(MAXIMIZED_BOTH);
+                                mainFrame.setSize(1500, 1500);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         
         background_panel = new JPanel(null);
-        background_panel.setBackground(Color.white);
-        background_panel.setSize(screenSize);
-        mainFrame.add(background_panel,BorderLayout.CENTER);
+        background_panel.setBackground(Color.blue);
+                                background_panel.setBounds(10, 10, 800, 800);  //PERCHè NON SI RIDIMENSIONA???
+                                background_panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        //background_panel.setSize(screenSize);
+        mainFrame.add(background_panel);
         
         Image_Icon = new JLabel();
         Image_Icon.setIcon(new ImageIcon("Immagini/Logo.png")); // RELATIVE PATH
-        Image_Icon.setBounds(860,180, 350, 395);
+        Image_Icon.setBounds(650,180, 350, 395);
         background_panel.add(Image_Icon, BorderLayout.CENTER);
         
         Intestazione = new JLabel();
         Intestazione.setFont(new Font("Intestazione", Font.ITALIC,35));
         Intestazione.setText("SISTEMA ELETTORALE ELETTRONICO");
-        Intestazione.setBounds(330, 10, 1000, 30);
+        Intestazione.setBounds(300, 10, 1000, 30);
         background_panel.add(Intestazione, BorderLayout.NORTH);
 //______________________________________________________________________________        
         CodiceFis = new JLabel("Inserire CODICE FISCALE");
         CodiceFis.setFont(new Font("CF",Font.BOLD,18));
-        CodiceFis.setBounds(200, 280, 250, 30);
+        CodiceFis.setBounds(10, 280, 250, 30);
         background_panel.add(CodiceFis , BorderLayout.CENTER);
         
         CF = new JTextField();
         CF.setText("GRRFRC94S23M109E");                                         // PER TEST DA RIMUOVERE
         CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,14));
-        CF.setBounds(460, 280, 300, 30);
+        CF.setBounds(300, 280, 300, 30);
         background_panel.add(CF);
         
         CodiceTes = new JLabel("Inserire CODICE TESSERA");
         CodiceTes.setFont(new Font("CT",Font.BOLD,18));
-        CodiceTes.setBounds(200, 340, 255, 30);
+        CodiceTes.setBounds(10, 340, 255, 30);
         background_panel.add(CodiceTes);
         
         CT = new JTextField();
         CT.setText("231119994");                                               // PER TEST DA RIMUOVERE
         CT.setFont(new Font("CT_Field",Font.ROMAN_BASELINE,14));
-        CT.setBounds(460, 340, 300, 30);
+        CT.setBounds(300, 340, 300, 30);
         background_panel.add(CT);
 //______________________________________________________________________________
 
         registrazione = new JButton("");   // COMPLETARE  RESIZE
         registrazione.setActionCommand("Registrazione");
-        registrazione.setBounds(460, 400, 300, 90);
+        registrazione.setBounds(300, 400, 300, 90);
         registrazione.setEnabled(false);
         ImageIcon icon = new ImageIcon("Immagini/Button_Registrazione_Disabled.png");
         registrazione.setIcon(resizeIcon(icon, registrazione.getWidth() , registrazione.getHeight() ));
