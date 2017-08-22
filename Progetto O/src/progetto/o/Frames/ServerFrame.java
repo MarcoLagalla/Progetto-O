@@ -1,7 +1,7 @@
-package progettoO_frames;
+package progetto.o.Frames;
 
-import progettoO_frames.AddCandidatiFrame;
-import progettoO_frames.EditCandidatiFrame;
+import progetto.o.Frames.AddCandidatiFrame;
+import progetto.o.Frames.EditCandidatiFrame;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -38,12 +38,12 @@ import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
-import progettoO_classi.DatePicker;
-import progettoO_connettività.MySQlConnection;
-import progettoO_classi.Votazione;
-import progettoO_classi.Candidati;
-import progettoO_classi.Votanti;
-import progettoO_interfacce.InterfacciaPrincipale;
+import progetto.o.Classi.DatePicker;
+import progetto.o.Connettività.MySQlConnection;
+import progetto.o.Classi.Votazione;
+import progetto.o.Classi.Candidati;
+import progetto.o.Classi.Votanti;
+import progetto.o.Interfacce.InterfacciaPrincipale;
 
 
 public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrincipale{
@@ -265,7 +265,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<String>();
+        Candidati_list = new javax.swing.JList<>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();

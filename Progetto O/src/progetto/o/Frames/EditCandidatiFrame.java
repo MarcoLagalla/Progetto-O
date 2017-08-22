@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package progettoO_frames;
+package progetto.o.Frames;
 import java.awt.Image;
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.filechooser.*;
-import progettoO_connettività.FTPConnection;
-import progettoO_connettività.MySQlConnection;
-import progettoO_classi.Candidati;
-import progettoO_classi.Persone;
+import progetto.o.Connettività.FTPConnection;
+import progetto.o.Connettività.MySQlConnection;
+import progetto.o.Classi.Candidati;
+import progetto.o.Classi.Persone;
 /**
  *
  * @author marco
@@ -54,7 +54,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         input_comune_candidato = new javax.swing.JTextField();
         label_nome_candidato3 = new javax.swing.JLabel();
         label_nome_candidato4 = new javax.swing.JLabel();
-        input_sesso_candidato = new javax.swing.JComboBox<String>();
+        input_sesso_candidato = new javax.swing.JComboBox<>();
         label_nome_candidato5 = new javax.swing.JLabel();
         input_codicefiscale_candidato = new javax.swing.JTextField();
         label_nome_candidato6 = new javax.swing.JLabel();
@@ -92,7 +92,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 
         label_nome_candidato4.setText("Sesso:");
 
-        input_sesso_candidato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+        input_sesso_candidato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
 
         label_nome_candidato5.setText("CodiceFiscale:");
 

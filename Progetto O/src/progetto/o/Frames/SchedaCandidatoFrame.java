@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package progettoO_frames;
+package progetto.o.Frames;
 
 import java.awt.Image;
 import java.awt.Window;
@@ -19,8 +19,8 @@ import java.sql.SQLException;
 import java.lang.management.ManagementFactory;
 import java.io.File;
 import java.io.IOException;
-import progettoO_connettività.MySQlConnection;
-import progettoO_classi.Votazione;
+import progetto.o.Connettività.MySQlConnection;
+import progetto.o.Classi.Votazione;
 /**
  *
  * @author marco

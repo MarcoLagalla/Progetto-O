@@ -1,5 +1,5 @@
 
-package progettoO_classi;
+package progetto.o.Classi;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
