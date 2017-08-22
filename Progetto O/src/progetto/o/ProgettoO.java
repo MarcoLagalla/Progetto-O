@@ -14,6 +14,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
 import java.io.IOException;
+import org.jfree.layout.CenterLayout;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 
 
@@ -27,6 +29,8 @@ public class ProgettoO {
     private JLabel CodiceFis;
     private JLabel CodiceTes;
     private JLabel Image_Icon;
+    private JLabel Image_Icon_2;
+    private JPanel r1,r2,r3,r4,r5,r6,r7,r8; //Pannelli di Riempimento Grid
     private static JButton registrazione; // dichiaro statico per poterlo chiamare da altre classi
     private JLabel Intestazione;
     private JPanel background_panel;
@@ -105,57 +109,111 @@ public class ProgettoO {
         mainFrame.setSize(screenSize);
         mainFrame.setExtendedState(MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setResizable(false);
-        
-        background_panel = new JPanel(null);
-        background_panel.setBackground(Color.white);
-        background_panel.setSize(screenSize);
-        mainFrame.add(background_panel,BorderLayout.CENTER);
+        mainFrame.getContentPane().setBackground(Color.WHITE);
+        mainFrame.setResizable(true);
         
         Image_Icon = new JLabel();
         Image_Icon.setIcon(new ImageIcon("Immagini/Logo.png")); // RELATIVE PATH
-        Image_Icon.setBounds(860,180, 350, 395);
-        background_panel.add(Image_Icon, BorderLayout.CENTER);
+        Image_Icon.setSize(350,395);
+        mainFrame.add(Image_Icon,BorderLayout.EAST);                            //BorderLayout EAST
         
-        Intestazione = new JLabel();
-        Intestazione.setFont(new Font("Intestazione", Font.ITALIC,35));
-        Intestazione.setText("SISTEMA ELETTORALE ELETTRONICO");
-        Intestazione.setBounds(330, 10, 1000, 30);
-        background_panel.add(Intestazione, BorderLayout.NORTH);
-//______________________________________________________________________________        
-        CodiceFis = new JLabel("Inserire CODICE FISCALE");
-        CodiceFis.setFont(new Font("CF",Font.BOLD,18));
-        CodiceFis.setBounds(200, 280, 250, 30);
-        background_panel.add(CodiceFis , BorderLayout.CENTER);
+        Image_Icon_2 = new JLabel();
+        Image_Icon_2.setIcon(new ImageIcon("Immagini/Logo.png")); // RELATIVE PATH
+        Image_Icon_2.setSize(350,395);
+        mainFrame.add(Image_Icon_2,BorderLayout.WEST);
+        
+        Intestazione = new JLabel("SISTEMA ELETTORALE ELETTRONICO",SwingConstants.CENTER);
+        Intestazione.setFont(new Font("Intestazione", Font.BOLD,45));
+        mainFrame.add(Intestazione,BorderLayout.NORTH);                         //BorderLayout NORTH
+        
+//______________________________________________________________________________
+
+        background_panel = new JPanel();
+        background_panel.setLayout(new GridLayout(0, 2, 0, 0));
+        background_panel.setBackground(Color.white);
+        background_panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        mainFrame.add(background_panel,BorderLayout.CENTER);                    //BorderLayout CENTER
+        
+        // ADD degli Elementi Interni al BackGround Panel
+        
+        r1=new JPanel();
+        r1.setSize(450,55);
+        r1.setBackground(Color.WHITE);
+        background_panel.add(r1);
+        
+        r2=new JPanel();
+        r2.setSize(450,55);
+        r2.setBackground(Color.WHITE);
+        background_panel.add(r2);
+        
+        r3=new JPanel();
+        r3.setSize(450,55);
+        r3.setBackground(Color.WHITE);
+        background_panel.add(r3);
+        
+        r4=new JPanel();
+        r4.setSize(450,55);
+        r4.setBackground(Color.WHITE);
+        background_panel.add(r4);
+
+   
+        CodiceFis = new JLabel("Inserire CODICE FISCALE",SwingConstants.CENTER);
+        CodiceFis.setFont(new Font("CF",Font.BOLD,25));
+        CodiceFis.setSize(450,5);
+        background_panel.add(CodiceFis);
         
         CF = new JTextField();
+        CF.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         CF.setText("GRRFRC94S23M109E");                                         // PER TEST DA RIMUOVERE
-        CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,14));
-        CF.setBounds(460, 280, 300, 30);
+        CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+        CF.setSize(450, 20);
         background_panel.add(CF);
         
-        CodiceTes = new JLabel("Inserire CODICE TESSERA");
-        CodiceTes.setFont(new Font("CT",Font.BOLD,18));
-        CodiceTes.setBounds(200, 340, 255, 30);
+        CodiceTes = new JLabel("Inserire CODICE TESSERA",SwingConstants.CENTER);
+        CodiceTes.setFont(new Font("CT",Font.BOLD,25));
+        CodiceTes.setSize(450, 5);
         background_panel.add(CodiceTes);
         
         CT = new JTextField();
-        CT.setText("231119994");                                               // PER TEST DA RIMUOVERE
-        CT.setFont(new Font("CT_Field",Font.ROMAN_BASELINE,14));
-        CT.setBounds(460, 340, 300, 30);
+        CT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        CT.setText("231119994");                                                // PER TEST DA RIMUOVERE
+        CT.setFont(new Font("CT_Field",Font.ROMAN_BASELINE,20));
+        CT.setSize(450, 20);
         background_panel.add(CT);
+        
+        r5=new JPanel();
+        r5.setSize(450,35);
+        r5.setBackground(Color.WHITE);
+        background_panel.add(r5);
+        
+        r6=new JPanel();
+        r6.setSize(450,35);
+        r6.setBackground(Color.WHITE);
+        background_panel.add(r6);
+        
+        r7=new JPanel();
+        r7.setSize(450,55);
+        r7.setBackground(Color.WHITE);
+        background_panel.add(r7);
+        
+        r8=new JPanel();
+        r8.setSize(450,55);
+        r8.setBackground(Color.WHITE);
+        background_panel.add(r8);
+           
 //______________________________________________________________________________
 
-        registrazione = new JButton("");   // COMPLETARE  RESIZE
+        registrazione = new JButton("");   
         registrazione.setActionCommand("Registrazione");
-        registrazione.setBounds(460, 400, 300, 90);
+        registrazione.setSize(600, 200);
         registrazione.setEnabled(false);
         ImageIcon icon = new ImageIcon("Immagini/Button_Registrazione_Disabled.png");
         registrazione.setIcon(resizeIcon(icon, registrazione.getWidth() , registrazione.getHeight() ));
 
         registrazione.addActionListener(new ButtonClickListener());
 
-        background_panel.add(registrazione);
+        mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
+//______________________________________________________________________________
         
         // Creo la shortcut (CTRL+A) che apre la finestra di Admin Login
          JButton AdmLog_Button = new JButton();
@@ -166,7 +224,7 @@ public class ProgettoO {
             }
         }); 
 
-        background_panel.add(AdmLog_Button);
+        //background_panel.add(AdmLog_Button);
         
         background_panel.getInputMap(c).put(key, "call_Action");
         background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
