@@ -25,18 +25,18 @@ import progetto.o.Classi.Votazione;
  *
  * @author marco
  */
-public class schedaCandidato extends javax.swing.JPanel {
+public class SchedaCandidatoFrame extends javax.swing.JPanel {
 
     MySQlConnection mysql = new MySQlConnection();
     
     /**
      * Creates new form schedaCandidato
      */
-    public schedaCandidato() {
+    public SchedaCandidatoFrame() {
         initComponents();
     }
     
-    public schedaCandidato(String CF, String Nome, String Cognome, String Partito, URL Immagine) {
+    public SchedaCandidatoFrame(String CF, String Nome, String Cognome, String Partito, URL Immagine) {
         initComponents();
         setImage(Immagine);
         setCF(CF);
@@ -139,7 +139,7 @@ public class schedaCandidato extends javax.swing.JPanel {
                     .addComponent(CF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Vota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 4, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Cognome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -160,7 +160,7 @@ public class schedaCandidato extends javax.swing.JPanel {
                 .addComponent(Cognome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Partito, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(Vota, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

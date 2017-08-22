@@ -15,7 +15,7 @@ import progetto.o.Connettività.MySQlConnection;
  *
  * @author marco
  */
-public class addCandidati_frame extends javax.swing.JFrame {
+public class AddCandidatiFrame extends javax.swing.JFrame {
 
     MySQlConnection mysql = new MySQlConnection();
     FTPConnection myftp = new FTPConnection();
@@ -27,7 +27,7 @@ public class addCandidati_frame extends javax.swing.JFrame {
     /**
      * Creates new form addCandidati_frame
      */
-    public addCandidati_frame() {
+    public AddCandidatiFrame() {
         initComponents();
     }
 
@@ -261,7 +261,7 @@ public class addCandidati_frame extends javax.swing.JFrame {
       if (ret != 0 && ret2 != 0) {
           JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
           
-          new serverFrame_().setVisible(true);
+          new ServerFrame().setVisible(true);
           this.dispose();
       } else {
            JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
@@ -303,20 +303,21 @@ public class addCandidati_frame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addCandidati_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCandidatiFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addCandidati_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCandidatiFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addCandidati_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCandidatiFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addCandidati_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCandidatiFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addCandidati_frame().setVisible(true);
+                new AddCandidatiFrame().setVisible(true);
             }
         });
     }

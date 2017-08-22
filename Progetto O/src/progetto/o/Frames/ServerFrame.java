@@ -1,7 +1,7 @@
 package progetto.o.Frames;
 
-import progetto.o.Frames.addCandidati_frame;
-import progetto.o.Frames.editCandidati_frame;
+import progetto.o.Frames.AddCandidatiFrame;
+import progetto.o.Frames.EditCandidatiFrame;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -46,7 +46,7 @@ import progetto.o.Interfacce.mainInterface;
 import progetto.o.Classi.votanti;
 
 
-public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
+public class ServerFrame extends javax.swing.JFrame implements mainInterface{
 
     MySQlConnection mysql = new MySQlConnection();
     
@@ -58,7 +58,7 @@ public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
 
 /*____________________________________COSTRUTTORI__________________________________________*/
     
-    public serverFrame_() {
+    public ServerFrame() {
             super("SERVER");
             setExtendedState(MAXIMIZED_BOTH);
             initComponents(); // Provenienti dal precedente Costruttore
@@ -704,7 +704,7 @@ public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
 
     private void Aggiungi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Aggiungi_CandidatoActionPerformed
         // TODO add your handling code here:
-        new addCandidati_frame().setVisible(true);
+        new AddCandidatiFrame().setVisible(true);
     }//GEN-LAST:event_Aggiungi_CandidatoActionPerformed
 
     private void Rimuovi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Rimuovi_CandidatoActionPerformed
@@ -732,7 +732,7 @@ public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
             String[] tokens = candidato.split("-");    // slitta per ottenere il CF
              String _cf = tokens[1];
              _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
-          new editCandidati_frame(_cf).setVisible(true);     
+          new EditCandidatiFrame(_cf).setVisible(true);     
         }
     }//GEN-LAST:event_Modifica_CandidatoActionPerformed
 
@@ -793,7 +793,7 @@ public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
             String[] tokens = candidato.split("-");    // slitta per ottenere il CF
              String _cf = tokens[1];
              _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
-          new editCandidati_frame(_cf).setVisible(true);     
+          new EditCandidatiFrame(_cf).setVisible(true);     
         }
          
         }
@@ -815,20 +815,21 @@ public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(serverFrame_.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(serverFrame_.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(serverFrame_.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(serverFrame_.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new serverFrame_().setVisible(true);
+                new ServerFrame().setVisible(true);
                 
             }
         });

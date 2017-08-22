@@ -5,8 +5,8 @@ MAIN CLASS
 */
 package progetto.o.Frames;
 
-import progetto.o.Frames.schedaCandidato;
-import progetto.o.Frames.serverFrame_;
+import progetto.o.Frames.SchedaCandidatoFrame;
+import progetto.o.Frames.ServerFrame;
 import java.util.*;
 import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -62,8 +62,8 @@ public class ProgettoO implements mainInterface{
    
     MySQlConnection mysql; 
     
-    // Istanzio serverFrame_ creato con JFrame Form
-    serverFrame_ prepareServerGUI;
+    // Istanzio ServerFrame creato con JFrame Form
+    ServerFrame prepareServerGUI;
     
     // Definisco HotKey
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
@@ -73,7 +73,7 @@ public class ProgettoO implements mainInterface{
     public ProgettoO() {
         if ( netIsAvailable() ) {
             mysql = new MySQlConnection();
-            prepareServerGUI = new serverFrame_();
+            prepareServerGUI = new ServerFrame();
             prepareGUI();
             
         }
@@ -309,7 +309,7 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
        
        for (candidati object: can) {
           
-         schedaCandidato scheda = new schedaCandidato(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
+         SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
          client_panel.add(scheda);
         
         }
@@ -399,7 +399,7 @@ public class ButtonClickListener implements ActionListener{
                    break;
                }
 //______________________________________________________________________________ 
-               case "Vota": // è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "serverFrame_"
+               case "Vota": // è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "ServerFrame"
                {
 
                    prepareGUI();    // ricrea la home e killa la clientGUI 
