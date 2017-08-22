@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
  *
  * @author marco
  */
-public interface mainInterface {
+public interface InterfacciaPrincipale {
     
    final String IMG_PROFILO = "http://91.134.138.244/progettoO/img/profilo.jpg";
     final String IMG_VOTAZIONI_APERTE = "http://91.134.138.244/progettoO/img/Vot_Aperte.png";

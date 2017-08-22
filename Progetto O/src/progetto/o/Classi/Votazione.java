@@ -100,8 +100,8 @@ public class Votazione {
     
 //__________________________________________________________________________________________________________________________________________
     private static void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
-            ArrayList<persone> pers = mysql.ReadPersoneColumns();
-            for (persone obj: pers) {
+            ArrayList<Persone> pers = mysql.ReadPersoneColumns();
+            for (Persone obj: pers) {
                 mysql.UpdateQuery("UPDATE VOTANTI SET Voti=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
             }   
     }

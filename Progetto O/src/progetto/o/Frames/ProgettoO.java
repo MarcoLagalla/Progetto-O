@@ -19,15 +19,15 @@ import java.io.IOException;
 import org.jfree.layout.CenterLayout;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.candidati;
-import progetto.o.Interfacce.mainInterface;
-import progetto.o.Classi.votanti;
+import progetto.o.Classi.Candidati;
+import progetto.o.Classi.Votanti;
+import progetto.o.Interfacce.InterfacciaPrincipale;
 
 
 
 /*____________________________________STATO INTERNO________________________________________*/
 
-public class ProgettoO implements mainInterface{
+public class ProgettoO implements InterfacciaPrincipale{
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JTextField CF;
@@ -305,9 +305,9 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
         
       client_panel = new JPanel(experimentLayout); 
       client_panel.setBackground(Color.WHITE);
-        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
        
-       for (candidati object: can) {
+       for (Candidati object: can) {
           
          SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
          client_panel.add(scheda);
@@ -449,7 +449,7 @@ private static boolean netIsAvailable() {
         return img;
     }
     
-    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
+    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
@@ -459,9 +459,9 @@ private static boolean netIsAvailable() {
 
 private boolean canVoteCF(String CF) {
     
-        ArrayList<votanti> vot = mysql.ReadVotantiColumns();
+        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
                        
-        for (votanti v: vot){
+        for (Votanti v: vot){
             if(v.getCF().toString().equals(CF)){  
                      return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
             }
@@ -474,9 +474,9 @@ private boolean canVoteCF(String CF) {
 
 private boolean canVoteCT(String CT) {
     
-        ArrayList<votanti> vot = mysql.ReadVotantiColumns();
+        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
                        
-        for (votanti v: vot){
+        for (Votanti v: vot){
             if(v.getCodiceTessera().toString().equals(CT)){  
                      return true; // Vuol dire che il CT del Votante Esiste ed è Abilitato
             }

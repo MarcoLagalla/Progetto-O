@@ -5,9 +5,9 @@
  */
 package progetto.o.Connettività;
 
-import progetto.o.Classi.persone;
-import progetto.o.Classi.candidati;
-import progetto.o.Classi.votanti;
+import progetto.o.Classi.Persone;
+import progetto.o.Classi.Candidati;
+import progetto.o.Classi.Votanti;
 import java.sql.*;
 import java.util.ArrayList;
 import java.net.URL;
@@ -129,14 +129,14 @@ public class MySQlConnection {
     
     /**
      * Funzione che legge tutti i campi della tabella PERSONE nel db e restituisce 
-     * un ArrayList di oggetti 'persone' per ogni record estratto.
-     * @return Oggetto della classe persone
+ un ArrayList di oggetti 'Persone' per ogni record estratto.
+     * @return Oggetto della classe Persone
      */
     // submit a query
-    public  ArrayList<persone> ReadPersoneColumns() {
+    public  ArrayList<Persone> ReadPersoneColumns() {
        
         String QUERY = String.format("SELECT * FROM %s;" , DB_PERSONE );
-        ArrayList<persone> pers = new ArrayList();
+        ArrayList<Persone> pers = new ArrayList();
         try{
             
             stmt = conn.createStatement();
@@ -144,7 +144,7 @@ public class MySQlConnection {
             
             while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
-                persone p;
+                Persone p;
           
                 String CF = res.getString(TABCODICEFISCALE);
                 String Nome = res.getString(TABNOME);
@@ -153,7 +153,7 @@ public class MySQlConnection {
                 String DataNascita = res.getString(TABDATANASCITA);
                 String Comune = res.getString(TABCOMUNE);
                 
-                p = new persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
+                p = new Persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
                 pers.add(p); // inserimento nell' ArrayList del nuovo record p
               
             }
@@ -177,17 +177,17 @@ public class MySQlConnection {
     
      /**
      * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce 
-     * un ArrayList di oggetti 'votanti' per ogni record estratto.
-     * @return Oggetto della classe persone
+ un ArrayList di oggetti 'Votanti' per ogni record estratto.
+     * @return Oggetto della classe Persone
      */
     // submit a query
-    public ArrayList<votanti> ReadVotantiColumns() {
+    public ArrayList<Votanti> ReadVotantiColumns() {
        
         
         String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato FROM db.PERSONE\n" +
                        "JOIN db.VOTANTI on PERSONE.CodiceFiscale = VOTANTI.CodiceFiscale;";
         
-        ArrayList<votanti> vot = new ArrayList();
+        ArrayList<Votanti> vot = new ArrayList();
         try
         {
             
@@ -196,7 +196,7 @@ public class MySQlConnection {
             
             while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
-                votanti v;
+                Votanti v;
 
                 String CF = res.getString(TABCODICEFISCALE);
                 String Nome = res.getString(TABNOME);
@@ -207,7 +207,7 @@ public class MySQlConnection {
                 String CodiceTessera = res.getString(TABCODICETESSERA);
                 int FlagVotato = res.getInt(TABFLAGVOTATO);
                 
-                v = new votanti(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato);
+                v = new Votanti(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato);
                 vot.add(v);
 
             }
@@ -232,16 +232,16 @@ public class MySQlConnection {
     
      /**
      * Funzione che legge tutti i campi della tabella CANDIDATI nel db e restituisce 
-     * un ArrayList di oggetti 'candidati' per ogni record estratto.
-     * @return Oggetto della classe persone
+ un ArrayList di oggetti 'Candidati' per ogni record estratto.
+     * @return Oggetto della classe Persone
      */
     // submit a query
-    public ArrayList<candidati> ReadCandidatiColumns() {
+    public ArrayList<Candidati> ReadCandidatiColumns() {
        
         String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine FROM db.PERSONE\n" +
                        "JOIN db.CANDIDATI on PERSONE.CodiceFiscale = CANDIDATI.CodiceFiscale;";
         
-        ArrayList<candidati> can = new ArrayList();
+        ArrayList<Candidati> can = new ArrayList();
         try
         {
             
@@ -250,7 +250,7 @@ public class MySQlConnection {
             
             while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
-                candidati c;
+                Candidati c;
 
                 String CF = res.getString(TABCODICEFISCALE);
                 String Nome = res.getString(TABNOME);
@@ -261,7 +261,7 @@ public class MySQlConnection {
                 String Partito = res.getString(TABPARTITO);
                 int Voti = res.getInt(TABVOTI);
                 URL Immagine = res.getURL(TABIMMAGINE);
-                c = new candidati(CF,Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
+                c = new Candidati(CF,Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
                 can.add(c);
 
             }

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import javax.swing.filechooser.*;
 import progetto.o.Connettività.FTPConnection;
 import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.candidati;
-import progetto.o.Classi.persone;
+import progetto.o.Classi.Candidati;
+import progetto.o.Classi.Persone;
 /**
  *
  * @author marco
@@ -267,7 +267,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
      
         /*
         
-        ======>>>  mettere update di persone!!!
+        ======>>>  mettere update di Persone!!!
         
         */
 
@@ -297,10 +297,10 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
     
     private void fill() {
-           ArrayList<candidati> can = mysql.ReadCandidatiColumns();
-           ArrayList<persone> pers = mysql.ReadPersoneColumns();
+           ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+           ArrayList<Persone> pers = mysql.ReadPersoneColumns();
            
-       for (candidati object: can) {
+       for (Candidati object: can) {
             if (object.getCF().equals(candidatoCF)) {  // match 
                ImageIcon img = new ImageIcon();
                input_partito_candidato.setText(object.getPartito().toString());
@@ -319,7 +319,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
            }
     }
        
-    for (persone object: pers) {
+    for (Persone object: pers) {
         if (object.getCF().equals(candidatoCF)) {  // match 
             input_nome_candidato.setText(object.getNome().toString());
             input_cognome_candidato.setText(object.getCognome().toString());
@@ -381,7 +381,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         });
     }
     
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);

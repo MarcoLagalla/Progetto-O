@@ -7,9 +7,9 @@ package bot;
 
 
 import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.candidati;
-import progetto.o.Classi.persone;
-import progetto.o.Classi.votanti;
+import progetto.o.Classi.Candidati;
+import progetto.o.Classi.Persone;
+import progetto.o.Classi.Votanti;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,15 +17,15 @@ import java.util.Random;
  *
  * @author marco
  */
-public class mainFrame extends javax.swing.JFrame {
+public class MainFrameBot extends javax.swing.JFrame {
     
     MySQlConnection mysql;
-    ArrayList<candidati> can = mysql.ReadCandidatiColumns();
+    ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
     
     /**
      * Creates new form mainFrame
      */
-    public mainFrame() {
+    public MainFrameBot() {
         initComponents();
         mysql = new MySQlConnection();
         
@@ -114,20 +114,21 @@ public class mainFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainFrame().setVisible(true);
+                new MainFrameBot().setVisible(true);
             }
         });
     }
@@ -139,14 +140,14 @@ public class mainFrame extends javax.swing.JFrame {
        
        
        
-        for (candidati object: can) {
+        for (Candidati object: can) {
             index++;
         }
         
        return index;
     }
     
-    private int randomRange(int High) {    // High numero candidati
+    private int randomRange(int High) {    // High numero Candidati
         Random r = new Random();
         int Low = 0;
         int Result = r.nextInt(High-Low) + Low;

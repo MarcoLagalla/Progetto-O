@@ -41,12 +41,12 @@ import org.jfree.util.Rotation;
 import progetto.o.Classi.DatePicker;
 import progetto.o.Connettività.MySQlConnection;
 import progetto.o.Classi.Votazione;
-import progetto.o.Classi.candidati;
-import progetto.o.Interfacce.mainInterface;
-import progetto.o.Classi.votanti;
+import progetto.o.Classi.Candidati;
+import progetto.o.Classi.Votanti;
+import progetto.o.Interfacce.InterfacciaPrincipale;
 
 
-public class ServerFrame extends javax.swing.JFrame implements mainInterface{
+public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrincipale{
 
     MySQlConnection mysql = new MySQlConnection();
     
@@ -109,8 +109,8 @@ public class ServerFrame extends javax.swing.JFrame implements mainInterface{
        }
     private CategoryDataset createBarChartDataset( ) {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset( );  
-        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
-        for (candidati object: can) {
+        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        for (Candidati object: can) {
             dataset.addValue( object.getVoti(), object.getNome() +  " " + object.getCognome(), "" ); 
         }
 
@@ -214,11 +214,11 @@ public class ServerFrame extends javax.swing.JFrame implements mainInterface{
     private  PieDataset createPieChartDataset() {
         DefaultPieDataset result = new DefaultPieDataset();
 
-        ArrayList<votanti> vot = mysql.ReadVotantiColumns();
+        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
         
         int maschi = 0;
         int femmine = 0;
-        for (votanti object: vot) {
+        for (Votanti object: vot) {
 
             if (object.getVotato()) {
                 if ( object.getSesso().equals("M")) {
@@ -241,11 +241,11 @@ public class ServerFrame extends javax.swing.JFrame implements mainInterface{
 
     
     private void loadCandidati() {
-        ArrayList<candidati> can = mysql.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
         javax.swing.DefaultListModel listModel;
         listModel = new javax.swing.DefaultListModel();
         listModel.removeAllElements();
-        for (candidati object: can) {
+        for (Candidati object: can) {
             String str = String.format("%s %s - %s",object.getNome().toString(), object.getCognome().toString(), object.getCF().toString());
             listModel.addElement(str);
         }
@@ -883,7 +883,7 @@ public class ServerFrame extends javax.swing.JFrame implements mainInterface{
         return img;
     }
     
-    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
+    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
