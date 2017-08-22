@@ -1,5 +1,7 @@
-package progetto.o;
+package progetto.o.Frames;
 
+import progetto.o.Frames.addCandidati_frame;
+import progetto.o.Frames.editCandidati_frame;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,6 +38,12 @@ import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
+import progetto.o.Classi.DatePicker;
+import progetto.o.Connettività.MySQlConnection;
+import progetto.o.Classi.Votazione;
+import progetto.o.Classi.candidati;
+import progetto.o.Interfacce.mainInterface;
+import progetto.o.Classi.votanti;
 
 
 public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
@@ -295,7 +303,6 @@ public class serverFrame_ extends javax.swing.JFrame implements mainInterface{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());

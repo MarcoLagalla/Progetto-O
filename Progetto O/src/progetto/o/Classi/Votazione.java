@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package progetto.o;
+package progetto.o.Classi;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import progetto.o.Connettività.MySQlConnection;
 
 public class Votazione {
 

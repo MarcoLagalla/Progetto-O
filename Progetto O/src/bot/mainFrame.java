@@ -6,10 +6,10 @@
 package bot;
 
 
-import progetto.o.MySQlConnection;
-import progetto.o.candidati;
-import progetto.o.persone;
-import progetto.o.votanti;
+import progetto.o.Connettività.MySQlConnection;
+import progetto.o.Classi.candidati;
+import progetto.o.Classi.persone;
+import progetto.o.Classi.votanti;
 
 import java.util.ArrayList;
 import java.util.Random;

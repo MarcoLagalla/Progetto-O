@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package progetto.o;
+package progetto.o.Frames;
 import java.awt.Image;
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.filechooser.*;
+import progetto.o.Connettività.FTPConnection;
+import progetto.o.Connettività.MySQlConnection;
+import progetto.o.Classi.candidati;
+import progetto.o.Classi.persone;
 /**
  *
  * @author marco
