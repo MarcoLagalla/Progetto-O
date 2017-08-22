@@ -247,9 +247,9 @@ public class serverFrame_ extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
-        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         SuperContenitore_Panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -553,14 +553,15 @@ public class serverFrame_ extends javax.swing.JFrame {
                                 .addComponent(fotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 519, Short.MAX_VALUE)
                                 .addComponent(LabelVoti2)
                                 .addGap(273, 273, 273))
                             .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
                                 .addGap(245, 245, 245)
                                 .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(NomeVincitore2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(NomeVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(NomeVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(NomeVincitore1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
                         .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,11 +584,6 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Intestazione_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(837, 837, 837))
-            .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SuperContenitore_PanelLayout.createSequentialGroup()
-                    .addContainerGap(1788, Short.MAX_VALUE)
-                    .addComponent(NomeVincitore1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(581, 581, 581)))
         );
         SuperContenitore_PanelLayout.setVerticalGroup(
             SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,14 +608,16 @@ public class serverFrame_ extends javax.swing.JFrame {
                             .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(Pannello_ColumnChart, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                                 .addComponent(LabelVoti3)
                                 .addGap(46, 46, 46)
                                 .addComponent(Pannello_CakeChart, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(60, 60, 60))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SuperContenitore_PanelLayout.createSequentialGroup()
                         .addComponent(LabelVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
+                        .addGap(19, 19, 19)
+                        .addComponent(NomeVincitore1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
                         .addComponent(NomeVincitore2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
                         .addComponent(NomeVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -628,11 +626,6 @@ public class serverFrame_ extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Pannello_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-            .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
-                    .addGap(302, 302, 302)
-                    .addComponent(NomeVincitore1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(1291, Short.MAX_VALUE)))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
