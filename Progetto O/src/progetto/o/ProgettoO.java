@@ -1,4 +1,4 @@
-/*
+﻿/*
 
 MAIN CLASS
 
@@ -91,7 +91,8 @@ public class ProgettoO {
 
     private void prepareGUI() {         // Creazione finestra principale (login user)
     
-        int c = JComponent.WHEN_IN_FOCUSED_WINDOW;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
+       
+        int c = JComponent.WHEN_FOCUSED;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
     
         if ( clientFrame != null) {
             clientFrame.dispose();
@@ -113,12 +114,21 @@ public class ProgettoO {
         mainFrame.setResizable(true);
         
         Image_Icon = new JLabel();
-        Image_Icon.setIcon(new ImageIcon("Immagini/Logo.png")); // RELATIVE PATH
+
+        ImageIcon img;
+
+        try {
+            img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Logo.png"));
+        } catch (MalformedURLException ex) {
+            img = null;
+        }
+        
+        Image_Icon.setIcon(img); // RELATIVE PATH
         Image_Icon.setSize(350,395);
         mainFrame.add(Image_Icon,BorderLayout.EAST);                            //BorderLayout EAST
         
         Image_Icon_2 = new JLabel();
-        Image_Icon_2.setIcon(new ImageIcon("Immagini/Logo.png")); // RELATIVE PATH
+        Image_Icon_2.setIcon(img);
         Image_Icon_2.setSize(350,395);
         mainFrame.add(Image_Icon_2,BorderLayout.WEST);
         
@@ -161,6 +171,7 @@ public class ProgettoO {
         CodiceFis.setFont(new Font("CF",Font.BOLD,25));
         CodiceFis.setSize(450,5);
         background_panel.add(CodiceFis);
+
         
         CF = new JTextField();
         CF.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -207,14 +218,20 @@ public class ProgettoO {
         registrazione.setActionCommand("Registrazione");
         registrazione.setSize(600, 200);
         registrazione.setEnabled(false);
-        ImageIcon icon = new ImageIcon("Immagini/Button_Registrazione_Disabled.png");
-        registrazione.setIcon(resizeIcon(icon, registrazione.getWidth() , registrazione.getHeight() ));
+        
+        try {
+            img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Button_Registrazione_Disabled.png"));
+        } catch (MalformedURLException ex) {
+            img = null;
+        }
+        
+        registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
 
         registrazione.addActionListener(new ButtonClickListener());
 
         mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
 //______________________________________________________________________________
-        
+
         // Creo la shortcut (CTRL+A) che apre la finestra di Admin Login
          JButton AdmLog_Button = new JButton();
          AdmLog_Button.setAction(new AbstractAction("call AdmLogin") {
