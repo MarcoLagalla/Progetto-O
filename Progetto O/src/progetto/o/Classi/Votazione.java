@@ -50,7 +50,7 @@ public class Votazione {
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
          VotazioneAperta = true; 
         try {   
-            int res = mysql.UpdateQuery("CREATE TABLE `db`.`" + idVotazione+ "` ( ` Data` VARCHAR(45) NULL DEFAULT NULL,`Affluenza` INT NULL DEFAULT 0, PRIMARY KEY (`Data`)) ENGINE = InnoDB DEFAULT CHARACTER SET = latin1;");
+            int res = mysql.UpdateQuery("CREATE TABLE 'db'.'" + idVotazione+ "' ( ' Data' VARCHAR(45) NULL DEFAULT NULL,'Affluenza' INT NULL DEFAULT 0, PRIMARY KEY ('Data')) ENGINE = InnoDB DEFAULT CHARACTER SET = latin1;");
                        if (res == 0 ) {
                            System.out.println("Errore Query");
                        }
