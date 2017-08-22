@@ -86,6 +86,7 @@ public class MySQlConnection {
     static final String TABPARTITO = "Partito";
     static final String TABVOTI = "Voti";
     static final String TABIMMAGINE = "Immagine";
+    static final String TABFLAGVOTATO = "FlagVotato";
     
     
     /**
@@ -180,7 +181,7 @@ public class MySQlConnection {
     public ArrayList<votanti> ReadVotantiColumns() {
        
         
-        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera FROM db.PERSONE\n" +
+        String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato FROM db.PERSONE\n" +
                        "JOIN db.VOTANTI on PERSONE.CodiceFiscale = VOTANTI.CodiceFiscale;";
         
         ArrayList<votanti> vot = new ArrayList();
@@ -201,8 +202,9 @@ public class MySQlConnection {
                 String DataNascita = res.getString(TABDATANASCITA);
                 String Comune = res.getString(TABCOMUNE);
                 String CodiceTessera = res.getString(TABCODICETESSERA);
-               
-                v = new votanti(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera);
+                int FlagVotato = res.getInt(TABFLAGVOTATO);
+                
+                v = new votanti(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato);
                 vot.add(v);
 
             }

@@ -29,6 +29,8 @@ public class Votazione {
  
 /*____________________________________COSTRUTTORI__________________________________________*/
     
+    public static boolean VotazioneAperta = false;
+    
     private Votazione(){} // Costruttore Privato in Quanto Classe di Metodi Statici
     
 /*____________________________________METODI GET SET________________________________________*/
@@ -45,7 +47,7 @@ public class Votazione {
     
    public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
-          
+         VotazioneAperta = true; 
         try {   
             int res = mysql.UpdateQuery("CREATE TABLE `db`.`" + idVotazione+ "` ( ` Data` VARCHAR(45) NULL DEFAULT NULL,`Affluenza` INT NULL DEFAULT 0, PRIMARY KEY (`Data`)) ENGINE = InnoDB DEFAULT CHARACTER SET = latin1;");
                        if (res == 0 ) {
@@ -66,6 +68,7 @@ public class Votazione {
     public static void chiudiVotazione() { // chiude il turno delle votazioni.       
         resetVoti();
         winner = findWinner();
+        VotazioneAperta = false; 
     }
 //__________________________________________________________________________________________________________________________________________      
     public static void addAffluenza() { // incrementa il numero dei voti nella giornata corrente, nella tabella PRIMO TURNO(idVotazione) - chiamato da clientGUI

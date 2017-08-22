@@ -62,6 +62,9 @@ public class addCandidati_frame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Creazione nuovo candidato");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setForeground(java.awt.Color.white);
+        setResizable(false);
 
         label_nome_candidato.setText("Nome:");
 

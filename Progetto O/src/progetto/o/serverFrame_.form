@@ -62,41 +62,50 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPanel1" min="-2" pref="675" max="-2" attributes="0"/>
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="LabelVincitore" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="fotoWinner" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="NomeVincitore2" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="NomeVincitore1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="NomeVincitore" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="LabelVincitore" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="fotoWinner" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="NomeVincitore2" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="NomeVincitore1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="NomeVincitore" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="Pannello_ColumnChart" min="-2" pref="458" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="LabelVoti2" min="-2" pref="339" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="LabelAffluenza" min="-2" pref="390" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="Pannello_ColumnChart" alignment="0" min="-2" pref="550" max="-2" attributes="0"/>
+                                      <Component id="Pannello_CakeChart" min="-2" pref="550" max="-2" attributes="0"/>
+                                      <Component id="LabelVoti3" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                                      <Component id="LabelAffluenza" min="-2" pref="390" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Pannello_LineChart" min="-2" pref="550" max="-2" attributes="0"/>
-                              <Component id="LabelVoti2" min="-2" max="-2" attributes="0"/>
-                              <Component id="Pannello_CakeChart" min="-2" pref="550" max="-2" attributes="0"/>
-                              <Component id="LabelVoti3" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Component id="Pannello_LineChart" min="-2" pref="608" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -104,7 +113,7 @@
                           <Component id="Intestazione_Panel" min="-2" pref="813" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -115,15 +124,16 @@
                   <Component id="Intestazione_Panel" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="LabelVoti3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="Pannello_CakeChart" min="-2" pref="338" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="LabelVincitore" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -138,36 +148,42 @@
                                       <Component id="fotoWinner" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jPanel2" max="32767" attributes="0"/>
+                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jPanel1" min="-2" pref="334" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="70" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="LabelAffluenza" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="LabelVoti2" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="LabelAffluenza" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Pannello_LineChart" min="-2" pref="338" max="-2" attributes="0"/>
-                              <Component id="Pannello_ColumnChart" min="-2" pref="341" max="-2" attributes="0"/>
+                              <Component id="Pannello_LineChart" min="-2" pref="368" max="-2" attributes="0"/>
+                              <Component id="Pannello_ColumnChart" min="-2" pref="368" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace pref="76" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Container class="javax.swing.JPanel" name="Pannello_ColumnChart">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+        </Container>
         <Container class="javax.swing.JPanel" name="jPanel4">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -245,6 +261,9 @@
                     </Property>
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Candidati_listMouseClicked"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -319,21 +338,20 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Component id="error_msg" alignment="0" min="-2" pref="672" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="vot_Status" min="-2" pref="352" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="vot_Status_Lab" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="error_msg" alignment="0" min="-2" pref="688" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="vot_Status_Lab" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="529" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -341,9 +359,9 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       <Component id="vot_Status" min="-2" pref="69" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="dataAvvio_Lab" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="dataAvvio" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
@@ -364,15 +382,15 @@
                           <Component id="avvia_Vot" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="stop_Vot" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="error_msg" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="31" max="32767" attributes="0"/>
                           <Component id="vot_Status_Lab" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="378" max="-2" attributes="0"/>
-                          <Component id="error_msg" min="-2" pref="51" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -391,9 +409,6 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="vot_Status">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="vot_Status.setIcon(new ImageIcon(&quot;Immagini/Vot_Chiuse.png&quot;));"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="DataAvvio_Lab1">
               <Properties>
@@ -481,6 +496,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -554,7 +570,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="22" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Affluenza Votanti nelle relative Giornate"/>
+            <Property name="text" type="java.lang.String" value="Andamento voti"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelVincitore">
@@ -568,7 +584,7 @@
             <Property name="text" type="java.lang.String" value="VINCITORE"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="Pannello_ColumnChart">
+        <Container class="javax.swing.JPanel" name="Pannello_LineChart">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -582,7 +598,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="22" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Andamento Votazioni a chiusura Elezioni"/>
+            <Property name="text" type="java.lang.String" value="Alluenza alle urne"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="fotoWinner">
@@ -592,21 +608,12 @@
             <Property name="text" type="java.lang.String" value="Cod.Fiscale"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="Pannello_LineChart">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-        </Container>
         <Component class="javax.swing.JLabel" name="LabelVoti3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="22" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Percentuale Uomini/Donne"/>
+            <Property name="text" type="java.lang.String" value="Percentuale uomini/donne"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="NomeVincitore1">
@@ -643,19 +650,19 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="173" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="194" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

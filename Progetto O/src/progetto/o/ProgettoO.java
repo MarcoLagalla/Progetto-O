@@ -21,7 +21,7 @@ import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /*____________________________________STATO INTERNO________________________________________*/
 
-public class ProgettoO {
+public class ProgettoO implements mainInterface{
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JTextField CF;
@@ -53,7 +53,7 @@ public class ProgettoO {
     // Istanzio Oggetti Utili
     
     private  char[] admin_pwd;                          
-    final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
+   
     MySQlConnection mysql; 
     
     // Istanzio serverFrame_ creato con JFrame Form
@@ -112,23 +112,15 @@ public class ProgettoO {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setBackground(Color.WHITE);
         mainFrame.setResizable(true);
-        
+      
         Image_Icon = new JLabel();
 
-        ImageIcon img;
-
-        try {
-            img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Logo.png"));
-        } catch (MalformedURLException ex) {
-            img = null;
-        }
-        
-        Image_Icon.setIcon(img); // RELATIVE PATH
+        Image_Icon.setIcon(setUrlIcon(IMG_LOGO)); // RELATIVE PATH
         Image_Icon.setSize(350,395);
         mainFrame.add(Image_Icon,BorderLayout.EAST);                            //BorderLayout EAST
         
         Image_Icon_2 = new JLabel();
-        Image_Icon_2.setIcon(img);
+        Image_Icon_2.setIcon(setUrlIcon(IMG_LOGO));
         Image_Icon_2.setSize(350,395);
         mainFrame.add(Image_Icon_2,BorderLayout.WEST);
         
@@ -219,13 +211,8 @@ public class ProgettoO {
         registrazione.setSize(600, 200);
         registrazione.setEnabled(false);
         
-        try {
-            img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Button_Registrazione_Disabled.png"));
-        } catch (MalformedURLException ex) {
-            img = null;
-        }
-        
-        registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
+        registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_DISABLED));
+    //    registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
 
         registrazione.addActionListener(new ButtonClickListener());
 
@@ -255,6 +242,7 @@ public class ProgettoO {
 private void prepareAdminLoginGUI() {        // Creazione finestra Login per Admin (accede alla finestra Server)
         Admin_Login = new JFrame("ADMINISTRATOR LOGIN");
         Admin_Login.setLayout(null);
+    
         Admin_Login.setSize(500, 300);
         Admin_Login.setResizable(false);
         Admin_Login.setLocationRelativeTo(null);
@@ -445,7 +433,17 @@ private static boolean netIsAvailable() {
 
 // Metodo Grafico per definire dimensioni Immagine
 
-private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
+    private Icon setUrlIcon(String remoteURL ) {
+        ImageIcon img;
+        try {
+            img = new ImageIcon(new URL(remoteURL));
+        } catch (MalformedURLException ex) {
+            img = null;
+        }
+        return img;
+    }
+    
+    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
