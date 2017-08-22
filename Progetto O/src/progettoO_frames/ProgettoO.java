@@ -3,10 +3,10 @@
 MAIN CLASS
 
 */
-package progetto.o.Frames;
+package progettoO_frames;
 
-import progetto.o.Frames.SchedaCandidatoFrame;
-import progetto.o.Frames.ServerFrame;
+import progettoO_frames.SchedaCandidatoFrame;
+import progettoO_frames.ServerFrame;
 import java.util.*;
 import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -18,10 +18,10 @@ import java.net.MalformedURLException;
 import java.io.IOException;
 import org.jfree.layout.CenterLayout;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
-import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.Candidati;
-import progetto.o.Classi.Votanti;
-import progetto.o.Interfacce.InterfacciaPrincipale;
+import progettoO_connettività.MySQlConnection;
+import progettoO_classi.Candidati;
+import progettoO_classi.Votanti;
+import progettoO_interfacce.InterfacciaPrincipale;
 
 
 
