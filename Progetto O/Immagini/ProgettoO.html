@@ -1,0 +1,453 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>ProgettoO.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: Calibri}
+pre {color: #000000; background-color: #ffffff; font-family: Calibri}
+table {color: #000000; background-color: #e9e8e2; font-family: Calibri}
+.string {color: #ce7b00}
+.ST5 {color: #ce7b00; font-family: Calibri; font-weight: bold}
+.ST2 {color: #009900}
+.ST1 {font-family: Calibri; font-weight: bold}
+.ST0 {color: #969696; font-family: Calibri; font-style: italic}
+.ST3 {color: #009900; font-family: Calibri; font-style: italic}
+.ST4 {font-family: Calibri; font-style: italic}
+.ST6 {font-family: Calibri; font-weight: bold; font-style: italic}
+.literal {color: #0000e6}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\luca\Documents\GitHub\Progetto-O\Progetto O\src\progetto\o\ProgettoO.java</td></tr></table>
+<pre>
+  1 <span class="ST0">/*</span>
+  2 
+  3 <span class="ST0">MAIN CLASS</span>
+  4 
+  5 <span class="ST0">*/</span>
+  6 <span class="literal">package</span> progetto.o;
+  7 
+  8 <span class="literal">import</span> java.util.*;
+  9 <span class="literal">import</span> java.awt.*;
+ 10 <span class="literal">import</span> <span class="literal">static</span> java.awt.Frame.MAXIMIZED_BOTH;
+ 11 <span class="literal">import</span> java.awt.event.*;
+ 12 <span class="literal">import</span> javax.swing.*;
+ 13 <span class="literal">import</span> java.net.URL;
+ 14 <span class="literal">import</span> java.net.URLConnection;
+ 15 <span class="literal">import</span> java.net.MalformedURLException;
+ 16 <span class="literal">import</span> java.io.IOException;
+ 17 
+ 18 
+ 19 
+ 20 <span class="ST0">/*____________________________________STATO INTERNO________________________________________*/</span>
+ 21 
+ 22 <span class="literal">public</span> <span class="literal">class</span> <span class="ST1">ProgettoO</span> {
+ 23     <span class="ST0">// Elementi Grafici Swing per MAINFRAME</span>
+ 24     <span class="literal">private</span> JFrame <span class="ST2">mainFrame</span>;
+ 25     <span class="literal">private</span> JTextField <span class="ST2">CF</span>;
+ 26     <span class="literal">private</span> JTextField <span class="ST2">CT</span>;
+ 27     <span class="literal">private</span> JLabel <span class="ST2">CodiceFis</span>;
+ 28     <span class="literal">private</span> JLabel <span class="ST2">CodiceTes</span>;
+ 29     <span class="literal">private</span> JLabel <span class="ST2">Image_Icon</span>;
+ 30     <span class="literal">private</span> <span class="literal">static</span> JButton <span class="ST3">registrazione</span>; <span class="ST0">// dichiaro statico per poterlo chiamare da altre classi</span>
+ 31     <span class="literal">private</span> JLabel <span class="ST2">Intestazione</span>;
+ 32     <span class="literal">private</span> JPanel <span class="ST2">background_panel</span>;
+ 33     
+ 34     <span class="ST0">// Elementi Grafici Swing per CLIENT_FRAME</span>
+ 35     <span class="literal">public</span> <span class="literal">static</span> JFrame <span class="ST3">clientFrame</span>;
+ 36     
+ 37     <span class="literal">private</span> JLabel <span class="ST2">Client_Label</span>;
+ 38     <span class="literal">private</span> JPanel <span class="ST2">client_panel</span>; <span class="ST0">//GRIGLIA</span>
+ 39      
+ 40     
+ 41     <span class="ST0">// Elementi grafici per Login Admin</span>
+ 42     <span class="literal">private</span> JFrame <span class="ST2">Admin_Login</span>;
+ 43     <span class="literal">private</span> JLabel <span class="ST2">AdmLog_ErrPwd</span>;
+ 44     <span class="literal">private</span> JPasswordField <span class="ST2">AdmLog_pwd</span>;
+ 45     <span class="literal">private</span> JButton <span class="ST2">AdmLog_button</span>;
+ 46     <span class="literal">private</span> JLabel <span class="ST2">AdmLog_title</span>;
+ 47 
+ 48 
+ 49     <span class="ST0">// Istanzio Oggetti Utili</span>
+ 50     
+ 51     <span class="literal">private</span>  <span class="literal">char</span>[] <span class="ST2">admin_pwd</span>;                          
+ 52     <span class="literal">final</span> <span class="literal">public</span> String <span class="ST2">IMG_REMOTE_FOLDER</span> = <span class="string">&quot;</span><span class="string">/var/www/progettoO/img</span><span class="string">&quot;</span>;
+ 53     MySQlConnection <span class="ST2">mysql</span>; 
+ 54     
+ 55     <span class="ST0">// Istanzio serverFrame_ creato con JFrame Form</span>
+ 56     serverFrame_ <span class="ST2">prepareServerGUI</span>;
+ 57     
+ 58     <span class="ST0">// Definisco HotKey</span>
+ 59     <span class="literal">private</span> KeyStroke <span class="ST2">key</span> = KeyStroke.<span class="ST4">getKeyStroke</span>(KeyEvent.<span class="ST3">VK_A</span>, InputEvent.<span class="ST3">CTRL_DOWN_MASK</span>);       <span class="ST0">// hotkey per l&#39;azione call_AdmLogin (CTRL+A)</span>
+ 60 
+ 61 <span class="ST0">/*____________________________________COSTRUTTORI__________________________________________*/</span>
+ 62 
+ 63     <span class="literal">public</span> <span class="ST1">ProgettoO</span>() {
+ 64         <span class="literal">if</span> ( <span class="ST4">netIsAvailable</span>() ) {
+ 65             <span class="ST2">mysql</span> = <span class="literal">new</span> MySQlConnection();
+ 66             <span class="ST2">prepareServerGUI</span> = <span class="literal">new</span> serverFrame_();
+ 67             prepareGUI();
+ 68             
+ 69         }
+ 70         <span class="literal">else</span> {
+ 71             JOptionPane.<span class="ST4">showMessageDialog</span>(<span class="literal">null</span>,<span class="string">&quot;</span><span class="string">Non è stata rilevata alcuna connessione a internet.</span><span class="ST5">\n</span><span class="string">Per il funzionamento del programma è necessaria la connesiona a internet.</span><span class="ST5">\n</span><span class="string">Verificare la connessione di rete e riprovare.</span><span class="string">&quot;</span>, <span class="string">&quot;</span><span class="string">ERRORE</span><span class="string">&quot;</span>, JOptionPane.<span class="ST3">ERROR_MESSAGE</span>);
+ 72             System.<span class="ST4">exit</span>(0);
+ 73         }
+ 74     }
+ 75     
+ 76 <span class="ST0">/*_______________________________________METODI____________________________________________*/</span>
+ 77   
+ 78 <span class="ST0">///////////////// MAIN ///////////////////</span>
+ 79     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST6">main</span>(String[] args) {
+ 80        ProgettoO SwingControl = <span class="literal">new</span> ProgettoO();
+ 81     }
+ 82 <span class="ST0">///////////////////////////////////////////</span>
+ 83 
+ 84     <span class="literal">public</span> <span class="literal">static</span> JButton <span class="ST6">getRegistrazione</span>() {
+ 85         <span class="literal">return</span> <span class="ST3">registrazione</span>;
+ 86     }
+ 87 
+ 88     <span class="literal">private</span> <span class="literal">void</span> <span class="ST1">prepareGUI</span>() {         <span class="ST0">// Creazione finestra principale (login user)</span>
+ 89     
+ 90         <span class="literal">int</span> c = JComponent.<span class="ST3">WHEN_IN_FOCUSED_WINDOW</span>;      <span class="ST0">// la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED</span>
+ 91     
+ 92         <span class="literal">if</span> ( <span class="ST3">clientFrame</span> != <span class="literal">null</span>) {
+ 93             <span class="ST3">clientFrame</span>.dispose();
+ 94         }
+ 95         <span class="literal">if</span> (<span class="ST2">mainFrame</span> != <span class="literal">null</span>) {
+ 96             <span class="ST2">mainFrame</span>.dispose();
+ 97         }
+ 98         
+ 99         <span class="ST2">mainFrame</span> = <span class="literal">null</span>;
+100         
+101         <span class="ST2">mainFrame</span> = <span class="literal">new</span> JFrame();
+102         <span class="ST2">mainFrame</span>.setLayout(<span class="literal">new</span> BorderLayout());
+103         <span class="ST0">//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();</span>
+104         <span class="ST0">//mainFrame.setPreferredSize(screenSize);</span>
+105         <span class="ST0">//mainFrame.setSize(screenSize);</span>
+106         <span class="ST0">//mainFrame.setExtendedState(MAXIMIZED_BOTH);</span>
+107                                 <span class="ST2">mainFrame</span>.setSize(1000, 1000);
+108         <span class="ST2">mainFrame</span>.setDefaultCloseOperation(JFrame.<span class="ST3">EXIT_ON_CLOSE</span>);
+109         <span class="ST2">mainFrame</span>.setResizable(<span class="literal">false</span>);
+110         
+111         <span class="ST2">background_panel</span> = <span class="literal">new</span> JPanel(<span class="literal">null</span>);
+112         <span class="ST2">background_panel</span>.setBackground(Color.<span class="ST3">white</span>);
+113                                 <span class="ST2">background_panel</span>.setBorder(BorderFactory.<span class="ST4">createLineBorder</span>(Color.<span class="ST3">black</span>));
+114                                 <span class="ST2">background_panel</span>.setSize(800, 800);
+115         <span class="ST0">//background_panel.setSize(screenSize);</span>
+116         <span class="ST2">mainFrame</span>.add(<span class="ST2">background_panel</span>,BorderLayout.<span class="ST3">CENTER</span>);
+117         
+118         <span class="ST2">Image_Icon</span> = <span class="literal">new</span> JLabel();
+119         <span class="ST2">Image_Icon</span>.setIcon(<span class="literal">new</span> ImageIcon(<span class="string">&quot;</span><span class="string">Immagini/Logo.png</span><span class="string">&quot;</span>)); <span class="ST0">// RELATIVE PATH</span>
+120         <span class="ST2">Image_Icon</span>.setBounds(860,180, 350, 395);
+121         <span class="ST2">background_panel</span>.add(<span class="ST2">Image_Icon</span>, BorderLayout.<span class="ST3">CENTER</span>);
+122         
+123         <span class="ST2">Intestazione</span> = <span class="literal">new</span> JLabel();
+124         <span class="ST2">Intestazione</span>.setFont(<span class="literal">new</span> Font(<span class="string">&quot;</span><span class="string">Intestazione</span><span class="string">&quot;</span>, Font.<span class="ST3">ITALIC</span>,35));
+125         <span class="ST2">Intestazione</span>.setText(<span class="string">&quot;</span><span class="string">SISTEMA ELETTORALE ELETTRONICO</span><span class="string">&quot;</span>);
+126         <span class="ST2">Intestazione</span>.setBounds(330, 10, 1000, 30);
+127         <span class="ST2">background_panel</span>.add(<span class="ST2">Intestazione</span>, BorderLayout.<span class="ST3">NORTH</span>);
+128 <span class="ST0">//______________________________________________________________________________        </span>
+129         <span class="ST2">CodiceFis</span> = <span class="literal">new</span> JLabel(<span class="string">&quot;</span><span class="string">Inserire CODICE FISCALE</span><span class="string">&quot;</span>);
+130         <span class="ST2">CodiceFis</span>.setFont(<span class="literal">new</span> Font(<span class="string">&quot;</span><span class="string">CF</span><span class="string">&quot;</span>,Font.<span class="ST3">BOLD</span>,18));
+131         <span class="ST2">CodiceFis</span>.setBounds(200, 280, 250, 30);
+132         <span class="ST2">background_panel</span>.add(<span class="ST2">CodiceFis</span> , BorderLayout.<span class="ST3">CENTER</span>);
+133         
+134         <span class="ST2">CF</span> = <span class="literal">new</span> JTextField();
+135         <span class="ST2">CF</span>.setText(<span class="string">&quot;</span><span class="string">GRRFRC94S23M109E</span><span class="string">&quot;</span>);                                         <span class="ST0">// PER TEST DA RIMUOVERE</span>
+136         <span class="ST2">CF</span>.setFont(<span class="literal">new</span> Font(<span class="string">&quot;</span><span class="string">CF_Field</span><span class="string">&quot;</span>,Font.<span class="ST3">ROMAN_BASELINE</span>,14));
+137         <span class="ST2">CF</span>.setBounds(460, 280, 300, 30);
+138         <span class="ST2">background_panel</span>.add(<span class="ST2">CF</span>);
+139         
+140         <span class="ST2">CodiceTes</span> = <span class="literal">new</span> JLabel(<span class="string">&quot;</span><span class="string">Inserire CODICE TESSERA</span><span class="string">&quot;</span>);
+141         <span class="ST2">CodiceTes</span>.setFont(<span class="literal">new</span> Font(<span class="string">&quot;</span><span class="string">CT</span><span class="string">&quot;</span>,Font.<span class="ST3">BOLD</span>,18));
+142         <span class="ST2">CodiceTes</span>.setBounds(200, 340, 255, 30);
+143         <span class="ST2">background_panel</span>.add(<span class="ST2">CodiceTes</span>);
+144         
+145         <span class="ST2">CT</span> = <span class="literal">new</span> JTextField();
+146         <span class="ST2">CT</span>.setText(<span class="string">&quot;</span><span class="string">231119994</span><span class="string">&quot;</span>);                                               <span class="ST0">// PER TEST DA RIMUOVERE</span>
+147         <span class="ST2">CT</span>.setFont(<span class="literal">new</span> Font(<span class="string">&quot;</span><span class="string">CT_Field</span><span class="string">&quot;</span>,Font.<span class="ST3">ROMAN_BASELINE</span>,14));
+148         <span class="ST2">CT</span>.setBounds(460, 340, 300, 30);
+149         <span class="ST2">background_panel</span>.add(<span class="ST2">CT</span>);
+150 <span class="ST0">//______________________________________________________________________________</span>
+151 
+152         <span class="ST3">registrazione</span> = <span class="literal">new</span> JButton(<span class="string">&quot;&quot;</span>);   <span class="ST0">// COMPLETARE  RESIZE</span>
+153         <span class="ST3">registrazione</span>.setActionCommand(<span class="string">&quot;</span><span class="string">Registrazione</span><span class="string">&quot;</span>);
+154         <span class="ST3">registrazione</span>.setBounds(460, 400, 300, 90);
+155         <span class="ST3">registrazione</span>.setEnabled(<span class="literal">false</span>);
+156         ImageIcon icon = <span class="literal">new</span> ImageIcon(<span class="string">&quot;</span><span class="string">Immagini/Button_Registrazione_Disabled.png</span><span class="string">&quot;</span>);
+157         <span class="ST3">registrazione</span>.setIcon(<span class="ST4">resizeIcon</span>(icon, <span class="ST3">registrazione</span>.getWidth() , <span class="ST3">registrazione</span>.getHeight() ));
+158 
+159         <span class="ST3">registrazione</span>.addActionListener(<span class="literal">new</span> ButtonClickListener());
+160 
+161         <span class="ST2">background_panel</span>.add(<span class="ST3">registrazione</span>);
+162         
+163         <span class="ST0">// Creo la shortcut (CTRL+A) che apre la finestra di Admin Login</span>
+164          JButton AdmLog_Button = <span class="literal">new</span> JButton();
+165          AdmLog_Button.setAction(<span class="literal">new</span> AbstractAction(<span class="string">&quot;</span><span class="string">call AdmLogin</span><span class="string">&quot;</span>) {
+166             @Override
+167             <span class="literal">public</span> <span class="literal">void</span> <span class="ST1">actionPerformed</span>(ActionEvent call_AdmLog) {
+168                 prepareAdminLoginGUI();
+169             }
+170         }); 
+171 
+172         <span class="ST2">background_panel</span>.add(AdmLog_Button);
+173         
+174         <span class="ST2">background_panel</span>.getInputMap(c).put(<span class="ST2">key</span>, <span class="string">&quot;</span><span class="string">call_Action</span><span class="string">&quot;</span>);
+175         <span class="ST2">background_panel</span>.getActionMap().put(<span class="string">&quot;</span><span class="string">call_Action</span><span class="string">&quot;</span>, AdmLog_Button.getAction());
+176 
+177         <span class="ST0">// Spawn MAINFRAME</span>
+178         <span class="ST2">mainFrame</span>.setVisible(<span class="literal">true</span>);
+179     }       
+180     
+181 <span class="ST0">////////////////////////////////////////////////////////////////////////////////</span>
+182 
+183 <span class="literal">private</span> <span class="literal">void</span> <span class="ST1">prepareAdminLoginGUI</span>() {        <span class="ST0">// Creazione finestra Login per Admin (accede alla finestra Server)</span>
+184         <span class="ST2">Admin_Login</span> = <span class="literal">new</span> JFrame(<span class="string">&quot;</span><span class="string">ADMINISTRATOR LOGIN</span><span class="string">&quot;</span>);
+185         <span class="ST2">Admin_Login</span>.setLayout(<span class="literal">null</span>);
+186         <span class="ST2">Admin_Login</span>.setSize(500, 300);
+187         <span class="ST2">Admin_Login</span>.setResizable(<span class="literal">false</span>);
+188         <span class="ST2">Admin_Login</span>.setLocationRelativeTo(<span class="literal">null</span>);
+189         <span class="ST2">AdmLog_title</span> = <span class="literal">new</span> JLabel(<span class="string">&quot;</span><span class="string">Admin password: </span><span class="string">&quot;</span>);
+190         <span class="ST2">AdmLog_title</span>.setBounds(70, 70, 120, 25);
+191         <span class="ST2">Admin_Login</span>.add(<span class="ST2">AdmLog_title</span>);
+192         
+193         <span class="ST2">AdmLog_pwd</span> = <span class="literal">new</span> JPasswordField();
+194         <span class="ST2">AdmLog_pwd</span>.setBounds(210, 70, 200, 25);
+195         <span class="ST2">Admin_Login</span>.add(<span class="ST2">AdmLog_pwd</span>);
+196         
+197         <span class="ST2">AdmLog_button</span> = <span class="literal">new</span> JButton(<span class="string">&quot;</span><span class="string">LOGIN</span><span class="string">&quot;</span>);
+198         <span class="ST2">AdmLog_button</span>.setActionCommand(<span class="string">&quot;</span><span class="string">Admin_Log</span><span class="string">&quot;</span>);
+199         <span class="ST2">AdmLog_button</span>.addActionListener(<span class="literal">new</span> ButtonClickListener());
+200         <span class="ST2">AdmLog_button</span>.setBounds(170, 150, 150, 50);
+201         <span class="ST2">Admin_Login</span>.add(<span class="ST2">AdmLog_button</span>);
+202         
+203         <span class="ST2">AdmLog_ErrPwd</span> = <span class="literal">new</span> JLabel();
+204         <span class="ST2">AdmLog_ErrPwd</span>.setBounds(150, 220, 200, 25);
+205         <span class="ST2">Admin_Login</span>.add(<span class="ST2">AdmLog_ErrPwd</span>);
+206         
+207         <span class="ST2">Admin_Login</span>.setVisible(<span class="literal">true</span>);
+208     }      
+209 
+210 
+211 <span class="literal">private</span> <span class="literal">void</span> <span class="ST1">prepareClientGUI</span>(){            <span class="ST0">// Creazione finestra votazione (dopo user login)</span>
+212 
+213         <span class="ST3">clientFrame</span> = <span class="literal">new</span> JFrame(<span class="string">&quot;</span><span class="string">SISTEMA ELETTORALE ELETTRONICO</span><span class="string">&quot;</span>);
+214         
+215         <span class="ST3">clientFrame</span>.setDefaultCloseOperation(JFrame.<span class="ST3">DISPOSE_ON_CLOSE</span>);
+216         <span class="ST3">clientFrame</span>.setLayout(<span class="literal">new</span> BorderLayout());
+217         Dimension screenSize = Toolkit.<span class="ST4">getDefaultToolkit</span>().getScreenSize();
+218         <span class="ST3">clientFrame</span>.setPreferredSize(screenSize);
+219         <span class="ST3">clientFrame</span>.setSize(screenSize);
+220         <span class="ST3">clientFrame</span>.setExtendedState(JFrame.<span class="ST3">MAXIMIZED_BOTH</span>);
+221         <span class="ST3">clientFrame</span>.setResizable(<span class="literal">false</span>);
+222         
+223         
+224         <span class="ST3">clientFrame</span>.addWindowListener(<span class="literal">new</span> java.awt.event.WindowAdapter() {
+225             <span class="literal">public</span> <span class="literal">void</span> <span class="ST1">windowClosed</span>(java.awt.event.WindowEvent evt) {
+226                prepareGUI();
+227             }
+228         });
+229         
+230         <span class="ST2">Client_Label</span> = <span class="literal">new</span> JLabel(<span class="string">&quot;</span><span class="string">SCEGLIERE CANDIDATO</span><span class="string">&quot;</span>,<span class="ST2">Client_Label</span>.<span class="ST3">CENTER</span>);
+231         <span class="ST2">Client_Label</span>.setFont(<span class="literal">new</span> Font(<span class="string">&quot;</span><span class="string">Intestazione</span><span class="string">&quot;</span>, Font.<span class="ST3">ITALIC</span>,25));
+232         <span class="ST2">Client_Label</span>.setBounds(50, 10, 1000, 50);
+233         <span class="ST3">clientFrame</span>.add(<span class="ST2">Client_Label</span>,BorderLayout.<span class="ST3">PAGE_START</span>);
+234         
+235         JPanel contPane = <span class="literal">new</span> JPanel();
+236         contPane.setBackground(Color.<span class="ST3">WHITE</span>);
+237         <span class="ST3">clientFrame</span>.setContentPane(contPane);
+238         GridLayout experimentLayout = <span class="literal">new</span> GridLayout(0,4,8,20);  <span class="ST0">// SETTA SPAZIATURE TRA COLONNE E RIGHE</span>
+239         
+240       <span class="ST2">client_panel</span> = <span class="literal">new</span> JPanel(experimentLayout); 
+241       <span class="ST2">client_panel</span>.setBackground(Color.<span class="ST3">WHITE</span>);
+242         ArrayList&lt;candidati&gt; can = <span class="ST2">mysql</span>.ReadCandidatiColumns();
+243        
+244        <span class="literal">for</span> (candidati object: can) {
+245           
+246          schedaCandidato scheda = <span class="literal">new</span> schedaCandidato(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
+247          <span class="ST2">client_panel</span>.add(scheda);
+248         
+249         }
+250        
+251        <span class="ST2">client_panel</span>.setVisible(<span class="literal">true</span>);
+252         
+253        JScrollPane scrollable = <span class="literal">new</span> JScrollPane(<span class="ST2">client_panel</span>);
+254        scrollable.setViewportView(<span class="ST2">client_panel</span>);
+255        scrollable.setPreferredSize(<span class="ST3">clientFrame</span>.getPreferredSize());
+256        scrollable.setSize(<span class="ST3">clientFrame</span>.getSize());
+257        scrollable.setHorizontalScrollBarPolicy(JScrollPane.<span class="ST3">HORIZONTAL_SCROLLBAR_ALWAYS</span>);
+258        scrollable.setVerticalScrollBarPolicy(JScrollPane.<span class="ST3">VERTICAL_SCROLLBAR_ALWAYS</span>);
+259        <span class="ST3">clientFrame</span>.getContentPane().add(scrollable);
+260        <span class="ST3">clientFrame</span>.setVisible(<span class="literal">true</span>);
+261        <span class="ST3">clientFrame</span>.pack();
+262     }       
+263 
+264 <span class="ST0">/*_________________________BUTTON LISTENER____________________________________*/</span>
+265 
+266 <span class="literal">public</span> <span class="literal">class</span> <span class="ST1">ButtonClickListener</span> <span class="literal">implements</span> ActionListener{
+267 
+268        <span class="literal">public</span> <span class="literal">void</span> <span class="ST1">actionPerformed</span>(ActionEvent e){
+269            String command = e.getActionCommand();
+270            
+271            String CF_regex = <span class="string">&quot;</span><span class="string">[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}</span><span class="string">&quot;</span>;
+272            String CF_INV_regex = <span class="string">&quot;</span><span class="string">^(?!.*([A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})).*$</span><span class="string">&quot;</span>; <span class="ST0">// DA PROVARE</span>
+273            
+274 
+275           String CT_regex = <span class="string">&quot;</span><span class="string">[0-9]{9}</span><span class="string">&quot;</span>; 
+276           String CT_INV_regex = <span class="string">&quot;</span><span class="string">^(?!.*([0-9]{9})).*$</span><span class="string">&quot;</span>;           
+277 
+278            
+279 <span class="ST0">//______________________________________________________________________________     </span>
+280 
+281            <span class="literal">switch</span>(command) {
+282                
+283                <span class="literal">case</span> <span class="string">&quot;</span><span class="string">Registrazione</span><span class="string">&quot;</span>: 
+284                {
+285                 <span class="literal">if</span>(<span class="ST2">CF</span>.getText().matches(CF_regex) &amp;&amp; <span class="ST2">CT</span>.getText().matches(CT_regex)){
+286                         <span class="literal">boolean</span> founded_CF = canVoteCF(<span class="ST2">CF</span>.getText()); <span class="ST0">// Booleano definito dal Metodo</span>
+287                         <span class="literal">boolean</span> founded_CT = canVoteCT(<span class="ST2">CT</span>.getText()); <span class="ST0">// Booleano definito dal Metodo</span>
+288                         
+289                         <span class="literal">if</span> (founded_CF==<span class="literal">true</span> &amp;&amp; founded_CT==<span class="literal">true</span>) { <span class="ST0">// Se VERE sia CF sia CT allora Spawna la ClientGUI</span>
+290                             prepareClientGUI();
+291                             <span class="ST2">mainFrame</span>.dispose();
+292                             
+293                         }
+294                         <span class="literal">else</span> <span class="literal">if</span>(founded_CF==<span class="literal">true</span> &amp;&amp; founded_CT==<span class="literal">false</span>) {
+295                             JOptionPane.<span class="ST4">showMessageDialog</span>(<span class="literal">null</span>,<span class="string">&quot;</span><span class="string">Codice Tessera Elettorale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare</span><span class="ST5">\n</span><span class="string">Riprovare</span><span class="string">&quot;</span>,<span class="string">&quot;</span><span class="string">ERRORE</span><span class="string">&quot;</span>,JOptionPane.<span class="ST3">ERROR_MESSAGE</span>);
+296                             <span class="ST2">CT</span>.setText(<span class="string">&quot;&quot;</span>);
+297                         }
+298                         <span class="literal">else</span> <span class="literal">if</span>(founded_CF==<span class="literal">false</span> &amp;&amp; founded_CT==<span class="literal">true</span>){
+299                             JOptionPane.<span class="ST4">showMessageDialog</span>(<span class="literal">null</span>,<span class="string">&quot;</span><span class="string">Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare.</span><span class="ST5">\n</span><span class="string">Riprovare</span><span class="string">&quot;</span>,<span class="string">&quot;</span><span class="string">ERRORE</span><span class="string">&quot;</span>,JOptionPane.<span class="ST3">ERROR_MESSAGE</span>);
+300                             <span class="ST2">CF</span>.setText(<span class="string">&quot;&quot;</span>);
+301                         }
+302                         <span class="literal">else</span> <span class="literal">if</span>(founded_CF==<span class="literal">false</span> &amp;&amp; founded_CT==<span class="literal">false</span>){
+303                            JOptionPane.<span class="ST4">showMessageDialog</span>(<span class="literal">null</span>,<span class="string">&quot;</span><span class="string">Codice Fiscale e Codice Tessera non Trovati.</span><span class="ST5">\n</span><span class="string">Riprovare</span><span class="string">&quot;</span>,<span class="string">&quot;</span><span class="string">ERRORE</span><span class="string">&quot;</span>,JOptionPane.<span class="ST3">ERROR_MESSAGE</span>);
+304                            <span class="ST2">CF</span>.setText(<span class="string">&quot;&quot;</span>);
+305                            <span class="ST2">CT</span>.setText(<span class="string">&quot;&quot;</span>);
+306                         }
+307                         
+308                 } <span class="literal">else</span> <span class="literal">if</span>(<span class="ST2">CF</span>.getText().matches(CF_INV_regex) &amp;&amp; <span class="ST2">CT</span>.getText().matches(CT_regex)) {
+309                       JOptionPane.<span class="ST4">showMessageDialog</span>(<span class="literal">null</span>,<span class="string">&quot;</span><span class="string">Il Codice Fiscale inserito non sembra avere un formato corretto.</span><span class="ST5">\n</span><span class="string">Riprovare.</span><span class="string">&quot;</span>, <span class="string">&quot;</span><span class="string">ERRORE</span><span class="string">&quot;</span>, JOptionPane.<span class="ST3">ERROR_MESSAGE</span>);
+310                   }
+311                 <span class="literal">else</span> <span class="literal">if</span>(<span class="ST2">CF</span>.getText().matches(CF_regex) &amp;&amp; <span class="ST2">CT</span>.getText().matches(CT_INV_regex)) {
+312                       JOptionPane.<span class="ST4">showMessageDialog</span>(<span class="literal">null</span>,<span class="string">&quot;</span><span class="string">Il Codice della Tessera Elettorale inserito non sembra avere un formato corretto.</span><span class="ST5">\n</span><span class="string">Riprovare.</span><span class="string">&quot;</span>, <span class="string">&quot;</span><span class="string">ERRORE</span><span class="string">&quot;</span>, JOptionPane.<span class="ST3">ERROR_MESSAGE</span>);
+313                   } 
+314                 <span class="literal">else</span> <span class="literal">if</span>(<span class="ST2">CF</span>.getText().matches(CF_INV_regex) &amp;&amp; <span class="ST2">CT</span>.getText().matches(CT_INV_regex)) {
+315                       JOptionPane.<span class="ST4">showMessageDialog</span>(<span class="literal">null</span>,<span class="string">&quot;</span><span class="string">Entrabi i Dati non sono nel Formato Corretto.</span><span class="ST5">\n</span><span class="string">Riprovare.</span><span class="string">&quot;</span>, <span class="string">&quot;</span><span class="string">ERRORE</span><span class="string">&quot;</span>, JOptionPane.<span class="ST3">ERROR_MESSAGE</span>);
+316                   }
+317                     <span class="literal">break</span>;
+318                }
+319 
+320 <span class="ST0">//______________________________________________________________________________               </span>
+321                <span class="literal">case</span> <span class="string">&quot;</span><span class="string">Admin_Log</span><span class="string">&quot;</span>:
+322                {
+323                    <span class="ST2">admin_pwd</span> = <span class="literal">new</span> <span class="literal">char</span>[] {<span class="string">&#39;</span><span class="string">q</span><span class="string">&#39;</span>, <span class="string">&#39;</span><span class="string">w</span><span class="string">&#39;</span>, <span class="string">&#39;</span><span class="string">e</span><span class="string">&#39;</span>, <span class="string">&#39;</span><span class="string">1</span><span class="string">&#39;</span>, <span class="string">&#39;</span><span class="string">2</span><span class="string">&#39;</span>, <span class="string">&#39;</span><span class="string">3</span><span class="string">&#39;</span>};
+324               
+325                    <span class="literal">if</span> (<span class="ST2">AdmLog_pwd</span>.getPassword().<span class="ST2">length</span> == <span class="ST2">admin_pwd</span>.<span class="ST2">length</span>) <span class="ST0">// se la lunghezza è diversa, evito il controllo</span>
+326                         <span class="literal">if</span> (Arrays.<span class="ST4">equals</span>(<span class="ST2">AdmLog_pwd</span>.getPassword(), <span class="ST2">admin_pwd</span>)) { 
+327                                <span class="ST2">prepareServerGUI</span>.setVisible(<span class="literal">true</span>);                           
+328                                <span class="ST2">Admin_Login</span>.dispose();
+329                                <span class="literal">break</span>; 
+330                         }
+331                    <span class="ST2">AdmLog_ErrPwd</span>.setText(<span class="string">&quot;</span><span class="string">Password Errata: Accesso Negato</span><span class="string">&quot;</span>);
+332                    <span class="ST2">AdmLog_ErrPwd</span>.setForeground(Color.<span class="ST3">red</span>);
+333                    <span class="literal">break</span>;
+334                }
+335 <span class="ST0">//______________________________________________________________________________ </span>
+336                <span class="literal">case</span> <span class="string">&quot;</span><span class="string">Vota</span><span class="string">&quot;</span>: <span class="ST0">// è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo &quot;createDataSet&quot; in &quot;serverFrame_&quot;</span>
+337                {
+338 
+339                    prepareGUI();    <span class="ST0">// ricrea la home e killa la clientGUI </span>
+340                    <span class="ST3">clientFrame</span>.dispose();
+341                    <span class="literal">break</span>;
+342                }
+343 <span class="ST0">//______________________________________________________________________________                </span>
+344                <span class="literal">case</span> <span class="string">&quot;</span><span class="string">Close_Vot</span><span class="string">&quot;</span>:
+345                {
+346                    <span class="ST0">//</span>
+347                    <span class="literal">break</span>;
+348                }
+349                
+350                <span class="literal">default</span>: <span class="literal">break</span>;
+351                    
+352            }
+353 
+354  
+355        }
+356     }
+357 
+358 <span class="ST0">////////////////////////////////////////////////////////////////////////////////</span>
+359 
+360 <span class="literal">private</span> <span class="literal">static</span> <span class="literal">boolean</span> <span class="ST6">netIsAvailable</span>() {
+361     <span class="literal">try</span> {
+362         <span class="literal">final</span> URL url = <span class="literal">new</span> URL(<span class="string">&quot;</span><span class="string">http://www.google.com</span><span class="string">&quot;</span>);
+363         <span class="literal">final</span> URLConnection conn = url.openConnection();
+364         conn.connect();
+365         <span class="literal">return</span> <span class="literal">true</span>;
+366     } <span class="literal">catch</span> (MalformedURLException e) {
+367         <span class="literal">throw</span> <span class="literal">new</span> RuntimeException(e);
+368     } <span class="literal">catch</span> (IOException e) {
+369         <span class="literal">return</span> <span class="literal">false</span>;
+370     }
+371 }
+372 
+373 
+374 <span class="ST0">// Metodo Grafico per definire dimensioni Immagine</span>
+375 
+376 <span class="literal">private</span> <span class="literal">static</span> Icon <span class="ST6">resizeIcon</span>(ImageIcon icon, <span class="literal">int</span> resizedWidth, <span class="literal">int</span> resizedHeight) {     <span class="ST0">// resize foto dei candidati (nei pannelli di createPan) per fit jButton</span>
+377     Image img = icon.getImage();  
+378     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.<span class="ST3">SCALE_SMOOTH</span>);  
+379     <span class="literal">return</span> <span class="literal">new</span> ImageIcon(resizedImage);
+380 }
+381 
+382 <span class="ST0">// Metodo di Ricerca Dati Elettorali</span>
+383 
+384 <span class="literal">private</span> <span class="literal">boolean</span> <span class="ST1">canVoteCF</span>(String CF) {
+385     
+386         ArrayList&lt;votanti&gt; vot = <span class="ST2">mysql</span>.ReadVotantiColumns();
+387                        
+388         <span class="literal">for</span> (votanti v: vot){
+389             <span class="literal">if</span>(v.getCF().toString().equals(CF)){  
+390                      <span class="literal">return</span> <span class="literal">true</span>; <span class="ST0">// Vuol dire che il CF del Votante Esiste ed è Abilitato</span>
+391             }
+392             
+393         }
+394         <span class="literal">return</span> <span class="literal">false</span>;
+395     }
+396 
+397 <span class="ST0">//______________________________________________________________________________</span>
+398 
+399 <span class="literal">private</span> <span class="literal">boolean</span> <span class="ST1">canVoteCT</span>(String CT) {
+400     
+401         ArrayList&lt;votanti&gt; vot = <span class="ST2">mysql</span>.ReadVotantiColumns();
+402                        
+403         <span class="literal">for</span> (votanti v: vot){
+404             <span class="literal">if</span>(v.getCodiceTessera().toString().equals(CT)){  
+405                      <span class="literal">return</span> <span class="literal">true</span>; <span class="ST0">// Vuol dire che il CT del Votante Esiste ed è Abilitato</span>
+406             }
+407             
+408         }
+409         <span class="literal">return</span> <span class="literal">false</span>;
+410     }
+411 
+412 <span class="ST0">// Metodo Timer</span>
+413 
+414 <span class="literal">public</span> <span class="literal">class</span> <span class="ST1">MyTask</span> <span class="literal">extends</span> TimerTask {
+415     @Override
+416     <span class="literal">public</span> <span class="literal">void</span> <span class="ST1">run</span>() {
+417         <span class="ST2">AdmLog_ErrPwd</span>.setText(<span class="literal">null</span>);
+418         <span class="ST2">AdmLog_pwd</span>.setText(<span class="literal">null</span>);
+419     }
+420     }
+421 
+422 }
+423 
+424 
+425 
+426 
+</pre></body>
+</html>
