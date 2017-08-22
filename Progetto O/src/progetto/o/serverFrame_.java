@@ -33,6 +33,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
+import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.util.Rotation;
 import static progetto.o.ProgettoO.clientFrame;
 
 
@@ -64,10 +68,14 @@ public class serverFrame_ extends javax.swing.JFrame {
             Pannello_LineChart.validate();
             //add(chartPanel, BorderLayout.CENTER);
             
-            JPanel barC = BarChart_AWT("Andamento voti");
+            JPanel barC = BarChart_AWT("");
             Pannello_ColumnChart.add(barC,BorderLayout.CENTER);
             Pannello_ColumnChart.validate();
-     //       setSize(653, 579); // Definisco la Size uguale a quella del Pannello dove andrà sopra
+            //setSize(653, 579); // Definisco la Size uguale a quella del Pannello dove andrà sopra
+            
+            JPanel chartPie = createPieChart("");
+            Pannello_CakeChart.add(chartPie,BorderLayout.CENTER);
+            Pannello_CakeChart.validate();
             
             //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
@@ -79,9 +87,6 @@ public class serverFrame_ extends javax.swing.JFrame {
     
 /*_______________________________________METODI____________________________________________*/
         
-    
-    
-    
       private ChartPanel BarChart_AWT( String chartTitle ) {       
       JFreeChart barChart = ChartFactory.createBarChart(chartTitle, "Candidato","Voti",_createDataset(), PlotOrientation.VERTICAL, true, true, false);
       return new ChartPanel( barChart ); 
@@ -104,7 +109,8 @@ public class serverFrame_ extends javax.swing.JFrame {
       return dataset; 
    }
         // CREAZIONE CHART PANEL (Pannello del Grafico)
-    
+
+//______________________________________________________________________________      
         private JPanel createChartPanel() {
             String chartTitle = ""; // NOME GRAFICO
             String xAxisLabel = "VOTANTI"; // NOME ASSE ASCISSE
@@ -195,13 +201,49 @@ public class serverFrame_ extends javax.swing.JFrame {
             
         }                                                                                                                          
     
+//______________________________________________________________________________
+            
+    private  PieDataset createPieDataset() {
+        DefaultPieDataset result = new DefaultPieDataset();
+        result.setValue("Uomini", 29);
+        result.setValue("Donne", 20);
+        
+        return result;
+
+    }
+
     /**
-     * Creates new form serverFrame_
+     * Creates a chart
      */
-    /*public serverFrame_() {
-        initComponents();
-        loadCandidati();                // popola la jList con l' elenco dei candidati
-    }*/
+    private ChartPanel createPieChart(String title) {
+
+        JFreeChart chart = ChartFactory.createPieChart3D(
+            title,                  // chart title
+            createPieDataset(),                // data
+            true,                   // include legend
+            true,
+            false
+        );
+
+        PiePlot3D plot = (PiePlot3D) chart.getPlot();
+        plot.setStartAngle(290);
+        plot.setDirection(Rotation.CLOCKWISE);
+        plot.setForegroundAlpha(0.5f);
+        return new ChartPanel (chart);
+
+    }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//______________________________________________________________________________
     
     private void loadCandidati() {
         ArrayList<candidati> can = mysql.ReadCandidatiColumns();
