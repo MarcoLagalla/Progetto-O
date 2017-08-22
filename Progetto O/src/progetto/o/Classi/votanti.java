@@ -9,12 +9,12 @@ package progetto.o.Classi;
  *
  * @author marcolagalla
  */
-public class votanti extends persone {
+public class Votanti extends Persone {
     
     private String CodiceTessera;
     private boolean Votato;
  
-    public votanti(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String CodiceTessera, int Votato) {
+    public Votanti(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String CodiceTessera, int Votato) {
         super(CF, Nome, Cognome, Sesso, DataNascita, Comune);
         this.CodiceTessera = CodiceTessera;
         if (Votato == 0) {

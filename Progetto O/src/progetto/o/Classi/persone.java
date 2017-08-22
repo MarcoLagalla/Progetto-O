@@ -9,7 +9,7 @@ package progetto.o.Classi;
  *
  * @author marcolagalla
  */
-public class persone {
+public class Persone {
     
 
     private String CF;
@@ -20,11 +20,11 @@ public class persone {
     private String Comune;
     
     
-    public persone() {
+    public Persone() {
         
     }
     
-    public persone(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
+    public Persone(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
 
         this.CF = CF;
         this.Nome = Nome;

@@ -10,13 +10,13 @@ import java.net.URL;
  *
  * @author marcolagalla
  */
-public class candidati extends persone {
+public class Candidati extends Persone {
     
     private String Partito;
     private URL Immagine;
     private int Voti;
     
-    public candidati(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune,  String Partito, int Voti,URL Immagine) {
+    public Candidati(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune,  String Partito, int Voti,URL Immagine) {
         super(CF, Nome, Cognome,Sesso, DataNascita, Comune);
         this.Partito = Partito;
         this.Voti = Voti;
