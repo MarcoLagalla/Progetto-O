@@ -10,6 +10,10 @@ public class DatePicker  {
 
         int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
         int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+        
+        final int month_Attuale = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+        final int year_Attuale = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+        
         JLabel l = new JLabel("", JLabel.CENTER);
         String day = "";
         JDialog d;
@@ -54,8 +58,11 @@ public class DatePicker  {
                 {
                         public void actionPerformed(ActionEvent ae) 
                         {
+                            if ( ( year >= year_Attuale) && (month > month_Attuale) ) {
                             month--;
-                            displayDate();
+                            displayDate();                                
+                            }
+
                         }
                 });
                 p2.add(previous);
@@ -93,7 +100,7 @@ public class DatePicker  {
         	l.setText(sdf.format(cal.getTime()));
         	d.setTitle("Selezionare una data");
         }
- 
+
         public String setPickedDate() 
         {
         	//if condition
