@@ -3,16 +3,11 @@ package progetto.o;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 // Imports needed from JFREECHART_LIBRARY
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -23,17 +18,13 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset; 
 import org.jfree.data.category.DefaultCategoryDataset; 
-import org.jfree.ui.ApplicationFrame; 
-import org.jfree.ui.RefineryUtilities; 
+
 
 // imports needed for DatePicker
-import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.border.EmptyBorder;
-import static progetto.o.ProgettoO.clientFrame;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class serverFrame_ extends javax.swing.JFrame {
@@ -56,7 +47,13 @@ public class serverFrame_ extends javax.swing.JFrame {
                 this.setSize(xsize, ysize);
             
             
-                
+            ImageIcon img;        
+            try {
+                    img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Vot_Chiuse.png"));
+            } catch (MalformedURLException ex) {
+                    img = null;
+            }
+            vot_Status.setIcon(img);    
                 
             loadCandidati(); 
             
@@ -269,7 +266,6 @@ public class serverFrame_ extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -286,6 +282,11 @@ public class serverFrame_ extends javax.swing.JFrame {
         jLabel6.setText("Gestione candidati");
 
         Candidati_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Candidati_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Candidati_listMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(Candidati_list);
 
         Aggiungi_Candidato.setText("Aggiungi");
@@ -351,8 +352,6 @@ public class serverFrame_ extends javax.swing.JFrame {
         vot_Status_Lab.setText("Status Votazioni :");
 
         vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
-
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
         DataAvvio_Lab1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         DataAvvio_Lab1.setText("ID elezione:");
 
@@ -409,14 +408,19 @@ public class serverFrame_ extends javax.swing.JFrame {
         });
 
         error_msg.setForeground(new java.awt.Color(255, 0, 0));
+        error_msg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        error_msg.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(vot_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dataAvvio_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,18 +438,16 @@ public class serverFrame_ extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(avvia_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(vot_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(131, 131, 131)))
+                                .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(35, 35, 35)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(vot_Status_Lab)
-                        .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap()))
+                    .addComponent(vot_Status_Lab)
+                    .addGap(529, 529, 529)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,14 +471,14 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(avvia_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(50, Short.MAX_VALUE)
                     .addComponent(vot_Status_Lab)
-                    .addGap(378, 378, 378)
-                    .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                    .addGap(283, 283, 283)))
         );
 
         Intestazione_Panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -567,7 +569,7 @@ public class serverFrame_ extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout SuperContenitore_PanelLayout = new javax.swing.GroupLayout(SuperContenitore_Panel);
@@ -624,7 +626,8 @@ public class serverFrame_ extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
                                 .addComponent(LabelVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -637,9 +640,8 @@ public class serverFrame_ extends javax.swing.JFrame {
                                         .addComponent(NomeVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(fotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(SuperContenitore_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SuperContenitore_PanelLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -692,8 +694,6 @@ public class serverFrame_ extends javax.swing.JFrame {
              String _cf = tokens[1];
              _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
           new editCandidati_frame(_cf).setVisible(true);
-         this.setVisible(false);
-            
         }
     }//GEN-LAST:event_Modifica_CandidatoActionPerformed
 
@@ -709,9 +709,22 @@ public class serverFrame_ extends javax.swing.JFrame {
         Votazione.chiudiVotazione();
         avvia_Vot.setEnabled(true);
         stop_Vot.setEnabled(false);
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse_v2.png"));
+        ImageIcon img;        
+                try {
+                        img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Vot_Chiuse_v2.png"));
+                    } catch (MalformedURLException ex) {
+                        img = null;
+                    }
+        vot_Status.setIcon(img);
         ProgettoO.getRegistrazione().setEnabled(false);
-        ProgettoO.getRegistrazione().setIcon(new ImageIcon("Immagini/Button_Registrazione_Disabled.png"));
+        
+               try {
+                        img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Button_Registrazione_Disabled.png"));
+                    } catch (MalformedURLException ex) {
+                        img = null;
+                    }
+        
+        ProgettoO.getRegistrazione().setIcon(img);
         fotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
     }//GEN-LAST:event_stop_VotActionPerformed
 
@@ -731,9 +744,25 @@ public class serverFrame_ extends javax.swing.JFrame {
                 error_msg.setText("");
                 avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
                 stop_Vot.setEnabled(true);
+
+                ImageIcon img;        
+                try {
+                        img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Vot_Aperte_v2.png"));
+                    } catch (MalformedURLException ex) {
+                        img = null;
+                    }
+                vot_Status.setIcon(img);
+        
                 ProgettoO.getRegistrazione().setEnabled(true);
-                ProgettoO.getRegistrazione().setIcon(new ImageIcon("Immagini/Button_Registrazione.png"));
-                vot_Status.setIcon(new ImageIcon("Immagini/Vot_Aperte_v2.png"));
+                
+                try {
+                        img = new ImageIcon(new URL("http://91.134.138.244/progettoO/img/Button_Registrazione.png"));
+                    } catch (MalformedURLException ex) {
+                        img = null;
+                    }
+        
+                ProgettoO.getRegistrazione().setIcon(img);
+        
             }   else error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!");
         }   else error_msg.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!");
     }//GEN-LAST:event_avvia_VotActionPerformed
@@ -741,6 +770,20 @@ public class serverFrame_ extends javax.swing.JFrame {
     private void id_elezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_elezioneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_id_elezioneActionPerformed
+
+    private void Candidati_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Candidati_listMouseClicked
+        // TODO add your handling code here:
+            JList list = (JList)evt.getSource();
+            if (evt.getClickCount() == 2) {
+            String candidato = Candidati_list.getSelectedValue();
+        if (!(candidato.equals("")) ) {
+            String[] tokens = candidato.split("-");    // slitta per ottenere il CF
+             String _cf = tokens[1];
+             _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
+          new editCandidati_frame(_cf).setVisible(true);
+        }
+    }
+    }//GEN-LAST:event_Candidati_listMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

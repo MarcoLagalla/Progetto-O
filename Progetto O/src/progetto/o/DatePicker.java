@@ -9,7 +9,12 @@ public class DatePicker  {
 /*____________________________________STATO INTERNO________________________________________*/
 
         int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+        
+        final int month_Attuale = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+        final int year_Attuale = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+        
         int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+        int day_ = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
         JLabel l = new JLabel("", JLabel.CENTER);
         String day = "";
         JDialog d;
@@ -39,23 +44,32 @@ public class DatePicker  {
                                        d.dispose();
                                  }
                         });
+
                         if (x < 7)
                         {
                                 button[x].setText(header[x]);
                                 button[x].setForeground(Color.black);
                                 button[x].setBackground(Color.LIGHT_GRAY);
                         }
+               
+                        
                         p1.add(button[x]);
                 }
                 JPanel p2 = new JPanel(new GridLayout(1, 3));
                 
                 JButton previous = new JButton("<< Indietro");
+                
+                
+                
                 previous.addActionListener(new ActionListener() 
                 {
                         public void actionPerformed(ActionEvent ae) 
                         {
+                            
+                            if ( (year >= year_Attuale) && (month > month_Attuale)) {
                             month--;
                             displayDate();
+                            } 
                         }
                 });
                 p2.add(previous);
@@ -83,13 +97,17 @@ public class DatePicker  {
         {
         	for (int x = 7; x < button.length; x++)
         	button[x].setText("");
+                
       	        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");	
-                java.util.Calendar cal = java.util.Calendar.getInstance();			
-        	cal.set(year, month, 1);
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+        	cal.set(year, month, day_);
         	int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
         	int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-        	for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
-        	button[x].setText("" + day);
+        	for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) {
+                    button[x].setText("" + day);
+                    
+                }
+        	
         	l.setText(sdf.format(cal.getTime()));
         	d.setTitle("Selezionare una data");
         }
