@@ -1,7 +1,7 @@
 package progetto.o.Frames;
 
-import progetto.o.Frames.AddCandidatiFrame;
-import progetto.o.Frames.EditCandidatiFrame;
+
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,47 +14,46 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
-
-// Imports needed from JFREECHART_LIBRARY
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset; 
-import org.jfree.data.category.DefaultCategoryDataset; 
-
-
-// imports needed for DatePicker
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.jfree.chart.plot.PiePlot3D;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.util.Rotation;
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="IMPORTS PER CLASSI">
 import progetto.o.Classi.DatePicker;
 import progetto.o.Connettività.MySQlConnection;
 import progetto.o.Classi.Votazione;
 import progetto.o.Classi.Candidati;
 import progetto.o.Classi.Votanti;
 import progetto.o.Interfacce.InterfacciaPrincipale;
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="IMPORTS PER GRAFICI">
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.plot.PiePlot3D;
+
+import org.jfree.util.Rotation;
+
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.data.category.CategoryDataset; 
+import org.jfree.data.category.DefaultCategoryDataset; 
+// </editor-fold>
 
 
 public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrincipale{
 
     MySQlConnection mysql = new MySQlConnection();
-    
-    
-
-    
-    
-    
 
 /*____________________________________COSTRUTTORI__________________________________________*/
     
@@ -240,17 +239,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
 
 
     
-    private void loadCandidati() {
-        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
-        javax.swing.DefaultListModel listModel;
-        listModel = new javax.swing.DefaultListModel();
-        listModel.removeAllElements();
-        for (Candidati object: can) {
-            String str = String.format("%s %s - %s",object.getNome().toString(), object.getCognome().toString(), object.getCF().toString());
-            listModel.addElement(str);
-        }
-        Candidati_list.setModel(listModel);
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -801,40 +790,9 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
         
     }//GEN-LAST:event_Candidati_listMouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ServerFrame().setVisible(true);
-                
-            }
-        });
-    }
-
+    
+ /*_____________________________________ METODI VARI ___________________________ */
+    
     private boolean checkDate(String Date) {
         
         if ( Date.length() != 10 ) {
@@ -887,9 +845,61 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
-}
+}    
+    
+    private void loadCandidati() {
+        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        javax.swing.DefaultListModel listModel;
+        listModel = new javax.swing.DefaultListModel();
+        listModel.removeAllElements();
+        for (Candidati object: can) {
+            String str = String.format("%s %s - %s",object.getNome().toString(), object.getCognome().toString(), object.getCF().toString());
+            listModel.addElement(str);
+        }
+        Candidati_list.setModel(listModel);
+    }    
+    
+/*_____________________________________ MAIN ___________________________________ */
+    
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ServerFrame().setVisible(true);
+                
+            }
+        });
+    }
+
+
 
 /*____________________________________STATO INTERNO________________________________________*/
+    
+// <editor-fold defaultstate="collapsed" desc="DICHIARAZIONE CONTROLLI">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aggiungi_Candidato;
     private javax.swing.JList<String> Candidati_list;
@@ -931,4 +941,6 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
     private javax.swing.JLabel vot_Status;
     private javax.swing.JLabel vot_Status_Lab;
     // End of variables declaration//GEN-END:variables
+
+// </editor-fold>
 }

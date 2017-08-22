@@ -32,6 +32,6 @@ public interface InterfacciaPrincipale {
     
     
      final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
-     
+     final public String SERVER = "http://91.134.138.244/progettoO/img/";
      
 }

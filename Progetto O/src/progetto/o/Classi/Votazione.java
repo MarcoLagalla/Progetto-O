@@ -5,6 +5,7 @@
  */
 package progetto.o.Classi;
 
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import progetto.o.Connettività.MySQlConnection;
+// </editor-fold>
+
 
 public class Votazione {
 

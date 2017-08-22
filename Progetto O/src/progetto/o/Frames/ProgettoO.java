@@ -5,19 +5,14 @@ MAIN CLASS
 */
 package progetto.o.Frames;
 
-import progetto.o.Frames.SchedaCandidatoFrame;
-import progetto.o.Frames.ServerFrame;
 import java.util.*;
 import java.awt.*;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.*;
 import javax.swing.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
 import java.io.IOException;
-import org.jfree.layout.CenterLayout;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
 import progetto.o.Connettività.MySQlConnection;
 import progetto.o.Classi.Candidati;
 import progetto.o.Classi.Votanti;
@@ -114,7 +109,7 @@ public class ProgettoO implements InterfacciaPrincipale{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         mainFrame.setPreferredSize(screenSize);
         mainFrame.setSize(screenSize);
-        mainFrame.setExtendedState(MAXIMIZED_BOTH);
+        mainFrame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setBackground(Color.WHITE);
         mainFrame.setResizable(true);

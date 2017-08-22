@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package progetto.o.Frames;
+
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.awt.Image;
 import javax.swing.*;
 import javax.imageio.*;
@@ -14,17 +16,20 @@ import progetto.o.Connettività.FTPConnection;
 import progetto.o.Connettività.MySQlConnection;
 import progetto.o.Classi.Candidati;
 import progetto.o.Classi.Persone;
+import progetto.o.Interfacce.InterfacciaPrincipale;
+// </editor-fold>
+
 /**
  *
  * @author marco
  */
-public class EditCandidatiFrame extends javax.swing.JFrame {
+public class EditCandidatiFrame extends javax.swing.JFrame implements InterfacciaPrincipale{
 
      MySQlConnection mysql = new MySQlConnection();
     FTPConnection myftp = new FTPConnection();
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     String path_img = "";
-    static String SERVER = "http://91.134.138.244/progettoO/img/";
+    
     String candidatoCF;
     /**
      * Creates new form editCandidati_frame
@@ -196,17 +201,16 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
                     .addComponent(input_partito_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_nome_candidato3)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_comune_candidato, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(label_nome_candidato4)
-                                .addComponent(input_sesso_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(input_datanascita_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_nome_candidato6))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(input_comune_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_nome_candidato3))
+                    .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_nome_candidato4)
+                        .addComponent(input_sesso_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(input_datanascita_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_nome_candidato6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_codicefiscale_candidato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

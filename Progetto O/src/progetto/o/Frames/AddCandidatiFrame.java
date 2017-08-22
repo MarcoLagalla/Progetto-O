@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package progetto.o.Frames;
+
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.awt.Image;
 import javax.swing.*;
 import javax.imageio.*;
@@ -11,12 +13,14 @@ import java.io.File;
 import javax.swing.filechooser.*;
 import progetto.o.Connettività.FTPConnection;
 import progetto.o.Connettività.MySQlConnection;
+// </editor-fold>
+
 /**
  *
  * @author marco
  */
 public class AddCandidatiFrame extends javax.swing.JFrame {
-
+    
     MySQlConnection mysql = new MySQlConnection();
     FTPConnection myftp = new FTPConnection();
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
