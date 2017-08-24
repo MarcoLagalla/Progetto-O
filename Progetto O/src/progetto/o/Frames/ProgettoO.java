@@ -23,8 +23,12 @@ import progetto.o.Classi.Candidati;
 import progetto.o.Classi.Votanti;
 import progetto.o.Interfacce.InterfacciaPrincipale;
 
+//______________________________________________________________________________
+/**
+ *
+ * @author Team
+ */
 
-/*____________________________________STATO INTERNO________________________________________*/
 
 public class ProgettoO implements InterfacciaPrincipale{
     // Elementi Grafici Swing per MAINFRAME
@@ -42,7 +46,6 @@ public class ProgettoO implements InterfacciaPrincipale{
     
     // Elementi Grafici Swing per CLIENT_FRAME
     public static JFrame clientFrame;
-    
     private JLabel Client_Label;
     private JPanel client_panel; //GRIGLIA
      
@@ -67,8 +70,8 @@ public class ProgettoO implements InterfacciaPrincipale{
     // Definisco HotKey
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
 
-/*____________________________________COSTRUTTORI__________________________________________*/
-
+//______________________________________________________________________________
+    
     public ProgettoO() {
         if ( netIsAvailable() ) {
             mysql = new MySQlConnection();
@@ -82,18 +85,27 @@ public class ProgettoO implements InterfacciaPrincipale{
         }
     }
     
-/*_______________________________________METODI____________________________________________*/
-  
-///////////////// MAIN ///////////////////
+//______________________________________________________________________________
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
        ProgettoO SwingControl = new ProgettoO();
     }
-///////////////////////////////////////////
+//______________________________________________________________________________
 
+    // Metodo Getter
+    
+    /**
+     *
+     * @return registrazione
+     */
     public static JButton getRegistrazione() {
         return registrazione;
     }
-
+//______________________________________________________________________________
     private void prepareGUI() {         // Creazione finestra principale (login user)
     
        
@@ -242,9 +254,9 @@ public class ProgettoO implements InterfacciaPrincipale{
         mainFrame.setVisible(true);
     }       
     
-////////////////////////////////////////////////////////////////////////////////
+//______________________________________________________________________________
 
-private void prepareAdminLoginGUI() {        // Creazione finestra Login per Admin (accede alla finestra Server)
+    private void prepareAdminLoginGUI() {        // Creazione finestra Login per Admin (accede alla finestra Server)
         Admin_Login = new JFrame("ADMINISTRATOR LOGIN");
         Admin_Login.setLayout(null);
     
@@ -272,8 +284,8 @@ private void prepareAdminLoginGUI() {        // Creazione finestra Login per Adm
         Admin_Login.setVisible(true);
     }      
 
-
-private void prepareClientGUI(){            // Creazione finestra votazione (dopo user login)
+//______________________________________________________________________________
+    private void prepareClientGUI(){            // Creazione finestra votazione (dopo user login)
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
         
@@ -326,9 +338,11 @@ private void prepareClientGUI(){            // Creazione finestra votazione (dop
        clientFrame.pack();
     }       
 
-/*_________________________BUTTON LISTENER____________________________________*/
+//______________________________________________________________________________
 
-public class ButtonClickListener implements ActionListener{
+// Button Listener
+
+    public class ButtonClickListener implements ActionListener{
 
        public void actionPerformed(ActionEvent e){
            String command = e.getActionCommand();
@@ -420,21 +434,22 @@ public class ButtonClickListener implements ActionListener{
        }
     }
 
-////////////////////////////////////////////////////////////////////////////////
+//______________________________________________________________________________
 
-private static boolean netIsAvailable() {
-    try {
-        final URL url = new URL("http://www.google.com");
-        final URLConnection conn = url.openConnection();
-        conn.connect();
-        return true;
-    } catch (MalformedURLException e) {
-        throw new RuntimeException(e);
-    } catch (IOException e) {
-        return false;
+    private static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
     }
-}
 
+//______________________________________________________________________________
 
 // Metodo Grafico per definire dimensioni Immagine
 
@@ -452,48 +467,51 @@ private static boolean netIsAvailable() {
     Image img = icon.getImage();  
     Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
     return new ImageIcon(resizedImage);
-}
+    }
 
+//______________________________________________________________________________
+    
 // Metodo di Ricerca Dati Elettorali
 
-private boolean canVoteCF(String CF) {
-    
-        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
-                       
-        for (Votanti v: vot){
-            if(v.getCF().toString().equals(CF)){  
-                     return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
+    private boolean canVoteCF(String CF) {
+
+            ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+
+            for (Votanti v: vot){
+                if(v.getCF().toString().equals(CF)){  
+                         return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
+                }
+
             }
-            
-        }
-        return false;
+            return false;
     }
 
 //______________________________________________________________________________
 
-private boolean canVoteCT(String CT) {
-    
-        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
-                       
-        for (Votanti v: vot){
-            if(v.getCodiceTessera().toString().equals(CT)){  
-                     return true; // Vuol dire che il CT del Votante Esiste ed è Abilitato
+    private boolean canVoteCT(String CT) {
+
+            ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+
+            for (Votanti v: vot){
+                if(v.getCodiceTessera().toString().equals(CT)){  
+                         return true; // Vuol dire che il CT del Votante Esiste ed è Abilitato
+                }
+
             }
-            
+            return false;
         }
-        return false;
-    }
+
+//______________________________________________________________________________
 
 // Metodo Timer
 
-public class MyTask extends TimerTask {
-    @Override
-    public void run() {
-        AdmLog_ErrPwd.setText(null);
-        AdmLog_pwd.setText(null);
+    public class MyTask extends TimerTask {
+        @Override
+        public void run() {
+            AdmLog_ErrPwd.setText(null);
+            AdmLog_pwd.setText(null);
+        }
     }
-    }
-
 }
 
 

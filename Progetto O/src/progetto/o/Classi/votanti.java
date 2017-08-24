@@ -1,19 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package progetto.o.Classi;
 
 /**
  *
- * @author marcolagalla
+ * @author Team
  */
 public class Votanti extends Persone {
     
     private String CodiceTessera;
     private boolean Votato;
  
+    /**
+     *
+     * @param CF
+     * @param Nome
+     * @param Cognome
+     * @param Sesso
+     * @param DataNascita
+     * @param Comune
+     * @param CodiceTessera
+     * @param Votato
+     */
     public Votanti(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String CodiceTessera, int Votato) {
         super(CF, Nome, Cognome, Sesso, DataNascita, Comune);
         this.CodiceTessera = CodiceTessera;
@@ -24,14 +31,35 @@ public class Votanti extends Persone {
             this.Votato = true;
         }
     }
+//______________________________________________________________________________
     
-    //metodo getter
+    // Metodo Getter
+
+    /**
+     *
+     * @return Codice Tessera
+     */
     public String getCodiceTessera() { return CodiceTessera; }
+
+//______________________________________________________________________________
     
-    //metodo setter
+    // Metodo Setter
+
+    /**
+     *
+     * @param CodiceTessera
+     */
     public void setCodiceTessera(String CodiceTessera) { this.CodiceTessera = CodiceTessera; }
     
+    /**
+     *
+     * @return
+     */
     public boolean getVotato() {return Votato; }
     
+    /**
+     *
+     * @param Votato
+     */
     public void setVotato(boolean Votato) { this.Votato = Votato; }
 }

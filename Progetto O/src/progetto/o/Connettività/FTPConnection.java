@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package progetto.o.Connettività;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
-
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,9 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.swing.JOptionPane;
+
+//______________________________________________________________________________
 /**
  *
- * @author marcolagalla
+ * @author Team
  */
 public class FTPConnection {
     
@@ -29,8 +25,10 @@ public class FTPConnection {
     static String PASSWORD = "marco7539";
     
     FTPClient ftpclient;
+
+//______________________________________________________________________________
     
-   public FTPConnection() {
+    public FTPConnection() {
        
        try {
                   
@@ -52,35 +50,33 @@ public class FTPConnection {
 
    }
     
-   
-   public boolean loadFile(String localPath, String remotePath) {
+//______________________________________________________________________________
+    
+    /**
+     *
+     * @param localPath
+     * @param remotePath
+     * @return
+     */
+    public boolean loadFile(String localPath, String remotePath) {
        
        try {
-      /*      
-           if (localPath.endsWith("/")) {                 // controlla che la path inserita termini con /
-               localPath = localPath.concat(fileName);    // diversamente aggiunge lo slash
-           } else {
-               localPath = localPath.concat("/" + fileName);
-           }
-           
-           if (remotePath.endsWith("/")) {                 // controlla che la path inserita termini con /
-               remotePath = remotePath.concat(fileName);    // diversamente aggiunge lo slash
-           } else {
-               remotePath = remotePath.concat("/" + fileName);
-           }
-*/
-            InputStream input = new FileInputStream(new File(localPath));
-           boolean done = ftpclient.storeFile(remotePath, input);
-            return done;
-       } catch(java.io.IOException ex) {
-           System.out.print("FTP - Error uploading file " + ex.getMessage());
-           return false;
+        InputStream input = new FileInputStream(new File(localPath));
+        boolean done = ftpclient.storeFile(remotePath, input);
+        
+        return done;
+       }catch(java.io.IOException ex) {
+            System.out.print("FTP - Error uploading file " + ex.getMessage());
+            return false;
        }
-
    }
-   
-   
-   public void FTPConnectionClose() {
+    
+//______________________________________________________________________________
+    
+    /**
+     * Metodo di Chiusura dell' FTPConnection
+     */
+    public void FTPConnectionClose() {
        try {
             ftpclient.disconnect();
        } catch(java.io.IOException ex) {

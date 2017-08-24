@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package progetto.o.Connettività;
 
 import progetto.o.Classi.Persone;
@@ -13,6 +9,7 @@ import java.util.ArrayList;
 import java.net.URL;
 import javax.swing.JOptionPane;
 
+//______________________________________________________________________________
 
 /** 
  *  Classe per la gestione di una connessione ad un database MySQL
@@ -65,6 +62,7 @@ public class MySQlConnection {
      */
     ResultSet res = null;
     
+//______________________________________________________________________________
     
    /*
      Costanti con i nomi delle tabelle della base di dati
@@ -91,6 +89,7 @@ public class MySQlConnection {
     static final String TABIMMAGINE = "Immagine";
     static final String TABFLAGVOTATO = "FlagVotato";
     
+//______________________________________________________________________________
     
     /**
      * Metodo costruttore, inizializza la connessione e il caricamento del driver
@@ -109,6 +108,8 @@ public class MySQlConnection {
             e.printStackTrace();
         }
     }
+ 
+//______________________________________________________________________________
     
     /**
      * Metodo che chiude la connessione e rilascia tutte le risorse utilizzate
@@ -126,13 +127,14 @@ public class MySQlConnection {
             e.printStackTrace();
         }
     }    
+
+//______________________________________________________________________________
     
     /**
-     * Funzione che legge tutti i campi della tabella PERSONE nel db e restituisce 
- un ArrayList di oggetti 'Persone' per ogni record estratto.
+     * Funzione che legge tutti i campi della tabella PERSONE nel db e restituisce un ArrayList di oggetti 'Persone' per ogni record estratto.                                    
      * @return Oggetto della classe Persone
      */
-    // submit a query
+
     public  ArrayList<Persone> ReadPersoneColumns() {
        
         String QUERY = String.format("SELECT * FROM %s;" , DB_PERSONE );
@@ -174,13 +176,14 @@ public class MySQlConnection {
         
         return pers;
     }
+
+//______________________________________________________________________________
     
-     /**
-     * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce 
- un ArrayList di oggetti 'Votanti' per ogni record estratto.
+    /**
+     * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce un ArrayList di oggetti 'Votanti' per ogni record estratto.
      * @return Oggetto della classe Persone
      */
-    // submit a query
+
     public ArrayList<Votanti> ReadVotantiColumns() {
        
         
@@ -229,13 +232,12 @@ public class MySQlConnection {
         return vot;
     }
     
-    
+//______________________________________________________________________________   
      /**
-     * Funzione che legge tutti i campi della tabella CANDIDATI nel db e restituisce 
- un ArrayList di oggetti 'Candidati' per ogni record estratto.
+     * Funzione che legge tutti i campi della tabella CANDIDATI nel db e restituisce un ArrayList di oggetti 'Candidati' per ogni record estratto.
      * @return Oggetto della classe Persone
      */
-    // submit a query
+
     public ArrayList<Candidati> ReadCandidatiColumns() {
        
         String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine FROM db.PERSONE\n" +
@@ -282,7 +284,9 @@ public class MySQlConnection {
        
         return can;
     }
-
+    
+//______________________________________________________________________________
+    
     /**
      * Esegue una query SQL generica
      * @param QUERY contiene la query da eseguire
@@ -301,7 +305,14 @@ public class MySQlConnection {
         }
         return res;
     }
+
+//______________________________________________________________________________
     
+    /**
+     *
+     * @param QUERY
+     * @return
+     */
     public int UpdateQuery(String QUERY) {
         try {
             if (!QUERY.endsWith(";")) {
@@ -320,6 +331,8 @@ public class MySQlConnection {
         }
         return 0;
     }
+
+//______________________________________________________________________________
     
     /**
      * Metodo che popola la tabella CANDIDATI
@@ -327,6 +340,7 @@ public class MySQlConnection {
      * @param Partito Partito di appartenenza
      * @param Voti Numero Voti
      * @param Immagine URL Immagine profilo
+     * @return 
      */
     public int WriteCandidatiColumns(String CodiceFiscale, String Partito, int Voti, String Immagine) {
         String QUERY = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
@@ -347,8 +361,10 @@ public class MySQlConnection {
         }
         return 0;
     }
+
+//______________________________________________________________________________
     
-        /**
+    /**
      * Metodo che popola la tabella PERSONE
      * @param CodiceFiscale Codice Fiscale della persona
      * @param Nome nome persona
@@ -356,6 +372,7 @@ public class MySQlConnection {
      * @param Sesso sesso persona
      * @param DataNascita data di nascita
      * @param Comune comune di orgine
+     * @return 
      */
     public int WritePersoneColumns(String CodiceFiscale, String Nome, String Cognome, String Sesso, String DataNascita, String Comune) {
         String QUERY = "INSERT INTO PERSONE (CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune)\n" +
@@ -377,6 +394,8 @@ public class MySQlConnection {
         }
         return 0;
     }
+
+//______________________________________________________________________________
     
     /**
      * Metodo che inserisce il codice tessera elettorale di chi ha votato nella rispettiva colonna indicante la votazione
@@ -384,6 +403,7 @@ public class MySQlConnection {
      * 
      * @param Votazione Identifica un turno elettorale o una votazione
      * @param CodiceTessera Identifica in maniera univoca una persona e tiene traccia dell' avvenuto voto.
+     * @return 
      */
     public int WriteVotazioniColumns(String Votazione, String CodiceTessera) {
         String QUERY = "INSERT INTO VOTAZIONI (" + Votazione +  ") VALUES ('" + CodiceTessera + "');";
@@ -402,7 +422,5 @@ public class MySQlConnection {
             
         }
         return 0;
-    }
-    
-    
+    }   
 }
