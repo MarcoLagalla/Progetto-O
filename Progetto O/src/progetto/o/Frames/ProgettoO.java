@@ -24,7 +24,6 @@ import progetto.o.Classi.Votanti;
 import progetto.o.Interfacce.InterfacciaPrincipale;
 
 
-
 /*____________________________________STATO INTERNO________________________________________*/
 
 public class ProgettoO implements InterfacciaPrincipale{
