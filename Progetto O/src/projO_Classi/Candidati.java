@@ -1,10 +1,11 @@
+package projO_Classi;
 
-package progetto.o.Classi;
-
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.net.URL;
-//______________________________________________________________________________
+// </editor-fold>
+
+
 /**
- *
  * @author Team
  */
 public class Candidati extends Persone {

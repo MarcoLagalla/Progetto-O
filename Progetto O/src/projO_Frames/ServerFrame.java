@@ -1,21 +1,18 @@
-package progetto.o.Frames;
+package projO_Frames;
 
-import progetto.o.Frames.AddCandidatiFrame;
-import progetto.o.Frames.EditCandidatiFrame;
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
+import java.util.ArrayList;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.Icon;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
-
-// Imports needed from JFREECHART_LIBRARY
+// imports per JFREECHART_LIBRARY
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
@@ -28,8 +25,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset; 
 import org.jfree.data.category.DefaultCategoryDataset; 
 
-
-// Imports needed for DatePicker
+// imports per DatePicker
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.MalformedURLException;
@@ -38,14 +34,16 @@ import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
-import progetto.o.Classi.DatePicker;
-import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.Votazione;
-import progetto.o.Classi.Candidati;
-import progetto.o.Classi.Votanti;
-import progetto.o.Interfacce.InterfacciaPrincipale;
 
-//______________________________________________________________________________
+// imports interni
+import projO_Classi.DatePicker;
+import projO_Connettività.MySQlConnection;
+import projO_Classi.Votazione;
+import projO_Classi.Candidati;
+import projO_Classi.Votanti;
+import projO_Interfacce.InterfacciaPrincipale;
+// </editor-fold>
+
 
 /**
  *
@@ -270,7 +268,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<>();
+        Candidati_list = new javax.swing.JList<String>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();

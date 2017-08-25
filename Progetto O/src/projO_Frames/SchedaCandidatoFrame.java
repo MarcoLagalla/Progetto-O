@@ -1,24 +1,21 @@
+package projO_Frames;
 
-package progetto.o.Frames;
-
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.awt.Image;
-import java.awt.Window;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
+
+// imports per database
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.lang.management.ManagementFactory;
-import java.io.File;
-import java.io.IOException;
-import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.Votazione;
 
-//______________________________________________________________________________
+// imports interni
+import projO_Connettività.MySQlConnection;
+import projO_Classi.Votazione;
+// </editor-fold>
+
 
 /**
  *
@@ -164,7 +161,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                 .addComponent(Cognome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Partito, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Vota, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

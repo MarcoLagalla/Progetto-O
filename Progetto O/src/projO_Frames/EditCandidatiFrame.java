@@ -1,18 +1,20 @@
+package projO_Frames;
 
-package progetto.o.Frames;
-
-import java.awt.Image;
-import javax.swing.*;
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import javax.imageio.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.awt.Image;
+import javax.swing.*;
 import javax.swing.filechooser.*;
-import progetto.o.Connettività.FTPConnection;
-import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.Candidati;
-import progetto.o.Classi.Persone;
 
-//______________________________________________________________________________
+// imports interni
+import projO_Connettività.FTPConnection;
+import projO_Connettività.MySQlConnection;
+import projO_Classi.Candidati;
+import projO_Classi.Persone;
+// </editor-fold>
+
 
 /**
  *
@@ -57,7 +59,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         input_comune_candidato = new javax.swing.JTextField();
         label_nome_candidato3 = new javax.swing.JLabel();
         label_nome_candidato4 = new javax.swing.JLabel();
-        input_sesso_candidato = new javax.swing.JComboBox<>();
+        input_sesso_candidato = new javax.swing.JComboBox<String>();
         label_nome_candidato5 = new javax.swing.JLabel();
         input_codicefiscale_candidato = new javax.swing.JTextField();
         label_nome_candidato6 = new javax.swing.JLabel();
@@ -95,7 +97,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 
         label_nome_candidato4.setText("Sesso:");
 
-        input_sesso_candidato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
+        input_sesso_candidato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
 
         label_nome_candidato5.setText("CodiceFiscale:");
 

@@ -1,5 +1,5 @@
+package projO_Classi;
 
-package progetto.o.Classi;
 
 /**
  *

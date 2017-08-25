@@ -1,15 +1,14 @@
+package projO_Connettività;
 
-package progetto.o.Connettività;
-
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import javax.swing.JOptionPane;
+
+// imports per database
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+// </editor-fold>
 
 //______________________________________________________________________________
 /**

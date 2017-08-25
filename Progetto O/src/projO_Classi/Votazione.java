@@ -1,16 +1,17 @@
+package projO_Classi;
 
-package progetto.o.Classi;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.util.Calendar;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
-import progetto.o.Connettività.MySQlConnection;
-//______________________________________________________________________________
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+// imports interni
+import projO_Connettività.MySQlConnection;
+// </editor-fold>
+
 
 /**
  *

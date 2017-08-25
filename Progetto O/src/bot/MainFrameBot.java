@@ -5,8 +5,8 @@ package bot;
 
 import java.util.ArrayList;
 import java.util.Random;
-import progetto.o.Classi.Candidati;
-import progetto.o.Connettività.MySQlConnection;
+import projO_Classi.Candidati;
+import projO_Connettività.MySQlConnection;
 //______________________________________________________________________________
 /**
  *

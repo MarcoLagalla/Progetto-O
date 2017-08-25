@@ -1,27 +1,27 @@
-/*
+/*      MAIN CLASS      */
 
-MAIN CLASS
+package projO_Frames;
 
-*/
-package progetto.o.Frames;
-
-import progetto.o.Frames.SchedaCandidatoFrame;
-import progetto.o.Frames.ServerFrame;
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.util.*;
+import java.io.IOException;
 import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.*;
 import javax.swing.*;
+
+// imports per database
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
-import java.io.IOException;
-import org.jfree.layout.CenterLayout;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
-import progetto.o.Connettività.MySQlConnection;
-import progetto.o.Classi.Candidati;
-import progetto.o.Classi.Votanti;
-import progetto.o.Interfacce.InterfacciaPrincipale;
+
+// imports interni
+import projO_Connettività.MySQlConnection;
+import projO_Classi.Candidati;
+import projO_Classi.Votanti;
+import projO_Interfacce.InterfacciaPrincipale;
+// </editor-fold>
+
 
 //______________________________________________________________________________
 /**

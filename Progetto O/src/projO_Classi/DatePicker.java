@@ -1,10 +1,11 @@
+package projO_Classi;
 
-package progetto.o.Classi;
-
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//______________________________________________________________________________
+// </editor-fold>
+
 
 /**
  *

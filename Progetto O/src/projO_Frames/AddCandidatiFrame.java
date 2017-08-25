@@ -1,15 +1,17 @@
+package projO_Frames;
 
-package progetto.o.Frames;
-
-import java.awt.Image;
-import javax.swing.*;
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import javax.imageio.*;
 import java.io.File;
+import java.awt.Image;
+import javax.swing.*;
 import javax.swing.filechooser.*;
-import progetto.o.Connettività.FTPConnection;
-import progetto.o.Connettività.MySQlConnection;
 
-//______________________________________________________________________________
+// imports interni
+import projO_Connettività.FTPConnection;
+import projO_Connettività.MySQlConnection;
+// </editor-fold>
+
 
 /**
  *
@@ -59,7 +61,7 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         confermaButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        input_sesso_candidato = new javax.swing.JComboBox<>();
+        input_sesso_candidato = new javax.swing.JComboBox<String>();
         foto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -114,7 +116,7 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("Creazione nuovo candidato");
 
-        input_sesso_candidato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
+        input_sesso_candidato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
 
         foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         foto.setMaximumSize(new java.awt.Dimension(200, 200));

@@ -1,13 +1,17 @@
+package projO_Connettività;
 
-package progetto.o.Connettività;
-
-import progetto.o.Classi.Persone;
-import progetto.o.Classi.Candidati;
-import progetto.o.Classi.Votanti;
-import java.sql.*;
+// <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.util.ArrayList;
+
+// imports per database
+import java.sql.*;
 import java.net.URL;
-import javax.swing.JOptionPane;
+
+// imports interni
+import projO_Classi.Persone;
+import projO_Classi.Candidati;
+import projO_Classi.Votanti;
+// </editor-fold>
 
 //______________________________________________________________________________
 

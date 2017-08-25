@@ -1,13 +1,5 @@
+package projO_Interfacce;
 
-package progetto.o.Interfacce;
-
-import java.awt.Image;
-import java.net.MalformedURLException;
-import java.net.URL;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
-//______________________________________________________________________________
 
 /**
  *
@@ -69,6 +61,5 @@ public interface InterfacciaPrincipale {
      * Immagine IMG Remote Folder
      */
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
-     
      
 }
