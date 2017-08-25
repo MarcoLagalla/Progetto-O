@@ -181,13 +181,22 @@ public class ProgettoO implements InterfacciaPrincipale{
         CodiceFis.setSize(450,5);
         background_panel.add(CodiceFis);
 
-        
         CF = new JTextField();
         CF.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        CF.setText("GRRFRC94S23M109E");                                         // PER TEST DA RIMUOVERE
-        CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+        CF.setText("Inserire qui il Codice Fiscale");
+        CF.setFont(new Font("CF_Field",Font.ITALIC,20));
+        CF.setForeground(Color.LIGHT_GRAY);
         CF.setSize(450, 20);
+        CF.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+                CF.setText("");
+                CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+                CF.setForeground(Color.BLACK);          
+                }
+         });
         background_panel.add(CF);
+
         
         CodiceTes = new JLabel("Inserire CODICE TESSERA",SwingConstants.CENTER);
         CodiceTes.setFont(new Font("CT",Font.BOLD,25));
@@ -196,8 +205,17 @@ public class ProgettoO implements InterfacciaPrincipale{
         
         CT = new JTextField();
         CT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        CT.setText("231119994");                                                // PER TEST DA RIMUOVERE
-        CT.setFont(new Font("CT_Field",Font.ROMAN_BASELINE,20));
+        CT.setText("Inserire qui il codice della Tessera Elettorale");
+        CT.setFont(new Font("CT_Field",Font.ITALIC,20));
+        CT.setForeground(Color.LIGHT_GRAY);
+        CT.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+                CT.setText("");
+                CT.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+                CT.setForeground(Color.BLACK);          
+                }
+         });
         CT.setSize(450, 20);
         background_panel.add(CT);
         
