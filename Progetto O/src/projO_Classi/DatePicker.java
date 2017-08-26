@@ -80,7 +80,7 @@ public class DatePicker  {
             {
                     public void actionPerformed(ActionEvent ae) 
                     {
-                         month++;
+                        month++;
                         displayDate();
                     }
             });
@@ -120,12 +120,13 @@ public class DatePicker  {
      */
     public String setPickedDate() 
         {
-        	//if condition
-        	if (day.equals(""))
-        		return day;
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.set(year, month, Integer.parseInt(day));
-            return sdf.format(cal.getTime());
+            //if condition
+            if (day.equals(""))
+                return day;
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.set(year, month, Integer.parseInt(day));
+                
+                return sdf.format(cal.getTime());
         }
 }

@@ -1,21 +1,4 @@
-/*----------------------------------------------------------------------------------------------------------------------------------
- * PACKAGE: com.freeware.inifiles
- * FILE   : iniFile.java
- * CREATED: Jun 30, 2004
- * AUTHOR : Prasad P. Khandekar
- *----------------------------------------------------------------------------------------------------------------------------------
- * Change Log:
- * 05/07/2004    - Added support for date time formats.
- *                 Added support for environment variables.
- * 07/07/2004    - Added support for data type specific getters and setters.
- *                 Updated main method to reflect above changes.
- * 26/08/2004    - Added support for section level and property level comments.
- *                 Introduction of seperate class for property values.
- *                 Added addSection method.
- *                 Sections and properties now retail their order (LinkedHashMap)
- *                 Method implementation changes.
- * 15/06//2015   - Removed JDK 5 support, changed to advance for loops
- *--------------------------------------------------------------------------------------------------------------------------------*/
+
 package projO_Classi;
 
 import java.io.BufferedReader;

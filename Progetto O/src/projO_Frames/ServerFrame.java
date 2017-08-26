@@ -52,7 +52,8 @@ import projO_Interfacce.InterfacciaPrincipale;
  * @author Team
  */
 public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrincipale{
-
+    int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+    
     MySQlConnection mysql = new MySQlConnection();
     INIFile myINI = new INIFile(INI_PATH);
     
@@ -103,7 +104,10 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
                 stop_Vot.setEnabled(false);
             }
             
-            dataAvvio.setText( DAY + "-" + MONTH + "-" + YEAR );
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.set(YEAR, month, DAY);
+            dataAvvio.setText( sdf.format(cal.getTime()) );
         }
     
 /*____________________________METODI PER GRAFICI _____________________________*/
@@ -782,19 +786,26 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
             if (checkDate(dataChiusura.getText())) {
                 if (!(id_elezione.getText().equals(""))) {
                     
+                    // FILEIni
                     ProgettoO.StatoVotazioni = true;
                     myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
                     myINI.save();
                     
-                    // aggiungere controllo che il nome scelto non esista già
+                    // Aggiungere controllo che il nome scelto non esista già
                     Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
-                    dataAvvio.setText(Votazione.getDataInizioVot().toString());
+                    
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+                    java.util.Calendar cal = java.util.Calendar.getInstance();
+                    cal.set(YEAR, month, DAY);
+                    dataAvvio.setText( sdf.format(cal.getTime()) );
+                    
                     error_msg.setText(""); 
                     avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
                     stop_Vot.setEnabled(true);
                     ProgettoO.getRegistrazione().setEnabled(true);
                     ProgettoO.getRegistrazione().setIcon(setUrlIcon(IMG_REGISTRAZIONE_ENABLED));
                     vot_Status.setIcon(setUrlIcon(IMG_VOTAZIONI_APERTE));
+                    
                 }   else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
             } else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
         } else { error_msg.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!"); }

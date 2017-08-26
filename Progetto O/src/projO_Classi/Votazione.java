@@ -44,14 +44,6 @@ public class Votazione {
         return idVotazione;
     }
 
-    /**
-     *
-     * @return Data di Inizio Votazioni
-     */
-    public static Calendar getDataInizioVot() {
-        return dataInizioVot;
-    }
-
 //______________________________________________________________________________    
     
     /**
