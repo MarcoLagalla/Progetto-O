@@ -196,13 +196,21 @@ public class ProgettoO implements InterfacciaPrincipale{
         CF.setFont(new Font("CF_Field",Font.ITALIC,20));
         CF.setForeground(Color.LIGHT_GRAY);
         CF.setSize(450, 20);
-        CF.addMouseListener(new MouseAdapter() {
+        CF.addFocusListener(new FocusListener() {
         @Override
-        public void mouseClicked(MouseEvent e) {
+            public void focusGained(FocusEvent e) {
                 CF.setText("");
                 CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
                 CF.setForeground(Color.BLACK);          
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(CF.getText().equals("")) {
+                    CF.setText("Inserire qui il Codice Fiscale");
+                    CF.setFont(new Font("CT_Field",Font.ITALIC,20));
+                    CF.setForeground(Color.LIGHT_GRAY);
                 }
+            }
          });
         background_panel.add(CF);
 
@@ -217,15 +225,23 @@ public class ProgettoO implements InterfacciaPrincipale{
         CT.setText("Inserire qui il codice della Tessera Elettorale");
         CT.setFont(new Font("CT_Field",Font.ITALIC,20));
         CT.setForeground(Color.LIGHT_GRAY);
-        CT.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
+        CT.setSize(450, 20);
+        CT.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
                 CT.setText("");
                 CT.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
                 CT.setForeground(Color.BLACK);          
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(CT.getText().equals("")) {
+                    CT.setText("Inserire qui il codice della Tessera Elettorale");
+                    CT.setFont(new Font("CT_Field",Font.ITALIC,20));
+                    CT.setForeground(Color.LIGHT_GRAY);
                 }
+            }
          });
-        CT.setSize(450, 20);
         background_panel.add(CT);
         
         r5=new JPanel();
