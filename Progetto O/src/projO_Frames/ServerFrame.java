@@ -106,7 +106,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
             dataAvvio.setText( DAY + "-" + MONTH + "-" + YEAR );
         }
     
-/*_______________________________________METODI PER GRAFICI ____________________________________________*/
+/*____________________________METODI PER GRAFICI _____________________________*/
         
     private ChartPanel createBarChart( String chartTitle ) {       
       JFreeChart barChart = ChartFactory.createBarChart(chartTitle, "Candidato","Voti",createBarChartDataset(), PlotOrientation.VERTICAL, true, true, false);
