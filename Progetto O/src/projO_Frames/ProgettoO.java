@@ -20,6 +20,7 @@ import projO_Connettività.MySQlConnection;
 import projO_Classi.Candidati;
 import projO_Classi.Votanti;
 import projO_Interfacce.InterfacciaPrincipale;
+import projO_Classi.INIFile;
 // </editor-fold>
 
 
@@ -63,7 +64,8 @@ public class ProgettoO implements InterfacciaPrincipale{
     private  char[] admin_pwd;                          
    
     MySQlConnection mysql; 
-    
+    INIFile myINI;
+    public static Boolean StatoVotazioni = false;
     // Istanzio ServerFrame creato con JFrame Form
     ServerFrame prepareServerGUI;
     
@@ -74,9 +76,16 @@ public class ProgettoO implements InterfacciaPrincipale{
     
     public ProgettoO() {
         if ( netIsAvailable() ) {
+            
+            myINI = new INIFile(INI_PATH);
+            
+            StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta").booleanValue();
+           
             mysql = new MySQlConnection();
             prepareServerGUI = new ServerFrame();
             prepareGUI();
+            
+            
             
         }
         else {
@@ -244,9 +253,15 @@ public class ProgettoO implements InterfacciaPrincipale{
         registrazione = new JButton("");   
         registrazione.setActionCommand("Registrazione");
         registrazione.setSize(600, 200);
-        registrazione.setEnabled(false);
         
-        registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_DISABLED));
+        if (StatoVotazioni) {
+        registrazione.setEnabled(true);
+        registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_ENABLED));            
+        } else {
+        registrazione.setEnabled(false);
+        registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_DISABLED));            
+        }
+
     //    registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
 
         registrazione.addActionListener(new ButtonClickListener());

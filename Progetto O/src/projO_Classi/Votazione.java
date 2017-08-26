@@ -65,12 +65,13 @@ public class Votazione {
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
         VotazioneAperta = true; 
         try {   
-            int res = mysql.UpdateQuery("CREATE TABLE 'db'.'" + idVotazione+ "' ( ' Data' VARCHAR(45) NULL DEFAULT NULL,'Affluenza' INT NULL DEFAULT 0, PRIMARY KEY ('Data')) ENGINE = InnoDB DEFAULT CHARACTER SET = latin1;");
+            int res = mysql.UpdateQuery("CREATE TABLE "+ idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
                        if (res == 0 ) {
                            System.out.println("Errore Query");
                         }
             Calendar cal = Calendar.getInstance();
-            String data = f.format(cal);
+            System.out.println(cal.toString());
+//            String data = f.format(cal);
             dataCorrente = cal;
             
             dataInizioVot = dataCorrente;
@@ -106,7 +107,7 @@ public class Votazione {
     public static void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno   
         // Update dell'Attributo AFFLUENZA e Azzeramento
         try {
-            mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + ";");
+            mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
         } catch (Exception ex) {
             Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,7 +118,7 @@ public class Votazione {
         dataCorrente.add(Calendar.DATE, 1); 
         
         // Aggiungi una riga in N_TURNO, con la data corrente (cioè di domani)
-        mysql.ExecuteQuery( "INSERT INTO 'db'." + idVotazione + "' ('Data','Affluenza') VALUES ('" + dataCorrente + "', '0');" );
+      //  mysql.ExecuteQuery( "INSERT INTO 'db'." + idVotazione + "' ('Data','Affluenza') VALUES ('" + dataCorrente + "', '0');" );
     }
 //______________________________________________________________________________
     /**
