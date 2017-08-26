@@ -40,7 +40,7 @@ public interface InterfacciaPrincipale {
     /**
      * Immagine Votazioni Aperte
      */
-    final String IMG_REGISTRAZIONE_ENABLED =  "http://91.134.138.244/progettoO/img/Button_Registrazione.png.png";
+    final String IMG_REGISTRAZIONE_ENABLED =  "http://91.134.138.244/progettoO/img/Button_Registrazione.png";
     
     /**
      * Immagine Anno per Calendar
@@ -50,7 +50,7 @@ public interface InterfacciaPrincipale {
     /**
      * Immagine Mese per Calendar
      */
-    final int MONTH = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+    final int MONTH = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1;
 
     /**
      * Immagine Giorno per Calendar
@@ -61,5 +61,10 @@ public interface InterfacciaPrincipale {
      * Immagine IMG Remote Folder
      */
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
-     
+    
+    
+    final public String INI_PATH = System.getenv("APPDATA") + "\\progettoO.ini";
+    
+    
+    
 }
