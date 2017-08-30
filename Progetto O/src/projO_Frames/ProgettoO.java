@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.*;
+
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
+import static java.awt.event.KeyEvent.VK_A;
+
 import javax.swing.*;
 
 // imports per database
@@ -68,9 +72,6 @@ public class ProgettoO implements InterfacciaPrincipale{
     public static Boolean StatoVotazioni = false;
     // Istanzio ServerFrame creato con JFrame Form
     ServerFrame prepareServerGUI;
-    
-    // Definisco HotKey
-    private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK);       // hotkey per l'azione call_AdmLogin (CTRL+A)
 
 //______________________________________________________________________________
     
@@ -278,29 +279,41 @@ public class ProgettoO implements InterfacciaPrincipale{
         registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_DISABLED));            
         }
 
-    //    registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
+    //  registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
 
         registrazione.addActionListener(new ButtonClickListener());
 
         mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
 //______________________________________________________________________________
 
-        // Creo la shortcut (CTRL+A) che apre la finestra di Admin Login
-         JButton AdmLog_Button = new JButton();
-         AdmLog_Button.setAction(new AbstractAction("call AdmLogin") {
-            @Override
-            public void actionPerformed(ActionEvent call_AdmLog) {
-                prepareAdminLoginGUI();
+// Creo la SHORTCUT (CTRL+A) che apre la finestra di Admin Login
+// Definisco HotKey: VK_A && CTRL_DOWN_MASK ------> Hotkey per l'azione call_AdmLogin (CTRL+A)
+//private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
+
+    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher
+    (new KeyEventDispatcher(){
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            System.out.println("Key_Pressed : "+e.getKeyCode());
+            int i = 0;
+
+            if(e.isControlDown() && e.getKeyCode()==VK_A)
+            {
+                System.out.println("Preapare AdminLogig GUI");
+                prepareAdminLoginGUI();              
             }
-        }); 
 
-        //background_panel.add(AdmLog_Button);
-        
-        background_panel.getInputMap(c).put(key, "call_Action");
-        background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
+            return false;
+        }
+    }
+    );
 
-        // Spawn MAINFRAME
-        mainFrame.setVisible(true);
+//______________________________________________________________________________
+
+// Spawn MAINFRAME
+
+    mainFrame.setVisible(true);
+    
     }       
     
 //______________________________________________________________________________
@@ -363,14 +376,13 @@ public class ProgettoO implements InterfacciaPrincipale{
         clientFrame.setContentPane(contPane);
         GridLayout experimentLayout = new GridLayout(0,4,8,20);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
         
-      client_panel = new JPanel(experimentLayout); 
-      client_panel.setBackground(Color.WHITE);
+        client_panel = new JPanel(experimentLayout); 
+        client_panel.setBackground(Color.WHITE);
         ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
        
-       for (Candidati object: can) {
-          
-         SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
-         client_panel.add(scheda);
+        for (Candidati object: can) {  
+            SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
+            client_panel.add(scheda);
         
         }
        

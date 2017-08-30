@@ -124,19 +124,12 @@ public class MainFrameBot extends javax.swing.JFrame {
 //______________________________________________________________________________    
        
     private int getNumCandidati() {
-       int index = 0;
-       
-       
-       
-        for (Candidati object: can) {
-            index++;
-        }
-        
-       return index;
+
+       return can.size();  // Utilizzo Funzione Interna ad ArrayList per ottenere la Size
     }
 //______________________________________________________________________________    
     private int randomRange(int High) {    // High numero Candidati
-        Random r = new Random();
+        Random r = new Random(System.currentTimeMillis());  // Uso un SEED per evitare errori di porting
         int Low = 0;
         int Result = r.nextInt(High-Low) + Low;
         return Result;

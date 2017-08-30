@@ -31,17 +31,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel1" min="-2" max="-2" attributes="0"/>
+          <Component id="panel_AllContainer" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="panel_AllContainer" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="java.awt.Panel" name="panel1">
+    <Container class="java.awt.Panel" name="panel_AllContainer">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -52,19 +52,19 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="confermaButton" max="32767" attributes="0"/>
+                                  <Component id="bt_Conferma" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="label_nome_candidato2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="label_nome_candidato1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="label_nome_candidato" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="label_nome_candidato3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="label_nome_candidato6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="label_nome_candidato5" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="label_nome_candidato7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="sfogliaButton" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lb_Partito" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lb_CognomeCandidato" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lb_NomeCandidato" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lb_Comune" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lb_DataNascita" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lb_CodiceFiscale" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lb_FotoProfilo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bt_Sfoglia" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -72,7 +72,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
-                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="bt_Reset" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -80,28 +80,28 @@
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="input_datanascita_candidato" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                                                  <Component id="input_comune_candidato" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                                                  <Component id="tf_DataNascita" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                                                  <Component id="tf_Comune" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="label_nome_candidato4" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lb_Sesso" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="input_sesso_candidato" min="-2" pref="37" max="-2" attributes="0"/>
+                                              <Component id="cBox_InputSesso" min="-2" pref="37" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Component id="input_nome_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                                              <Component id="input_cognome_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                                              <Component id="input_partito_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                              <Component id="tf_NomeCandidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                              <Component id="tf_CognomeCandidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                              <Component id="tf_PartitoAppartenenza" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="input_codicefiscale_candidato" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
-                                      <Component id="foto" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Component id="tf_CodiceFiscale" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
+                                      <Component id="lb_Foto" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lb_Intestazione" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -112,56 +112,56 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lb_Intestazione" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="label_nome_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="input_nome_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lb_NomeCandidato" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_NomeCandidato" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="label_nome_candidato1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="input_cognome_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lb_CognomeCandidato" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_CognomeCandidato" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="label_nome_candidato2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="input_partito_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lb_Partito" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_PartitoAppartenenza" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="input_comune_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_nome_candidato3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tf_Comune" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lb_Comune" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_nome_candidato4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="input_sesso_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lb_Sesso" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cBox_InputSesso" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_datanascita_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="label_nome_candidato6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_DataNascita" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lb_DataNascita" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_codicefiscale_candidato" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="label_nome_candidato5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_CodiceFiscale" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lb_CodiceFiscale" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="label_nome_candidato7" min="-2" max="-2" attributes="0"/>
+                          <Component id="lb_FotoProfilo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="sfogliaButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_Sfoglia" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="foto" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="lb_Foto" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="confermaButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_Reset" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_Conferma" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -169,86 +169,86 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato">
+        <Component class="javax.swing.JLabel" name="lb_NomeCandidato">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="input_nome_candidato">
+        <Component class="javax.swing.JTextField" name="tf_NomeCandidato">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_nome_candidatoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_NomeCandidatoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="input_cognome_candidato">
+        <Component class="javax.swing.JTextField" name="tf_CognomeCandidato">
         </Component>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato1">
+        <Component class="javax.swing.JLabel" name="lb_CognomeCandidato">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cognome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="input_partito_candidato">
+        <Component class="javax.swing.JTextField" name="tf_PartitoAppartenenza">
         </Component>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato2">
+        <Component class="javax.swing.JLabel" name="lb_Partito">
           <Properties>
             <Property name="text" type="java.lang.String" value="Partito:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="input_comune_candidato">
+        <Component class="javax.swing.JTextField" name="tf_Comune">
         </Component>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato3">
+        <Component class="javax.swing.JLabel" name="lb_Comune">
           <Properties>
             <Property name="text" type="java.lang.String" value="Comune:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato4">
+        <Component class="javax.swing.JLabel" name="lb_Sesso">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sesso:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato5">
+        <Component class="javax.swing.JLabel" name="lb_CodiceFiscale">
           <Properties>
             <Property name="text" type="java.lang.String" value="CodiceFiscale:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="input_codicefiscale_candidato">
+        <Component class="javax.swing.JTextField" name="tf_CodiceFiscale">
         </Component>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato6">
+        <Component class="javax.swing.JLabel" name="lb_DataNascita">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data nascita:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="input_datanascita_candidato">
+        <Component class="javax.swing.JTextField" name="tf_DataNascita">
         </Component>
-        <Component class="javax.swing.JLabel" name="label_nome_candidato7">
+        <Component class="javax.swing.JLabel" name="lb_FotoProfilo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Foto Profilo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="sfogliaButton">
+        <Component class="javax.swing.JButton" name="bt_Sfoglia">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sfoglia"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sfogliaButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_SfogliaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="bt_Reset">
           <Properties>
             <Property name="text" type="java.lang.String" value="Reset"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_ResetActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="confermaButton">
+        <Component class="javax.swing.JButton" name="bt_Conferma">
           <Properties>
             <Property name="text" type="java.lang.String" value="Conferma"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confermaButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_ConfermaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lb_Intestazione">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="1"/>
@@ -256,7 +256,7 @@
             <Property name="text" type="java.lang.String" value="Creazione nuovo candidato"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="input_sesso_candidato">
+        <Component class="javax.swing.JComboBox" name="cBox_InputSesso">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
@@ -269,7 +269,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="foto">
+        <Component class="javax.swing.JLabel" name="lb_Foto">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

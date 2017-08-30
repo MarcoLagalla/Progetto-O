@@ -13,14 +13,6 @@ public class Persone {
     private String DataNascita;
     private String Comune;
 //______________________________________________________________________________
-    
-    /**
-     * Costruttore Persone
-     */
-    public Persone() {
-        
-    }
-    
     /**
      *
      * @param CF
