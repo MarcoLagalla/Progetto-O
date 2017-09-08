@@ -284,13 +284,10 @@ public class ProgettoO implements InterfacciaPrincipale{
         registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_DISABLED));            
         }
 
-    //  registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
-
         registrazione.addActionListener(new ButtonClickListener());
 
         mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
-        
-        
+                
 //______________________________________________________________________________
 
 // Creo la SHORTCUT (CTRL+A) che apre la finestra di Admin Login
@@ -306,7 +303,6 @@ public class ProgettoO implements InterfacciaPrincipale{
 
         background_panel.getInputMap().put(key, "call_Action");
         background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
-
 
 //______________________________________________________________________________
 
@@ -347,7 +343,7 @@ public class ProgettoO implements InterfacciaPrincipale{
     }      
 
 //______________________________________________________________________________
-    private void prepareClientGUI(){            // Creazione finestra votazione (dopo user login)
+    private void prepareClientGUI(){                                            // Creazione finestra votazione (dopo user login)
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
         
