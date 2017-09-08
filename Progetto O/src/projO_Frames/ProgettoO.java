@@ -72,6 +72,7 @@ public class ProgettoO implements InterfacciaPrincipale{
     public static Boolean StatoVotazioni = false;
     // Istanzio ServerFrame creato con JFrame Form
     ServerFrame prepareServerGUI;
+    private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
 
 //______________________________________________________________________________
     
@@ -194,7 +195,8 @@ public class ProgettoO implements InterfacciaPrincipale{
         CF.setText("Inserire qui il Codice Fiscale");
         CF.setFont(new Font("CF_Field",Font.ITALIC,20));
         CF.setForeground(Color.LIGHT_GRAY);
-        CF.setSize(450, 20);
+        CF.setSize(450, 20);   
+    
         CF.addFocusListener(new FocusListener() {
         @Override
             public void focusGained(FocusEvent e) {
@@ -227,6 +229,7 @@ public class ProgettoO implements InterfacciaPrincipale{
         CT.setFont(new Font("CT_Field",Font.ITALIC,20));
         CT.setForeground(Color.LIGHT_GRAY);
         CT.setSize(450, 20);
+
         CT.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -286,29 +289,24 @@ public class ProgettoO implements InterfacciaPrincipale{
         registrazione.addActionListener(new ButtonClickListener());
 
         mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
+        
+        
 //______________________________________________________________________________
 
 // Creo la SHORTCUT (CTRL+A) che apre la finestra di Admin Login
-// Definisco HotKey: VK_A && CTRL_DOWN_MASK ------> Hotkey per l'azione call_AdmLogin (CTRL+A)
-//private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
+// private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
 
-    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher
-    (new KeyEventDispatcher(){
+        JButton AdmLog_Button = new JButton();
+        AdmLog_Button.setAction(new AbstractAction("call AdmLogin") {
         @Override
-        public boolean dispatchKeyEvent(KeyEvent e) {
-            System.out.println("Key_Pressed : "+e.getKeyCode());
-            int i = 0;
-
-            if(e.isControlDown() && e.getKeyCode()==VK_A)
-            {
-                System.out.println("Preapare AdminLogig GUI");
-                prepareAdminLoginGUI();              
-            }
-
-            return false;
+        public void actionPerformed(ActionEvent call_AdmLog) {
+            prepareAdminLoginGUI();
         }
-    }
-    );
+        }); 
+
+        background_panel.getInputMap().put(key, "call_Action");
+        background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
+
 
 //______________________________________________________________________________
 
