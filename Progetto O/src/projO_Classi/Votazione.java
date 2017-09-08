@@ -63,7 +63,6 @@ public class Votazione {
                         }
             Calendar cal = Calendar.getInstance();
             System.out.println(cal.toString());
-//            String data = f.format(cal);
             dataCorrente = cal;
             
             dataInizioVot = dataCorrente;
@@ -75,6 +74,16 @@ public class Votazione {
     }    
 //__________________________________________________________________________________________________________________________________________ 
 
+    public static Calendar getDataCorrente() {
+        return dataCorrente;
+    }
+
+    public static Calendar getDataFineVot() {
+        return dataFineVot;
+    }
+
+        
+   
     /**
      * Metodo per Chiudere il Turno di Votazioni
      */
@@ -99,7 +108,8 @@ public class Votazione {
     public static void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno   
         // Update dell'Attributo AFFLUENZA e Azzeramento
         try {
-            mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
+            mysql.UpdateQuery( "INSERT INTO db." + idVotazione + " ('Data','Affluenza') VALUES (" + dataCorrente + ", " + affluenza +");" );
+             //mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
         } catch (Exception ex) {
             Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,10 +118,7 @@ public class Votazione {
         
         // Incrementa la data
         dataCorrente.add(Calendar.DATE, 1); 
-        
-        // Aggiungi una riga in N_TURNO, con la data corrente (cioè di domani)
-      //  mysql.ExecuteQuery( "INSERT INTO 'db'." + idVotazione + "' ('Data','Affluenza') VALUES ('" + dataCorrente + "', '0');" );
-    }
+}
 //______________________________________________________________________________
     /**
      * Metodo per trovare il Vincitore una volta chiuse le Elezioni

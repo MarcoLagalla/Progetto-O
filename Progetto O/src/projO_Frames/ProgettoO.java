@@ -85,9 +85,7 @@ public class ProgettoO implements InterfacciaPrincipale{
             mysql = new MySQlConnection();
             prepareServerGUI = new ServerFrame();
             prepareGUI();
-            
-            
-            
+
         }
         else {
             JOptionPane.showMessageDialog(null,"Non è stata rilevata alcuna connessione a internet.\nPer il funzionamento del programma è necessaria la connesiona a internet.\nVerificare la connessione di rete e riprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
@@ -200,9 +198,11 @@ public class ProgettoO implements InterfacciaPrincipale{
         CF.addFocusListener(new FocusListener() {
         @Override
             public void focusGained(FocusEvent e) {
-                CF.setText("");
-                CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
-                CF.setForeground(Color.BLACK);          
+                if (CF.getText().equals("Inserire qui il Codice Fiscale")) {
+                    CF.setText("");
+                    CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+                    CF.setForeground(Color.BLACK);
+                }
             }
             @Override
             public void focusLost(FocusEvent e) {
@@ -230,9 +230,11 @@ public class ProgettoO implements InterfacciaPrincipale{
         CT.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                CT.setText("");
-                CT.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
-                CT.setForeground(Color.BLACK);          
+                if (CT.getText().equals("Inserire qui il codice della Tessera Elettorale")) {
+                    CT.setText("");
+                    CT.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+                    CT.setForeground(Color.BLACK);
+                }
             }
             @Override
             public void focusLost(FocusEvent e) {

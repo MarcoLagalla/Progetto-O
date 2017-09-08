@@ -30,6 +30,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javax.swing.JButton;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -279,7 +280,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
         panel_GestioneCandidati = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<>();
+        Candidati_list = new javax.swing.JList<String>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
@@ -313,6 +314,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
         panel_BotContainer = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        avanzaGG = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -601,21 +603,32 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
 
         jButton1.setText("Avvia");
 
+        avanzaGG.setText("avanza gg");
+        avanzaGG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                avanzaGGActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_BotContainerLayout = new javax.swing.GroupLayout(panel_BotContainer);
         panel_BotContainer.setLayout(panel_BotContainerLayout);
         panel_BotContainerLayout.setHorizontalGroup(
             panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_BotContainerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_BotContainerLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(avanzaGG))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
         panel_BotContainerLayout.setVerticalGroup(
             panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_BotContainerLayout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
+                .addComponent(avanzaGG)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -639,6 +652,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
                                 .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lb_Vincitore)
                                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
+                                        .addGap(77, 77, 77)
                                         .addComponent(lb_FotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(37, 37, 37)
                                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -665,7 +679,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
                         .addGap(533, 533, 533)
                         .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addGap(0, 45, Short.MAX_VALUE))
         );
         panel_AllContainerLayout.setVerticalGroup(
             panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -703,7 +717,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
                             .addComponent(panel_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel_ColumnChart, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(panel_GestioneCandidati, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         getContentPane().add(panel_AllContainer, new java.awt.GridBagConstraints());
@@ -835,6 +849,14 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
         
     }//GEN-LAST:event_Candidati_listMouseClicked
 
+    private void avanzaGGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzaGGActionPerformed
+
+        Votazione.AvanzaGiornata();
+        if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) {
+            JOptionPane.showMessageDialog(panel_AllContainer, "Votazioni concluse");
+        }
+    }//GEN-LAST:event_avanzaGGActionPerformed
+
 //______________________________________________________________________________
     
     /**
@@ -941,6 +963,7 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
     private javax.swing.JLabel Logo02;
     private javax.swing.JButton Modifica_Candidato;
     private javax.swing.JButton Rimuovi_Candidato;
+    private javax.swing.JButton avanzaGG;
     private javax.swing.JButton avvia_Vot;
     private javax.swing.JTextField dataAvvio;
     private javax.swing.JLabel dataAvvio_Lab;
