@@ -56,7 +56,13 @@ public class ServerFrame extends javax.swing.JFrame {
     
     MySQlConnection mysql = new MySQlConnection();
     INIFile myINI = new INIFile(Utility.INI_PATH);
+
+    XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
+    XYSeries series1 = new XYSeries(""); // DataSet LineChart
     
+    DefaultPieDataset resultPie = new DefaultPieDataset(); // Dataset PieChart
+    
+    DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( ); //Dataset BarChart 
 
 //______________________________________________________________________________
 
@@ -119,13 +125,13 @@ public class ServerFrame extends javax.swing.JFrame {
       return new ChartPanel( barChart ); 
        }
     private CategoryDataset createBarChartDataset( ) {
-        final DefaultCategoryDataset dataset = new DefaultCategoryDataset( );  
+        final DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( );  
         ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
         for (Candidati object: can) {
-            dataset.addValue( object.getVoti(), object.getNome() +  " " + object.getCognome(), "" ); 
+            datasetBarChart.addValue( object.getVoti(), object.getNome() +  " " + object.getCognome(), "" ); 
         }
 
-        return dataset; 
+        return datasetBarChart; 
     }
 //______________________________________________________________________________
     
@@ -161,16 +167,16 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private XYDataset createLineChartDataset() {
-                XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series fanno parte dell' IMPORT
-                XYSeries series1 = new XYSeries(""); // DataSet
+                //XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series fanno parte dell' IMPORT
+                //XYSeries series1 = new XYSeries(""); // DataSet
                 
                 // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
                 // Qui ci vogliono i GET
-               /* 
-                for(int i=0;i<Votazione.getlenghtEle();i++){
-                    series1.add(i,Votazione.getAffluenza()); 
+               
+                for(int i=1;i<=Votazione.getlenghtEle();i++){
+                    //series1.add(i,Votazione.getAffluenza()); 
                 }
-                */
+                
                 // Questa di Default aggiunge in ordine di Sort quindi se voglio metterli in ordine che deicido, ovvero di Aggiunta devo fare:
      
                 boolean autoSort = false;
@@ -208,7 +214,7 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private  PieDataset createPieChartDataset() {
-        DefaultPieDataset result = new DefaultPieDataset();
+        //DefaultPieDataset resultPie = new DefaultPieDataset();
 
         ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
         
@@ -225,10 +231,10 @@ public class ServerFrame extends javax.swing.JFrame {
             }
         }
         
-        result.setValue("Uomini", maschi);
-        result.setValue("Donne", femmine);
+        resultPie.setValue("Uomini", maschi);
+        resultPie.setValue("Donne", femmine);
         
-        return result;
+        return resultPie;
 
     }
 
@@ -799,6 +805,12 @@ public class ServerFrame extends javax.swing.JFrame {
                 }   else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
             } else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
         } else { error_msg.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!"); }
+        
+        //Azzera Grafici
+        series1.clear(); //Clear LineChart
+        resultPie.clear(); //Clear PieChart
+        datasetBarChart.clear(); //Clear BarChart
+        
     }//GEN-LAST:event_avvia_VotActionPerformed
 //______________________________________________________________________________
     

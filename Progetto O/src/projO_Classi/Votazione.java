@@ -107,10 +107,15 @@ public class Votazione {
         return lenghtEle;
     }
     
-    /*public static getAffluenza(){
+/*    public static int getAffluenza(){
         
-    }*/
         
+        
+        
+        
+        return 
+    }
+*/        
    
     /**
      * Metodo per Chiudere il Turno di Votazioni

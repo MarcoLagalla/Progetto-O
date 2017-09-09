@@ -525,7 +525,15 @@ public class ProgettoO {
  
        }
     }
-
+    
+//______________________________________________________________________________
+    
+// Metodo AvoidDoubleReg    
+/*    public boolean avoidDoubleReg(){
+        
+    }
+*/
+    
 //______________________________________________________________________________
 
     private static boolean netIsAvailable() {
@@ -604,6 +612,7 @@ public class ProgettoO {
             AdmLog_pwd.setText(null);
         }
     }
+
 }
 
 
