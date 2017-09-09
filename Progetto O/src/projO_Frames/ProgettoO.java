@@ -88,7 +88,7 @@ public class ProgettoO implements InterfacciaPrincipale{
 
         }
         else {
-            JOptionPane.showMessageDialog(null,"Non è stata rilevata alcuna connessione a Internet.\nPer il funzionamento del programma è necessaria la connesiona a internet.\nVerificare la connessione di rete e riprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Non è stata rilevata alcuna connessione a internet.\nPer il funzionamento del programma è necessaria la connesiona a internet.\nVerificare la connessione di rete e riprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
@@ -296,9 +296,12 @@ public class ProgettoO implements InterfacciaPrincipale{
     (new KeyEventDispatcher(){
         @Override
         public boolean dispatchKeyEvent(KeyEvent e) {
+            System.out.println("Key_Pressed : "+e.getKeyCode());
+            int i = 0;
 
             if(e.isControlDown() && e.getKeyCode()==VK_A)
             {
+                System.out.println("Preapare AdminLogig GUI");
                 prepareAdminLoginGUI();              
             }
 
