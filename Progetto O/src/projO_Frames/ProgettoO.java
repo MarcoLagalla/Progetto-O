@@ -23,7 +23,7 @@ import java.net.MalformedURLException;
 import projO_Connettività.MySQlConnection;
 import projO_Classi.Candidati;
 import projO_Classi.Votanti;
-import projO_Interfacce.InterfacciaPrincipale;
+import projO_Classi.Utility;
 import projO_Classi.INIFile;
 // </editor-fold>
 
@@ -35,7 +35,7 @@ import projO_Classi.INIFile;
  */
 
 
-public class ProgettoO implements InterfacciaPrincipale{
+public class ProgettoO {
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JTextField CF;
@@ -80,7 +80,7 @@ public class ProgettoO implements InterfacciaPrincipale{
     public ProgettoO() {
         if ( netIsAvailable() ) {
             
-            myINI = new INIFile(INI_PATH);
+            myINI = new INIFile(Utility.INI_PATH);
             
             StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta").booleanValue();
            
@@ -142,12 +142,12 @@ public class ProgettoO implements InterfacciaPrincipale{
       
         Image_Icon = new JLabel();
 
-        Image_Icon.setIcon(setUrlIcon(IMG_LOGO)); // RELATIVE PATH
+        Image_Icon.setIcon(setUrlIcon(Utility.IMG_LOGO)); // RELATIVE PATH
         Image_Icon.setSize(350,395);
         mainFrame.add(Image_Icon,BorderLayout.EAST);                            //BorderLayout EAST
         
         Image_Icon_2 = new JLabel();
-        Image_Icon_2.setIcon(setUrlIcon(IMG_LOGO));
+        Image_Icon_2.setIcon(setUrlIcon(Utility.IMG_LOGO));
         Image_Icon_2.setSize(350,395);
         mainFrame.add(Image_Icon_2,BorderLayout.WEST);
         
@@ -277,10 +277,10 @@ public class ProgettoO implements InterfacciaPrincipale{
         
         if (StatoVotazioni) {
         registrazione.setEnabled(true);
-        registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_ENABLED));            
+        registrazione.setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));            
         } else {
         registrazione.setEnabled(false);
-        registrazione.setIcon(setUrlIcon(IMG_REGISTRAZIONE_DISABLED));            
+        registrazione.setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));            
         }
 
     //  registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));

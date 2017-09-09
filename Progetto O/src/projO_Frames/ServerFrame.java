@@ -30,7 +30,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.swing.JButton;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -43,7 +42,7 @@ import projO_Classi.Votazione;
 import projO_Classi.Candidati;
 import projO_Classi.Votanti;
 import projO_Classi.INIFile;
-import projO_Interfacce.InterfacciaPrincipale;
+import projO_Classi.Utility;
 
 // </editor-fold>
 
@@ -52,11 +51,11 @@ import projO_Interfacce.InterfacciaPrincipale;
  *
  * @author Team
  */
-public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrincipale{
+public class ServerFrame extends javax.swing.JFrame {
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
     
     MySQlConnection mysql = new MySQlConnection();
-    INIFile myINI = new INIFile(INI_PATH);
+    INIFile myINI = new INIFile(Utility.INI_PATH);
     
 
 //______________________________________________________________________________
@@ -90,24 +89,24 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
             panel_CakeChart.add(chartPie,BorderLayout.CENTER);
             panel_CakeChart.validate();
             
-            Logo01.setIcon(setUrlIcon(IMG_LOGO_SERVER)); // RELATIVE PATH
-            Logo02.setIcon(setUrlIcon(IMG_LOGO_SERVER)); // RELATIVE PATH
+            Logo01.setIcon(setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
+            Logo02.setIcon(setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
             
-            lb_FotoWinner.setIcon(setUrlIcon(IMG_PROFILO)); // RELATIVE PATH
+            lb_FotoWinner.setIcon(setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
             
             if (ProgettoO.StatoVotazioni) {
-                vot_Status.setIcon(setUrlIcon(IMG_VOTAZIONI_APERTE));
+                vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                 avvia_Vot.setEnabled(false);
                 stop_Vot.setEnabled(true);
             } else {
-                vot_Status.setIcon(setUrlIcon(IMG_VOTAZIONI_CHIUSE));
+                vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
                 avvia_Vot.setEnabled(true);
                 stop_Vot.setEnabled(false);
             }
             
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
             java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.set(YEAR, month, DAY);
+            cal.set(Utility.YEAR, month, Utility.DAY);
             dataAvvio.setText( sdf.format(cal.getTime()) );
         }
     
@@ -780,9 +779,9 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
         Votazione.chiudiVotazione();
         avvia_Vot.setEnabled(true);
         stop_Vot.setEnabled(false);
-        vot_Status.setIcon(setUrlIcon(IMG_VOTAZIONI_CHIUSE));
+        vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
         ProgettoO.getRegistrazione().setEnabled(false);
-        ProgettoO.getRegistrazione().setIcon(setUrlIcon(IMG_REGISTRAZIONE_DISABLED));
+        ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
         lb_FotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
     }//GEN-LAST:event_stop_VotActionPerformed
 //______________________________________________________________________________
@@ -810,15 +809,15 @@ public class ServerFrame extends javax.swing.JFrame implements InterfacciaPrinci
                     
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
                     java.util.Calendar cal = java.util.Calendar.getInstance();
-                    cal.set(YEAR, month, DAY);
+                    cal.set(Utility.YEAR, month, Utility.DAY);
                     dataAvvio.setText( sdf.format(cal.getTime()) );
                     
                     error_msg.setText(""); 
                     avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
                     stop_Vot.setEnabled(true);
                     ProgettoO.getRegistrazione().setEnabled(true);
-                    ProgettoO.getRegistrazione().setIcon(setUrlIcon(IMG_REGISTRAZIONE_ENABLED));
-                    vot_Status.setIcon(setUrlIcon(IMG_VOTAZIONI_APERTE));
+                    ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
+                    vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                     
                 }   else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
             } else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
