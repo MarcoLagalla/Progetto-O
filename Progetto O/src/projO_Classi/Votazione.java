@@ -26,6 +26,7 @@ public class Votazione {
     private static MySQlConnection mysql = new MySQlConnection();
     private static int affluenza = 0;
     private static String winner = "";
+    private static int lenghtEle;
 
     public static boolean VotazioneAperta = false;
     
@@ -69,8 +70,12 @@ public class Votazione {
             cal.setTime(f.parse(dataFine));
             dataFineVot = cal;
             
+            lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
+            
             winner = "";
-        } catch (Exception ex) {ex.printStackTrace();}   
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }   
     }    
 //__________________________________________________________________________________________________________________________________________ 
 
@@ -82,6 +87,13 @@ public class Votazione {
         return dataFineVot;
     }
 
+    public static int getlenghtEle(){
+        return lenghtEle;
+    }
+    
+    /*public static getAffluenza(){
+        
+    }*/
         
    
     /**

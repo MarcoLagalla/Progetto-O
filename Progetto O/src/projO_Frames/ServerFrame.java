@@ -163,42 +163,17 @@ public class ServerFrame extends javax.swing.JFrame {
                 XYSeries series1 = new XYSeries(""); // DataSet
                 
                 // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
-                
-                /*
-                ResultSet data_ = mysql.ExecuteQuery("SELECT Data FROM" ++ "WHERE CodiceFiscale='" + CF.getText() + "';");
-                
-                try {
-                    while (voti_.next()) {
-                       voti = voti_.getInt("Voti");
-                       voti = voti +1;
-                       int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + CF.getText() + "';");
-                       if (res != 0 ) {
-                          JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
-                          ProgettoO.clientFrame.dispose();
-                       
-                   }else{
-                       JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
-                   }
-                }
-                } catch (SQLException ex) {
-               
+                // Qui ci vogliono i GET
+               /* 
+                for(int i=0;i<Votazione.getlenghtEle();i++){
+                    series1.add(i,Votazione.getAffluenza()); 
                 }
                 */
-                
-                // Qui ci vogliono i GET
-                series1.add(1.0, 2.0); 
-                series1.add(2.0, 3.0);
-                series1.add(3.0, 2.5);
-                series1.add(3.5, 2.8);
-                series1.add(4.2, 6.0);
-                
                 // Questa di Default aggiunge in ordine di Sort quindi se voglio metterli in ordine che deicido, ovvero di Aggiunta devo fare:
-               /* 
-                
+     
                 boolean autoSort = false;
                 XYSeries series = new XYSeries("Object 1", autoSort);
                 
-                */
                 
                 dataset.addSeries(series1);
 
