@@ -73,6 +73,8 @@ public class ProgettoO implements InterfacciaPrincipale{
     // Istanzio ServerFrame creato con JFrame Form
     ServerFrame prepareServerGUI;
 
+    
+    private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
 //______________________________________________________________________________
     
     public ProgettoO() {
@@ -289,26 +291,18 @@ public class ProgettoO implements InterfacciaPrincipale{
 //______________________________________________________________________________
 
 // Creo la SHORTCUT (CTRL+A) che apre la finestra di Admin Login
-// Definisco HotKey: VK_A && CTRL_DOWN_MASK ------> Hotkey per l'azione call_AdmLogin (CTRL+A)
-//private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
 
-    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher
-    (new KeyEventDispatcher(){
+
+        JButton AdmLog_Button = new JButton();
+        AdmLog_Button.setAction(new AbstractAction("call AdmLogin") {
         @Override
-        public boolean dispatchKeyEvent(KeyEvent e) {
-            System.out.println("Key_Pressed : "+e.getKeyCode());
-            int i = 0;
-
-            if(e.isControlDown() && e.getKeyCode()==VK_A)
-            {
-                System.out.println("Preapare AdminLogig GUI");
-                prepareAdminLoginGUI();              
-            }
-
-            return false;
+        public void actionPerformed(ActionEvent call_AdmLog) {
+            prepareAdminLoginGUI();
         }
-    }
-    );
+        }); 
+
+        background_panel.getInputMap().put(key, "call_Action");
+        background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
 
 //______________________________________________________________________________
 
