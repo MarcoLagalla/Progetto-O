@@ -31,6 +31,7 @@ import projO_Classi.Candidati;
 import projO_Classi.Votanti;
 import projO_Classi.Utility;
 import projO_Classi.INIFile;
+import projO_Connettività.FTPConnection;
 // </editor-fold>
 
 
@@ -75,6 +76,7 @@ public class ProgettoO {
    
     MySQlConnection mysql; 
     INIFile myINI;
+    FTPConnection myftp;
     public static Boolean StatoVotazioni = false;
     // Istanzio ServerFrame creato con JFrame Form
     ServerFrame prepareServerGUI;
@@ -155,10 +157,24 @@ public class ProgettoO {
         mainFrame.setPreferredSize(screenSize);
         mainFrame.setSize(screenSize);
         mainFrame.setExtendedState(MAXIMIZED_BOTH);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         mainFrame.getContentPane().setBackground(Color.WHITE);
         mainFrame.setResizable(true);
       
+        
+        mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        if (JOptionPane.showConfirmDialog(mainFrame, 
+            "Are you sure to close this window?", "Really Closing?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            myftp = new FTPConnection();
+            myftp.loadFile(Utility.INI_PATH,Utility.REMOTE_INI_PATH);
+            System.exit(0);
+        }
+    }
+});
         Image_Icon = new JLabel();
 
         Image_Icon.setIcon(setUrlIcon(Utility.IMG_LOGO)); // RELATIVE PATH

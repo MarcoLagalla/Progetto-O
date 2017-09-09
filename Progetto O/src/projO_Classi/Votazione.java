@@ -46,7 +46,13 @@ public class Votazione {
 
 
     public static String getIdVotazione() {    
-        return myINI.getStringProperty("Votazione","ID").toString();
+        String res = myINI.getStringProperty("Votazione","ID");
+        return res;
+    }
+    
+    public static String readDataCorrente() {
+        String res = myINI.getStringProperty("Votazione","DataCorrente");
+        return res;
     }
 
 //______________________________________________________________________________    
@@ -62,6 +68,7 @@ public class Votazione {
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
         
         myINI.setStringProperty("Votazione", "ID", idVotazione, "ID");
+        myINI.setStringProperty("Votazione", "DataFine", dataFine, "DataFine");
         myINI.save();
         
         VotazioneAperta = true; 
@@ -73,7 +80,8 @@ public class Votazione {
             Calendar cal = Calendar.getInstance();
             System.out.println(cal.toString());
             dataCorrente = cal;
-            
+            myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
+            myINI.save();
             dataInizioVot = dataCorrente;
             cal.setTime(f.parse(dataFine));
             dataFineVot = cal;
@@ -127,9 +135,10 @@ public class Votazione {
      */
     public static void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno   
         // Update dell'Attributo AFFLUENZA e Azzeramento
+
         try {
-            JOptionPane.showMessageDialog(null,"INSERT INTO db." + idVotazione + " ('Data','Affluenza') VALUES (" + dataCorrente.toString() + ", " + affluenza +");" , "", 0);
-            mysql.UpdateQuery( "INSERT INTO db." + idVotazione + " ('Data','Affluenza') VALUES (" + dataCorrente + ", " + affluenza +");" );
+
+            mysql.UpdateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
              //mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
         } catch (Exception ex) {
             Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);

@@ -108,6 +108,8 @@ public class ServerFrame extends javax.swing.JFrame {
             java.util.Calendar cal = java.util.Calendar.getInstance();
             cal.set(Utility.YEAR, month, Utility.DAY);
             dataAvvio.setText( sdf.format(cal.getTime()) );
+            dataChiusura.setText(myINI.getStringProperty("Votazione", "DataFine"));
+            id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
         }
     
 /*____________________________METODI PER GRAFICI _____________________________*/
