@@ -71,6 +71,10 @@ public class Utility {
      */
     final static public String INI_PATH = System.getenv("APPDATA") + "\\progettoO.ini";
     
+    /**
+     * Remote Path BackUp INI
+     */
+    final static public String REMOTE_INI_PATH = "http://91.134.138.244/progettoO/ini/progettoO.ini";
     
     
     // costuttore privato

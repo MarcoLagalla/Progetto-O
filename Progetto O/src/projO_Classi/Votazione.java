@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 // imports interni
 import projO_Connettività.MySQlConnection;
@@ -30,6 +31,9 @@ public class Votazione {
 
     public static boolean VotazioneAperta = false;
     
+    static INIFile myINI = new INIFile(Utility.INI_PATH);
+        
+    
     private Votazione(){} // Costruttore Privato in Quanto Classe di Metodi Statici
    
 //______________________________________________________________________________    
@@ -41,8 +45,8 @@ public class Votazione {
      */
 
 
-    public static String getIdVotazione() {
-        return idVotazione;
+    public static String getIdVotazione() {    
+        return myINI.getStringProperty("Votazione","ID").toString();
     }
 
 //______________________________________________________________________________    
@@ -56,6 +60,10 @@ public class Votazione {
     
    public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
+        
+        myINI.setStringProperty("Votazione", "ID", idVotazione, "ID");
+        myINI.save();
+        
         VotazioneAperta = true; 
         try {   
             int res = mysql.UpdateQuery("CREATE TABLE "+ idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
@@ -120,6 +128,7 @@ public class Votazione {
     public static void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno   
         // Update dell'Attributo AFFLUENZA e Azzeramento
         try {
+            JOptionPane.showMessageDialog(null,"INSERT INTO db." + idVotazione + " ('Data','Affluenza') VALUES (" + dataCorrente.toString() + ", " + affluenza +");" , "", 0);
             mysql.UpdateQuery( "INSERT INTO db." + idVotazione + " ('Data','Affluenza') VALUES (" + dataCorrente + ", " + affluenza +");" );
              //mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
         } catch (Exception ex) {

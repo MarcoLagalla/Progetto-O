@@ -13,11 +13,17 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 import static java.awt.event.KeyEvent.VK_A;
 
 import javax.swing.*;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 // imports per database
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 
 // imports interni
 import projO_Connettività.MySQlConnection;
@@ -80,9 +86,22 @@ public class ProgettoO {
     public ProgettoO() {
         if ( netIsAvailable() ) {
             
+            File f = new File(Utility.INI_PATH);
+                if (!f.exists() && !f.isDirectory()) { 
+                    try {
+                     URL website = new URL(Utility.REMOTE_INI_PATH);
+                    ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+                    FileOutputStream fos = new FileOutputStream(Utility.INI_PATH);
+                    fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                    } catch (MalformedURLException ex) {} 
+                   catch (IOException ex) {}
+
+            }
+            
+            
             myINI = new INIFile(Utility.INI_PATH);
             
-            StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta").booleanValue();
+            StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta");
            
             mysql = new MySQlConnection();
             prepareServerGUI = new ServerFrame();
