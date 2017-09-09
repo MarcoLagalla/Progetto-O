@@ -408,8 +408,8 @@ public class ProgettoO implements InterfacciaPrincipale{
            String CF_INV_regex = "^(?!.*([A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1})).*$"; // DA PROVARE
            
 
-          String CT_regex = "[0-9]{9}"; 
-          String CT_INV_regex = "^(?!.*([0-9]{9})).*$";           
+           String CT_regex = "[0-9]{9}"; 
+           String CT_INV_regex = "^(?!.*([0-9]{9})).*$";           
 
            
 //______________________________________________________________________________     
