@@ -1,4 +1,4 @@
-package projO_Classi;
+﻿package projO_Classi;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.sql.ResultSet;
@@ -104,9 +104,18 @@ public class Votazione {
         return dataFineVot;
     }
 
+    public static DateFormat getF() {
+        return f;
+    }
+
     public static int getlenghtEle(){
         return lenghtEle;
     }
+
+    public static Calendar getDataInizioVot() {
+        return dataInizioVot;
+    }
+    
     
 /*    public static int getAffluenza(){
         

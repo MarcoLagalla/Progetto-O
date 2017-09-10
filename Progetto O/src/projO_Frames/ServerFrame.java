@@ -71,7 +71,6 @@ public class ServerFrame extends javax.swing.JFrame {
             setExtendedState(MAXIMIZED_BOTH);
             initComponents(); // Provenienti dal precedente Costruttore
             
-//______________________________________________________________________________
             // FULLSCREEN MODE
             
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -79,7 +78,6 @@ public class ServerFrame extends javax.swing.JFrame {
             this.setSize(screenSize);
             this.setMinimumSize(screenSize);
             this.setMaximumSize(screenSize);
-//______________________________________________________________________________
     
             loadCandidati(); 
             
@@ -104,18 +102,21 @@ public class ServerFrame extends javax.swing.JFrame {
                 vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                 avvia_Vot.setEnabled(false);
                 stop_Vot.setEnabled(true);
+                id_elezione.setEditable(false);
+                openDatePicker.setEnabled(false);
+                dataAvvio.setText(myINI.getStringProperty("Votazione", "DataInizio"));
+                dataChiusura.setText(myINI.getStringProperty("Votazione", "DataFine"));
+                id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
             } else {
                 vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
                 avvia_Vot.setEnabled(true);
                 stop_Vot.setEnabled(false);
+                id_elezione.setEditable(true);
+                openDatePicker.setEnabled(true);
+                dataAvvio.setText("");
+                dataChiusura.setText("");
+                id_elezione.setText("");
             }
-            
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.set(Utility.YEAR, month, Utility.DAY);
-            dataAvvio.setText( sdf.format(cal.getTime()) );
-            dataChiusura.setText(myINI.getStringProperty("Votazione", "DataFine"));
-            id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
         }
     
 /*____________________________METODI PER GRAFICI _____________________________*/
@@ -182,9 +183,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 boolean autoSort = false;
                 XYSeries series = new XYSeries("Object 1", autoSort);
                 
-                
                 dataset.addSeries(series1);
-
 
                 return dataset;
             
@@ -793,6 +792,7 @@ public class ServerFrame extends javax.swing.JFrame {
                         myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
                         myINI.save();
                     
+<<<<<<< HEAD
                         // Aggiungere controllo che il nome scelto non esista già
                         Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
                     
@@ -800,6 +800,34 @@ public class ServerFrame extends javax.swing.JFrame {
                         java.util.Calendar cal = java.util.Calendar.getInstance();
                         cal.set(Utility.YEAR, month, Utility.DAY);
                         dataAvvio.setText( sdf.format(cal.getTime()) );
+=======
+                   //////////// Aggiungere controllo che il nome scelto non esista già
+                    
+                   Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
+                    
+                    // aggiornamento del file .INI
+                    ProgettoO.StatoVotazioni = true;
+                    myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
+                    myINI.setStringProperty("Votazione", "ID", Votazione.getIdVotazione(), "ID" );
+                    myINI.setStringProperty("Votazione", "DataFine",  Votazione.getF().format(Votazione.getDataFineVot().getTime()), "DataFine" );
+                    myINI.setStringProperty("Votazione", "DataCorrente", Votazione.getF().format(Votazione.getDataCorrente().getTime()), "DataCorrente");
+                    myINI.setStringProperty("Votazione", "DataInizio", Votazione.getF().format(Votazione.getDataInizioVot().getTime()), "DataInizio");
+                    myINI.save();   
+                    
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+                    java.util.Calendar cal = java.util.Calendar.getInstance();
+                    cal.set(Utility.YEAR, month, Utility.DAY);
+                    dataAvvio.setText( sdf.format(cal.getTime()) );
+                    
+                    error_msg.setText(""); 
+                    avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
+                    stop_Vot.setEnabled(true);
+                    id_elezione.setEditable(false);
+                    openDatePicker.setEnabled(false);
+                    ProgettoO.getRegistrazione().setEnabled(true);
+                    ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
+                    vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+>>>>>>> origin/master
                     
                         error_msg.setText(""); 
                         avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce

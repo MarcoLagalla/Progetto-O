@@ -99,10 +99,8 @@ public class ProgettoO {
                    catch (IOException ex) {}
 
             }
-            
-            
+
             myINI = new INIFile(Utility.INI_PATH);
-            
             StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta");
            
             mysql = new MySQlConnection();
@@ -318,15 +316,12 @@ public class ProgettoO {
         registrazione.setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));            
         }
 
-    //  registrazione.setIcon(resizeIcon(img, registrazione.getWidth() , registrazione.getHeight() ));
-
         registrazione.addActionListener(new ButtonClickListener());
 
         mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
 //______________________________________________________________________________
 
 // Creo la SHORTCUT (CTRL+A) che apre la finestra di Admin Login
-
 
         JButton AdmLog_Button = new JButton();
         AdmLog_Button.setAction(new AbstractAction("call AdmLogin") {
@@ -578,7 +573,7 @@ public class ProgettoO {
             ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
 
             for (Votanti v: vot){
-                if(v.getCF().toString().equals(CF)){  
+                if(v.getCF().equals(CF)){  
                          return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
                 }
 
@@ -593,7 +588,7 @@ public class ProgettoO {
             ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
 
             for (Votanti v: vot){
-                if(v.getCodiceTessera().toString().equals(CT)){  
+                if(v.getCodiceTessera().equals(CT)){  
                          return true; // Vuol dire che il CT del Votante Esiste ed è Abilitato
                 }
 
