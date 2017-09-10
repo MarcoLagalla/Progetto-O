@@ -762,6 +762,11 @@ public class ServerFrame extends javax.swing.JFrame {
         Votazione.chiudiVotazione();
         avvia_Vot.setEnabled(true);
         stop_Vot.setEnabled(false);
+        id_elezione.setEditable(true);
+        id_elezione.setText(null);
+        dataChiusura.setText(null);
+        dataAvvio.setText(null);
+        openDatePicker.setEnabled(true);
         vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
         ProgettoO.getRegistrazione().setEnabled(false);
         ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
@@ -798,6 +803,8 @@ public class ServerFrame extends javax.swing.JFrame {
                     error_msg.setText(""); 
                     avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
                     stop_Vot.setEnabled(true);
+                    id_elezione.setEditable(false);
+                    openDatePicker.setEnabled(false);
                     ProgettoO.getRegistrazione().setEnabled(true);
                     ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
                     vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
