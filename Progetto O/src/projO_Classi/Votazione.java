@@ -1,6 +1,7 @@
 package projO_Classi;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
+import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,31 +68,31 @@ public class Votazione {
    public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
         
-        myINI.setStringProperty("Votazione", "ID", idVotazione, "ID");
-        myINI.setStringProperty("Votazione", "DataFine", dataFine, "DataFine");
-        myINI.save();
+        if (!existsVotazione(idVotazione)) {
         
-        VotazioneAperta = true; 
-        try {   
-            int res = mysql.UpdateQuery("CREATE TABLE "+ idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
+            myINI.setStringProperty("Votazione", "ID", idVotazione, "ID");
+            myINI.setStringProperty("Votazione", "DataFine", dataFine, "DataFine");
+            myINI.save();
+        
+            VotazioneAperta = true; 
+            try {   
+                int res = mysql.UpdateQuery("CREATE TABLE "+ idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
                        if (res == 0 ) {
                            System.out.println("Errore Query");
                         }
-            Calendar cal = Calendar.getInstance();
-            System.out.println(cal.toString());
-            dataCorrente = cal;
-            myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
-            myINI.save();
-            dataInizioVot = dataCorrente;
-            cal.setTime(f.parse(dataFine));
-            dataFineVot = cal;
+                Calendar cal = Calendar.getInstance();
+                dataCorrente = cal;
+                myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
+                myINI.save();
+                dataInizioVot = dataCorrente;
+                cal.setTime(f.parse(dataFine));
+                dataFineVot = cal;
             
-            lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
+                lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
             
-            winner = "";
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }   
+                winner = "";
+            }catch(Exception ex){ }   
+       } else { JOptionPane.showMessageDialog(null, "Errore, l' identificativo inserito non è ammissibile, provare un altro id.", "Errore", JOptionPane.ERROR_MESSAGE);}
     }    
 //__________________________________________________________________________________________________________________________________________ 
 
@@ -172,4 +173,21 @@ public class Votazione {
             mysql.UpdateQuery("UPDATE VOTANTI SET Voti=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
         }   
     }   
+    
+    /**
+     * Metodo che scansiona tutte le tabelle per evitare doppioni
+     * @param idVotazione Nome della votazione, costituisce anche il nome della tabella.
+     * @return Restituisce vero/falso se la tabella esiste o non esiste.
+     */
+    public static boolean existsVotazione(String idVotazione) {
+        boolean exists = false;
+        try {
+            
+            ResultSet res = mysql.ExecuteQuery("SHOW TABLES FROM db;");
+            while(res.next()){ 
+                if (res.getString(1).equals(idVotazione)) { exists = true; }
+            }
+        } catch (Exception ex) {}
+        return exists;
+    }
 }

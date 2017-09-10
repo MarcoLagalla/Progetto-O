@@ -819,7 +819,7 @@ public final class INIFile
             while (objBRdr.ready() && strLine != null)
             {
             	intLine = intLine + 1;
-            	System.out.println(intLine + " " + strLine);
+            	//System.out.println(intLine + " " + strLine);
                 iPos = -1;
                 strLine = objBRdr.readLine();
                 if (StringUtils.isBlank(strLine)) continue;
@@ -1011,8 +1011,6 @@ public final class INIFile
         // Following call will load the strFile if one exists.
         objINI = new INIFile(strFile);
 
-        for (String sec : objINI.getAllSectionNames())
-        	System.out.println(objINI.getSection(sec).toString());
 
         objINI = null;
     }
