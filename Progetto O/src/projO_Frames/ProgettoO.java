@@ -79,7 +79,7 @@ public class ProgettoO {
     FTPConnection myftp;
     public static Boolean StatoVotazioni = false;
     // Istanzio ServerFrame creato con JFrame Form
-    ServerFrame prepareServerGUI;
+    public static ServerFrame prepareServerGUI;
 
     
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
@@ -490,7 +490,7 @@ public class ProgettoO {
               
                    if (AdmLog_pwd.getPassword().length == admin_pwd.length) // se la lunghezza è diversa, evito il controllo
                         if (Arrays.equals(AdmLog_pwd.getPassword(), admin_pwd)) { 
-                               prepareServerGUI.setVisible(true);                           
+                               new ServerFrame().setVisible(true);
                                Admin_Login.dispose();
                                break; 
                         }

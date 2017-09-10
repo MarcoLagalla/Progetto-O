@@ -1,6 +1,9 @@
 package projO_Classi;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
+import java.awt.Image;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -8,10 +11,14 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 // imports interni
 import projO_Connettività.MySQlConnection;
+import projO_Frames.ProgettoO;
+import projO_Frames.ServerFrame;
 // </editor-fold>
 
 
@@ -132,7 +139,44 @@ public class Votazione {
      */
     public static void chiudiVotazione() {       
         resetVoti();
-        winner = findWinner();
+        ArrayList<String> vincitori = findWinner();
+        if ( vincitori.size() > 1 ) {
+            JOptionPane.showMessageDialog(null,"Necessario secondo turno!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+           int  res = JOptionPane.showConfirmDialog(null,"Vuoi procedere a impostare un secondo turno di elezioni?\nQuesta operazione cancellerà i candidati che non sono passati al secondo turno.\nQuesta operazione non può essere annullata.","ATTENZIONE", JOptionPane.YES_NO_OPTION);
+           if ( res == JOptionPane.YES_OPTION ) {
+               
+               ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+               for (Candidati obj: can) {
+                   if (!vincitori.contains(obj.getCF())) {
+                       mysql.UpdateQuery("DELETE FROM db.CANDIDATI WHERE CodiceFiscale='" + obj.getCF() + "';");
+                       
+                   }
+               }
+               
+           JOptionPane.showMessageDialog(null,"Per vedere le modifiche riavviare l' interfaccia di gestione.", "Necessario riavvio", JOptionPane.INFORMATION_MESSAGE);
+           ProgettoO.prepareServerGUI.dispose();
+           }
+ 
+        }
+        else if ( vincitori.size() == 1) {  // ho un vincitore con maggioranza assoluta
+            JOptionPane.showMessageDialog(null,"Un candidato ha raggiunto la maggioranza assoluta!", "Elezione conclusa", JOptionPane.OK_OPTION);
+            winner = vincitori.get(0).toString();
+
+            
+            ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+            
+            for (Candidati obj: can) {
+                
+                if (obj.getCF().equals(winner)) {
+                    
+            ServerFrame.lb_FotoWinner.setIcon(setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
+            ServerFrame.lb_NomeVincitore.setText(obj.getNome());
+            ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
+            ServerFrame.lb_CF.setText(obj.getCF());
+                }
+            }
+        }
+        
         VotazioneAperta = false; 
     }
 //__________________________________________________________________________________________________________________________________________      
@@ -167,9 +211,24 @@ public class Votazione {
 //______________________________________________________________________________
     /**
      * Metodo per trovare il Vincitore una volta chiuse le Elezioni
+     * In caso di chiusura elezioni con candidati a pari merito ritorna un array con i 
+     * codici fiscali di tutti i candidati che dovranno accedere al secondo turno.
      */
-    private static String findWinner() {       // chiamato a votazione finita: trova nel db il candidato vincitore
-        return ""; // ritorna il codice fiscale del vincitore
+    private static ArrayList<String> findWinner() {       // chiamato a votazione finita: trova nel db il candidato vincitore
+        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        int max = 0;
+        ArrayList<String> CF = new ArrayList();
+        for(Candidati obj: can) {
+            if ( obj.getVoti() > max ) {
+                max = obj.getVoti();
+            }
+        }
+        for(Candidati obj: can) {
+            if (obj.getVoti() == max) {
+                CF.add(obj.getCF());
+            }
+        }
+        return CF; // ritorna il codice fiscale del vincitore
     }
     
 //______________________________________________________________________________
@@ -198,5 +257,18 @@ public class Votazione {
             }
         } catch (Exception ex) {}
         return exists;
+    }
+    
+        private static Icon setUrlIcon(String remoteURL , int resizedWidth, int resizedHeight ) {
+        ImageIcon img;
+        Image resizedImage = null;
+        try {
+            img = new ImageIcon(new URL(remoteURL));
+            Image img_ = img.getImage();
+            resizedImage = img_.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+        } catch (MalformedURLException ex) {
+            img = null;
+        }
+        return new ImageIcon(resizedImage);
     }
 }

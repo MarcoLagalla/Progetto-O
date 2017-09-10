@@ -66,6 +66,8 @@ public class Utility {
      */
     final static public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
+    final static public String URL_IMG_REMOTE = "http://91.134.138.244/progettoO/img/";
+    
     /**
      * Path INIFile
      */

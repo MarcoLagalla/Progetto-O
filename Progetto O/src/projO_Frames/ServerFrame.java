@@ -261,7 +261,7 @@ public class ServerFrame extends javax.swing.JFrame {
         panel_GestioneCandidati = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<String>();
+        Candidati_list = new javax.swing.JList<>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
@@ -635,7 +635,7 @@ public class ServerFrame extends javax.swing.JFrame {
                                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
                                         .addGap(77, 77, 77)
                                         .addComponent(lb_FotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(37, 37, 37)
+                                        .addGap(43, 43, 43)
                                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(lb_CognomeVincitore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lb_NomeVincitore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -660,7 +660,7 @@ public class ServerFrame extends javax.swing.JFrame {
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
                         .addGap(533, 533, 533)
                         .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
         panel_AllContainerLayout.setVerticalGroup(
             panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -678,13 +678,14 @@ public class ServerFrame extends javax.swing.JFrame {
                         .addComponent(lb_Vincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_AllContainerLayout.createSequentialGroup()
+                            .addComponent(lb_FotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_AllContainerLayout.createSequentialGroup()
                                 .addComponent(lb_NomeVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lb_CognomeVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lb_CF, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lb_FotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lb_CF, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panel_BotContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
@@ -698,7 +699,7 @@ public class ServerFrame extends javax.swing.JFrame {
                             .addComponent(panel_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel_ColumnChart, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(panel_GestioneCandidati, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         getContentPane().add(panel_AllContainer, new java.awt.GridBagConstraints());
@@ -769,7 +770,7 @@ public class ServerFrame extends javax.swing.JFrame {
         vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
         ProgettoO.getRegistrazione().setEnabled(false);
         ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
-        lb_FotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
+     //   lb_FotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
     }//GEN-LAST:event_stop_VotActionPerformed
 //______________________________________________________________________________
     
@@ -983,10 +984,10 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
-    private javax.swing.JLabel lb_CF;
-    private javax.swing.JLabel lb_CognomeVincitore;
-    private javax.swing.JLabel lb_FotoWinner;
-    private javax.swing.JLabel lb_NomeVincitore;
+    public static javax.swing.JLabel lb_CF;
+    public static javax.swing.JLabel lb_CognomeVincitore;
+    public static javax.swing.JLabel lb_FotoWinner;
+    public static javax.swing.JLabel lb_NomeVincitore;
     private javax.swing.JLabel lb_PercentualeSesso;
     private javax.swing.JLabel lb_Vincitore;
     private javax.swing.JButton openDatePicker;
