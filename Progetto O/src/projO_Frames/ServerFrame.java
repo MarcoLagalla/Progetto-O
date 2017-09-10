@@ -792,15 +792,6 @@ public class ServerFrame extends javax.swing.JFrame {
                         myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
                         myINI.save();
                     
-<<<<<<< HEAD
-                        // Aggiungere controllo che il nome scelto non esista già
-                        Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
-                    
-                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-                        java.util.Calendar cal = java.util.Calendar.getInstance();
-                        cal.set(Utility.YEAR, month, Utility.DAY);
-                        dataAvvio.setText( sdf.format(cal.getTime()) );
-=======
                    //////////// Aggiungere controllo che il nome scelto non esista già
                     
                    Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
@@ -827,16 +818,7 @@ public class ServerFrame extends javax.swing.JFrame {
                     ProgettoO.getRegistrazione().setEnabled(true);
                     ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
                     vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
->>>>>>> origin/master
                     
-                        error_msg.setText(""); 
-                        avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
-                        stop_Vot.setEnabled(true);
-                        id_elezione.setEditable(false);
-                        openDatePicker.setEnabled(false);
-                        ProgettoO.getRegistrazione().setEnabled(true);
-                        ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
-                        vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                     } else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
                 }   else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
             } else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
