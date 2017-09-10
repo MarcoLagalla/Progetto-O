@@ -66,11 +66,7 @@ public class Votazione {
     
    public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
-        
-        myINI.setStringProperty("Votazione", "ID", idVotazione, "ID");
-        myINI.setStringProperty("Votazione", "DataFine", dataFine, "DataFine");
-        myINI.save();
-        
+
         VotazioneAperta = true; 
         try {   
             int res = mysql.UpdateQuery("CREATE TABLE "+ idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
@@ -80,9 +76,9 @@ public class Votazione {
             Calendar cal = Calendar.getInstance();
             System.out.println(cal.toString());
             dataCorrente = cal;
-            myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
-            myINI.save();
+
             dataInizioVot = dataCorrente;
+            
             cal.setTime(f.parse(dataFine));
             dataFineVot = cal;
             
@@ -103,9 +99,18 @@ public class Votazione {
         return dataFineVot;
     }
 
+    public static DateFormat getF() {
+        return f;
+    }
+
     public static int getlenghtEle(){
         return lenghtEle;
     }
+
+    public static Calendar getDataInizioVot() {
+        return dataInizioVot;
+    }
+    
     
 /*    public static int getAffluenza(){
         
