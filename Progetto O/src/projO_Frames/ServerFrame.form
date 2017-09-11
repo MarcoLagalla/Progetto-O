@@ -68,18 +68,21 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lb_Vincitore" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
+                                      <Component id="panel_BotContainer" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                          <Component id="lb_Vincitore" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                                           <Component id="lb_FotoWinner" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                               <Component id="lb_CognomeVincitore" alignment="0" max="32767" attributes="0"/>
                                               <Component id="lb_NomeVincitore" alignment="0" max="32767" attributes="0"/>
                                               <Component id="lb_CF" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="panel_BotContainer" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -105,13 +108,16 @@
                                   <Component id="panel_LineChart" min="-2" pref="608" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="533" max="-2" attributes="0"/>
                           <Component id="panel_Intestazione" min="-2" pref="813" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="bt_Refresh" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -119,21 +125,25 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panel_Intestazione" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="panel_Intestazione" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_Refresh" min="-2" pref="80" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lb_PercentualeSesso" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lb_PercentualeSesso" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lb_Vincitore" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="panel_CakeChart" min="-2" pref="338" max="-2" attributes="0"/>
                       </Group>
                       <Component id="panel_SituazioneEle" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="lb_Vincitore" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lb_FotoWinner" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                                   <Component id="lb_NomeVincitore" min="-2" pref="22" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lb_CognomeVincitore" min="-2" pref="22" max="-2" attributes="0"/>
@@ -141,8 +151,11 @@
                                   <Component id="lb_CF" min="-2" pref="22" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lb_FotoWinner" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="panel_BotContainer" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -161,7 +174,7 @@
                       </Group>
                       <Component id="panel_GestioneCandidati" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="76" max="32767" attributes="0"/>
+                  <EmptySpace pref="55" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -653,9 +666,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lb_Bot" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="173" max="-2" attributes="0"/>
+                              <Component id="bt_AvviaBot" min="-2" pref="173" max="-2" attributes="0"/>
                           </Group>
                           <Component id="avanzaGG" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -669,8 +682,8 @@
                       <Component id="avanzaGG" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="51" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="lb_Bot" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_AvviaBot" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -678,7 +691,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="lb_Bot">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="22" style="1"/>
@@ -686,7 +699,7 @@
                 <Property name="text" type="java.lang.String" value="BOT Votazioni"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="bt_AvviaBot">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Avvia"/>
               </Properties>
@@ -701,6 +714,14 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="bt_Refresh">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_RefreshActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

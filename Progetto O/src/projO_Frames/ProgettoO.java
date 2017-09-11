@@ -104,7 +104,6 @@ public class ProgettoO {
             StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta");
            
             mysql = new MySQlConnection();
-            prepareServerGUI = new ServerFrame();
             prepareGUI();
 
         }
@@ -408,8 +407,7 @@ public class ProgettoO {
        
         for (Candidati object: can) {  
             SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
-            client_panel.add(scheda);
-        
+            client_panel.add(scheda);       
         }
        
        client_panel.setVisible(true);
@@ -498,7 +496,8 @@ public class ProgettoO {
               
                    if (AdmLog_pwd.getPassword().length == admin_pwd.length) // se la lunghezza è diversa, evito il controllo
                         if (Arrays.equals(AdmLog_pwd.getPassword(), admin_pwd)) { 
-                               new ServerFrame().setVisible(true);
+                               prepareServerGUI = new ServerFrame();
+                               prepareServerGUI.setVisible(true);
                                Admin_Login.dispose();
                                break; 
                         }
@@ -509,7 +508,6 @@ public class ProgettoO {
 //______________________________________________________________________________ 
                case "Vota": // è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "ServerFrame"
                {
-
                    prepareGUI();    // ricrea la home e killa la clientGUI 
                    clientFrame.dispose();
                    break;
@@ -517,7 +515,6 @@ public class ProgettoO {
 //______________________________________________________________________________                
                case "Close_Vot":
                {
-                   //
                    break;
                }
                
