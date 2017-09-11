@@ -29,7 +29,7 @@ import projO_Frames.ServerFrame;
 public class Votazione {    
     private static String idVotazione;
     private static final DateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-    private static Calendar dataCorrente;
+    private static Calendar dataCorrente = Calendar.getInstance();
     private static Calendar dataInizioVot;
     private static Calendar dataFineVot;
     private static MySQlConnection mysql = new MySQlConnection();
@@ -76,25 +76,24 @@ public class Votazione {
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
         
         if (!existsVotazione(idVotazione)) {
-        
-            myINI.setStringProperty("Votazione", "ID", idVotazione, "ID");
+            myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
             myINI.setStringProperty("Votazione", "DataFine", dataFine, "DataFine");
             myINI.save();
         
             VotazioneAperta = true; 
             try {   
-                int res = mysql.UpdateQuery("CREATE TABLE "+ idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
-                       if (res == 0 ) {
-                           System.out.println("Errore Query");
-                        }
+                int res = mysql.UpdateQuery("CREATE TABLE " + idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(f.parse(dataFine));
                 dataCorrente = cal;
-                dataFineVot = cal;
-                dataInizioVot = dataCorrente;               
-                myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
-                myINI.save();
-
+                dataInizioVot = dataCorrente;     
+             
+               // myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
+              //  myINI.setStringProperty("Votazione", "DataInizio", f.format(dataInizioVot.getTime()), "DataInizio");
+              //  myINI.save();
+              Calendar cal2 = Calendar.getInstance();
+              
+                cal2.setTime(f.parse(dataFine));
+                dataFineVot = cal2;
                 lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
             
                 winner = "";
@@ -200,7 +199,11 @@ public class Votazione {
      * Metodo che Incrementa il numero dei voti nella giornata corrente, nella tabella PRIMO TURNO(idVotazione) - chiamato da clientGUI
      */
     public static void addAffluenza() { 
-        affluenza++;     
+        int old = myINI.getIntegerProperty("Votazione", "AffluenzaOggi");
+        old++; // aggiungo + 1 per l' affluenza
+        myINI.setIntegerProperty("Votazione", "AffluenzaOggi", old, "AffluenzaOggi");
+        myINI.save();
+        
     }
 //__________________________________________________________________________________________________________________________________________  
 
@@ -211,7 +214,7 @@ public class Votazione {
         // Update dell'Attributo AFFLUENZA e Azzeramento
 
         try {
-
+            affluenza = myINI.getIntegerProperty("Votazione", "AffluenzaOggi");
             mysql.UpdateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
              //mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
         } catch (Exception ex) {}
@@ -221,15 +224,15 @@ public class Votazione {
         try {
             
             String dt = readDataCorrente();
-            JOptionPane.showMessageDialog(null,dt,"", 0);
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             dataCorrente = Calendar.getInstance();
             dataCorrente.setTime(sdf.parse(dt));
             dataCorrente.add(Calendar.DATE, 1);  // number of days to add
             myINI.setStringProperty("Votazione", "DataCorrente", sdf.format(dataCorrente.getTime()), "DataCorrente");
-            myINI.save();
+            
         } catch (java.text.ParseException ex) {}
-
+            myINI.setIntegerProperty("Votazione", "AffluenzaOggi", 0, "AffluenzaOggi");
+            myINI.save();
 }
 //______________________________________________________________________________
     /**
