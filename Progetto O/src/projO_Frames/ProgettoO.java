@@ -453,9 +453,17 @@ public class ProgettoO {
                         boolean founded_CT = canVoteCT(CT.getText()); // Booleano definito dal Metodo
                         
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia CF sia CT allora Spawna la ClientGUI
-                            prepareClientGUI();
-                            mainFrame.dispose();
-                            
+                            if (!avoidDoubleReg(CF.getText(),CT.getText())) {
+                                int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + CF.getText() + "';");        // setta il flag votato --> impedisce doppio voto
+                                if (res != 0) {
+                                    prepareClientGUI();
+                                    mainFrame.dispose();                                    
+                                }
+                                
+                            } else {
+                                JOptionPane.showMessageDialog(null,"Sembra che risulti già espresso un voto dalla persona identificata dai seguenti dati:\nCodice Fiscale: " + CF.getText() + "\nCodice Tessera: " + CT.getText(), "Errore" , JOptionPane.ERROR_MESSAGE);
+                            }
+
                         }
                         else if(founded_CF==true && founded_CT==false) {
                             JOptionPane.showMessageDialog(null,"Codice Tessera Elettorale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
@@ -524,10 +532,17 @@ public class ProgettoO {
 //______________________________________________________________________________
     
 // Metodo AvoidDoubleReg    
-/*    public boolean avoidDoubleReg(){
-        
+public boolean avoidDoubleReg(String CF, String CT){
+    
+    ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+    for (Votanti obj: vot) {
+        if ((obj.getCodiceTessera().equals(CT))  && (obj.getCF().equals(CF)) ) {
+            return obj.getVotato();
+        }
     }
-*/
+    return false;
+}
+
     
 //______________________________________________________________________________
 

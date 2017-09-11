@@ -154,7 +154,6 @@ public class Votazione {
                }
                
            JOptionPane.showMessageDialog(null,"Per vedere le modifiche riavviare l' interfaccia di gestione.", "Necessario riavvio", JOptionPane.INFORMATION_MESSAGE);
-           ProgettoO.prepareServerGUI.dispose();
            }
  
         }

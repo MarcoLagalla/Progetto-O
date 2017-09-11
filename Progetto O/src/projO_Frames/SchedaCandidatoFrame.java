@@ -194,7 +194,8 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                    voti = voti_.getInt("Voti");
                    voti = voti +1;
                    int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + lb_CF.getText() + "';");
-                   if (res != 0 ) {
+                   
+                   if ((res != 0 )) {
                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
                       Votazione.addAffluenza();
                       ProgettoO.clientFrame.dispose();
