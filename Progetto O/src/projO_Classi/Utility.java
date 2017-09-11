@@ -78,6 +78,11 @@ public class Utility {
      */
     final static public String REMOTE_INI_PATH = "http://91.134.138.244/progettoO/ini/progettoO.ini";
     
+    /**
+     * Local path per immagini cached
+     */
+    final static public String LOCAL_PATH_CACHE_IMG = System.getenv("APPDATA") + "\\";
+    
     
     // costuttore privato
     

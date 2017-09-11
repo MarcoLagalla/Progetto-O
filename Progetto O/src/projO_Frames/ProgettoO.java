@@ -31,6 +31,7 @@ import projO_Classi.Candidati;
 import projO_Classi.Votanti;
 import projO_Classi.Utility;
 import projO_Classi.INIFile;
+import projO_Classi.Votazione;
 import projO_Connettività.FTPConnection;
 // </editor-fold>
 
@@ -163,7 +164,7 @@ public class ProgettoO {
     @Override
     public void windowClosing(java.awt.event.WindowEvent windowEvent) {
         if (JOptionPane.showConfirmDialog(mainFrame, 
-            "Sei sicuro di volet uscire da questa finestra?", "Richiesta conferma azione.", 
+            "Sei sicuro di volere uscire da questa finestra?", "Richiesta conferma azione.", 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
             myftp = new FTPConnection();
@@ -454,6 +455,7 @@ public class ProgettoO {
                             if (!avoidDoubleReg(CF.getText(),CT.getText())) {
                                 int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + CF.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
+                                    Votazione.addAffluenza();
                                     prepareClientGUI();
                                     mainFrame.dispose();                                    
                                 }

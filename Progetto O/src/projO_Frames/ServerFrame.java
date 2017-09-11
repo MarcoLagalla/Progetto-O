@@ -306,6 +306,12 @@ public class ServerFrame extends javax.swing.JFrame {
         bt_AvviaBot = new javax.swing.JButton();
         avanzaGG = new javax.swing.JButton();
         bt_Refresh = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -735,6 +741,29 @@ public class ServerFrame extends javax.swing.JFrame {
 
         getContentPane().add(panel_AllContainer, new java.awt.GridBagConstraints());
 
+        jMenu2.setText("Refresh");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Bot votazioni");
+
+        jMenuItem1.setText("Avanza giornata");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem2.setText("Lancia BOT");
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu1.setText("Storico");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -821,6 +850,7 @@ public class ServerFrame extends javax.swing.JFrame {
                        
                         // FILEIni
                         ProgettoO.StatoVotazioni = true;
+                        myINI.setStringProperty("Votazione", "ID", id_elezione.getText(), "ID");
                         myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
                         myINI.save();
                     
@@ -829,14 +859,11 @@ public class ServerFrame extends javax.swing.JFrame {
                    Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
                     
                     // aggiornamento del file .INI
-                    ProgettoO.StatoVotazioni = true;
-                    myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
-                    myINI.setStringProperty("Votazione", "ID", Votazione.getIdVotazione(), "ID" );
+                   // myINI.setStringProperty("Votazione", "ID", Votazione.getIdVotazione(), "ID" );
                     myINI.setStringProperty("Votazione", "DataFine",  Votazione.getF().format(Votazione.getDataFineVot().getTime()), "DataFine" );
-                    myINI.setStringProperty("Votazione", "DataCorrente", Votazione.getF().format(Votazione.getDataCorrente().getTime()), "DataCorrente");
-                    myINI.setStringProperty("Votazione", "DataInizio", Votazione.getF().format(Votazione.getDataInizioVot().getTime()), "DataInizio");
-                    myINI.save();   
-                    
+                   myINI.setStringProperty("Votazione", "DataCorrente", Votazione.getF().format(Votazione.getDataCorrente().getTime()), "DataCorrente");
+                   myINI.setStringProperty("Votazione", "DataInizio", Votazione.getF().format(Votazione.getDataInizioVot().getTime()), "DataInizio"); 
+                    myINI.save();
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
                     java.util.Calendar cal = java.util.Calendar.getInstance();
                     cal.set(Utility.YEAR, month, Utility.DAY);
@@ -910,6 +937,10 @@ public class ServerFrame extends javax.swing.JFrame {
          JOptionPane.showMessageDialog(null,obj,"", 0);
      }
     }//GEN-LAST:event_bt_AvviaBotActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 //______________________________________________________________________________
     
@@ -1028,6 +1059,12 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel error_msg;
     private javax.swing.JTextField id_elezione;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
