@@ -84,7 +84,8 @@ public class ServerFrame extends javax.swing.JFrame {
             this.setMaximumSize(screenSize);
     
             loadCandidati(); 
-            
+
+
 
             istogramma_Voti = createLineChart();
             panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
@@ -105,7 +106,7 @@ public class ServerFrame extends javax.swing.JFrame {
             
             if (ProgettoO.StatoVotazioni) {
                 vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
-                refreshGrafici();
+                //refreshGrafici();
                 avvia_Vot.setEnabled(false);
                 stop_Vot.setEnabled(true);
                 id_elezione.setEditable(false);
@@ -592,6 +593,11 @@ public class ServerFrame extends javax.swing.JFrame {
         lb_Bot.setText("BOT Votazioni");
 
         bt_AvviaBot.setText("Avvia");
+        bt_AvviaBot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_AvviaBotActionPerformed(evt);
+            }
+        });
 
         avanzaGG.setText("avanza gg");
         avanzaGG.addActionListener(new java.awt.event.ActionListener() {
@@ -896,6 +902,14 @@ public class ServerFrame extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_bt_RefreshActionPerformed
+
+    private void bt_AvviaBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AvviaBotActionPerformed
+        // TODO add your handling code here:
+      ArrayList<Integer> dati = Votazione.getAffluenza();
+     for (Integer obj: dati) {
+         JOptionPane.showMessageDialog(null,obj,"", 0);
+     }
+    }//GEN-LAST:event_bt_AvviaBotActionPerformed
 
 //______________________________________________________________________________
     

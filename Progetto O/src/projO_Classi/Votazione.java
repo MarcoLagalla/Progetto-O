@@ -139,14 +139,12 @@ public class Votazione {
     }
     
     
- public static int[] getAffluenza(){
-     int []dati = {mysql.CountRows(getIdVotazione())};
+ public static ArrayList<Integer> getAffluenza(){
+     ArrayList<Integer> dati = new ArrayList();
      try {
          ResultSet res = mysql.ExecuteQuery("SELECT Affluenza from " + getIdVotazione() + ";");
-         int i = 0;
          while (res.next()) {
-             dati[i] = res.getInt(1);
-             i++;
+             dati.add(res.getInt(1));
          }
      } catch (Exception ex) {}
      return dati;
