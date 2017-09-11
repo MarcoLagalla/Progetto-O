@@ -56,9 +56,11 @@ public class ServerFrame extends javax.swing.JFrame {
     
     MySQlConnection mysql = new MySQlConnection();
     INIFile myINI = new INIFile(Utility.INI_PATH);
-    JPanel barC;
-
-    JFreeChart istogramma_Voti;
+    
+    JPanel tortona_UominiDonne;
+    JPanel line_Affluenza;
+    JPanel istogramma_Voti;
+    
     XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
     XYSeries series1 = new XYSeries(""); // DataSet LineChart
     
@@ -83,16 +85,16 @@ public class ServerFrame extends javax.swing.JFrame {
     
             loadCandidati(); 
             
-            JPanel chartPanel = createLineChart();
-            panel_ColumnChart.add(chartPanel,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
+            istogramma_Voti = createLineChart();
+            panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
             panel_ColumnChart.validate();
             
-            barC = createBarChart("");
-            panel_LineChart.add(barC,BorderLayout.CENTER);
+            line_Affluenza = createBarChart("");
+            panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
             panel_LineChart.validate();
             
-            JPanel chartPie = createPieChart("");
-            panel_CakeChart.add(chartPie,BorderLayout.CENTER);
+            tortona_UominiDonne = createPieChart("");
+            panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
             panel_CakeChart.validate();
             
             Logo01.setIcon(setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
@@ -126,7 +128,7 @@ public class ServerFrame extends javax.swing.JFrame {
 /*____________________________METODI PER GRAFICI _____________________________*/
         
     private ChartPanel createBarChart( String chartTitle ) {       
-      istogramma_Voti = ChartFactory.createBarChart(chartTitle, "Candidato","Voti",createBarChartDataset(), PlotOrientation.VERTICAL, true, true, false);
+      JFreeChart istogramma_Voti = ChartFactory.createBarChart(chartTitle, "Candidato","Voti",createBarChartDataset(), PlotOrientation.VERTICAL, true, true, false);
       return new ChartPanel( istogramma_Voti ); 
        }
     
@@ -200,7 +202,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private ChartPanel createPieChart(String title) {
 
         JFreeChart chart = ChartFactory.createPieChart3D(
-            title,                  // chart title
+            title,                  // grafico_affluenza title
             createPieChartDataset(),                // data
             true,                   // include legend
             true,
@@ -1038,16 +1040,18 @@ public class ServerFrame extends javax.swing.JFrame {
 // Metodo REFRESH Grafici
     
     private void refreshGrafici(){   
-            barC = createBarChart("");
-            //panel_LineChart.add(barC,BorderLayout.CENTER);
-            panel_LineChart.validate();
-        
-        
-       /* series1.clear(); //Clear LineChart
-        resultPie.clear(); //Clear PieChart
-        datasetBarChart.clear(); //Clear BarChart 
-       */
-       //istogramma_Voti.getXYPlot().setDataset(istogramma_Voti.getXYPlot().getDataset());
+        istogramma_Voti = createLineChart();
+        //panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
+        panel_ColumnChart.validate();
+
+        line_Affluenza = createBarChart("");
+        //panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
+        panel_LineChart.validate();
+
+        tortona_UominiDonne = createPieChart("");
+        //panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
+        panel_CakeChart.validate();
+            
     }
 
 
