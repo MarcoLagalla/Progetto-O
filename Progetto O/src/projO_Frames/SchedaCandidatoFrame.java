@@ -24,12 +24,14 @@ import projO_Classi.Votazione;
 public class SchedaCandidatoFrame extends javax.swing.JPanel {
 
     MySQlConnection mysql = new MySQlConnection();
+    private static boolean votato = false;     // controlla se l'utente vota o meno
     
     /**
      * Creates new form schedaCandidato
      */
     public SchedaCandidatoFrame() {
         initComponents();
+        votato = false;
     }
  //______________________________________________________________________________
     
@@ -78,6 +80,11 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
     private void setPartito(String partito) {
         lb_Partito.setText(partito);
     }
+
+    public static boolean isVotato() {
+        return votato;
+    }
+    
     
 //______________________________________________________________________________
 
@@ -198,6 +205,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                    if ((res != 0 )) {
                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
                       Votazione.addAffluenza();
+                      votato = true;
                       ProgettoO.clientFrame.dispose();
                        
                    } else {
