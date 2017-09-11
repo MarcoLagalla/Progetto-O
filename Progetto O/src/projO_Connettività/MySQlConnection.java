@@ -427,4 +427,17 @@ public class MySQlConnection {
         }
         return 0;
     }   
+    
+    
+    public int CountRows(String TableName) {
+        String QUERY = "select count(*) from " + TableName + ";" ;
+        try {
+                stmt = conn.createStatement();
+                res = stmt.executeQuery(QUERY);
+                while (res.next()) {
+                return res.getInt(1);
+ }
+        } catch (SQLException se) {}
+        return 0;
+    }
 }

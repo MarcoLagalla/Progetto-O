@@ -85,6 +85,7 @@ public class ServerFrame extends javax.swing.JFrame {
     
             loadCandidati(); 
             
+
             istogramma_Voti = createLineChart();
             panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
             panel_ColumnChart.validate();

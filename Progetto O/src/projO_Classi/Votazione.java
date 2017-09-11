@@ -88,13 +88,13 @@ public class Votazione {
                            System.out.println("Errore Query");
                         }
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(f.parse(dataFine));
                 dataCorrente = cal;
+                dataFineVot = cal;
+                dataInizioVot = dataCorrente;               
                 myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
                 myINI.save();
-                dataInizioVot = dataCorrente;
-                cal.setTime(f.parse(dataFine));
-                dataFineVot = cal;
-            
+
                 lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
             
                 winner = "";
@@ -139,15 +139,18 @@ public class Votazione {
     }
     
     
-/*    public static int getAffluenza(){
-        
-        
-        
-        
-        
-        return 
-    }
-*/        
+ public static int[] getAffluenza(){
+     int []dati = {mysql.CountRows(getIdVotazione())};
+     try {
+         ResultSet res = mysql.ExecuteQuery("SELECT Affluenza from " + getIdVotazione() + ";");
+         int i = 0;
+         while (res.next()) {
+             dati[i] = res.getInt(1);
+             i++;
+         }
+     } catch (Exception ex) {}
+     return dati;
+}     
    
     /**
      * Metodo per Chiudere il Turno di Votazioni
@@ -213,14 +216,22 @@ public class Votazione {
 
             mysql.UpdateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
              //mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
-        } catch (Exception ex) {
-            Logger.getLogger(Votazione.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {}
         
         affluenza = 0;
-        
         // Incrementa la data
-        dataCorrente.add(Calendar.DATE, 1); 
+        try {
+            
+            String dt = readDataCorrente();
+            JOptionPane.showMessageDialog(null,dt,"", 0);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            dataCorrente = Calendar.getInstance();
+            dataCorrente.setTime(sdf.parse(dt));
+            dataCorrente.add(Calendar.DATE, 1);  // number of days to add
+            myINI.setStringProperty("Votazione", "DataCorrente", sdf.format(dataCorrente.getTime()), "DataCorrente");
+            myINI.save();
+        } catch (java.text.ParseException ex) {}
+
 }
 //______________________________________________________________________________
     /**

@@ -163,7 +163,7 @@ public class ProgettoO {
     @Override
     public void windowClosing(java.awt.event.WindowEvent windowEvent) {
         if (JOptionPane.showConfirmDialog(mainFrame, 
-            "Are you sure to close this window?", "Really Closing?", 
+            "Sei sicuro di volet uscire da questa finestra?", "Richiesta conferma azione.", 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
             myftp = new FTPConnection();
