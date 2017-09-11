@@ -56,6 +56,7 @@ public class ServerFrame extends javax.swing.JFrame {
     
     MySQlConnection mysql = new MySQlConnection();
     INIFile myINI = new INIFile(Utility.INI_PATH);
+    JPanel barC;
 
     JFreeChart istogramma_Voti;
     XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
@@ -86,7 +87,7 @@ public class ServerFrame extends javax.swing.JFrame {
             panel_ColumnChart.add(chartPanel,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
             panel_ColumnChart.validate();
             
-            JPanel barC = createBarChart("");
+            barC = createBarChart("");
             panel_LineChart.add(barC,BorderLayout.CENTER);
             panel_LineChart.validate();
             
@@ -1034,17 +1035,19 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel vot_Status_Lab;
     // End of variables declaration//GEN-END:variables
 //______________________________________________________________________________
-// Metodo Clear Grafici
+// Metodo REFRESH Grafici
     
     private void refreshGrafici(){   
-       istogramma_Voti.getXYPlot().setDataset(istogramma_Voti.getXYPlot().getDataset());
-       
+            barC = createBarChart("");
+            //panel_LineChart.add(barC,BorderLayout.CENTER);
+            panel_LineChart.validate();
         
         
        /* series1.clear(); //Clear LineChart
         resultPie.clear(); //Clear PieChart
         datasetBarChart.clear(); //Clear BarChart 
        */
+       //istogramma_Voti.getXYPlot().setDataset(istogramma_Voti.getXYPlot().getDataset());
     }
 
 
