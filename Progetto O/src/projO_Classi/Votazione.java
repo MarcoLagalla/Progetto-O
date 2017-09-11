@@ -98,6 +98,21 @@ public class Votazione {
                 lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
             
                 winner = "";
+                
+                // Resetta il campo FlagVotato nella tabella VOTANTI
+                ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+                for (Votanti obj: vot) {
+                    mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta il FlagVotato = 0 per tutti           
+                }
+                
+                // Resetta i voti nella tabella CANDIDATI
+                ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+                for (Candidati obj: can) {
+                    mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta i voti a 0           
+                }                
+                
+                
+                
             }catch(Exception ex){ }   
        } else { JOptionPane.showMessageDialog(null, "Errore, l' identificativo inserito non è ammissibile, provare un altro id.", "Errore", JOptionPane.ERROR_MESSAGE);}
     }    
