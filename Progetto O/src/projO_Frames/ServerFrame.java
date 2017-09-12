@@ -61,8 +61,7 @@ public class ServerFrame extends javax.swing.JFrame {
     JPanel line_Affluenza;
     JPanel istogramma_Voti;
     
-    XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
-    XYSeries series1 = new XYSeries(""); // DataSet LineChart
+
     
     DefaultPieDataset resultPie = new DefaultPieDataset(); // Dataset PieChart
     
@@ -182,9 +181,14 @@ public class ServerFrame extends javax.swing.JFrame {
     private XYDataset createLineChartDataset() {
                 // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
                 // Qui ci vogliono i GET
-               
-                for(int i=1;i<=Votazione.getlenghtEle();i++){
-                    //series1.add(i,Votazione.getAffluenza()); 
+                XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
+                XYSeries series1 = new XYSeries(""); // DataSet LineChart
+                
+                ArrayList<Integer> dati = Votazione.getAffluenza();
+                int i = 1;
+                for(Integer obj: dati){
+                    series1.add(i,obj); 
+                    i++;
                 }
                 
                 // Questa di Default aggiunge in ordine di Sort quindi se voglio metterli in ordine che deicido, ovvero di Aggiunta devo fare:
@@ -1090,13 +1094,14 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
 // Metodo REFRESH Grafici
     
-    private void refreshGrafici(){   
+    private void refreshGrafici(){
+        
         istogramma_Voti = createLineChart();
-        //panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
+        panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
         panel_ColumnChart.validate();
 
         line_Affluenza = createBarChart("");
-        //panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
+        panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
         panel_LineChart.validate();
 
         tortona_UominiDonne = createPieChart("");

@@ -62,6 +62,15 @@ public class Votazione {
         String res = myINI.getStringProperty("Votazione","DataCorrente");
         return res;
     }
+        public static String readDataFine() {
+        String res = myINI.getStringProperty("Votazione","DataFine");
+        return res;
+    }
+    public static String readDataInizio() {
+        String res = myINI.getStringProperty("Votazione","DataInizio");
+        return res;
+    }
+    
 
 //______________________________________________________________________________    
     
@@ -94,8 +103,16 @@ public class Votazione {
               
                 cal2.setTime(f.parse(dataFine));
                 dataFineVot = cal2;
-                lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
+               
+                
+                String dt_fine = readDataCorrente();
+                String dt_inizio = readDataInizio();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            dataFineVot.setTime(sdf.parse(dt_fine));
+            dataInizioVot.setTime(sdf.parse(dt_inizio));
             
+
+                
                 winner = "";
                 
                 // Resetta il campo FlagVotato nella tabella VOTANTI
@@ -129,10 +146,14 @@ public class Votazione {
         return f;
     }
 
-    public static int getlenghtEle(){
-        return lenghtEle;
+    public static void getlenghtEle(){
+                     lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
+            
+                JOptionPane.showMessageDialog(null,dataFineVot.get(java.util.Calendar.DAY_OF_YEAR),"FINE",0);
+                JOptionPane.showMessageDialog(null,dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR),"INIZIO",0);
     }
 
+    
     public static Calendar getDataInizioVot() {
         return dataInizioVot;
     }
