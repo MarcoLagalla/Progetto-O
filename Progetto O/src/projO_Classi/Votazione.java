@@ -159,15 +159,16 @@ public class Votazione {
     }
     
     
- public static ArrayList<Integer> getAffluenza(){
-     ArrayList<Integer> dati = new ArrayList();
+ public static ArrayList<Affluenza> getAffluenza(){
+     ArrayList<Affluenza> aff = new ArrayList();
      try {
-         ResultSet res = mysql.ExecuteQuery("SELECT Affluenza from " + getIdVotazione() + ";");
+         ResultSet res = mysql.ExecuteQuery("SELECT * from " + getIdVotazione() + ";");
          while (res.next()) {
-             dati.add(res.getInt(1));
+             Affluenza af = new Affluenza(res.getString("Data"), res.getInt("Affluenza"));
+             aff.add(af);
          }
      } catch (Exception ex) {}
-     return dati;
+     return aff;
 }     
    
     /**
@@ -318,4 +319,9 @@ public class Votazione {
         }
         return new ImageIcon(resizedImage);
     }
+        
+        
 }
+
+
+
