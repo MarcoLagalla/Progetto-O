@@ -377,7 +377,7 @@ public class ProgettoO {
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
         
-        clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        clientFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         clientFrame.setLayout(new BorderLayout());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         clientFrame.setPreferredSize(screenSize);
@@ -398,12 +398,10 @@ public class ProgettoO {
                 if(!(SchedaCandidatoFrame.isVotato()))
                     if (JOptionPane.showConfirmDialog(clientFrame, 
                         "Non è stata espressa alcuna preferenza.\nSei sicuro di volet uscire da questa finestra?\nNon sarà più possibile registrarsi con questi dati in futuro.", "Richiesta conferma azione.", 
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             clientFrame.dispose();
                             prepareGUI();
                     }
-                    else System.out.println("ou");
             }
         });
         
