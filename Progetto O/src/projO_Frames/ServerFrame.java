@@ -70,6 +70,10 @@ public class ServerFrame extends javax.swing.JFrame {
 
 //______________________________________________________________________________
 
+    /**
+     *
+     */
+
     public ServerFrame() {
             super("SERVER");
             setExtendedState(MAXIMIZED_BOTH);
@@ -134,8 +138,7 @@ public class ServerFrame extends javax.swing.JFrame {
       return new ChartPanel( istogramma_Voti ); 
        }
     
-    private CategoryDataset createBarChartDataset( ) {
-        final DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( );  
+    private CategoryDataset createBarChartDataset( ) {  
         ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
         for (Candidati object: can) {
             datasetBarChart.addValue( object.getVoti(), object.getNome() +  " " + object.getCognome(), "" ); 
@@ -147,8 +150,8 @@ public class ServerFrame extends javax.swing.JFrame {
     
     private ChartPanel createLineChart() {
             String chartTitle = ""; // NOME GRAFICO
-            String xAxisLabel = "VOTANTI"; // NOME ASSE ASCISSE
-            String yAxisLabel = "GIORNI"; // NOME ASSE ORDINATE
+            String xAxisLabel = "GIORNATA NUMERO"; // NOME ASSE ASCISSE
+            String yAxisLabel = "AFFLUENZA"; // NOME ASSE ORDINATE
             
             
             XYDataset dataset = createLineChartDataset();
@@ -177,9 +180,6 @@ public class ServerFrame extends javax.swing.JFrame {
 
     
     private XYDataset createLineChartDataset() {
-                //XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series fanno parte dell' IMPORT
-                //XYSeries series1 = new XYSeries(""); // DataSet
-                
                 // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
                 // Qui ci vogliono i GET
                
@@ -222,7 +222,6 @@ public class ServerFrame extends javax.swing.JFrame {
 
     
     private  PieDataset createPieChartDataset() {
-        //DefaultPieDataset resultPie = new DefaultPieDataset();
 
         ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
         
