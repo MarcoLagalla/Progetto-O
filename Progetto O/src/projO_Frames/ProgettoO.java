@@ -470,7 +470,7 @@ public class ProgettoO {
                                 if (res != 0) {
                                     Votazione.addAffluenza();
                                     prepareClientGUI();
-                                    mainFrame.dispose();                                    
+                                //    mainFrame.dispose();                                    
                                 }
                                 
                             } else {
