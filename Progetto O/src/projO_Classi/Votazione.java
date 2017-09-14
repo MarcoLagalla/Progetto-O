@@ -1,4 +1,4 @@
-package projO_Classi;
+﻿package projO_Classi;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.awt.Image;
@@ -63,6 +63,15 @@ public class Votazione {
         String res = myINI.getStringProperty("Votazione","DataCorrente");
         return res;
     }
+        public static String readDataFine() {
+        String res = myINI.getStringProperty("Votazione","DataFine");
+        return res;
+    }
+    public static String readDataInizio() {
+        String res = myINI.getStringProperty("Votazione","DataInizio");
+        return res;
+    }
+    
 
 //______________________________________________________________________________    
     
@@ -84,6 +93,7 @@ public class Votazione {
                 Calendar cal = Calendar.getInstance();
                 dataCorrente = cal;
                 dataInizioVot = dataCorrente;     
+
                 dataFineVot = Calendar.getInstance();
                 String[] parsing = dataFine.split("-");
                 dataFineVot.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]), Integer.parseInt(parsing[0]));
@@ -99,7 +109,7 @@ public class Votazione {
                 myINI.save();
                 
                 lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataFineVot.get(java.util.Calendar.DAY_OF_YEAR);
-            
+          
                 winner = "";
                 
                 // Resetta il campo FlagVotato nella tabella VOTANTI
@@ -131,24 +141,29 @@ public class Votazione {
         return f;
     }
 
-    public static int getlenghtEle(){
-        return lenghtEle;
+    public static void getlenghtEle(){
+                     lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
+            
+                JOptionPane.showMessageDialog(null,dataFineVot.get(java.util.Calendar.DAY_OF_YEAR),"FINE",0);
+                JOptionPane.showMessageDialog(null,dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR),"INIZIO",0);
     }
 
+    
     public static Calendar getDataInizioVot() {
         return dataInizioVot;
     }
     
     
- public static ArrayList<Integer> getAffluenza(){
-     ArrayList<Integer> dati = new ArrayList();
+ public static ArrayList<Affluenza> getAffluenza(){
+     ArrayList<Affluenza> aff = new ArrayList();
      try {
-         ResultSet res = mysql.ExecuteQuery("SELECT Affluenza from " + getIdVotazione() + ";");
+         ResultSet res = mysql.ExecuteQuery("SELECT * from " + getIdVotazione() + ";");
          while (res.next()) {
-             dati.add(res.getInt(1));
+             Affluenza af = new Affluenza(res.getString("Data"), res.getInt("Affluenza"));
+             aff.add(af);
          }
      } catch (Exception ex) {}
-     return dati;
+     return aff;
 }     
    
     /**
@@ -290,4 +305,9 @@ public class Votazione {
         }
         return new ImageIcon(resizedImage);
     }
+        
+        
 }
+
+
+

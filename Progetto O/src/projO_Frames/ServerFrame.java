@@ -30,6 +30,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -43,6 +47,7 @@ import projO_Classi.Candidati;
 import projO_Classi.Votanti;
 import projO_Classi.INIFile;
 import projO_Classi.Utility;
+import projO_Classi.Affluenza;
 
 // </editor-fold>
 
@@ -61,8 +66,7 @@ public class ServerFrame extends javax.swing.JFrame {
     JPanel line_Affluenza;
     JPanel istogramma_Voti;
     
-    XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
-    XYSeries series1 = new XYSeries(""); // DataSet LineChart
+
     
     DefaultPieDataset resultPie = new DefaultPieDataset(); // Dataset PieChart
     
@@ -182,15 +186,23 @@ public class ServerFrame extends javax.swing.JFrame {
     private XYDataset createLineChartDataset() {
                 // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
                 // Qui ci vogliono i GET
-               
-                for(int i=1;i<=Votazione.getlenghtEle();i++){
-                    //series1.add(i,Votazione.getAffluenza()); 
+                XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
+                boolean autoSort = false;
+                XYSeries series1 = new XYSeries("",autoSort); // DataSet LineChart
+                  
+                ArrayList<Affluenza> aff = Votazione.getAffluenza();
+                Collections.sort(aff);
+                int i = 1;
+                for(Affluenza obj: aff){
+
+                        series1.add(obj.getData(),obj.getDato()); 
+                        i++;                        
+
                 }
-                
+               
                 // Questa di Default aggiunge in ordine di Sort quindi se voglio metterli in ordine che deicido, ovvero di Aggiunta devo fare:
      
-                boolean autoSort = false;
-                XYSeries series = new XYSeries("Object 1", autoSort);
+               
                 
                 dataset.addSeries(series1);
 
@@ -921,10 +933,10 @@ public class ServerFrame extends javax.swing.JFrame {
 
     private void bt_AvviaBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AvviaBotActionPerformed
         // TODO add your handling code here:
-      ArrayList<Integer> dati = Votazione.getAffluenza();
-     for (Integer obj: dati) {
-         JOptionPane.showMessageDialog(null,obj,"", 0);
-     }
+ //     ArrayList<Integer> dati = Votazione.getAffluenza();
+   //  for (Integer obj: dati) {
+   //      JOptionPane.showMessageDialog(null,obj,"", 0);
+   //  }
     }//GEN-LAST:event_bt_AvviaBotActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -1080,17 +1092,23 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
 // Metodo REFRESH Grafici
     
-    private void refreshGrafici(){   
+    private void refreshGrafici(){
+        
+        panel_ColumnChart.remove(istogramma_Voti);
+        panel_LineChart.remove(line_Affluenza);
+        panel_CakeChart.remove(tortona_UominiDonne);
+        
+        
         istogramma_Voti = createLineChart();
-        //panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
+        panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
         panel_ColumnChart.validate();
 
         line_Affluenza = createBarChart("");
-        //panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
+        panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
         panel_LineChart.validate();
 
         tortona_UominiDonne = createPieChart("");
-        //panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
+        panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
         panel_CakeChart.validate();
             
     }
