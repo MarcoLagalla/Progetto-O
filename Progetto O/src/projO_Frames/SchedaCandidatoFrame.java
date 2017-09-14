@@ -196,30 +196,6 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
     private void bt_VotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_VotaActionPerformed
   
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler votare per: " + lb_Nome.getText() + " " + lb_Cognome.getText() + " del " + lb_Partito.getText() + "?", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
-<<<<<<< HEAD
-        if (reply == JOptionPane.YES_OPTION){
-            int voti;
-            ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + lb_CF.getText() + "';");
-
-             try {
-                 while (voti_.next()) {
-                    voti = voti_.getInt("Voti");
-                    voti = voti +1;
-                    int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + lb_CF.getText() + "';");
-
-                    if ((res != 0 )) {
-                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
-                       Votazione.addAffluenza();
-                       votato = true;
-                       ProgettoO.clientFrame.dispose();
-
-                    } else {
-                        JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
-                    }
-                 }
-             } catch (SQLException ex) {ex.printStackTrace();}
-        }
-=======
         if (reply == JOptionPane.YES_OPTION)
             {
                int voti;
@@ -244,7 +220,6 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                
                 }
             }
->>>>>>> origin/master
     }//GEN-LAST:event_bt_VotaActionPerformed
 
 //______________________________________________________________________________

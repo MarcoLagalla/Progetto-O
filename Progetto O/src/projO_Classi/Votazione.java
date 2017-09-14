@@ -174,12 +174,6 @@ public class Votazione {
      */
     public static void getlenghtEle(){
         lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
-<<<<<<< HEAD
-        JOptionPane.showMessageDialog(null,dataFineVot.get(java.util.Calendar.DAY_OF_YEAR),"FINE",0);
-        JOptionPane.showMessageDialog(null,dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR),"INIZIO",0);
-=======
-
->>>>>>> origin/master
     }
 
      /**

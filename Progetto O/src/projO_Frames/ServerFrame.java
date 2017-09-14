@@ -322,13 +322,9 @@ public class ServerFrame extends javax.swing.JFrame {
         lb_CognomeVincitore = new javax.swing.JLabel();
         panel_CakeChart = new javax.swing.JPanel();
         panel_BotContainer = new javax.swing.JPanel();
-        lb_Bot = new javax.swing.JLabel();
-        bt_AvviaBot = new javax.swing.JButton();
-        avanzaGG = new javax.swing.JButton();
         refreshLabel = new javax.swing.JLabel();
         dataLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -616,46 +612,15 @@ public class ServerFrame extends javax.swing.JFrame {
 
         panel_BotContainer.setBackground(new java.awt.Color(255, 255, 255));
 
-        lb_Bot.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
-        lb_Bot.setText("BOT Votazioni");
-
-        bt_AvviaBot.setText("Avvia");
-        bt_AvviaBot.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_AvviaBotActionPerformed(evt);
-            }
-        });
-
-        avanzaGG.setText("avanza gg");
-        avanzaGG.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avanzaGGActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panel_BotContainerLayout = new javax.swing.GroupLayout(panel_BotContainer);
         panel_BotContainer.setLayout(panel_BotContainerLayout);
         panel_BotContainerLayout.setHorizontalGroup(
             panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_BotContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_BotContainerLayout.createSequentialGroup()
-                        .addComponent(lb_Bot)
-                        .addGap(18, 18, 18)
-                        .addComponent(bt_AvviaBot, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(avanzaGG))
-                .addContainerGap(194, Short.MAX_VALUE))
+            .addGap(0, 527, Short.MAX_VALUE)
         );
         panel_BotContainerLayout.setVerticalGroup(
             panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_BotContainerLayout.createSequentialGroup()
-                .addComponent(avanzaGG)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addGroup(panel_BotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_Bot)
-                    .addComponent(bt_AvviaBot, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGap(0, 126, Short.MAX_VALUE)
         );
 
         refreshLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -771,10 +736,7 @@ public class ServerFrame extends javax.swing.JFrame {
 
         getContentPane().add(panel_AllContainer, new java.awt.GridBagConstraints());
 
-        jMenu2.setText("Refresh");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Bot votazioni");
+        jMenu3.setText("Tools");
 
         jMenuItem1.setText("Avanza giornata");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -785,6 +747,11 @@ public class ServerFrame extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         jMenuItem2.setText("Lancia BOT");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -932,28 +899,25 @@ public class ServerFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_Candidati_listMouseClicked
 
-    private void avanzaGGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzaGGActionPerformed
-
-        Votazione.AvanzaGiornata();
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+                Votazione.AvanzaGiornata();
         if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) {
             JOptionPane.showMessageDialog(panel_AllContainer, "Votazioni concluse");
             Votazione.chiudiVotazione();
         }
-    }//GEN-LAST:event_avanzaGGActionPerformed
-
-    private void bt_AvviaBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AvviaBotActionPerformed
-        new MainFrameBot().setVisible(true);
-        
-    }//GEN-LAST:event_bt_AvviaBotActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void refreshLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshLabelMouseClicked
         // TODO add your handling code here:
         refreshGrafici();
     }//GEN-LAST:event_refreshLabelMouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+       MainFrameBot bot = new MainFrameBot();
+       bot.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 //______________________________________________________________________________
     
@@ -1045,9 +1009,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Logo02;
     private javax.swing.JButton Modifica_Candidato;
     private javax.swing.JButton Rimuovi_Candidato;
-    private javax.swing.JButton avanzaGG;
     private javax.swing.JButton avvia_Vot;
-    private javax.swing.JButton bt_AvviaBot;
     private javax.swing.JTextField dataAvvio;
     private javax.swing.JLabel dataAvvio_Lab;
     private javax.swing.JTextField dataChiusura;
@@ -1057,7 +1019,6 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JTextField id_elezione;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -1065,7 +1026,6 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
-    private javax.swing.JLabel lb_Bot;
     public static javax.swing.JLabel lb_CF;
     public static javax.swing.JLabel lb_CognomeVincitore;
     public static javax.swing.JLabel lb_FotoWinner;

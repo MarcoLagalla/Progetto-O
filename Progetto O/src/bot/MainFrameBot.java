@@ -17,7 +17,7 @@ import projO_Connettività.MySQlConnection;
 public class MainFrameBot extends javax.swing.JFrame {
     
     String log = "";
-    MySQlConnection mysql;
+    MySQlConnection mysql = new MySQlConnection();
     ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
     javax.swing.DefaultListModel listModel = new javax.swing.DefaultListModel();
     
@@ -32,16 +32,17 @@ public class MainFrameBot extends javax.swing.JFrame {
 //______________________________________________________________________________
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         bt_Start = new javax.swing.JButton();
-        bt_Stop = new javax.swing.JButton();
         logger_ScrollPane = new javax.swing.JScrollPane();
         logger = new javax.swing.JList<>();
         sp_Fidget = new javax.swing.JSpinner();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Bot votazioni");
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setType(java.awt.Window.Type.UTILITY);
 
         bt_Start.setText("Start");
         bt_Start.addActionListener(new java.awt.event.ActionListener() {
@@ -49,52 +50,37 @@ public class MainFrameBot extends javax.swing.JFrame {
                 bt_StartActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 19;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 15, 0, 0);
-        getContentPane().add(bt_Start, gridBagConstraints);
-
-        bt_Stop.setText("Stop");
-        bt_Stop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_StopActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 19;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 354, 0, 15);
-        getContentPane().add(bt_Stop, gridBagConstraints);
 
         logger.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         logger_ScrollPane.setViewportView(logger);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 559;
-        gridBagConstraints.ipady = 98;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(9, 15, 16, 15);
-        getContentPane().add(logger_ScrollPane, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 22;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 15, 0, 0);
-        getContentPane().add(sp_Fidget, gridBagConstraints);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bt_Start, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(sp_Fidget, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(logger_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(bt_Start))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(sp_Fidget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
+                .addComponent(logger_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -115,15 +101,13 @@ public class MainFrameBot extends javax.swing.JFrame {
                voti += fidget_Value;
                int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
                log = "Aggiunti "+ voti +" voti al candidato "+ cf_cand;
-               listModel.addElement(log); 
+               listModel.addElement(log);
+               
             }
+              logger.setModel(listModel);
         } catch (SQLException ex) {ex.printStackTrace();}
         
     }//GEN-LAST:event_bt_StartActionPerformed
-
-    private void bt_StopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StopActionPerformed
-        
-    }//GEN-LAST:event_bt_StopActionPerformed
 //______________________________________________________________________________
     
     /**
@@ -179,7 +163,6 @@ public class MainFrameBot extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_Start;
-    private javax.swing.JButton bt_Stop;
     private javax.swing.JList<String> logger;
     private javax.swing.JScrollPane logger_ScrollPane;
     private javax.swing.JSpinner sp_Fidget;
