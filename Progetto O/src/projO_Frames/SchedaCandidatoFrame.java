@@ -205,7 +205,6 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                    
                    if ((res != 0 )) {
                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
-                      Votazione.addAffluenza();
                       votato = true;
                       ProgettoO.clientFrame.dispose();
                        

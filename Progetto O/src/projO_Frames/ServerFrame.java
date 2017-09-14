@@ -111,11 +111,12 @@ public class ServerFrame extends javax.swing.JFrame {
             
             File f = new File(Utility.INI_PATH);
                 if (!f.exists() && !f.isDirectory()) {
-                    dataLabel.setText("Data Corrente: " + Votazione.readDataCorrente());
-                } else {
                     Calendar cal = Calendar.getInstance();   
                     DateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
                     dataLabel.setText("Data Corrente: " + f1.format(cal.getTime()));
+
+                } else {
+                    dataLabel.setText("Data Corrente: " + Votazione.readDataCorrente());
                 }
                     
 
