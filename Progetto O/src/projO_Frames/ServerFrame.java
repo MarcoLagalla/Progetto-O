@@ -29,8 +29,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 // imports per DatePicker
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -104,9 +106,18 @@ public class ServerFrame extends javax.swing.JFrame {
             Logo01.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
             Logo02.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
             
-            bt_Refresh.setIcon(Utility.setUrlIcon(Utility.IMG_REFRESH)); // DA AGGIUNGERE IMG_REFRESH
-            bt_Refresh.setBounds(0, 0, 80, 80);
-            bt_Refresh.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.IMG_REFRESH), bt_Refresh.getWidth(), bt_Refresh.getHeight()));
+            File f = new File(Utility.INI_PATH);
+                if (!f.exists() && !f.isDirectory()) {
+                    Calendar cal = Calendar.getInstance();   
+                    DateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
+                    dataLabel.setText("Data Corrente: " + f1.format(cal.getTime()));
+
+                } else {
+                    dataLabel.setText("Data Corrente: " + Votazione.readDataCorrente());
+                }
+                    
+
+            refreshLabel.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.IMG_REFRESH), refreshLabel.getWidth(), refreshLabel.getHeight()));
             
             lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
             
@@ -314,7 +325,8 @@ public class ServerFrame extends javax.swing.JFrame {
         lb_Bot = new javax.swing.JLabel();
         bt_AvviaBot = new javax.swing.JButton();
         avanzaGG = new javax.swing.JButton();
-        bt_Refresh = new javax.swing.JButton();
+        refreshLabel = new javax.swing.JLabel();
+        dataLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -646,21 +658,30 @@ public class ServerFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        bt_Refresh.setText("jButton2");
-        bt_Refresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_RefreshActionPerformed(evt);
+        refreshLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        refreshLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        refreshLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshLabelMouseClicked(evt);
             }
         });
+
+        dataLabel.setText("Data Corrente: ");
 
         javax.swing.GroupLayout panel_AllContainerLayout = new javax.swing.GroupLayout(panel_AllContainer);
         panel_AllContainer.setLayout(panel_AllContainerLayout);
         panel_AllContainerLayout.setHorizontalGroup(
             panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_AllContainerLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addComponent(dataLabel)
+                        .addGap(461, 461, 461)
+                        .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(refreshLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_AllContainerLayout.createSequentialGroup()
                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panel_SituazioneEle, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel_GestioneCandidati, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -696,22 +717,22 @@ public class ServerFrame extends javax.swing.JFrame {
                             .addGroup(panel_AllContainerLayout.createSequentialGroup()
                                 .addGap(5, 5, 5)
                                 .addComponent(panel_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(panel_AllContainerLayout.createSequentialGroup()
-                        .addGap(533, 533, 533)
-                        .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 28, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panel_AllContainerLayout.setVerticalGroup(
             panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_AllContainerLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(panel_AllContainerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(refreshLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_AllContainerLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(dataLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -745,7 +766,7 @@ public class ServerFrame extends javax.swing.JFrame {
                             .addComponent(panel_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel_ColumnChart, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(panel_GestioneCandidati, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         getContentPane().add(panel_AllContainer, new java.awt.GridBagConstraints());
@@ -877,7 +898,7 @@ public class ServerFrame extends javax.swing.JFrame {
                     ProgettoO.getRegistrazione().setEnabled(true);
                     ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
                     vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
-                    
+                    refreshGrafici();
                     } else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
                 }   else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
             } else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
@@ -916,13 +937,9 @@ public class ServerFrame extends javax.swing.JFrame {
         Votazione.AvanzaGiornata();
         if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) {
             JOptionPane.showMessageDialog(panel_AllContainer, "Votazioni concluse");
+            Votazione.chiudiVotazione();
         }
     }//GEN-LAST:event_avanzaGGActionPerformed
-
-    private void bt_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_RefreshActionPerformed
-        refreshGrafici();
-    
-    }//GEN-LAST:event_bt_RefreshActionPerformed
 
     private void bt_AvviaBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AvviaBotActionPerformed
         new MainFrameBot().setVisible(true);
@@ -932,6 +949,11 @@ public class ServerFrame extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void refreshLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshLabelMouseClicked
+        // TODO add your handling code here:
+        refreshGrafici();
+    }//GEN-LAST:event_refreshLabelMouseClicked
 
 //______________________________________________________________________________
     
@@ -1026,11 +1048,11 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JButton avanzaGG;
     private javax.swing.JButton avvia_Vot;
     private javax.swing.JButton bt_AvviaBot;
-    private javax.swing.JButton bt_Refresh;
     private javax.swing.JTextField dataAvvio;
     private javax.swing.JLabel dataAvvio_Lab;
     private javax.swing.JTextField dataChiusura;
     private javax.swing.JLabel dataChiusura_Lab;
+    public static javax.swing.JLabel dataLabel;
     private javax.swing.JLabel error_msg;
     private javax.swing.JTextField id_elezione;
     private javax.swing.JLabel jLabel6;
@@ -1059,6 +1081,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_Intestazione;
     private javax.swing.JPanel panel_LineChart;
     private javax.swing.JPanel panel_SituazioneEle;
+    private javax.swing.JLabel refreshLabel;
     private javax.swing.JButton stop_Vot;
     private javax.swing.JLabel vot_Status;
     private javax.swing.JLabel vot_Status_Lab;

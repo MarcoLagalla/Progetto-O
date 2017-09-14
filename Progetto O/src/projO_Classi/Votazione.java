@@ -42,7 +42,7 @@ public class Votazione {
      */
     public static boolean VotazioneAperta = false;
     
-    static INIFile myINI;
+    static INIFile myINI = new INIFile(Utility.INI_PATH);
         
     
     private Votazione(){} // Costruttore Privato in Quanto Classe di Metodi Statici
@@ -146,6 +146,8 @@ public class Votazione {
      * @return DataCorrente come Calendar
      */
     public static Calendar getDataCorrente() {
+        String[] parsing = Votazione.readDataCorrente().split("-");
+        dataCorrente.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]) - 1, Integer.parseInt(parsing[0]));
         return dataCorrente;
     }
 
@@ -154,6 +156,8 @@ public class Votazione {
      * @return DataFine come Calendar
      */
     public static Calendar getDataFineVot() {
+        String[] parsing = Votazione.readDataFine().split("-");
+        dataFineVot.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]) - 1, Integer.parseInt(parsing[0]));
         return dataFineVot;
     }
 
@@ -170,8 +174,12 @@ public class Votazione {
      */
     public static void getlenghtEle(){
         lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
+<<<<<<< HEAD
         JOptionPane.showMessageDialog(null,dataFineVot.get(java.util.Calendar.DAY_OF_YEAR),"FINE",0);
         JOptionPane.showMessageDialog(null,dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR),"INIZIO",0);
+=======
+
+>>>>>>> origin/master
     }
 
      /**
@@ -271,9 +279,11 @@ public class Votazione {
         
         affluenza = 0;
         myINI.setIntegerProperty("Votazione", "AffluenzaOggi", 0, "AffluenzaOggi");
-        dataCorrente.add(Calendar.DATE, 1);  // number of days to add
+        dataCorrente = getDataCorrente();
+        dataCorrente.add(Calendar.DATE, 1);
         myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
         myINI.save();
+        ServerFrame.dataLabel.setText("Data Corrente: " + Votazione.readDataCorrente());
 }
 //______________________________________________________________________________
     /**
