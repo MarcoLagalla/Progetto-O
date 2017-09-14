@@ -31,10 +31,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="bt_Start" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lb_VotiDaAssegnare" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="sp_Fidget" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
                   <Component id="logger_ScrollPane" min="-2" pref="559" max="-2" attributes="0"/>
@@ -46,15 +48,11 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="bt_Start" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                      <Component id="sp_Fidget" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="bt_Start" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sp_Fidget" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lb_VotiDaAssegnare" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
               <Component id="logger_ScrollPane" min="-2" pref="234" max="-2" attributes="0"/>
@@ -78,7 +76,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="logger">
+        <Component class="javax.swing.JList" name="ls_logger">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="0"/>
@@ -92,6 +90,11 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JSpinner" name="sp_Fidget">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lb_VotiDaAssegnare">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Numero di voti da assegnare:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

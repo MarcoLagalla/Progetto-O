@@ -35,8 +35,9 @@ public class MainFrameBot extends javax.swing.JFrame {
 
         bt_Start = new javax.swing.JButton();
         logger_ScrollPane = new javax.swing.JScrollPane();
-        logger = new javax.swing.JList<>();
+        ls_logger = new javax.swing.JList<String>();
         sp_Fidget = new javax.swing.JSpinner();
+        lb_VotiDaAssegnare = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Bot votazioni");
@@ -51,8 +52,10 @@ public class MainFrameBot extends javax.swing.JFrame {
             }
         });
 
-        logger.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        logger_ScrollPane.setViewportView(logger);
+        ls_logger.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        logger_ScrollPane.setViewportView(ls_logger);
+
+        lb_VotiDaAssegnare.setText("Numero di voti da assegnare:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,10 +63,12 @@ public class MainFrameBot extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bt_Start, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lb_VotiDaAssegnare)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sp_Fidget, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(logger_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -71,13 +76,11 @@ public class MainFrameBot extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(bt_Start))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(sp_Fidget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_Start)
+                    .addComponent(sp_Fidget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_VotiDaAssegnare))
                 .addGap(9, 9, 9)
                 .addComponent(logger_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -104,7 +107,7 @@ public class MainFrameBot extends javax.swing.JFrame {
                listModel.addElement(log);
                
             }
-              logger.setModel(listModel);
+              ls_logger.setModel(listModel);
         } catch (SQLException ex) {ex.printStackTrace();}
         
     }//GEN-LAST:event_bt_StartActionPerformed
@@ -163,8 +166,9 @@ public class MainFrameBot extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_Start;
-    private javax.swing.JList<String> logger;
+    private javax.swing.JLabel lb_VotiDaAssegnare;
     private javax.swing.JScrollPane logger_ScrollPane;
+    private javax.swing.JList<String> ls_logger;
     private javax.swing.JSpinner sp_Fidget;
     // End of variables declaration//GEN-END:variables
 }
