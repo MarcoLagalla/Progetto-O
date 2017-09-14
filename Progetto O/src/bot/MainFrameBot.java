@@ -94,21 +94,26 @@ public class MainFrameBot extends javax.swing.JFrame {
         } catch ( java.text.ParseException e ) {e.printStackTrace();}
         
         int fidget_Value = (Integer) sp_Fidget.getValue(); // Valore Int dello Spinner
-        int canditato_random = randomRange(getNumCandidati());
+        int canditato_random;
         int voti;
-        String cf_cand = can.get(canditato_random).getCF();
-        ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
-        try {
-            while (voti_.next()) {
-               voti = voti_.getInt("Voti");
-               voti += fidget_Value;
-               int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
-               log = "Aggiunti "+ voti +" voti al candidato "+ cf_cand;
-               listModel.addElement(log);
-               
-            }
-              ls_logger.setModel(listModel);
-        } catch (SQLException ex) {ex.printStackTrace();}
+        
+        for(int i=0; i <= fidget_Value; i++) {
+            //canditato_random 
+            String cf_cand = can.get(canditato_random =  randomRange(getNumCandidati())).getCF();
+            ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
+            try {
+                while (voti_.next()) {
+                    
+                   voti = voti_.getInt("Voti") + 1;  // voti ++
+                   int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
+                   
+                   log = "+1 voti per il candidato "+ cf_cand;
+                   listModel.addElement(log);                   
+                }
+                
+                ls_logger.setModel(listModel);
+            } catch (SQLException ex) {ex.printStackTrace();}
+        }
         
     }//GEN-LAST:event_bt_StartActionPerformed
 //______________________________________________________________________________
