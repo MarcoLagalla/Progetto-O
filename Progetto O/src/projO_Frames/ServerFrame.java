@@ -1,6 +1,7 @@
 package projO_Frames;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
+import bot.MainFrameBot;
 import java.util.ArrayList;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -72,10 +73,6 @@ public class ServerFrame extends javax.swing.JFrame {
     DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( ); //Dataset BarChart 
 
 //______________________________________________________________________________
-
-    /**
-     *
-     */
 
     public ServerFrame() {
             super("SERVER");
@@ -862,6 +859,7 @@ public class ServerFrame extends javax.swing.JFrame {
                     
                    //////////// Aggiungere controllo che il nome scelto non esista già
                     
+                   refreshGrafici();
                    Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
                     
                     /*
@@ -927,11 +925,8 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_RefreshActionPerformed
 
     private void bt_AvviaBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AvviaBotActionPerformed
-        // TODO add your handling code here:
- //     ArrayList<Integer> dati = Votazione.getAffluenza();
-   //  for (Integer obj: dati) {
-   //      JOptionPane.showMessageDialog(null,obj,"", 0);
-   //  }
+        new MainFrameBot().setVisible(true);
+        
     }//GEN-LAST:event_bt_AvviaBotActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

@@ -415,6 +415,8 @@ public final class INIFile
      * Sets the specified string property.
      * @param pstrSection the INI section name.
      * @param pstrProp the property to be set.
+     * @param pstrVal
+     * @param pstrComments
      * @pstrVal the string value to be persisted
      */
     public void setStringProperty(String pstrSection, String pstrProp, String pstrVal, String pstrComments)
@@ -437,6 +439,7 @@ public final class INIFile
      * @param pstrSection the INI section name.
      * @param pstrProp the property to be set.
      * @param pblnVal the boolean value to be persisted
+     * @param pstrComments
      */
     public void setBooleanProperty(String pstrSection, String pstrProp, boolean pblnVal, String pstrComments)
     {
@@ -461,6 +464,7 @@ public final class INIFile
      * @param pstrSection the INI section name.
      * @param pstrProp the property to be set.
      * @param pintVal the int property to be persisted.
+     * @param pstrComments
      */
     public void setIntegerProperty(String pstrSection, String pstrProp, int pintVal, String pstrComments)
     {
@@ -482,6 +486,7 @@ public final class INIFile
      * @param pstrSection the INI section name.
      * @param pstrProp the property to be set.
      * @param plngVal the long value to be persisted.
+     * @param pstrComments
      */
     public void setLongProperty(String pstrSection, String pstrProp, long plngVal, String pstrComments)
     {
@@ -503,6 +508,7 @@ public final class INIFile
      * @param pstrSection the INI section name.
      * @param pstrProp the property to be set.
      * @param pdblVal the double value to be persisted.
+     * @param pstrComments
      */
     public void setDoubleProperty(String pstrSection, String pstrProp, double pdblVal, String pstrComments)
     {
@@ -524,6 +530,7 @@ public final class INIFile
      * @param pstrSection the INI section name.
      * @param pstrProp the property to be set.
      * @param pdtVal the date value to be persisted.
+     * @param pstrComments
      */
     public void setDateProperty(String pstrSection, String pstrProp, Date pdtVal, String pstrComments)
     {
@@ -545,6 +552,7 @@ public final class INIFile
      * @param pstrSection the INI section name.
      * @param pstrProp the property to be set.
      * @param ptsVal the timestamp value to be persisted.
+     * @param pstrComments
      */
     public void setTimestampProperty(String pstrSection, String pstrProp, Timestamp ptsVal, String pstrComments)
     {
@@ -681,6 +689,7 @@ public final class INIFile
 
     /**
      * Flush changes back to the disk file. If the disk file does not exists then creates the new one. 
+     * @return 
      */
     public boolean save()
     {

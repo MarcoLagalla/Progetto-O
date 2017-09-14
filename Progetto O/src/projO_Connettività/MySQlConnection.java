@@ -428,7 +428,11 @@ public class MySQlConnection {
         return 0;
     }   
     
-    
+    /**
+     *
+     * @param TableName
+     * @return
+     */
     public int CountRows(String TableName) {
         String QUERY = "select count(*) from " + TableName + ";" ;
         try {

@@ -1,19 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projO_Classi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ *
+ * @author Team
+ */
+
 public class Affluenza implements Comparable<Affluenza>{
     
     private int data;
     private int dato;
     
+    /**
+     *
+     * @param data
+     * @param dato
+     */
     public Affluenza(String data, int dato) {
        try {
            
@@ -32,14 +38,23 @@ public class Affluenza implements Comparable<Affluenza>{
         this.dato = dato;
     }
     
+    /**
+     *
+     * @return Data
+     */
     public int getData() {
         return data;
     }
+
+    /**
+     *
+     * @return Dato
+     */
     public int getDato() {
         return dato;
     }
     
-     @Override
+    @Override
     public int compareTo(Affluenza s)
     {
         return this.data - s.data;     //Sorts the objects in ascending order

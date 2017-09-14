@@ -37,6 +37,9 @@ public class Votazione {
     private static String winner = "";
     private static int lenghtEle;
 
+    /**
+     *
+     */
     public static boolean VotazioneAperta = false;
     
     static INIFile myINI;
@@ -51,21 +54,33 @@ public class Votazione {
      *
      * @return idVotazione
      */
-
-
     public static String getIdVotazione() {    
         String res = myINI.getStringProperty("Votazione","ID");
         return res;
     }
     
+    /**
+     *
+     * @return DataCorrente
+     */
     public static String readDataCorrente() {
         String res = myINI.getStringProperty("Votazione","DataCorrente");
         return res;
     }
-        public static String readDataFine() {
+    
+    /**
+     *
+     * @return DataFine
+     */
+    public static String readDataFine() {
         String res = myINI.getStringProperty("Votazione","DataFine");
         return res;
     }
+    
+    /**
+     *
+     * @return DataInizio
+     */
     public static String readDataInizio() {
         String res = myINI.getStringProperty("Votazione","DataInizio");
         return res;
@@ -75,12 +90,10 @@ public class Votazione {
 //______________________________________________________________________________    
     
     /**
-     *
+     * Metodo di Inizio Votazioni
      * @param _idVotazione
      * @param dataFine
      */
-
-    
    public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
         idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
         myINI = new INIFile(Utility.INI_PATH);
@@ -128,42 +141,62 @@ public class Votazione {
     }    
 //__________________________________________________________________________________________________________________________________________ 
 
+    /**
+     *
+     * @return DataCorrente come Calendar
+     */
     public static Calendar getDataCorrente() {
         return dataCorrente;
     }
 
+    /**
+     *
+     * @return DataFine come Calendar
+     */
     public static Calendar getDataFineVot() {
         return dataFineVot;
     }
 
+    /**
+     *
+     * @return Format Data
+     */
     public static DateFormat getF() {
         return f;
     }
-
+    
+    /**
+     *
+     */
     public static void getlenghtEle(){
-                     lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
-            
-                JOptionPane.showMessageDialog(null,dataFineVot.get(java.util.Calendar.DAY_OF_YEAR),"FINE",0);
-                JOptionPane.showMessageDialog(null,dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR),"INIZIO",0);
+        lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
+        JOptionPane.showMessageDialog(null,dataFineVot.get(java.util.Calendar.DAY_OF_YEAR),"FINE",0);
+        JOptionPane.showMessageDialog(null,dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR),"INIZIO",0);
     }
 
-    
+     /**
+     *
+     * @return DataInizio come Calendar
+     */
     public static Calendar getDataInizioVot() {
         return dataInizioVot;
     }
     
-    
- public static ArrayList<Affluenza> getAffluenza(){
-     ArrayList<Affluenza> aff = new ArrayList();
-     try {
-         ResultSet res = mysql.ExecuteQuery("SELECT * from " + getIdVotazione() + ";");
-         while (res.next()) {
-             Affluenza af = new Affluenza(res.getString("Data"), res.getInt("Affluenza"));
-             aff.add(af);
-         }
-     } catch (Exception ex) {}
-     return aff;
-}     
+    /**
+     *
+     * @return Affluenza come ArrayList di Affluenza(class)
+     */
+    public static ArrayList<Affluenza> getAffluenza(){
+        ArrayList<Affluenza> aff = new ArrayList();
+        try {
+            ResultSet res = mysql.ExecuteQuery("SELECT * from " + getIdVotazione() + ";");
+            while (res.next()) {
+                Affluenza af = new Affluenza(res.getString("Data"), res.getInt("Affluenza"));
+                aff.add(af);
+            }
+        } catch (Exception ex) {}
+        return aff;
+    }     
    
     /**
      * Metodo per Chiudere il Turno di Votazioni
@@ -291,24 +324,7 @@ public class Votazione {
         } catch (Exception ex) {}
         return exists;
     }
-<<<<<<< HEAD
-         
-=======
-    
-    private static Icon setUrlIcon(String remoteURL , int resizedWidth, int resizedHeight ) {
-        ImageIcon img;
-        Image resizedImage = null;
-        try {
-            img = new ImageIcon(new URL(remoteURL));
-            Image img_ = img.getImage();
-            resizedImage = img_.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        } catch (MalformedURLException ex) {
-            img = null;
-        }
-        return new ImageIcon(resizedImage);
-    }
-        
->>>>>>> origin/master
+
         
 }
 

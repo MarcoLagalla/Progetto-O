@@ -77,6 +77,9 @@ public class Utility {
      */
     final static public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
+    /**
+     *
+     */
     final static public String URL_IMG_REMOTE = "http://91.134.138.244/progettoO/img/";
     
     /**
@@ -96,6 +99,8 @@ public class Utility {
 
     /**
      * Metodo SetUrlICon per prendere link Immagine da Inserire
+     * @param remoteURL
+     * @return 
      */
     public static Icon setUrlIcon(String remoteURL ) {
         ImageIcon img;
@@ -109,6 +114,10 @@ public class Utility {
 
     /**
      * Metodo SetUrlICon per prendere link Immagine da Inserire
+     * @param remoteURL
+     * @param resizedHeight
+     * @param resizedWidth
+     * @return 
      */
     
     public static Icon setUrlIcon(String remoteURL , int resizedWidth, int resizedHeight ) {
@@ -125,6 +134,10 @@ public class Utility {
     }
     /**
      * Metodo ResizeIcon per Fittare l'Immagine con l'elemento Swing al quale verrà applicata
+     * @param icon
+     * @param resizedWidth
+     * @param resizedHeight
+     * @return 
      */
     
     public static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton

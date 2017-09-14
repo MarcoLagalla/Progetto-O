@@ -72,20 +72,23 @@ public class ProgettoO {
 
 
     // Istanzio Oggetti Utili
-    
     private  char[] admin_pwd;                          
-   
     MySQlConnection mysql; 
     INIFile myINI;
     FTPConnection myftp;
+
+    /**
+     * Definisce lo Stato delle Votazioni attraverso un Boolean
+     */
     public static Boolean StatoVotazioni = false;
+   
     // Istanzio ServerFrame creato con JFrame Form
     public static ServerFrame prepareServerGUI;
 
     
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
 //______________________________________________________________________________
-    
+
     public ProgettoO() {
         if ( netIsAvailable() ) {
             
@@ -136,8 +139,7 @@ public class ProgettoO {
     }
 //______________________________________________________________________________
     private void prepareGUI() {         // Creazione finestra principale (login user)
-    
-       
+     
         int c = JComponent.WHEN_FOCUSED;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
     
         if ( clientFrame != null) {
@@ -161,6 +163,7 @@ public class ProgettoO {
       
         
         mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            
     @Override
     public void windowClosing(java.awt.event.WindowEvent windowEvent) {
         if (JOptionPane.showConfirmDialog(mainFrame, 
@@ -431,8 +434,9 @@ public class ProgettoO {
     }       
 
 //______________________________________________________________________________
-
-// Button Listener
+    /**
+     * Button Listener
+     */
 
     public class ButtonClickListener implements ActionListener{
 
@@ -537,6 +541,14 @@ public class ProgettoO {
 //______________________________________________________________________________
     
 // Metodo AvoidDoubleReg    
+
+    /**
+     * Metodo per evitare doppia registrazione dell'Utente
+     * @param CF
+     * @param CT
+     * @return boolean
+     * 
+     */
 public boolean avoidDoubleReg(String CF, String CT){
     
     ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
@@ -599,6 +611,10 @@ public boolean avoidDoubleReg(String CF, String CT){
 //______________________________________________________________________________
 
 // Metodo Timer
+
+    /**
+     * Metodo Timer per AdminLogin
+     */
 
     public class MyTask extends TimerTask {
         @Override

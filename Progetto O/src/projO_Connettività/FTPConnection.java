@@ -26,7 +26,7 @@ public class FTPConnection {
     FTPClient ftpclient;
 
 //______________________________________________________________________________
-    
+
     public FTPConnection() {
        
        try {
@@ -52,7 +52,7 @@ public class FTPConnection {
 //______________________________________________________________________________
     
     /**
-     *
+     * Metodo per caricamento File
      * @param localPath
      * @param remotePath
      * @return
