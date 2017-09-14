@@ -56,6 +56,8 @@ public class MainFrameBot extends javax.swing.JFrame {
         ls_logger.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         logger_ScrollPane.setViewportView(ls_logger);
 
+        sp_Fidget.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
         lb_VotiDaAssegnare.setText("Numero di voti da assegnare:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,7 +100,7 @@ public class MainFrameBot extends javax.swing.JFrame {
         int canditato_random;
         int voti;
         
-        for(int i=0; i <= fidget_Value; i++) {
+        for(int i=0; i < fidget_Value; i++) {
             //canditato_random 
             String cf_cand = can.get(canditato_random =  randomRange(getNumCandidati())).getCF();
             ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");

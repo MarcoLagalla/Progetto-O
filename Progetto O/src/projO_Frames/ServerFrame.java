@@ -131,6 +131,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 dataAvvio.setText(myINI.getStringProperty("Votazione", "DataInizio"));
                 dataChiusura.setText(myINI.getStringProperty("Votazione", "DataFine"));
                 id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
+                menu_Tools.setEnabled(true);
                 
             } else {
                 vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
@@ -141,6 +142,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 dataAvvio.setText("");
                 dataChiusura.setText("");
                 id_elezione.setText("");
+                menu_Tools.setEnabled(false);
             }
         }
     
@@ -290,7 +292,7 @@ public class ServerFrame extends javax.swing.JFrame {
         panel_GestioneCandidati = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<>();
+        Candidati_list = new javax.swing.JList<String>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
@@ -325,10 +327,10 @@ public class ServerFrame extends javax.swing.JFrame {
         refreshLabel = new javax.swing.JLabel();
         dataLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
+        menu_Tools = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menu_Storico = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -624,7 +626,7 @@ public class ServerFrame extends javax.swing.JFrame {
         );
 
         refreshLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        refreshLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        refreshLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         refreshLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 refreshLabelMouseClicked(evt);
@@ -736,7 +738,7 @@ public class ServerFrame extends javax.swing.JFrame {
 
         getContentPane().add(panel_AllContainer, new java.awt.GridBagConstraints());
 
-        jMenu3.setText("Tools");
+        menu_Tools.setText("Tools");
 
         jMenuItem1.setText("Avanza giornata");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -744,7 +746,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        menu_Tools.add(jMenuItem1);
 
         jMenuItem2.setText("Lancia BOT");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -752,12 +754,12 @@ public class ServerFrame extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        menu_Tools.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menu_Tools);
 
-        jMenu1.setText("Storico");
-        jMenuBar1.add(jMenu1);
+        menu_Storico.setText("Storico");
+        jMenuBar1.add(menu_Storico);
 
         setJMenuBar(jMenuBar1);
 
@@ -819,6 +821,7 @@ public class ServerFrame extends javax.swing.JFrame {
         Votazione.chiudiVotazione();
         avvia_Vot.setEnabled(true);
         stop_Vot.setEnabled(false);
+        menu_Tools.setEnabled(false);
         id_elezione.setEditable(true);
         id_elezione.setText(null);
         dataChiusura.setText(null);
@@ -845,16 +848,9 @@ public class ServerFrame extends javax.swing.JFrame {
                 if (!(id_elezione.getText().equals(""))) {
                     if (!Votazione.existsVotazione(id_elezione.getText())) {
                     
-                   //////////// Aggiungere controllo che il nome scelto non esista già
-                    
                    refreshGrafici();
                    Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
-                    
-                    /*
-                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-                    java.util.Calendar cal = java.util.Calendar.getInstance();
-                    cal.set(Utility.YEAR, month, Utility.DAY);
-                    */
+
                     dataAvvio.setText(Votazione.getF().format(Votazione.getDataInizioVot().getTime()));
                     
                     error_msg.setText(""); 
@@ -862,6 +858,7 @@ public class ServerFrame extends javax.swing.JFrame {
                     stop_Vot.setEnabled(true);
                     id_elezione.setEditable(false);
                     openDatePicker.setEnabled(false);
+                    menu_Tools.setEnabled(true);
                     ProgettoO.getRegistrazione().setEnabled(true);
                     ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
                     vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
@@ -1018,8 +1015,6 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel error_msg;
     private javax.swing.JTextField id_elezione;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -1032,6 +1027,8 @@ public class ServerFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel lb_NomeVincitore;
     private javax.swing.JLabel lb_PercentualeSesso;
     private javax.swing.JLabel lb_Vincitore;
+    private javax.swing.JMenu menu_Storico;
+    private javax.swing.JMenu menu_Tools;
     private javax.swing.JButton openDatePicker;
     private javax.swing.JPanel panel_AllContainer;
     private javax.swing.JPanel panel_BotContainer;
