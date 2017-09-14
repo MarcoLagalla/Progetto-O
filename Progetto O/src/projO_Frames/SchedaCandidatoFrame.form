@@ -60,7 +60,7 @@
                       <Component id="lb_CF" max="32767" attributes="0"/>
                       <Component id="bt_Vota" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="lb_Nome" max="32767" attributes="0"/>
                               <Component id="lb_Cognome" max="32767" attributes="0"/>
@@ -86,7 +86,7 @@
                   <Component id="lb_Cognome" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lb_Partito" min="-2" pref="45" max="-2" attributes="0"/>
-                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="bt_Vota" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

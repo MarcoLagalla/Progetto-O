@@ -6,6 +6,7 @@ import java.io.File;
 import java.awt.Image;
 import javax.swing.*;
 import javax.swing.filechooser.*;
+import projO_Classi.Utility;
 
 // imports interni
 import projO_Connettività.FTPConnection;
@@ -251,7 +252,7 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
              
              ImageIcon img = new ImageIcon(path_img);
             int offset = lb_Foto.getInsets().left;
-            lb_Foto.setIcon(resizeIcon(img, lb_Foto.getWidth() - offset, lb_Foto.getHeight() - offset));
+            lb_Foto.setIcon(Utility.resizeIcon(img, lb_Foto.getWidth() - offset, lb_Foto.getHeight() - offset));
             } 
     }//GEN-LAST:event_bt_SfogliaActionPerformed
 //______________________________________________________________________________
@@ -329,14 +330,6 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
             }
         });
     }
-//______________________________________________________________________________
-    
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
-        Image img = icon.getImage();  
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        return new ImageIcon(resizedImage);
-    }
-
 //______________________________________________________________________________
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

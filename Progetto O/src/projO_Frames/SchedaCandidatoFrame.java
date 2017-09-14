@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import projO_Classi.Utility;
 
 // imports interni
 import projO_Connettività.MySQlConnection;
@@ -65,7 +66,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
         
         lb_Foto.setIcon(img);
         lb_Foto.setBounds(0, 0, 250, 250);
-        lb_Foto.setIcon(resizeIcon(img, lb_Foto.getWidth(), lb_Foto.getHeight()));
+        lb_Foto.setIcon(Utility.resizeIcon(img, lb_Foto.getWidth(), lb_Foto.getHeight()));
     }
     
     private void setCF(String cf) {
@@ -217,12 +218,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                 }
             }
     }//GEN-LAST:event_bt_VotaActionPerformed
-//______________________________________________________________________________ 
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei candidati (nei pannelli di createPan) per fit jButton
-        Image img = icon.getImage();  
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        return new ImageIcon(resizedImage);
-    }
+
 //______________________________________________________________________________
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

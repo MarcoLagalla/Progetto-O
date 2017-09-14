@@ -175,12 +175,12 @@ public class ProgettoO {
 });
         Image_Icon = new JLabel();
 
-        Image_Icon.setIcon(setUrlIcon(Utility.IMG_LOGO)); // RELATIVE PATH
+        Image_Icon.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO)); // RELATIVE PATH
         Image_Icon.setSize(350,395);
         mainFrame.add(Image_Icon,BorderLayout.EAST);                            //BorderLayout EAST
         
         Image_Icon_2 = new JLabel();
-        Image_Icon_2.setIcon(setUrlIcon(Utility.IMG_LOGO));
+        Image_Icon_2.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO));
         Image_Icon_2.setSize(350,395);
         mainFrame.add(Image_Icon_2,BorderLayout.WEST);
         
@@ -310,10 +310,10 @@ public class ProgettoO {
         
         if (StatoVotazioni) {
         registrazione.setEnabled(true);
-        registrazione.setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));            
+        registrazione.setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));            
         } else {
         registrazione.setEnabled(false);
-        registrazione.setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));            
+        registrazione.setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));            
         }
 
         registrazione.addActionListener(new ButtonClickListener());
@@ -569,26 +569,6 @@ public boolean avoidDoubleReg(String CF, String CT){
         } catch (IOException e) {
             return false;
         }
-    }
-
-//______________________________________________________________________________
-
-// Metodo Grafico per definire dimensioni Immagine
-
-    private Icon setUrlIcon(String remoteURL ) {
-        ImageIcon img;
-        try {
-            img = new ImageIcon(new URL(remoteURL));
-        } catch (MalformedURLException ex) {
-            img = null;
-        }
-        return img;
-    }
-    
-    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
-    Image img = icon.getImage();  
-    Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-    return new ImageIcon(resizedImage);
     }
 
 //______________________________________________________________________________

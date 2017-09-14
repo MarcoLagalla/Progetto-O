@@ -62,12 +62,11 @@ public class ServerFrame extends javax.swing.JFrame {
     MySQlConnection mysql = new MySQlConnection();
     INIFile myINI = new INIFile(Utility.INI_PATH);
     
+    
     JPanel tortona_UominiDonne;
     JPanel line_Affluenza;
     JPanel istogramma_Voti;
-    
 
-    
     DefaultPieDataset resultPie = new DefaultPieDataset(); // Dataset PieChart
     
     DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( ); //Dataset BarChart 
@@ -93,8 +92,6 @@ public class ServerFrame extends javax.swing.JFrame {
     
             loadCandidati(); 
 
-
-
             istogramma_Voti = createLineChart();
             panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
             panel_ColumnChart.validate();
@@ -107,13 +104,17 @@ public class ServerFrame extends javax.swing.JFrame {
             panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
             panel_CakeChart.validate();
             
-            Logo01.setIcon(setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
-            Logo02.setIcon(setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
+            Logo01.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
+            Logo02.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
             
-            lb_FotoWinner.setIcon(setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
+            bt_Refresh.setIcon(Utility.setUrlIcon(Utility.IMG_REFRESH)); // DA AGGIUNGERE IMG_REFRESH
+            bt_Refresh.setBounds(0, 0, 80, 80);
+            bt_Refresh.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.IMG_REFRESH), bt_Refresh.getWidth(), bt_Refresh.getHeight()));
+            
+            lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
             
             if (ProgettoO.StatoVotazioni) {
-                vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                 //refreshGrafici();
                 avvia_Vot.setEnabled(false);
                 stop_Vot.setEnabled(true);
@@ -124,7 +125,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
                 
             } else {
-                vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
+                vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
                 avvia_Vot.setEnabled(true);
                 stop_Vot.setEnabled(false);
                 id_elezione.setEditable(true);
@@ -838,9 +839,9 @@ public class ServerFrame extends javax.swing.JFrame {
         dataChiusura.setText(null);
         dataAvvio.setText(null);
         openDatePicker.setEnabled(true);
-        vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
+        vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
         ProgettoO.getRegistrazione().setEnabled(false);
-        ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
+        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
      //   lb_FotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
     }//GEN-LAST:event_stop_VotActionPerformed
 //______________________________________________________________________________
@@ -886,8 +887,8 @@ public class ServerFrame extends javax.swing.JFrame {
                     id_elezione.setEditable(false);
                     openDatePicker.setEnabled(false);
                     ProgettoO.getRegistrazione().setEnabled(true);
-                    ProgettoO.getRegistrazione().setIcon(setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
-                    vot_Status.setIcon(setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                    ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
+                    vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                     
                     } else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
                 }   else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
@@ -932,13 +933,7 @@ public class ServerFrame extends javax.swing.JFrame {
 
     private void bt_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_RefreshActionPerformed
         refreshGrafici();
-        
-        
-        
-        
-        
-        
-        
+    
     }//GEN-LAST:event_bt_RefreshActionPerformed
 
     private void bt_AvviaBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AvviaBotActionPerformed
@@ -1030,24 +1025,8 @@ public class ServerFrame extends javax.swing.JFrame {
             }
         }
         return false;
-    }  // il parametro Date deve contenere la data di FINE
-//______________________________________________________________________________
-    
-    private Icon setUrlIcon(String remoteURL ) {
-        ImageIcon img;
-        try {
-            img = new ImageIcon(new URL(remoteURL));
-        } catch (MalformedURLException ex) {
-            img = null;
-        }
-        return img;
-    }
-//______________________________________________________________________________    
-    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
-        Image img = icon.getImage();  
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        return new ImageIcon(resizedImage);
-    }
+    }  // Il parametro Date deve contenere la data di FINE
+
 //______________________________________________________________________________
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1122,9 +1101,6 @@ public class ServerFrame extends javax.swing.JFrame {
         panel_CakeChart.validate();
             
     }
-
-
-
 
 
 }

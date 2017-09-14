@@ -205,7 +205,7 @@ public class Votazione {
                 
                 if (obj.getCF().equals(winner)) {
                     
-            ServerFrame.lb_FotoWinner.setIcon(setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
+            ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
             ServerFrame.lb_NomeVincitore.setText(obj.getNome());
             ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
             ServerFrame.lb_CF.setText(obj.getCF());
@@ -306,20 +306,7 @@ public class Votazione {
         } catch (Exception ex) {}
         return exists;
     }
-    
-        private static Icon setUrlIcon(String remoteURL , int resizedWidth, int resizedHeight ) {
-        ImageIcon img;
-        Image resizedImage = null;
-        try {
-            img = new ImageIcon(new URL(remoteURL));
-            Image img_ = img.getImage();
-            resizedImage = img_.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        } catch (MalformedURLException ex) {
-            img = null;
-        }
-        return new ImageIcon(resizedImage);
-    }
-        
+         
         
 }
 

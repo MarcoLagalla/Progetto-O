@@ -5,13 +5,19 @@
  */
 package projO_Classi;
 
+import java.awt.Image;
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author marco
  */
 public class Utility {
      
-        /**
+    /**
      * Immagini Profilo
      */
     final static public String IMG_PROFILO = "http://91.134.138.244/progettoO/img/profilo.jpg";
@@ -45,6 +51,11 @@ public class Utility {
      * Immagine Votazioni Aperte
      */
     final static public String IMG_REGISTRAZIONE_ENABLED =  "http://91.134.138.244/progettoO/img/Button_Registrazione.png";
+    
+    /**
+     * Immagine Refresh
+     */
+    final static public String IMG_REFRESH =  "http://91.134.138.244/progettoO/img/Refresh_icon.png";
     
     /**
      * Anno per Calendar
@@ -82,9 +93,50 @@ public class Utility {
      * Local path per immagini cached
      */
     final static public String LOCAL_PATH_CACHE_IMG = System.getenv("APPDATA") + "\\";
+
+    /**
+     * Metodo SetUrlICon per prendere link Immagine da Inserire
+     */
+    public static Icon setUrlIcon(String remoteURL ) {
+        ImageIcon img;
+        try {
+            img = new ImageIcon(new URL(remoteURL));
+        } catch (MalformedURLException ex) {
+            img = null;
+        }
+        return img;
+    }
+
+    /**
+     * Metodo SetUrlICon per prendere link Immagine da Inserire
+     */
     
+    public static Icon setUrlIcon(String remoteURL , int resizedWidth, int resizedHeight ) {
+        ImageIcon img;
+        Image resizedImage = null;
+        try {
+            img = new ImageIcon(new URL(remoteURL));
+            Image img_ = img.getImage();
+            resizedImage = img_.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+        } catch (MalformedURLException ex) {
+            img = null;
+        }
+        return new ImageIcon(resizedImage);
+    }
+    /**
+     * Metodo ResizeIcon per Fittare l'Immagine con l'elemento Swing al quale verrà applicata
+     */
     
-    // costuttore privato
+    public static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
+        Image img = icon.getImage();  
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+        return new ImageIcon(resizedImage);
+    }
+
+    
+//______________________________________________________________________________
+    
+    // Costuttore privato
     
     private Utility() {};
 }

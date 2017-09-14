@@ -13,6 +13,7 @@ import projO_Connettività.FTPConnection;
 import projO_Connettività.MySQlConnection;
 import projO_Classi.Candidati;
 import projO_Classi.Persone;
+import projO_Classi.Utility;
 // </editor-fold>
 
 
@@ -262,7 +263,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
             path_img = file.getAbsolutePath();
             ImageIcon img = new ImageIcon(path_img);
             int offset = lb_FotoCandidato.getInsets().left;
-            lb_FotoCandidato.setIcon(resizeIcon(img, lb_FotoCandidato.getWidth() - offset, lb_FotoCandidato.getHeight() - offset));
+            lb_FotoCandidato.setIcon(Utility.resizeIcon(img, lb_FotoCandidato.getWidth() - offset, lb_FotoCandidato.getHeight() - offset));
         }
     }//GEN-LAST:event_bt_SfogliaActionPerformed
 //______________________________________________________________________________
@@ -323,7 +324,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
             }
             
             int offset = lb_FotoCandidato.getInsets().left;
-            lb_FotoCandidato.setIcon(resizeIcon(img, lb_FotoCandidato.getWidth() - offset, lb_FotoCandidato.getHeight() - offset));
+            lb_FotoCandidato.setIcon(Utility.resizeIcon(img, lb_FotoCandidato.getWidth() - offset, lb_FotoCandidato.getHeight() - offset));
             
             break;
            }
@@ -393,13 +394,6 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
               
             }
         });
-    }
-//______________________________________________________________________________
-    
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
-        Image img = icon.getImage();  
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        return new ImageIcon(resizedImage);
     }
 //______________________________________________________________________________
     
