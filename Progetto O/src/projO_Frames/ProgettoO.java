@@ -466,8 +466,7 @@ public class ProgettoO {
                                 int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + CF.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
                                     Votazione.addAffluenza();
-                                    prepareClientGUI();
-                                //    mainFrame.dispose();                                    
+                                    prepareClientGUI();                                  
                                 }
                                 
                             } else {
