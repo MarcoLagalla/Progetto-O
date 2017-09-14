@@ -84,6 +84,7 @@ public class ProgettoO {
    
     // Istanzio ServerFrame creato con JFrame Form
     public static ServerFrame prepareServerGUI;
+    public static LoadingFrame prepareLoadingGUI;
 
     
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
@@ -466,9 +467,24 @@ public class ProgettoO {
                                 int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + CF.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
                                     Votazione.addAffluenza();
-                                    prepareClientGUI();                                  
-                                }
-                                
+
+//______________________________________________________________________________
+
+                                    // LOADING FRAME
+
+                                    prepareLoadingGUI = new LoadingFrame();
+                                    prepareLoadingGUI.setVisible(true);
+                                    
+                                    for(int i=0;i<=1000;i++){
+                                        prepareLoadingGUI.pb_Progress.setValue(i);
+                                        if(i==100){
+                                            prepareLoadingGUI.setVisible(false);
+                                            prepareClientGUI();
+                                        }
+                                    }                                    
+//______________________________________________________________________________                                   
+                                    
+                                }   
                             } else {
                                 JOptionPane.showMessageDialog(null,"Sembra che risulti già espresso un voto dalla persona identificata dai seguenti dati:\nCodice Fiscale: " + CF.getText() + "\nCodice Tessera: " + CT.getText(), "Errore" , JOptionPane.ERROR_MESSAGE);
                             }
