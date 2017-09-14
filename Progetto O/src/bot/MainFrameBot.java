@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 import projO_Classi.Candidati;
+import projO_Classi.Votazione;
 import projO_Connettività.MySQlConnection;
 //______________________________________________________________________________
 /**
@@ -106,6 +107,7 @@ public class MainFrameBot extends javax.swing.JFrame {
                     
                    voti = voti_.getInt("Voti") + 1;  // voti ++
                    int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
+                   Votazione.addAffluenza();
                    
                    log = "+1 voti per il candidato "+ cf_cand;
                    listModel.addElement(log);                   
