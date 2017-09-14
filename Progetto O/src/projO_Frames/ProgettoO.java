@@ -385,19 +385,12 @@ public class ProgettoO {
         clientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         clientFrame.setResizable(false);
         
-        
-        /* clientFrame.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-               prepareGUI();
-            }
-        }); */
-        
         clientFrame.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if(!(SchedaCandidatoFrame.isVotato()))
                     if (JOptionPane.showConfirmDialog(clientFrame, 
-                        "Non è stata espressa alcuna preferenza.\nSei sicuro di volet uscire da questa finestra?\nNon sarà più possibile registrarsi con questi dati in futuro.", "Richiesta conferma azione.", 
+                        "Non è stata espressa alcuna preferenza.\nSei sicuro di voler uscire da questa finestra?\nNon sarà più possibile registrarsi con questi dati in futuro.", "Richiesta conferma azione.", 
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             clientFrame.dispose();
                             prepareGUI();

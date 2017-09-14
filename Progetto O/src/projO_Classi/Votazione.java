@@ -1,5 +1,4 @@
-﻿package projO_Classi;
-
+package projO_Classi;
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.awt.Image;
 import java.net.MalformedURLException;
