@@ -859,27 +859,17 @@ public class ServerFrame extends javax.swing.JFrame {
             if (checkDate(dataChiusura.getText())) {
                 if (!(id_elezione.getText().equals(""))) {
                     if (!Votazione.existsVotazione(id_elezione.getText())) {
-                       
-                        // FILEIni
-                        ProgettoO.StatoVotazioni = true;
-                        myINI.setStringProperty("Votazione", "ID", id_elezione.getText(), "ID");
-                        myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
-                        myINI.save();
                     
                    //////////// Aggiungere controllo che il nome scelto non esista già
                     
                    Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
                     
-                    // aggiornamento del file .INI
-                   // myINI.setStringProperty("Votazione", "ID", Votazione.getIdVotazione(), "ID" );
-                    myINI.setStringProperty("Votazione", "DataFine",  Votazione.getF().format(Votazione.getDataFineVot().getTime()), "DataFine" );
-                   myINI.setStringProperty("Votazione", "DataCorrente", Votazione.getF().format(Votazione.getDataCorrente().getTime()), "DataCorrente");
-                   myINI.setStringProperty("Votazione", "DataInizio", Votazione.getF().format(Votazione.getDataInizioVot().getTime()), "DataInizio"); 
-                    myINI.save();
+                    /*
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
                     java.util.Calendar cal = java.util.Calendar.getInstance();
                     cal.set(Utility.YEAR, month, Utility.DAY);
-                    dataAvvio.setText( sdf.format(cal.getTime()) );
+                    */
+                    dataAvvio.setText(Votazione.getF().format(Votazione.getDataInizioVot().getTime()));
                     
                     error_msg.setText(""); 
                     avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
