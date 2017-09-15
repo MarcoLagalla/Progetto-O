@@ -20,18 +20,8 @@ public class LoadingFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoadingFrame
      */
-    public LoadingFrame() {
-
-        // FULLSCREEN MODE
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(screenSize);
-        this.setSize(screenSize);
-        this.setMinimumSize(screenSize);
-        this.setMaximumSize(screenSize);
-        
-        initComponents();
-        
+    public LoadingFrame() {        
+        initComponents();   
     }
    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -39,12 +29,11 @@ public class LoadingFrame extends javax.swing.JFrame {
 
         panel_load = new javax.swing.JPanel();
         lb_Loading = new javax.swing.JLabel();
-        pb_Progress = new javax.swing.JProgressBar();
+        lb_GIF_Loading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(523, 523));
         setResizable(false);
 
         panel_load.setBackground(new java.awt.Color(255, 255, 255));
@@ -54,28 +43,41 @@ public class LoadingFrame extends javax.swing.JFrame {
         lb_Loading.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         lb_Loading.setText("Loading Scheda Candidati...");
 
+        lb_GIF_Loading.setIcon(Utility.setUrlIcon(Utility.IMG_GIF));
+
         javax.swing.GroupLayout panel_loadLayout = new javax.swing.GroupLayout(panel_load);
         panel_load.setLayout(panel_loadLayout);
         panel_loadLayout.setHorizontalGroup(
             panel_loadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_loadLayout.createSequentialGroup()
-                .addGap(216, 216, 216)
-                .addGroup(panel_loadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pb_Progress, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_Loading, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addGap(219, 219, 219)
+                .addComponent(lb_Loading, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(187, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_loadLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lb_GIF_Loading, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(231, 231, 231))
         );
         panel_loadLayout.setVerticalGroup(
             panel_loadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_loadLayout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addComponent(lb_Loading, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(132, 132, 132)
-                .addComponent(pb_Progress, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_GIF_Loading, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panel_load, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel_load, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel_load, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -116,9 +118,9 @@ public class LoadingFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lb_GIF_Loading;
     private javax.swing.JLabel lb_Loading;
     public javax.swing.JPanel panel_load;
-    public javax.swing.JProgressBar pb_Progress;
     // End of variables declaration//GEN-END:variables
 
     

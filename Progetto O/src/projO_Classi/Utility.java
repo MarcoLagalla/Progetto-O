@@ -58,6 +58,11 @@ public class Utility {
     final static public String IMG_REFRESH =  "http://91.134.138.244/progettoO/img/Refresh_icon.png";
     
     /**
+     * Immagine Loading_GIF
+     */
+    final static public String IMG_GIF = "http://91.134.138.244/progettoO/img/page-loader.gif";  
+    
+    /**
      * Anno per Calendar
      */
     final static public int YEAR = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
