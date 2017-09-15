@@ -44,6 +44,8 @@ import projO_Connettività.FTPConnection;
 
 
 public class ProgettoO {
+    
+    // <editor-fold defaultstate="collapsed" desc="DICHIARAZIONE VARIABILI">
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
     private JTextField CF;
@@ -85,10 +87,10 @@ public class ProgettoO {
     // Istanzio ServerFrame creato con JFrame Form
     public static ServerFrame prepareServerGUI;
     public static LoadingFrame prepareLoadingGUI;
-
     
     private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
-//______________________________________________________________________________
+    // </editor-fold>
+//___________________________________COSTRUTTORE___________________________________________
 
     public ProgettoO() {
         if ( netIsAvailable() ) {
@@ -96,10 +98,10 @@ public class ProgettoO {
             File f = new File(Utility.INI_PATH);
                 if (!f.exists() && !f.isDirectory()) { 
                     try {
-                     URL website = new URL(Utility.REMOTE_INI_PATH);
-                    ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-                    FileOutputStream fos = new FileOutputStream(Utility.INI_PATH);
-                    fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                        URL website = new URL(Utility.REMOTE_INI_PATH);
+                        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+                        FileOutputStream fos = new FileOutputStream(Utility.INI_PATH);
+                        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
                     } catch (MalformedURLException ex) {} 
                    catch (IOException ex) {}
 
@@ -118,7 +120,7 @@ public class ProgettoO {
         }
     }
     
-//______________________________________________________________________________
+//_________________________________MAIN_____________________________________________
 
     /**
      *
@@ -127,18 +129,21 @@ public class ProgettoO {
     public static void main(String[] args) {
        ProgettoO SwingControl = new ProgettoO();
     }
-//______________________________________________________________________________
+//__________________________________GETTER____________________________________________
 
-    // Metodo Getter
     
     /**
      *
-     * @return registrazione
+     * @return reference bottone registrazione
      */
     public static JButton getRegistrazione() {
         return registrazione;
     }
-//______________________________________________________________________________
+    
+    
+//________________________________METODI GUI______________________________________________
+    
+// <editor-fold defaultstate="collapsed" desc="MAIN FRAME">
     private void prepareGUI() {         // Creazione finestra principale (login user)
      
         int c = JComponent.WHEN_FOCUSED;      // la shortcut per chiamare la finistra AdminLogin è applicabile solo se MainFrame è FOCUSED
@@ -305,8 +310,6 @@ public class ProgettoO {
         r8.setSize(450,55);
         r8.setBackground(Color.WHITE);
         background_panel.add(r8);
-           
-//______________________________________________________________________________
 
         registrazione = new JButton("");   
         registrazione.setActionCommand("Registrazione");
@@ -323,7 +326,6 @@ public class ProgettoO {
         registrazione.addActionListener(new ButtonClickListener());
 
         mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
-//______________________________________________________________________________
 
 // Creo la SHORTCUT (CTRL+A) che apre la finestra di Admin Login
 
@@ -338,16 +340,12 @@ public class ProgettoO {
         background_panel.getInputMap().put(key, "call_Action");
         background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
 
-//______________________________________________________________________________
-
-// Spawn MAINFRAME
-
     mainFrame.setVisible(true);
-    
+   
     }       
-    
-//______________________________________________________________________________
+// </editor-fold> 
 
+// <editor-fold defaultstate="collapsed" desc="ADMIN LOGIN FRAME">
     private void prepareAdminLoginGUI() {        // Creazione finestra Login per Admin (accede alla finestra Server)
         Admin_Login = new JFrame("ADMINISTRATOR LOGIN");
         Admin_Login.setLayout(null);
@@ -374,9 +372,10 @@ public class ProgettoO {
         Admin_Login.add(AdmLog_ErrPwd);
         
         Admin_Login.setVisible(true);
-    }      
+    }
+// </editor-fold>
 
-//______________________________________________________________________________
+// <editor-fold defaultstate="collapsed" desc="CLIENT FRAME">
     private void prepareClientGUI(){            // Creazione finestra votazione (dopo user login)
 
         clientFrame = new JFrame("SISTEMA ELETTORALE ELETTRONICO");
@@ -432,9 +431,13 @@ public class ProgettoO {
        clientFrame.getContentPane().add(scrollable);
        clientFrame.setVisible(true);
        clientFrame.pack();
-    }       
+    } 
+    
+// </editor-fold>
 
-//______________________________________________________________________________
+//____________________________________LISTENER__________________________________________
+    
+// <editor-fold defaultstate="collapsed" desc="BUTTON LISTENER">
     /**
      * Button Listener
      */
@@ -466,24 +469,7 @@ public class ProgettoO {
                             if (!avoidDoubleReg(CF.getText(),CT.getText())) {
                                 int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + CF.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
-                                    Votazione.addAffluenza();
-
-//______________________________________________________________________________
-
-                                    // LOADING FRAME
-
-                                    prepareLoadingGUI = new LoadingFrame();
-                                    prepareLoadingGUI.setVisible(true);
-                                    
-                                    for(int i=0;i<=1000;i++){
-                                        prepareLoadingGUI.pb_Progress.setValue(i);
-                                        if(i==100){
-                                            prepareLoadingGUI.setVisible(false);
-                                            prepareClientGUI();
-                                        }
-                                    }                                    
-//______________________________________________________________________________                                   
-                                    
+                                    Votazione.addAffluenza();                                           
                                 }   
                             } else {
                                 JOptionPane.showMessageDialog(null,"Sembra che risulti già espresso un voto dalla persona identificata dai seguenti dati:\nCodice Fiscale: " + CF.getText() + "\nCodice Tessera: " + CT.getText(), "Errore" , JOptionPane.ERROR_MESSAGE);
@@ -553,16 +539,17 @@ public class ProgettoO {
        }
     }
     
-//______________________________________________________________________________
+// </editor-fold>
+    
+//_____________________________________METODI_________________________________________
     
 // Metodo AvoidDoubleReg    
 
     /**
      * Metodo per evitare doppia registrazione dell'Utente
-     * @param CF
-     * @param CT
-     * @return boolean
-     * 
+     * @param CF Codice Fiscale Utente
+     * @param CT Codice Tessera
+     * @return Se l'utente risulta già registrato
      */
 public boolean avoidDoubleReg(String CF, String CT){
     
@@ -575,10 +562,7 @@ public boolean avoidDoubleReg(String CF, String CT){
     return false;
 }
 
-    
-//______________________________________________________________________________
-
-    private static boolean netIsAvailable() {
+private static boolean netIsAvailable() {
         try {
             final URL url = new URL("http://www.google.com");
             final URLConnection conn = url.openConnection();
@@ -590,27 +574,23 @@ public boolean avoidDoubleReg(String CF, String CT){
             return false;
         }
     }
-
-//______________________________________________________________________________
     
 // Metodo di Ricerca Dati Elettorali
+private boolean canVoteCF(String CF) {
 
-    private boolean canVoteCF(String CF) {
+        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
 
-            ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
-
-            for (Votanti v: vot){
-                if(v.getCF().equals(CF)){  
-                         return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
-                }
-
+        for (Votanti v: vot){
+            if(v.getCF().equals(CF)){  
+                     return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
             }
-            return false;
+
+        }
+        return false;
     }
 
 //______________________________________________________________________________
-
-    private boolean canVoteCT(String CT) {
+private boolean canVoteCT(String CT) {
 
             ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
 
@@ -623,15 +603,12 @@ public boolean avoidDoubleReg(String CF, String CT){
             return false;
         }
 
-//______________________________________________________________________________
 
 // Metodo Timer
-
     /**
      * Metodo Timer per AdminLogin
      */
-
-    public class MyTask extends TimerTask {
+public class MyTask extends TimerTask {
         @Override
         public void run() {
             AdmLog_ErrPwd.setText(null);

@@ -23,13 +23,8 @@ import projO_Classi.Utility;
  */
 public class EditCandidatiFrame extends javax.swing.JFrame {
 
-     MySQlConnection mysql = new MySQlConnection();
+    MySQlConnection mysql = new MySQlConnection();
     FTPConnection myftp = new FTPConnection();
-
-    /**
-     *
-     */
-    final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     String path_img = "";
     static String SERVER = "http://91.134.138.244/progettoO/img/";
     String candidatoCF;
@@ -246,12 +241,11 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tf_NomeCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_NomeCandidatoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tf_NomeCandidatoActionPerformed
 //______________________________________________________________________________
     
     private void bt_SfogliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SfogliaActionPerformed
-        // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         fc.addChoosableFileFilter(imageFilter);
@@ -269,8 +263,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
-        // TODO add your handling code here:
-        myftp.loadFile(path_img,IMG_REMOTE_FOLDER + "/" + tf_CF.getText() + ".jpg");
+        myftp.loadFile(path_img,Utility.IMG_REMOTE_FOLDER + "/" + tf_CF.getText() + ".jpg");
         int ret = mysql.UpdateQuery("UPDATE CANDIDATI SET Partito='" + tf_Partito.getText() + "' , Immagine='" + SERVER + tf_CF.getText() + ".jpg" + "' WHERE CodiceFiscale='" + tf_CF.getText() + "';");
      
         /*
@@ -278,10 +271,9 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         ======>>>  mettere update di Persone!!!
         
         */
-
-
-//  int ret = mysql.WritePersoneColumns(input_codicefiscale_candidato.getText(), input_nome_candidato.getText(), input_cognome_candidato.getText(), input_sesso_candidato.getSelectedItem().toString(), input_datanascita_candidato.getText(), input_comune_candidato.getText());
+      //  int ret = mysql.WritePersoneColumns(input_codicefiscale_candidato.getText(), input_nome_candidato.getText(), input_cognome_candidato.getText(), input_sesso_candidato.getSelectedItem().toString(), input_datanascita_candidato.getText(), input_comune_candidato.getText());
       //  int ret2 = mysql.WriteCandidatiColumns(input_codicefiscale_candidato.getText(), input_partito_candidato.getText(), 0,IMG_REMOTE_FOLDER + "/" + input_codicefiscale_candidato.getText() + ".jpg");
+        
         if (ret != 0 ) {
             JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
@@ -293,30 +285,28 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_formWindowClosed
 //______________________________________________________________________________
     
     private void bt_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ResetActionPerformed
-        // TODO add your handling code here:
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione svuoterà tutti i campi.", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION)
-            {
-                clear();
-            }
+        if (reply == JOptionPane.YES_OPTION){
+            clear();
+        }
     }//GEN-LAST:event_bt_ResetActionPerformed
 //______________________________________________________________________________
     
     private void fill() {
-           ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
-           ArrayList<Persone> pers = mysql.ReadPersoneColumns();
+        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        ArrayList<Persone> pers = mysql.ReadPersoneColumns();
            
-       for (Candidati object: can) {
+        for (Candidati object: can) {
             if (object.getCF().equals(candidatoCF)) {  // match 
                ImageIcon img = new ImageIcon();
                tf_Partito.setText(object.getPartito().toString());
                tf_CF.setText(object.getCF().toString());
-             //  JOptionPane.showMessageDialog(null,object.getImmagine()., pers);
+
             try {
                 img = new ImageIcon(object.getImmagine());
             }catch (Exception ex) {
@@ -357,7 +347,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         lb_FotoCandidato.setIcon(null);
     }
     
-//______________________________________________________________________________
+//_________________________________MAIN_____________________________________________
     
     /**
      * @param args the command line arguments

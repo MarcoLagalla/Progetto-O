@@ -36,10 +36,6 @@ public class Votazione {
     private static int affluenza = 0;
     private static String winner = "";
     private static int lenghtEle;
-
-    /**
-     *
-     */
     public static boolean VotazioneAperta = false;
     
     static INIFile myINI = new INIFile(Utility.INI_PATH);
@@ -47,20 +43,27 @@ public class Votazione {
     
     private Votazione(){} // Costruttore Privato in Quanto Classe di Metodi Statici
    
-//______________________________________________________________________________    
-    // Metodi Getter 
-    
-    /**
-     *
-     * @return idVotazione
-     */
+//_______________________________GETTER/SETTER_________________________________________
+  
     public static String getIdVotazione() {    
         String res = myINI.getStringProperty("Votazione","ID");
         return res;
     }
     
+    
+    public static DateFormat getF() {
+        return f;
+    }
+    
+    public static Calendar getDataInizioVot() {
+        return dataInizioVot;
+    }
+    
+    
+//___________________________METODI___________________________________________________ 
+    
     /**
-     *
+     * Lettura data corrente dal file .ini
      * @return DataCorrente
      */
     public static String readDataCorrente() {
@@ -69,7 +72,7 @@ public class Votazione {
     }
     
     /**
-     *
+     * Lettura data fine elezione dal file .ini
      * @return DataFine
      */
     public static String readDataFine() {
@@ -78,24 +81,21 @@ public class Votazione {
     }
     
     /**
-     *
+     * Lettura data inizio elezioni dal file .ini
      * @return DataInizio
      */
     public static String readDataInizio() {
         String res = myINI.getStringProperty("Votazione","DataInizio");
         return res;
-    }
-    
-
-//______________________________________________________________________________    
+    }   
     
     /**
      * Metodo di Inizio Votazioni
-     * @param _idVotazione
-     * @param dataFine
+     * @param _idVotazione Nome della tabella della votazione sul database
+     * @param dataFine data di fine delle elezioni
      */
    public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
-        idVotazione = _idVotazione; // Nome Tabella (quindi N_TURNO)
+        idVotazione = _idVotazione; // Nome Tabella 
         myINI = new INIFile(Utility.INI_PATH);
         if (!(existsVotazione(idVotazione))) { // controlla che esista la tabella
 
@@ -139,10 +139,9 @@ public class Votazione {
             }catch(Exception ex){ ex.printStackTrace();}   
        } else { JOptionPane.showMessageDialog(null, "Errore, l' identificativo inserito non è ammissibile, provare un altro id.", "Errore", JOptionPane.ERROR_MESSAGE);}
     }    
-//__________________________________________________________________________________________________________________________________________ 
 
     /**
-     *
+     * Conversione della data corrente da string a calendar
      * @return DataCorrente come Calendar
      */
     public static Calendar getDataCorrente() {
@@ -152,7 +151,7 @@ public class Votazione {
     }
 
     /**
-     *
+     * Conversione della data fine da string a calendar
      * @return DataFine come Calendar
      */
     public static Calendar getDataFineVot() {
@@ -162,26 +161,10 @@ public class Votazione {
     }
 
     /**
-     *
-     * @return Format Data
-     */
-    public static DateFormat getF() {
-        return f;
-    }
-    
-    /**
-     *
+     * calcola la lunghezza delle elezioni in numero di giorni 
      */
     public static void getlenghtEle(){
         lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
-    }
-
-     /**
-     *
-     * @return DataInizio come Calendar
-     */
-    public static Calendar getDataInizioVot() {
-        return dataInizioVot;
     }
     
     /**
@@ -196,7 +179,7 @@ public class Votazione {
                 Affluenza af = new Affluenza(res.getString("Data"), res.getInt("Affluenza"));
                 aff.add(af);
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {ex.printStackTrace();}
         return aff;
     }     
    
@@ -230,14 +213,12 @@ public class Votazione {
             
             ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
             
-            for (Candidati obj: can) {
-                
+            for (Candidati obj: can) {          
                 if (obj.getCF().equals(winner)) {
-                    
-            ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
-            ServerFrame.lb_NomeVincitore.setText(obj.getNome());
-            ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
-            ServerFrame.lb_CF.setText(obj.getCF());
+                    ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
+                    ServerFrame.lb_NomeVincitore.setText(obj.getNome());
+                    ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
+                    ServerFrame.lb_CF.setText(obj.getCF());
                 }
             }
         }
@@ -247,7 +228,7 @@ public class Votazione {
 //__________________________________________________________________________________________________________________________________________      
 
     /**
-     * Metodo che Incrementa il numero dei voti nella giornata corrente, nella tabella PRIMO TURNO(idVotazione) - chiamato da clientGUI
+     * Metodo che Incrementa il numero dei voti nella giornata corrente, nella tabella (idVotazione) 
      */
     public static void addAffluenza() { 
                 myINI = new INIFile(Utility.INI_PATH);
@@ -268,8 +249,7 @@ public class Votazione {
         try {
             affluenza = myINI.getIntegerProperty("Votazione", "AffluenzaOggi");
             mysql.UpdateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
-             //mysql.UpdateQuery("UPDATE db."+ idVotazione + "SET Affluenza=" + affluenza + " WHERE Data=" + dataCorrente + ";");
-        } catch (Exception ex) {}
+        } catch (Exception ex) {ex.printStackTrace();}
         
         affluenza = 0;
         myINI.setIntegerProperty("Votazione", "AffluenzaOggi", 0, "AffluenzaOggi");
@@ -280,7 +260,7 @@ public class Votazione {
         ServerFrame.dataLabel.setText("Data Corrente: " + Votazione.readDataCorrente());
 }
 //______________________________________________________________________________
-    /**
+    /*
      * Metodo per trovare il Vincitore una volta chiuse le Elezioni
      * In caso di chiusura elezioni con candidati a pari merito ritorna un array con i 
      * codici fiscali di tutti i candidati che dovranno accedere al secondo turno.
@@ -303,7 +283,7 @@ public class Votazione {
     }
     
 //______________________________________________________________________________
-    /**
+    /*
      * Metodo per effettuare il Reset dei Voti nel DataBase
      */
     private static void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
@@ -325,7 +305,7 @@ public class Votazione {
             while(res.next()){ 
                 if (res.getString(1).equals(idVotazione)) { exists = true; }
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {ex.printStackTrace();}
         return exists;
     }
 

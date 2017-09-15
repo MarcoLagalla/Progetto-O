@@ -2,7 +2,6 @@
 
 package bot;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,15 +21,20 @@ public class MainFrameBot extends javax.swing.JFrame {
     ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
     javax.swing.DefaultListModel listModel = new javax.swing.DefaultListModel();
     
-    /**
-     * Creates new form mainFrame
-     */
+//____________________________COSTRUTTORE________________________________________
     public MainFrameBot() {
         initComponents();
         mysql = new MySQlConnection();
         
     }
-//______________________________________________________________________________
+
+//_______________________________GETTER/SETTER_______________________________________________    
+       
+    private int getNumCandidati() {
+
+       return can.size();  // Utilizzo Funzione Interna ad ArrayList per ottenere la Size
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -97,12 +101,11 @@ public class MainFrameBot extends javax.swing.JFrame {
         } catch ( java.text.ParseException e ) {e.printStackTrace();}
         
         int fidget_Value = (Integer) sp_Fidget.getValue(); // Valore Int dello Spinner
-        int canditato_random;
         int voti;
         
         for(int i=0; i < fidget_Value; i++) {
             //canditato_random 
-            String cf_cand = can.get(canditato_random =  randomRange(getNumCandidati())).getCF();
+            String cf_cand = can.get(randomRange(getNumCandidati())).getCF(); //prende il codice fiscale di un candidato scelto randomicamente
             ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
             try {
                 while (voti_.next()) {
@@ -110,7 +113,7 @@ public class MainFrameBot extends javax.swing.JFrame {
                    voti = voti_.getInt("Voti") + 1;  // voti ++
                    int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
                    Votazione.addAffluenza();
-                   
+                   // stampo la stringa per il log
                    log = "+1 voti per il candidato "+ cf_cand;
                    listModel.addElement(log);                   
                 }
@@ -120,35 +123,11 @@ public class MainFrameBot extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bt_StartActionPerformed
-//______________________________________________________________________________
     
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrameBot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -157,18 +136,11 @@ public class MainFrameBot extends javax.swing.JFrame {
             }
         });
     }
-//______________________________________________________________________________    
-       
-    private int getNumCandidati() {
-
-       return can.size();  // Utilizzo Funzione Interna ad ArrayList per ottenere la Size
-    }
-//______________________________________________________________________________    
-    private int randomRange(int High) {    // High numero Candidati
+   
+    private int randomRange(int High) {    // ritorna un intero random (High = numero Candidati)
         Random r = new Random(System.currentTimeMillis());  // Uso un SEED per evitare errori di porting
         int Low = 0;
-        int Result = r.nextInt(High-Low) + Low;
-        return Result;
+        return r.nextInt(High-Low) + Low;
     }
     
 //______________________________________________________________________________   

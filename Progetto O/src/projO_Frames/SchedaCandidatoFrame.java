@@ -1,9 +1,7 @@
 package projO_Frames;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
-import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 // imports per database
@@ -14,7 +12,6 @@ import projO_Classi.Utility;
 
 // imports interni
 import projO_Connettività.MySQlConnection;
-import projO_Classi.Votazione;
 // </editor-fold>
 
 
@@ -32,7 +29,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
      */
     public SchedaCandidatoFrame() {
         initComponents();
-        votato = false;
+        votato = false; // alla creazione imposta di default la votazione a falso
     }
  //______________________________________________________________________________
     
@@ -52,10 +49,9 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
         setCognome(Cognome);
         setPartito(Partito);
     }
-//______________________________________________________________________________
+//______________________________GETTER/SETTER________________________________________________
 
-// Metodi Setter
-    private void setImage(URL img_) {
+    public void setImage(URL img_) {
         ImageIcon img;
        try {
            img = new ImageIcon(img_);
@@ -69,23 +65,18 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
         lb_Foto.setIcon(Utility.resizeIcon(img, lb_Foto.getWidth(), lb_Foto.getHeight()));
     }
     
-    private void setCF(String cf) {
+    public void setCF(String cf) {
         lb_CF.setText(cf);
     }
-    private void setNome(String nome) {
+    public void setNome(String nome) {
         lb_Nome.setText(nome);
     }
-    private void setCognome(String cognome) {
+    public void setCognome(String cognome) {
         lb_Cognome.setText(cognome);
     }
-    private void setPartito(String partito) {
+    public void setPartito(String partito) {
         lb_Partito.setText(partito);
     }
-
-    /**
-     *
-     * @return Boolean che indica se un utente ha votato
-     */
     public static boolean isVotato() {
         return votato;
     }
@@ -196,8 +187,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
     private void bt_VotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_VotaActionPerformed
   
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler votare per: " + lb_Nome.getText() + " " + lb_Cognome.getText() + " del " + lb_Partito.getText() + "?", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION)
-            {
+        if (reply == JOptionPane.YES_OPTION){
                int voti;
                ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + lb_CF.getText() + "';");
 
@@ -216,10 +206,8 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                        JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
                    }
                 }
-                } catch (SQLException ex) {
-               
-                }
-            }
+            } catch (SQLException ex) {ex.printStackTrace();}
+        }
     }//GEN-LAST:event_bt_VotaActionPerformed
 
 //______________________________________________________________________________

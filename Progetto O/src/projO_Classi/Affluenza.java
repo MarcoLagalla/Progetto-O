@@ -1,4 +1,3 @@
-
 package projO_Classi;
 
 import java.text.ParseException;
@@ -32,12 +31,12 @@ public class Affluenza implements Comparable<Affluenza>{
         _dataI.setTime(sdf.parse(dataInizio));
         
         this.data = _data.get(Calendar.DAY_OF_YEAR) - _dataI.get(Calendar.DAY_OF_YEAR) +1;
-       } catch (ParseException se) {}
+       } catch (ParseException se) {se.printStackTrace();}
         
 
         this.dato = dato;
     }
-    
+//______________________________GETTER/SETTER___________________________________    
     /**
      *
      * @return Data
@@ -53,13 +52,12 @@ public class Affluenza implements Comparable<Affluenza>{
     public int getDato() {
         return dato;
     }
-    
+
+//______________________________COMPARE TO_______________________________________    
     @Override
-    public int compareTo(Affluenza s)
-    {
+    public int compareTo(Affluenza s){
         return this.data - s.data;     //Sorts the objects in ascending order
-         
-        // return s.id - this.id;    //Sorts the objects in descending order
     }
-     
+
+    
 }

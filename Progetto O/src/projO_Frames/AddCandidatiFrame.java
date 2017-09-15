@@ -13,7 +13,6 @@ import projO_Connettività.FTPConnection;
 import projO_Connettività.MySQlConnection;
 // </editor-fold>
 
-
 /**
  *
  * @author Team
@@ -23,9 +22,6 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
     MySQlConnection mysql = new MySQlConnection();
     FTPConnection myftp = new FTPConnection();
 
-    /**
-     *
-     */
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     String path_img = "";
     
@@ -274,16 +270,14 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_ConfermaActionPerformed
 //______________________________________________________________________________
     private void bt_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ResetActionPerformed
-        // TODO add your handling code here:
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione svuoterà tutti i campi.", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION)
-            {
-                clear();
-            }
+        if (reply == JOptionPane.YES_OPTION){
+            clear();
+        }
     }//GEN-LAST:event_bt_ResetActionPerformed
 //______________________________________________________________________________
     
-    private void clear() {
+    private void clear() { // pulisce i campi della scheda candidato
         tf_NomeCandidato.setText(null);
         tf_CognomeCandidato.setText(null);
         tf_CodiceFiscale.setText(null);

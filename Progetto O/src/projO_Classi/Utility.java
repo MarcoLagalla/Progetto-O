@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author marco
+ * @author Team
  */
 public class Utility {
      
@@ -82,9 +82,6 @@ public class Utility {
      */
     final static public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
-    /**
-     *
-     */
     final static public String URL_IMG_REMOTE = "http://91.134.138.244/progettoO/img/";
     
     /**
@@ -96,16 +93,11 @@ public class Utility {
      * Remote Path BackUp INI
      */
     final static public String REMOTE_INI_PATH = "http://91.134.138.244/progettoO/ini/progettoO.ini";
-    
-    /**
-     * Local path per immagini cached
-     */
-    final static public String LOCAL_PATH_CACHE_IMG = System.getenv("APPDATA") + "\\";
 
+//_____________________________METODI UTILITY___________________________________
     /**
-     * Metodo SetUrlICon per prendere link Immagine da Inserire
-     * @param remoteURL
-     * @return 
+     * @param remoteURL url dell'immagine
+     * @return image as icon
      */
     public static Icon setUrlIcon(String remoteURL ) {
         ImageIcon img;
@@ -118,11 +110,11 @@ public class Utility {
     }
 
     /**
-     * Metodo SetUrlICon per prendere link Immagine da Inserire
+     * Metodo SetUrlICon per prendere url Immagine da Inserire con impostazione per altezza e larghezza
      * @param remoteURL
      * @param resizedHeight
      * @param resizedWidth
-     * @return 
+     * @return image as icon (resized)
      */
     
     public static Icon setUrlIcon(String remoteURL , int resizedWidth, int resizedHeight ) {
@@ -138,11 +130,11 @@ public class Utility {
         return new ImageIcon(resizedImage);
     }
     /**
-     * Metodo ResizeIcon per Fittare l'Immagine con l'elemento Swing al quale verrà applicata
-     * @param icon
-     * @param resizedWidth
-     * @param resizedHeight
-     * @return 
+     * Metodo ResizeIcon per ridimensionare l'Immagine con l'elemento Swing al quale verrà applicata
+     * @param icon immagine
+     * @param resizedWidth nuova larghezza
+     * @param resizedHeight nuova altezza
+     * @return image as icon (resized)
      */
     
     public static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton

@@ -64,17 +64,14 @@ public class ServerFrame extends javax.swing.JFrame {
     
     MySQlConnection mysql = new MySQlConnection();
     INIFile myINI = new INIFile(Utility.INI_PATH);
-    
-    
+       
     JPanel tortona_UominiDonne;
     JPanel line_Affluenza;
     JPanel istogramma_Voti;
-
-    DefaultPieDataset resultPie = new DefaultPieDataset(); // Dataset PieChart
-    
+    DefaultPieDataset resultPie = new DefaultPieDataset(); // Dataset PieChart 
     DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( ); //Dataset BarChart 
 
-//______________________________________________________________________________
+//___________________________________COSTRUTTORE___________________________________________
 
     public ServerFrame() {
             super("SERVER");
@@ -91,8 +88,9 @@ public class ServerFrame extends javax.swing.JFrame {
     
             loadCandidati(); 
 
+            // creazione grafici
             istogramma_Voti = createLineChart();
-            panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); // Aggiungo il LineChart al Pannello Designato
+            panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER);
             panel_ColumnChart.validate();
             
             line_Affluenza = createBarChart("");
@@ -121,9 +119,9 @@ public class ServerFrame extends javax.swing.JFrame {
             
             lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
             
-            if (ProgettoO.StatoVotazioni) {
+            if (ProgettoO.StatoVotazioni) { // se le votazione sono aperte
                 vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
-                //refreshGrafici();
+                refreshGrafici();
                 avvia_Vot.setEnabled(false);
                 stop_Vot.setEnabled(true);
                 id_elezione.setEditable(false);
@@ -133,7 +131,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
                 menu_Tools.setEnabled(true);
                 
-            } else {
+            } else {    // se le votazioni sono chiuse
                 vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
                 avvia_Vot.setEnabled(true);
                 stop_Vot.setEnabled(false);
@@ -195,35 +193,26 @@ public class ServerFrame extends javax.swing.JFrame {
 
     
     private XYDataset createLineChartDataset() {
-                // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
-                // Qui ci vogliono i GET
-                XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
-                boolean autoSort = false;
-                XYSeries series1 = new XYSeries("",autoSort); // DataSet LineChart
-                  
-                ArrayList<Affluenza> aff = Votazione.getAffluenza();
-                Collections.sort(aff);
-                int i = 1;
-                for(Affluenza obj: aff){
+        // Lettura e Creazione DataSet dalla Tabella con Attributi Affluenza e Data
 
-                        series1.add(obj.getData(),obj.getDato()); 
-                        i++;                        
+        XYSeriesCollection dataset = new XYSeriesCollection(); // DataSet e Series LineChart
+        boolean autoSort = false;
+        XYSeries series1 = new XYSeries("",autoSort); // DataSet LineChart
 
-                }
-               
-                // Questa di Default aggiunge in ordine di Sort quindi se voglio metterli in ordine che deicido, ovvero di Aggiunta devo fare:
-     
-               
-                
-                dataset.addSeries(series1);
+        ArrayList<Affluenza> aff = Votazione.getAffluenza();
+        Collections.sort(aff);
+        int i = 1;
+        for(Affluenza obj: aff){
+            series1.add(obj.getData(),obj.getDato()); 
+            i++;                        
+        }
 
-                return dataset;
+        dataset.addSeries(series1);
+
+        return dataset;
             
-        }                                                                                                                          
-
-//______________________________________________________________________________
-
-    
+    }                                                                                                                          
+  
     private ChartPanel createPieChart(String title) {
 
         JFreeChart chart = ChartFactory.createPieChart3D(
@@ -241,8 +230,6 @@ public class ServerFrame extends javax.swing.JFrame {
         return new ChartPanel (chart);
 
     }
-
-
     
     private  PieDataset createPieChartDataset() {
 
@@ -767,7 +754,6 @@ public class ServerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Aggiungi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Aggiungi_CandidatoActionPerformed
-        // TODO add your handling code here:
         new AddCandidatiFrame().setVisible(true);
     }//GEN-LAST:event_Aggiungi_CandidatoActionPerformed
 //______________________________________________________________________________
@@ -779,13 +765,12 @@ public class ServerFrame extends javax.swing.JFrame {
             String[] tokens = candidato.split("-");    // slitta per ottenere il CF
              String _cf = tokens[1];
              _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
-        int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione cancellerà in maniera definitiva il candidato " + tokens[0] + ".", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION)
-            {
+            int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione cancellerà in maniera definitiva il candidato " + tokens[0] + ".", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION){
                 try {
                     mysql.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + _cf + "';");
                     loadCandidati();
-                } catch (Exception ex) {}
+                } catch (Exception ex) {ex.printStackTrace();}
             }
         }
     }//GEN-LAST:event_Rimuovi_CandidatoActionPerformed
@@ -804,12 +789,10 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void dataAvvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataAvvioActionPerformed
-
     }//GEN-LAST:event_dataAvvioActionPerformed
 //______________________________________________________________________________
     
     private void dataChiusuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataChiusuraActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_dataChiusuraActionPerformed
 //______________________________________________________________________________
     
@@ -830,12 +813,10 @@ public class ServerFrame extends javax.swing.JFrame {
         vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
         ProgettoO.getRegistrazione().setEnabled(false);
         ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
-     //   lb_FotoWinner.setIcon(new ImageIcon()); // deve gettare il vincitore dalla classe Votazione, cercare la sua foto DAL SERVER (che ha come nome il CF) e settarla come ImageIcon.
     }//GEN-LAST:event_stop_VotActionPerformed
 //______________________________________________________________________________
     
     private void openDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDatePickerActionPerformed
-         //create frame new object  f
          final JFrame f = new JFrame();
          //set text which is collected by date picker i.e. set date 
          dataChiusura.setText(new DatePicker(f).setPickedDate());
@@ -843,157 +824,137 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void avvia_VotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avvia_VotActionPerformed
-        if (!(dataChiusura.getText().equals(""))) {
-            if (checkDate(dataChiusura.getText())) {
-                if (!(id_elezione.getText().equals(""))) {
+        if (!(dataChiusura.getText().equals(""))) { // controlla che sia impostata una data di fine
+            if (checkDate(dataChiusura.getText())) {    // preleva la data fine
+                if (!(id_elezione.getText().equals(""))) {  // controlla che sia impostato un id per la votazione
                     if (!Votazione.existsVotazione(id_elezione.getText())) {
-                    
-                   refreshGrafici();
-                   Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
+                        refreshGrafici();
+                        Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
 
-                    dataAvvio.setText(Votazione.getF().format(Votazione.getDataInizioVot().getTime()));
-                    
-                    error_msg.setText(""); 
-                    avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
-                    stop_Vot.setEnabled(true);
-                    id_elezione.setEditable(false);
-                    openDatePicker.setEnabled(false);
-                    menu_Tools.setEnabled(true);
-                    ProgettoO.getRegistrazione().setEnabled(true);
-                    ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
-                    vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
-                    refreshGrafici();
-                    } else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
-                }   else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
-            } else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
-        } else { error_msg.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!"); }
-        
-        
-        
+                        dataAvvio.setText(Votazione.getF().format(Votazione.getDataInizioVot().getTime()));
+
+                        error_msg.setText(""); 
+                        avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
+                        stop_Vot.setEnabled(true);
+                        id_elezione.setEditable(false);
+                        openDatePicker.setEnabled(false);
+                        menu_Tools.setEnabled(true);
+                        ProgettoO.getRegistrazione().setEnabled(true);
+                        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
+                        vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                        refreshGrafici();
+                    }else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
+                }else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
+            }else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
+        } else { error_msg.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!"); }        
     }//GEN-LAST:event_avvia_VotActionPerformed
 //______________________________________________________________________________
     
     private void id_elezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_elezioneActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_id_elezioneActionPerformed
 //______________________________________________________________________________
     
     private void Candidati_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Candidati_listMouseClicked
-        // TODO add your handling code here:
-        
         if (evt.getClickCount() == 2) {
-
             String candidato = Candidati_list.getSelectedValue();
-        if (!(candidato.equals("")) ) {
-            String[] tokens = candidato.split("-");    // slitta per ottenere il CF
-             String _cf = tokens[1];
-             _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
-          new EditCandidatiFrame(_cf).setVisible(true);     
-        }
-         
-        }
-
-        
+            if (!(candidato.equals("")) ) {
+                String[] tokens = candidato.split("-");    // slitta per ottenere il CF
+                String _cf = tokens[1];
+                _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
+                new EditCandidatiFrame(_cf).setVisible(true);     
+            }   
+        }      
     }//GEN-LAST:event_Candidati_listMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-                Votazione.AvanzaGiornata();
-        if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) {
+        Votazione.AvanzaGiornata();
+        if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) { // se la data corrente ha superato quella di fine, chiude le elezioni
             JOptionPane.showMessageDialog(panel_AllContainer, "Votazioni concluse");
             Votazione.chiudiVotazione();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void refreshLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshLabelMouseClicked
-        // TODO add your handling code here:
         refreshGrafici();
     }//GEN-LAST:event_refreshLabelMouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
        MainFrameBot bot = new MainFrameBot();
        bot.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 //______________________________________________________________________________
-    
-    /**
-     *
-     * @param args
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
+    public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServerFrame().setVisible(true);
-                
+                new ServerFrame().setVisible(true);               
             }
         });
     }
 //______________________________________________________________________________
     
-    private boolean checkDate(String Date) {
-        
-        if ( Date.length() != 10 ) {
-            return false;
-        }
-        if ( Date.substring(0,1).equals("")) {   // giorno non nullo
-            return false;
-        }
-        if ( Date.substring(3,4).equals("")) { // mese non nullo 
-            return false;
-        }
-        if ( Date.substring(6,9).equals("")) {  // anno non nullo
-            return false;
-        }
-        if (( Date.substring(2,2).equals("-") ) && ( Date.substring(5,5).equals("-") )){  // controlla la presenza dello splitter
-            return false;
-        }
-        
-        int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-        int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
-        int day = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
-        
-        String tokens[] = Date.split("-");
-        
-        int _year =  Integer.parseInt(tokens[2]);
-        int _month = Integer.parseInt(tokens[1]);
-        int _day = Integer.parseInt(tokens[0]);
-        
-        if (_year >= year) {
-            if (_month >= month) {
-                if (_day >= day) {
-                    return true;
-                }
+private boolean checkDate(String Date) {
+
+    if ( Date.length() != 10 ) {
+        return false;
+    }
+    if ( Date.substring(0,1).equals("")) { // giorno non nullo
+        return false;
+    }
+    if ( Date.substring(3,4).equals("")) { // mese non nullo 
+        return false;
+    }
+    if ( Date.substring(6,9).equals("")) { // anno non nullo
+        return false;
+    }
+    if (( Date.substring(2,2).equals("-") ) && ( Date.substring(5,5).equals("-") )){  // controlla la presenza dello splitter
+        return false;
+    }
+
+    int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+    int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+    int day = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+
+    String tokens[] = Date.split("-");
+
+    int _year =  Integer.parseInt(tokens[2]);
+    int _month = Integer.parseInt(tokens[1]);
+    int _day = Integer.parseInt(tokens[0]);
+
+    if (_year >= year) {
+        if (_month >= month) {
+            if (_day >= day) {
+                return true;
             }
         }
-        return false;
-    }  // Il parametro Date deve contenere la data di FINE
+    }
+    return false;
+}  // Il parametro Date deve contenere la data di FINE
+    
+// Metodo REFRESH Grafici
+
+private void refreshGrafici(){
+
+    panel_ColumnChart.remove(istogramma_Voti);
+    panel_LineChart.remove(line_Affluenza);
+    panel_CakeChart.remove(tortona_UominiDonne);
+
+
+    istogramma_Voti = createLineChart();
+    panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
+    panel_ColumnChart.validate();
+
+    line_Affluenza = createBarChart("");
+    panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
+    panel_LineChart.validate();
+
+    tortona_UominiDonne = createPieChart("");
+    panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
+    panel_CakeChart.validate();
+
+}
 
 //______________________________________________________________________________
     
@@ -1043,29 +1004,5 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel vot_Status;
     private javax.swing.JLabel vot_Status_Lab;
     // End of variables declaration//GEN-END:variables
-//______________________________________________________________________________
-// Metodo REFRESH Grafici
-    
-    private void refreshGrafici(){
-        
-        panel_ColumnChart.remove(istogramma_Voti);
-        panel_LineChart.remove(line_Affluenza);
-        panel_CakeChart.remove(tortona_UominiDonne);
-        
-        
-        istogramma_Voti = createLineChart();
-        panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
-        panel_ColumnChart.validate();
-
-        line_Affluenza = createBarChart("");
-        panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
-        panel_LineChart.validate();
-
-        tortona_UominiDonne = createPieChart("");
-        panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
-        panel_CakeChart.validate();
-            
-    }
-
 
 }

@@ -225,7 +225,7 @@ public class MySQlConnection {
             e.printStackTrace();
         }finally{
             try {
-                // rilascia le risorse
+            // rilascia le risorse
             stmt.close();   
             res.close();
             } catch (SQLException se) {

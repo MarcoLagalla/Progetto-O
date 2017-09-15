@@ -16,15 +16,15 @@ public class Candidati extends Persone {
     
     /**
      *
-     * @param CF
+     * @param CF codice fiscale del candidato
      * @param Nome
      * @param Cognome
      * @param Sesso
      * @param DataNascita
      * @param Comune
      * @param Partito
-     * @param Voti
-     * @param Immagine
+     * @param Voti voti ricevuti
+     * @param Immagine foto del candidato
      */
     public Candidati(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune,  String Partito, int Voti,URL Immagine) {
         super(CF, Nome, Cognome,Sesso, DataNascita, Comune);
@@ -32,49 +32,18 @@ public class Candidati extends Persone {
         this.Voti = Voti;
         this.Immagine = Immagine;
     }
-//______________________________________________________________________________   
-    // Metodi Getter
+//__________________________________GETTER/SETTER__________________________________   
 
-    /**
-     *
-     * @return Partito
-     */
-    
     public String getPartito() { return Partito; }
 
-    /**
-     *
-     * @return Immagine
-     */
     public URL getImmagine() { return Immagine; }
 
-    /**
-     *
-     * @return Voti
-     */
     public int getVoti() { return Voti; }
-    
-//______________________________________________________________________________
-    
-    // Metodi Setter
-
-    /**
-     *
-     * @param Partito
-     */
     
     public void setPartito(String Partito) { this.Partito = Partito; }
 
-    /**
-     *
-     * @param Immagine
-     */
     public void setImmagine(URL Immagine) { this.Immagine = Immagine; }
 
-    /**
-     *
-     * @param Voti
-     */
     public void setVoti(int Voti) { this.Voti = Voti; }
     
 }

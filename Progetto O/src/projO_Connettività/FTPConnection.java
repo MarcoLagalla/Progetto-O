@@ -53,8 +53,8 @@ public class FTPConnection {
     
     /**
      * Metodo per caricamento File
-     * @param localPath
-     * @param remotePath
+     * @param localPath Percorso dal quale vengono prelevati i file
+     * @param remotePath    Percorso sul quale vengono salvati i file
      * @return
      */
     public boolean loadFile(String localPath, String remotePath) {
