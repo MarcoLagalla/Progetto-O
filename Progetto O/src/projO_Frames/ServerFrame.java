@@ -132,7 +132,8 @@ public class ServerFrame extends javax.swing.JFrame {
                 dataAvvio.setText(myINI.getStringProperty("Votazione", "DataInizio"));
                 dataChiusura.setText(myINI.getStringProperty("Votazione", "DataFine"));
                 id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
-                menu_Tools.setEnabled(true);
+                avanzaGiornataMenuItem.setEnabled(true);
+                lanciaBotMenuItem.setEnabled(true);
                 Aggiungi_Candidato.setEnabled(false);
                 Modifica_Candidato.setEnabled(false);
                 Rimuovi_Candidato.setEnabled(false);
@@ -147,7 +148,8 @@ public class ServerFrame extends javax.swing.JFrame {
                 dataAvvio.setText("");
                 dataChiusura.setText("");
                 id_elezione.setText("");
-                menu_Tools.setEnabled(false);
+                avanzaGiornataMenuItem.setEnabled(false);
+                lanciaBotMenuItem.setEnabled(false);
                 Aggiungi_Candidato.setEnabled(true);
                 Modifica_Candidato.setEnabled(true);
                 Rimuovi_Candidato.setEnabled(true);
@@ -325,10 +327,10 @@ public class ServerFrame extends javax.swing.JFrame {
         dataLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_Tools = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        avanzaGiornataMenuItem = new javax.swing.JMenuItem();
+        lanciaBotMenuItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        eseguiBackupMenuItem = new javax.swing.JMenuItem();
         menu_Storico = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -739,30 +741,30 @@ public class ServerFrame extends javax.swing.JFrame {
 
         menu_Tools.setText("Tools");
 
-        jMenuItem1.setText("Avanza giornata");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        avanzaGiornataMenuItem.setText("Avanza giornata");
+        avanzaGiornataMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                avanzaGiornataMenuItemActionPerformed(evt);
             }
         });
-        menu_Tools.add(jMenuItem1);
+        menu_Tools.add(avanzaGiornataMenuItem);
 
-        jMenuItem2.setText("Lancia BOT");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        lanciaBotMenuItem.setText("Lancia BOT");
+        lanciaBotMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                lanciaBotMenuItemActionPerformed(evt);
             }
         });
-        menu_Tools.add(jMenuItem2);
+        menu_Tools.add(lanciaBotMenuItem);
         menu_Tools.add(jSeparator1);
 
-        jMenuItem3.setText("BackUp INI");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        eseguiBackupMenuItem.setText("BackUp INI");
+        eseguiBackupMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                eseguiBackupMenuItemActionPerformed(evt);
             }
         });
-        menu_Tools.add(jMenuItem3);
+        menu_Tools.add(eseguiBackupMenuItem);
 
         jMenuBar1.add(menu_Tools);
 
@@ -825,7 +827,8 @@ public class ServerFrame extends javax.swing.JFrame {
         Votazione.chiudiVotazione();
         avvia_Vot.setEnabled(true);
         stop_Vot.setEnabled(false);
-        menu_Tools.setEnabled(false);
+        avanzaGiornataMenuItem.setEnabled(false);
+        lanciaBotMenuItem.setEnabled(false);
         id_elezione.setEditable(true);
         id_elezione.setText(null);
         dataChiusura.setText(null);
@@ -862,7 +865,10 @@ public class ServerFrame extends javax.swing.JFrame {
                         stop_Vot.setEnabled(true);
                         id_elezione.setEditable(false);
                         openDatePicker.setEnabled(false);
-                        menu_Tools.setEnabled(true);
+                        
+                        avanzaGiornataMenuItem.setEnabled(true);
+                        lanciaBotMenuItem.setEnabled(true);
+                        
                         ProgettoO.getRegistrazione().setEnabled(true);
                         ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
                         vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
@@ -893,27 +899,27 @@ public class ServerFrame extends javax.swing.JFrame {
         }      
     }//GEN-LAST:event_Candidati_listMouseClicked
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void avanzaGiornataMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzaGiornataMenuItemActionPerformed
         Votazione.AvanzaGiornata();
         if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) { // se la data corrente ha superato quella di fine, chiude le elezioni
             JOptionPane.showMessageDialog(panel_AllContainer, "Votazioni concluse");
             Votazione.chiudiVotazione();
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_avanzaGiornataMenuItemActionPerformed
 
     private void refreshLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshLabelMouseClicked
         refreshGrafici();
     }//GEN-LAST:event_refreshLabelMouseClicked
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void lanciaBotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lanciaBotMenuItemActionPerformed
        MainFrameBot bot = new MainFrameBot();
        bot.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_lanciaBotMenuItemActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void eseguiBackupMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eseguiBackupMenuItemActionPerformed
         // TODO add your handling code here:
         myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_eseguiBackupMenuItemActionPerformed
 
 //______________________________________________________________________________
 
@@ -999,6 +1005,7 @@ private void refreshGrafici(){
     private javax.swing.JLabel Logo02;
     private javax.swing.JButton Modifica_Candidato;
     private javax.swing.JButton Rimuovi_Candidato;
+    private javax.swing.JMenuItem avanzaGiornataMenuItem;
     private javax.swing.JButton avvia_Vot;
     private javax.swing.JTextField dataAvvio;
     private javax.swing.JLabel dataAvvio_Lab;
@@ -1006,14 +1013,13 @@ private void refreshGrafici(){
     private javax.swing.JLabel dataChiusura_Lab;
     public static javax.swing.JLabel dataLabel;
     private javax.swing.JLabel error_msg;
+    private javax.swing.JMenuItem eseguiBackupMenuItem;
     private javax.swing.JTextField id_elezione;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem lanciaBotMenuItem;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
     public static javax.swing.JLabel lb_CF;
