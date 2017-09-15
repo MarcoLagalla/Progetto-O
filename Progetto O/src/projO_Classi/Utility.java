@@ -92,7 +92,9 @@ public class Utility {
     /**
      * Remote Path BackUp INI
      */
-    final static public String REMOTE_INI_PATH = "http://91.134.138.244/progettoO/ini/progettoO.ini";
+    final static public String URL_REMOTE_INI_PATH = "http://91.134.138.244/progettoO/ini/progettoO.ini";
+    
+    final static public String REMOTE_INI_PATH = "/var/www/progettoO/ini/";
 
 //_____________________________METODI UTILITY___________________________________
     /**

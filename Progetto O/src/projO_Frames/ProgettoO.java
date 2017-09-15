@@ -98,7 +98,7 @@ public class ProgettoO {
             File f = new File(Utility.INI_PATH);
                 if (!f.exists() && !f.isDirectory()) { 
                     try {
-                        URL website = new URL(Utility.REMOTE_INI_PATH);
+                        URL website = new URL(Utility.URL_REMOTE_INI_PATH);
                         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
                         FileOutputStream fos = new FileOutputStream(Utility.INI_PATH);
                         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);

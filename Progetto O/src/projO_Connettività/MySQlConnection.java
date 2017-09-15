@@ -382,7 +382,6 @@ public class MySQlConnection {
         String QUERY = "INSERT INTO PERSONE (CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune)\n" +
                 "VALUES ('" + CodiceFiscale + "','" + Nome + "','" + Cognome + "','" + Sesso + "','" + DataNascita + "','" + Comune + "');";
               
-       
         try {
             stmt = conn.createStatement();
             return stmt.executeUpdate(QUERY);

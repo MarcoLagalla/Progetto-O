@@ -51,6 +51,7 @@ import projO_Classi.Votanti;
 import projO_Classi.INIFile;
 import projO_Classi.Utility;
 import projO_Classi.Affluenza;
+import projO_Connettività.FTPConnection;
 
 // </editor-fold>
 
@@ -64,7 +65,7 @@ public class ServerFrame extends javax.swing.JFrame {
     
     MySQlConnection mysql = new MySQlConnection();
     INIFile myINI = new INIFile(Utility.INI_PATH);
-       
+    FTPConnection myFTP = new FTPConnection();
     JPanel tortona_UominiDonne;
     JPanel line_Affluenza;
     JPanel istogramma_Voti;
@@ -119,7 +120,9 @@ public class ServerFrame extends javax.swing.JFrame {
             
             lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
             
-            if (ProgettoO.StatoVotazioni) { // se le votazione sono aperte
+            
+            
+            if (Votazione.readStatoVotazione()) { // se le votazione sono aperte
                 vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                 refreshGrafici();
                 avvia_Vot.setEnabled(false);
@@ -130,6 +133,10 @@ public class ServerFrame extends javax.swing.JFrame {
                 dataChiusura.setText(myINI.getStringProperty("Votazione", "DataFine"));
                 id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
                 menu_Tools.setEnabled(true);
+                Aggiungi_Candidato.setEnabled(false);
+                Modifica_Candidato.setEnabled(false);
+                Rimuovi_Candidato.setEnabled(false);
+                
                 
             } else {    // se le votazioni sono chiuse
                 vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
@@ -141,6 +148,9 @@ public class ServerFrame extends javax.swing.JFrame {
                 dataChiusura.setText("");
                 id_elezione.setText("");
                 menu_Tools.setEnabled(false);
+                Aggiungi_Candidato.setEnabled(true);
+                Modifica_Candidato.setEnabled(true);
+                Rimuovi_Candidato.setEnabled(true);
             }
         }
     
@@ -279,7 +289,7 @@ public class ServerFrame extends javax.swing.JFrame {
         panel_GestioneCandidati = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Candidati_list = new javax.swing.JList<String>();
+        Candidati_list = new javax.swing.JList<>();
         Aggiungi_Candidato = new javax.swing.JButton();
         Rimuovi_Candidato = new javax.swing.JButton();
         Modifica_Candidato = new javax.swing.JButton();
@@ -317,6 +327,8 @@ public class ServerFrame extends javax.swing.JFrame {
         menu_Tools = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menu_Storico = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -742,6 +754,15 @@ public class ServerFrame extends javax.swing.JFrame {
             }
         });
         menu_Tools.add(jMenuItem2);
+        menu_Tools.add(jSeparator1);
+
+        jMenuItem3.setText("BackUp INI");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menu_Tools.add(jMenuItem3);
 
         jMenuBar1.add(menu_Tools);
 
@@ -813,6 +834,9 @@ public class ServerFrame extends javax.swing.JFrame {
         vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
         ProgettoO.getRegistrazione().setEnabled(false);
         ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
+        Aggiungi_Candidato.setEnabled(true);
+        Modifica_Candidato.setEnabled(true);
+        Rimuovi_Candidato.setEnabled(true);
     }//GEN-LAST:event_stop_VotActionPerformed
 //______________________________________________________________________________
     
@@ -842,6 +866,9 @@ public class ServerFrame extends javax.swing.JFrame {
                         ProgettoO.getRegistrazione().setEnabled(true);
                         ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
                         vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                        Aggiungi_Candidato.setEnabled(false);
+                        Modifica_Candidato.setEnabled(false);
+                        Rimuovi_Candidato.setEnabled(false);
                         refreshGrafici();
                     }else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
                 }else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
@@ -861,7 +888,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 String[] tokens = candidato.split("-");    // slitta per ottenere il CF
                 String _cf = tokens[1];
                 _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
-                new EditCandidatiFrame(_cf).setVisible(true);     
+                new EditCandidatiFrame(_cf, !Votazione.readStatoVotazione()).setVisible(true);     
             }   
         }      
     }//GEN-LAST:event_Candidati_listMouseClicked
@@ -882,6 +909,11 @@ public class ServerFrame extends javax.swing.JFrame {
        MainFrameBot bot = new MainFrameBot();
        bot.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 //______________________________________________________________________________
 
@@ -979,7 +1011,9 @@ private void refreshGrafici(){
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
     public static javax.swing.JLabel lb_CF;

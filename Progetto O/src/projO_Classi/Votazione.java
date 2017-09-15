@@ -90,6 +90,15 @@ public class Votazione {
     }   
     
     /**
+     * Lettura stato elezione dal file .ini
+     * @return Valore booleano se elezione Aperta/Chiusa, true/false
+     */
+    public static boolean readStatoVotazione() {
+        boolean res = myINI.getBooleanProperty("Votazione", "VotazioneAperta");
+        return res;
+    }
+    
+    /**
      * Metodo di Inizio Votazioni
      * @param _idVotazione Nome della tabella della votazione sul database
      * @param dataFine data di fine delle elezioni

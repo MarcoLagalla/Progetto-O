@@ -4,7 +4,6 @@ package projO_Frames;
 import javax.imageio.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.awt.Image;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
@@ -23,20 +22,27 @@ import projO_Classi.Utility;
  */
 public class EditCandidatiFrame extends javax.swing.JFrame {
 
-    MySQlConnection mysql = new MySQlConnection();
-    FTPConnection myftp = new FTPConnection();
-    String path_img = "";
-    static String SERVER = "http://91.134.138.244/progettoO/img/";
-    String candidatoCF;
+    private MySQlConnection mysql = new MySQlConnection();      // oggetto per connessione a base di dati
+    private FTPConnection myftp = new FTPConnection();          // oggetto per upload tramite FTP
+    private String path_img = "";                               // local path dell' immagine profilo del candidato (restituita da JFileChooser)
+    private String candidatoCF;                                 // attributo privato per il passaggio del codice fiscale del candidato come arg del costruttore
     
 //______________________________________________________________________________   
     /**
      * Creates new form editCandidati_frame
-     * @param _candidatoCF
+     * @param candidatoCF Codice fiscale del candidato di cui si desidera modificare l' anagrafica.
      */
-    public EditCandidatiFrame(String _candidatoCF) {
+    public EditCandidatiFrame(String candidatoCF) {
         initComponents();
-        candidatoCF = _candidatoCF;
+        this.candidatoCF = candidatoCF;
+        bt_Conferma.setEnabled(true);
+        fill();
+    }
+    
+    public EditCandidatiFrame(String candidatoCF, boolean editable) {
+        initComponents();
+        this.candidatoCF = candidatoCF;
+        bt_Conferma.setEnabled(editable);
         fill();
     }
     
@@ -71,19 +77,8 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         setTitle("Modifica angrafica candidato");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         lb_NomeCandidato.setText("Nome:");
-
-        tf_NomeCandidato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_NomeCandidatoActionPerformed(evt);
-            }
-        });
 
         lb_Cognome.setText("Cognome:");
 
@@ -239,10 +234,6 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tf_NomeCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_NomeCandidatoActionPerformed
-
-    }//GEN-LAST:event_tf_NomeCandidatoActionPerformed
 //______________________________________________________________________________
     
     private void bt_SfogliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SfogliaActionPerformed
@@ -263,18 +254,15 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
-        myftp.loadFile(path_img,Utility.IMG_REMOTE_FOLDER + "/" + tf_CF.getText() + ".jpg");
-        int ret = mysql.UpdateQuery("UPDATE CANDIDATI SET Partito='" + tf_Partito.getText() + "' , Immagine='" + SERVER + tf_CF.getText() + ".jpg" + "' WHERE CodiceFiscale='" + tf_CF.getText() + "';");
-     
-        /*
         
-        ======>>>  mettere update di Persone!!!
+        myftp.loadFile(path_img,Utility.IMG_REMOTE_FOLDER + "/" + tf_CF.getText() + ".jpg"); // upload immagine tramite FTP
+        mysql.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in CANDIDATI
+        mysql.UpdateQuery("DELETE FROM PERSONE WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in PERSONE sul CF
         
-        */
-      //  int ret = mysql.WritePersoneColumns(input_codicefiscale_candidato.getText(), input_nome_candidato.getText(), input_cognome_candidato.getText(), input_sesso_candidato.getSelectedItem().toString(), input_datanascita_candidato.getText(), input_comune_candidato.getText());
-      //  int ret2 = mysql.WriteCandidatiColumns(input_codicefiscale_candidato.getText(), input_partito_candidato.getText(), 0,IMG_REMOTE_FOLDER + "/" + input_codicefiscale_candidato.getText() + ".jpg");
+        int ret = mysql.WritePersoneColumns(tf_CF.getText(), tf_NomeCandidato.getText(), tf_Cognome.getText(), cBox_Sesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
+        int ret2 = mysql.WriteCandidatiColumns(tf_CF.getText(), tf_Partito.getText(), 0, Utility.URL_IMG_REMOTE + "/" + tf_CF.getText() + ".jpg");
         
-        if (ret != 0 ) {
+        if ( ( ret != 0 ) && ( ret2 != 0) ) {
             JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             new ServerFrame().setVisible(true);
@@ -283,11 +271,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_ConfermaActionPerformed
 //______________________________________________________________________________
-    
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
-    }//GEN-LAST:event_formWindowClosed
-//______________________________________________________________________________
+    //______________________________________________________________________________
     
     private void bt_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ResetActionPerformed
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione svuoterà tutti i campi.", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
@@ -303,36 +287,36 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
            
         for (Candidati object: can) {
             if (object.getCF().equals(candidatoCF)) {  // match 
-               ImageIcon img = new ImageIcon();
-               tf_Partito.setText(object.getPartito().toString());
-               tf_CF.setText(object.getCF().toString());
+               ImageIcon img;
+               tf_Partito.setText(object.getPartito());
+               tf_CF.setText(object.getCF());
 
-            try {
-                img = new ImageIcon(object.getImmagine());
-            }catch (Exception ex) {
-                img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
-            }
+                try {
+                    img = new ImageIcon(object.getImmagine());
+                }catch (Exception ex) {
+                    img = new ImageIcon(".\\Immagini\\img_not_found.jpg");
+                }
             
             int offset = lb_FotoCandidato.getInsets().left;
             lb_FotoCandidato.setIcon(Utility.resizeIcon(img, lb_FotoCandidato.getWidth() - offset, lb_FotoCandidato.getHeight() - offset));
             
             break;
            }
-    }
-       
-    for (Persone object: pers) {
-        if (object.getCF().equals(candidatoCF)) {  // match 
-            tf_NomeCandidato.setText(object.getNome().toString());
-            tf_Cognome.setText(object.getCognome().toString());
-            tf_Comune.setText(object.getComune().toString());
-            tf_DataNascita.setText(object.getDataNascita().toString());
-            
-            if ( object.getSesso().toString().equals("M") )   // hard coded, non mi piace molto
-                cBox_Sesso.setSelectedIndex(0);
-            else
-                cBox_Sesso.setSelectedIndex(1);
         }
-    }
+       
+        for (Persone object: pers) {
+            if (object.getCF().equals(candidatoCF)) {  // match 
+                tf_NomeCandidato.setText(object.getNome());
+                tf_Cognome.setText(object.getCognome());
+                tf_Comune.setText(object.getComune());
+                tf_DataNascita.setText(object.getDataNascita());
+            
+                if ( object.getSesso().equals("M") )   // hard coded, non mi piace molto
+                    cBox_Sesso.setSelectedIndex(0);
+                else
+                    cBox_Sesso.setSelectedIndex(1);
+            }
+        }
     }
     
 //______________________________________________________________________________
@@ -388,7 +372,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_Conferma;
+    public static javax.swing.JButton bt_Conferma;
     private javax.swing.JButton bt_Reset;
     private javax.swing.JButton bt_Sfoglia;
     private javax.swing.JComboBox<String> cBox_Sesso;
