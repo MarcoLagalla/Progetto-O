@@ -186,13 +186,6 @@ public class Votazione {
     }
 
     /**
-     * calcola la lunghezza delle elezioni in numero di giorni 
-     */
-    public static void getlenghtEle(){
-        lenghtEle = dataFineVot.get(java.util.Calendar.DAY_OF_YEAR)-dataInizioVot.get(java.util.Calendar.DAY_OF_YEAR);
-    }
-    
-    /**
      *
      * @return Affluenza come ArrayList di Affluenza(class)
      */

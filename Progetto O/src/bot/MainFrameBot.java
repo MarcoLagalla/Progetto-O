@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.DefaultListModel;
 import projO_Classi.Candidati;
 import projO_Classi.Votazione;
 import projO_Connettività.MySQlConnection;
+
 //______________________________________________________________________________
 /**
  *
@@ -19,7 +21,7 @@ public class MainFrameBot extends javax.swing.JFrame {
     String log = "";
     MySQlConnection mysql = new MySQlConnection();
     ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
-    javax.swing.DefaultListModel listModel = new javax.swing.DefaultListModel();
+    DefaultListModel listModel = new javax.swing.DefaultListModel();
     
 //____________________________COSTRUTTORE________________________________________
     public MainFrameBot() {
