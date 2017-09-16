@@ -22,10 +22,10 @@ import projO_Classi.Utility;
  */
 public class EditCandidatiFrame extends javax.swing.JFrame {
 
-    private MySQlConnection mysql = new MySQlConnection();      // oggetto per connessione a base di dati
-    private FTPConnection myftp = new FTPConnection();          // oggetto per upload tramite FTP
-    private String path_img = "";                               // local path dell' immagine profilo del candidato (restituita da JFileChooser)
-    private String candidatoCF;                                 // attributo privato per il passaggio del codice fiscale del candidato come arg del costruttore
+    private MySQlConnection mySQL = new MySQlConnection();      // oggetto per connessione a base di dati
+    private FTPConnection myFTP = new FTPConnection();          // oggetto per upload tramite FTP
+    private String pathImage = "";                              // local path dell' immagine profilo del candidato (restituita da JFileChooser)
+    private String candidatoCodiceFiscale;                      // attributo privato per il passaggio del codice fiscale del candidato come arg del costruttore
     
 //______________________________________________________________________________   
     /**
@@ -34,14 +34,14 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
      */
     public EditCandidatiFrame(String candidatoCF) {
         initComponents();
-        this.candidatoCF = candidatoCF;
+        this.candidatoCodiceFiscale = candidatoCF;
         bt_Conferma.setEnabled(true);
         fill();
     }
     
     public EditCandidatiFrame(String candidatoCF, boolean editable) {
         initComponents();
-        this.candidatoCF = candidatoCF;
+        this.candidatoCodiceFiscale = candidatoCF;
         bt_Conferma.setEnabled(editable);
         fill();
     }
@@ -245,8 +245,8 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            path_img = file.getAbsolutePath();
-            ImageIcon img = new ImageIcon(path_img);
+            pathImage = file.getAbsolutePath();
+            ImageIcon img = new ImageIcon(pathImage);
             int offset = lb_FotoCandidato.getInsets().left;
             lb_FotoCandidato.setIcon(Utility.resizeIcon(img, lb_FotoCandidato.getWidth() - offset, lb_FotoCandidato.getHeight() - offset));
         }
@@ -255,12 +255,12 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
         
-        myftp.loadFile(path_img,Utility.IMG_REMOTE_FOLDER + "/" + tf_CF.getText() + ".jpg"); // upload immagine tramite FTP
-        mysql.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in CANDIDATI
-        mysql.UpdateQuery("DELETE FROM PERSONE WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in PERSONE sul CF
+        myFTP.loadFile(pathImage,Utility.imgRemoteFolder + "/" + tf_CF.getText() + ".jpg"); // upload immagine tramite FTP
+        mySQL.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in CANDIDATI
+        mySQL.UpdateQuery("DELETE FROM PERSONE WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in PERSONE sul CF
         
-        int ret = mysql.WritePersoneColumns(tf_CF.getText(), tf_NomeCandidato.getText(), tf_Cognome.getText(), cBox_Sesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
-        int ret2 = mysql.WriteCandidatiColumns(tf_CF.getText(), tf_Partito.getText(), 0, Utility.URL_IMG_REMOTE + "/" + tf_CF.getText() + ".jpg");
+        int ret = mySQL.WritePersoneColumns(tf_CF.getText(), tf_NomeCandidato.getText(), tf_Cognome.getText(), cBox_Sesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
+        int ret2 = mySQL.WriteCandidatiColumns(tf_CF.getText(), tf_Partito.getText(), 0, Utility.urlImageRemote + "/" + tf_CF.getText() + ".jpg");
         
         if ( ( ret != 0 ) && ( ret2 != 0) ) {
             JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
@@ -281,11 +281,11 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void fill() {
-        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
-        ArrayList<Persone> pers = mysql.ReadPersoneColumns();
+        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+        ArrayList<Persone> pers = mySQL.ReadPersoneColumns();
            
         for (Candidati object: can) {
-            if (object.getCF().equals(candidatoCF)) {  // match 
+            if (object.getCF().equals(candidatoCodiceFiscale)) {  // match 
                ImageIcon img;
                tf_Partito.setText(object.getPartito());
                tf_CF.setText(object.getCF());
@@ -304,7 +304,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         }
        
         for (Persone object: pers) {
-            if (object.getCF().equals(candidatoCF)) {  // match 
+            if (object.getCF().equals(candidatoCodiceFiscale)) {  // match 
                 tf_NomeCandidato.setText(object.getNome());
                 tf_Cognome.setText(object.getCognome());
                 tf_Comune.setText(object.getComune());

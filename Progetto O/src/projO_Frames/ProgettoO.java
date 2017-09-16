@@ -42,43 +42,42 @@ public class ProgettoO {
     private JTextField codiceTessera;
     private JLabel lb_CodiceFiscale;
     private JLabel lb_CodiceTessera;
-    private JLabel Image_Icon;
-    private JLabel Image_Icon_2;
-    private JPanel r1,r2,r3,r4,r5,r6,r7,r8; //Pannelli di Riempimento Grid
-    private static JButton registrazione; // dichiaro statico per poterlo chiamare da altre classi
-    private JLabel Intestazione;
-    private JPanel background_panel;
+    private JLabel lb_ImageIcon;
+    private JLabel lb_ImageIcon2;
+    private JPanel panel_Riempimento1,panel_Riempimento2,panel_Riempimento3,panel_Riempimento4,panel_Riempimento5,panel_Riempimento6,panel_Riempimento7,panel_Riempimento8; //Pannelli di Riempimento Grid
+    private static JButton bt_Registrazione; // dichiaro statico per poterlo chiamare da altre classi
+    private JLabel lb_Intestazione;
+    private JPanel panel_Background;
     
     // Elementi Grafici Swing per CLIENT_FRAME
     public static JFrame clientFrame;
-    private JLabel Client_Label;
-    private JPanel client_panel; //GRIGLIA
+    private JLabel lb_Client;
+    private JPanel panel_Client; //GRIGLIA
      
     
     // Elementi grafici per Login Admin
-    private JFrame Admin_Login;
-    private JLabel AdmLog_ErrPwd;
-    private JPasswordField AdmLog_pwd;
-    private JButton AdmLog_button;
-    private JLabel AdmLog_title;
+    private JFrame adminFrame;
+    private JLabel lb_ErrorPassword;
+    private JPasswordField password_Admin;
+    private JButton bt_AdminLogin;
+    private JLabel lb_AdminIntestazione;
 
 
     // Istanzio Oggetti Utili
-    private  char[] admin_pwd;                          
-    MySQlConnection mysql; 
+    private  char[] adminPassword;                          
+    MySQlConnection mySQL; 
     INIFile myINI;
-    FTPConnection myftp;
+    FTPConnection myFTP;
 
     /**
      * Definisce lo Stato delle Votazioni attraverso un Boolean
      */
-    public static Boolean StatoVotazioni = false;
+    public static Boolean statoVotazioni = false;
    
     // Istanzio ServerFrame creato con JFrame Form
     public static ServerFrame prepareServerGUI;
-    public static LoadingFrame prepareLoadingGUI;
-    
-    private KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
+  
+    private KeyStroke keyShortCut = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
     // </editor-fold>
 //___________________________________COSTRUTTORE___________________________________________
 
@@ -87,9 +86,9 @@ public class ProgettoO {
         if ( netIsAvailable() ) {
             
             Utility.downloadINI();
-            myINI = new INIFile(Utility.INI_PATH);
-            StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta");
-            mysql = new MySQlConnection();
+            myINI = new INIFile(Utility.INIPath);
+            statoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta");
+            mySQL = new MySQlConnection();
             prepareGUI();
 
         }
@@ -115,10 +114,10 @@ public class ProgettoO {
     
     /**
      *
-     * @return reference bottone registrazione
+     * @return reference bottone bt_Registrazione
      */
     public static JButton getRegistrazione() {
-        return registrazione;
+        return bt_Registrazione;
     }
     
     
@@ -162,56 +161,56 @@ public class ProgettoO {
         }
     }
 });
-        Image_Icon = new JLabel();
+        lb_ImageIcon = new JLabel();
 
-        Image_Icon.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO)); // RELATIVE PATH
-        Image_Icon.setSize(350,395);
-        mainFrame.add(Image_Icon,BorderLayout.EAST);                            //BorderLayout EAST
+        lb_ImageIcon.setIcon(Utility.setUrlIcon(Utility.imgLogo)); // RELATIVE PATH
+        lb_ImageIcon.setSize(350,395);
+        mainFrame.add(lb_ImageIcon,BorderLayout.EAST);                            //BorderLayout EAST
         
-        Image_Icon_2 = new JLabel();
-        Image_Icon_2.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO));
-        Image_Icon_2.setSize(350,395);
-        mainFrame.add(Image_Icon_2,BorderLayout.WEST);
+        lb_ImageIcon2 = new JLabel();
+        lb_ImageIcon2.setIcon(Utility.setUrlIcon(Utility.imgLogo));
+        lb_ImageIcon2.setSize(350,395);
+        mainFrame.add(lb_ImageIcon2,BorderLayout.WEST);
         
-        Intestazione = new JLabel("SISTEMA ELETTORALE ELETTRONICO",SwingConstants.CENTER);
-        Intestazione.setFont(new Font("Intestazione", Font.BOLD,45));
-        mainFrame.add(Intestazione,BorderLayout.NORTH);                         //BorderLayout NORTH
+        lb_Intestazione = new JLabel("SISTEMA ELETTORALE ELETTRONICO",SwingConstants.CENTER);
+        lb_Intestazione.setFont(new Font("Intestazione", Font.BOLD,45));
+        mainFrame.add(lb_Intestazione,BorderLayout.NORTH);                         //BorderLayout NORTH
         
 //______________________________________________________________________________
 
-        background_panel = new JPanel();
-        background_panel.setLayout(new GridLayout(0, 2, 0, 0));
-        background_panel.setBackground(Color.white);
-        background_panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        mainFrame.add(background_panel,BorderLayout.CENTER);                    //BorderLayout CENTER
+        panel_Background = new JPanel();
+        panel_Background.setLayout(new GridLayout(0, 2, 0, 0));
+        panel_Background.setBackground(Color.white);
+        panel_Background.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        mainFrame.add(panel_Background,BorderLayout.CENTER);                    //BorderLayout CENTER
         
         // ADD degli Elementi Interni al BackGround Panel
         
-        r1=new JPanel();
-        r1.setSize(450,55);
-        r1.setBackground(Color.WHITE);
-        background_panel.add(r1);
+        panel_Riempimento1=new JPanel();
+        panel_Riempimento1.setSize(450,55);
+        panel_Riempimento1.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento1);
         
-        r2=new JPanel();
-        r2.setSize(450,55);
-        r2.setBackground(Color.WHITE);
-        background_panel.add(r2);
+        panel_Riempimento2=new JPanel();
+        panel_Riempimento2.setSize(450,55);
+        panel_Riempimento2.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento2);
         
-        r3=new JPanel();
-        r3.setSize(450,55);
-        r3.setBackground(Color.WHITE);
-        background_panel.add(r3);
+        panel_Riempimento3=new JPanel();
+        panel_Riempimento3.setSize(450,55);
+        panel_Riempimento3.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento3);
         
-        r4=new JPanel();
-        r4.setSize(450,55);
-        r4.setBackground(Color.WHITE);
-        background_panel.add(r4);
+        panel_Riempimento4=new JPanel();
+        panel_Riempimento4.setSize(450,55);
+        panel_Riempimento4.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento4);
 
    
         lb_CodiceFiscale = new JLabel("Inserire CODICE FISCALE",SwingConstants.CENTER);
         lb_CodiceFiscale.setFont(new Font("CF",Font.BOLD,25));
         lb_CodiceFiscale.setSize(450,5);
-        background_panel.add(lb_CodiceFiscale);
+        panel_Background.add(lb_CodiceFiscale);
 
         codiceFiscale = new JTextField();
         codiceFiscale.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -237,13 +236,13 @@ public class ProgettoO {
                 }
             }
          });
-        background_panel.add(codiceFiscale);
+        panel_Background.add(codiceFiscale);
 
         
         lb_CodiceTessera = new JLabel("Inserire CODICE TESSERA",SwingConstants.CENTER);
         lb_CodiceTessera.setFont(new Font("CT",Font.BOLD,25));
         lb_CodiceTessera.setSize(450, 5);
-        background_panel.add(lb_CodiceTessera);
+        panel_Background.add(lb_CodiceTessera);
         
         codiceTessera = new JTextField();
         codiceTessera.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -269,43 +268,43 @@ public class ProgettoO {
                 }
             }
          });
-        background_panel.add(codiceTessera);
+        panel_Background.add(codiceTessera);
         
-        r5=new JPanel();
-        r5.setSize(450,35);
-        r5.setBackground(Color.WHITE);
-        background_panel.add(r5);
+        panel_Riempimento5=new JPanel();
+        panel_Riempimento5.setSize(450,35);
+        panel_Riempimento5.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento5);
         
-        r6=new JPanel();
-        r6.setSize(450,35);
-        r6.setBackground(Color.WHITE);
-        background_panel.add(r6);
+        panel_Riempimento6=new JPanel();
+        panel_Riempimento6.setSize(450,35);
+        panel_Riempimento6.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento6);
         
-        r7=new JPanel();
-        r7.setSize(450,55);
-        r7.setBackground(Color.WHITE);
-        background_panel.add(r7);
+        panel_Riempimento7=new JPanel();
+        panel_Riempimento7.setSize(450,55);
+        panel_Riempimento7.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento7);
         
-        r8=new JPanel();
-        r8.setSize(450,55);
-        r8.setBackground(Color.WHITE);
-        background_panel.add(r8);
+        panel_Riempimento8=new JPanel();
+        panel_Riempimento8.setSize(450,55);
+        panel_Riempimento8.setBackground(Color.WHITE);
+        panel_Background.add(panel_Riempimento8);
 
-        registrazione = new JButton("");   
-        registrazione.setActionCommand("Registrazione");
-        registrazione.setSize(600, 200);
+        bt_Registrazione = new JButton("");   
+        bt_Registrazione.setActionCommand("Registrazione");
+        bt_Registrazione.setSize(600, 200);
         
-        if (StatoVotazioni) {
-        registrazione.setEnabled(true);
-        registrazione.setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));            
+        if (statoVotazioni) {
+        bt_Registrazione.setEnabled(true);
+        bt_Registrazione.setIcon(Utility.setUrlIcon(Utility.imgRegistrazioneAbilitata));            
         } else {
-        registrazione.setEnabled(false);
-        registrazione.setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));            
+        bt_Registrazione.setEnabled(false);
+        bt_Registrazione.setIcon(Utility.setUrlIcon(Utility.imgRegistrazioneDisabilitata));            
         }
 
-        registrazione.addActionListener(new ButtonClickListener());
+        bt_Registrazione.addActionListener(new ButtonClickListener());
 
-        mainFrame.add(registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
+        mainFrame.add(bt_Registrazione,BorderLayout.SOUTH);                        //BorderLayout SOUTH
 
 // Creo la SHORTCUT (CTRL+A) che apre la finestra di Admin Login
 
@@ -317,8 +316,8 @@ public class ProgettoO {
         }
         }); 
 
-        background_panel.getInputMap().put(key, "call_Action");
-        background_panel.getActionMap().put("call_Action", AdmLog_Button.getAction());
+        panel_Background.getInputMap().put(keyShortCut, "call_Action");
+        panel_Background.getActionMap().put("call_Action", AdmLog_Button.getAction());
 
     mainFrame.setVisible(true);
    
@@ -327,31 +326,31 @@ public class ProgettoO {
 
 // <editor-fold defaultstate="collapsed" desc="ADMIN LOGIN FRAME">
     private void prepareAdminLoginGUI() {        // Creazione finestra Login per Admin (accede alla finestra Server)
-        Admin_Login = new JFrame("ADMINISTRATOR LOGIN");
-        Admin_Login.setLayout(null);
+        adminFrame = new JFrame("ADMINISTRATOR LOGIN");
+        adminFrame.setLayout(null);
     
-        Admin_Login.setSize(500, 300);
-        Admin_Login.setResizable(false);
-        Admin_Login.setLocationRelativeTo(null);
-        AdmLog_title = new JLabel("Admin password: ");
-        AdmLog_title.setBounds(70, 70, 120, 25);
-        Admin_Login.add(AdmLog_title);
+        adminFrame.setSize(500, 300);
+        adminFrame.setResizable(false);
+        adminFrame.setLocationRelativeTo(null);
+        lb_AdminIntestazione = new JLabel("Admin password: ");
+        lb_AdminIntestazione.setBounds(70, 70, 120, 25);
+        adminFrame.add(lb_AdminIntestazione);
         
-        AdmLog_pwd = new JPasswordField();
-        AdmLog_pwd.setBounds(210, 70, 200, 25);
-        Admin_Login.add(AdmLog_pwd);
+        password_Admin = new JPasswordField();
+        password_Admin.setBounds(210, 70, 200, 25);
+        adminFrame.add(password_Admin);
         
-        AdmLog_button = new JButton("LOGIN");
-        AdmLog_button.setActionCommand("Admin_Log");
-        AdmLog_button.addActionListener(new ButtonClickListener());
-        AdmLog_button.setBounds(170, 150, 150, 50);
-        Admin_Login.add(AdmLog_button);
+        bt_AdminLogin = new JButton("LOGIN");
+        bt_AdminLogin.setActionCommand("Admin_Log");
+        bt_AdminLogin.addActionListener(new ButtonClickListener());
+        bt_AdminLogin.setBounds(170, 150, 150, 50);
+        adminFrame.add(bt_AdminLogin);
         
-        AdmLog_ErrPwd = new JLabel();
-        AdmLog_ErrPwd.setBounds(150, 220, 200, 25);
-        Admin_Login.add(AdmLog_ErrPwd);
+        lb_ErrorPassword = new JLabel();
+        lb_ErrorPassword.setBounds(150, 220, 200, 25);
+        adminFrame.add(lb_ErrorPassword);
         
-        Admin_Login.setVisible(true);
+        adminFrame.setVisible(true);
     }
 // </editor-fold>
 
@@ -381,29 +380,29 @@ public class ProgettoO {
             }
         });
         
-        Client_Label = new JLabel("SCEGLIERE CANDIDATO",Client_Label.CENTER);
-        Client_Label.setFont(new Font("Intestazione", Font.ITALIC,25));
-        Client_Label.setBounds(50, 10, 1000, 50);
-        clientFrame.add(Client_Label,BorderLayout.PAGE_START);
+        lb_Client = new JLabel("SCEGLIERE CANDIDATO",lb_Client.CENTER);
+        lb_Client.setFont(new Font("Intestazione", Font.ITALIC,25));
+        lb_Client.setBounds(50, 10, 1000, 50);
+        clientFrame.add(lb_Client,BorderLayout.PAGE_START);
         
         JPanel contPane = new JPanel();
         contPane.setBackground(Color.WHITE);
         clientFrame.setContentPane(contPane);
         GridLayout experimentLayout = new GridLayout(0,4,8,20);  // SETTA SPAZIATURE TRA COLONNE E RIGHE
         
-        client_panel = new JPanel(experimentLayout); 
-        client_panel.setBackground(Color.WHITE);
-        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        panel_Client = new JPanel(experimentLayout); 
+        panel_Client.setBackground(Color.WHITE);
+        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
        
         for (Candidati object: can) {  
             SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
-            client_panel.add(scheda);       
+            panel_Client.add(scheda);       
         }
        
-       client_panel.setVisible(true);
+       panel_Client.setVisible(true);
         
-       JScrollPane scrollable = new JScrollPane(client_panel);
-       scrollable.setViewportView(client_panel);
+       JScrollPane scrollable = new JScrollPane(panel_Client);
+       scrollable.setViewportView(panel_Client);
        scrollable.setPreferredSize(clientFrame.getPreferredSize());
        scrollable.setSize(clientFrame.getSize());
        scrollable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -447,7 +446,7 @@ public class ProgettoO {
                         
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia codiceFiscale sia codiceTessera allora Spawna la ClientGUI
                             if (!avoidDoubleReg(codiceFiscale.getText(),codiceTessera.getText())) {
-                                int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + codiceFiscale.getText() + "';");        // setta il flag votato --> impedisce doppio voto
+                                int res = mySQL.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + codiceFiscale.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
                                     Votazione.addAffluenza();
                                     prepareClientGUI(); 
@@ -486,17 +485,17 @@ public class ProgettoO {
 //______________________________________________________________________________               
                case "Admin_Log":
                {
-                   admin_pwd = new char[] {'q', 'w', 'e', '1', '2', '3'};
+                   adminPassword = new char[] {'q', 'w', 'e', '1', '2', '3'};
               
-                   if (AdmLog_pwd.getPassword().length == admin_pwd.length) // se la lunghezza è diversa, evito il controllo
-                        if (Arrays.equals(AdmLog_pwd.getPassword(), admin_pwd)) { 
+                   if (password_Admin.getPassword().length == adminPassword.length) // se la lunghezza è diversa, evito il controllo
+                        if (Arrays.equals(password_Admin.getPassword(), adminPassword)) { 
                                prepareServerGUI = new ServerFrame();
                                prepareServerGUI.setVisible(true);
-                               Admin_Login.dispose();
+                               adminFrame.dispose();
                                break; 
                         }
-                   AdmLog_ErrPwd.setText("Password Errata: Accesso Negato");
-                   AdmLog_ErrPwd.setForeground(Color.red);
+                   lb_ErrorPassword.setText("Password Errata: Accesso Negato");
+                   lb_ErrorPassword.setForeground(Color.red);
                    break;
                }
 //______________________________________________________________________________ 
@@ -527,14 +526,14 @@ public class ProgettoO {
 // Metodo AvoidDoubleReg    
 
     /**
-     * Metodo per evitare doppia registrazione dell'Utente
+     * Metodo per evitare doppia bt_Registrazione dell'Utente
      * @param CF Codice Fiscale Utente
      * @param CT Codice Tessera
      * @return Se l'utente risulta già registrato
      */
 public boolean avoidDoubleReg(String CF, String CT){
     
-    ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+    ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
     for (Votanti obj: vot) {
         if ((obj.getCodiceTessera().equals(CT))  && (obj.getCF().equals(CF)) ) {
             return obj.getVotato();
@@ -559,7 +558,7 @@ private static boolean netIsAvailable() {
 // Metodo di Ricerca Dati Elettorali
 private boolean canVoteCF(String CF) {
 
-        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+        ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
 
         for (Votanti v: vot){
             if(v.getCF().equals(CF)){  
@@ -573,7 +572,7 @@ private boolean canVoteCF(String CF) {
 //______________________________________________________________________________
 private boolean canVoteCT(String CT) {
 
-            ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+            ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
 
             for (Votanti v: vot){
                 if(v.getCodiceTessera().equals(CT)){  
@@ -590,8 +589,8 @@ private boolean canVoteCT(String CT) {
 public class MyTask extends TimerTask {
         @Override
         public void run() {
-            AdmLog_ErrPwd.setText(null);
-            AdmLog_pwd.setText(null);
+            lb_ErrorPassword.setText(null);
+            password_Admin.setText(null);
         }
     }
 

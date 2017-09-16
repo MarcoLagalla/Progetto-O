@@ -11,6 +11,7 @@ import javax.swing.*;
  *
  * @author Team
  */
+
 public class DatePicker  {
     private int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
     private int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
@@ -19,23 +20,21 @@ public class DatePicker  {
     private final int yearAttuale = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
     
     private JButton[] buttonMatrix = new JButton[49];
-    private JLabel l = new JLabel("", JLabel.CENTER);
+    private JLabel lb_Intestazione = new JLabel("", JLabel.CENTER);
     private String day;
-    private JDialog d;
+    private JDialog dialogPanel;
    
 
     /**
      *
      * @param parent
-     */
-
-        
+     */  
     public DatePicker(JFrame parent)
     {
             
             day = "";
-            d = new JDialog();
-            d.setModal(true);
+            dialogPanel = new JDialog();
+            dialogPanel.setModal(true);
             String[] header = { "Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab" };
             JPanel p1 = new JPanel(new GridLayout(7, 7));
             p1.setPreferredSize(new Dimension(430, 120));
@@ -51,7 +50,7 @@ public class DatePicker  {
                              public void actionPerformed(ActionEvent ae) 
                              {
                                    day = buttonMatrix[selection].getActionCommand();
-                                   d.dispose();
+                                   dialogPanel.dispose();
                              }
                     });
                     if (x < 7)
@@ -77,7 +76,7 @@ public class DatePicker  {
                     }
             });
             p2.add(previous);
-            p2.add(l);
+            p2.add(lb_Intestazione);
             JButton next = new JButton("Avanti >>");
             next.addActionListener(new ActionListener()
             {
@@ -88,12 +87,12 @@ public class DatePicker  {
                     }
             });
             p2.add(next);
-            d.add(p1, BorderLayout.CENTER);
-            d.add(p2, BorderLayout.SOUTH);
-            d.pack();
-            d.setLocationRelativeTo(parent);
+            dialogPanel.add(p1, BorderLayout.CENTER);
+            dialogPanel.add(p2, BorderLayout.SOUTH);
+            dialogPanel.pack();
+            dialogPanel.setLocationRelativeTo(parent);
             displayDate();
-            d.setVisible(true);
+            dialogPanel.setVisible(true);
     }
 
 //______________________________________________________________________________
@@ -113,8 +112,8 @@ public class DatePicker  {
             int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
             for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
             buttonMatrix[x].setText("" + day);
-            l.setText(sdf.format(cal.getTime()));
-            d.setTitle("Selezionare una data");
+            lb_Intestazione.setText(sdf.format(cal.getTime()));
+            dialogPanel.setTitle("Selezionare una data");
     }
 //______________________________________________________________________________
     /**

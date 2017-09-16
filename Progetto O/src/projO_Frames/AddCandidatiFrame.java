@@ -3,7 +3,6 @@ package projO_Frames;
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import javax.imageio.*;
 import java.io.File;
-import java.awt.Image;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import projO_Classi.Utility;
@@ -19,11 +18,11 @@ import projO_Connettività.MySQlConnection;
  */
 public class AddCandidatiFrame extends javax.swing.JFrame {
 
-    MySQlConnection mysql = new MySQlConnection();
-    FTPConnection myftp = new FTPConnection();
+    MySQlConnection mySQL = new MySQlConnection();
+    FTPConnection myFTP = new FTPConnection();
 
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
-    String path_img = "";
+    String pathImage = "";
     
     
     static String SERVER = "http://91.134.138.244/progettoO/img/";
@@ -230,40 +229,39 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tf_NomeCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_NomeCandidatoActionPerformed
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_tf_NomeCandidatoActionPerformed
 //______________________________________________________________________________
     
     private void bt_SfogliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SfogliaActionPerformed
-        // TODO add your handling code here:  
         JFileChooser fc = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         fc.addChoosableFileFilter(imageFilter);
         fc.setAcceptAllFileFilterUsed(false);
         int returnVal = fc.showDialog(this, "Attach");
         
-         if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-             path_img = file.getAbsolutePath();
-             
-             ImageIcon img = new ImageIcon(path_img);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            pathImage = file.getAbsolutePath();
+            ImageIcon img = new ImageIcon(pathImage);
             int offset = lb_Foto.getInsets().left;
             lb_Foto.setIcon(Utility.resizeIcon(img, lb_Foto.getWidth() - offset, lb_Foto.getHeight() - offset));
-            } 
+            
+        } 
     }//GEN-LAST:event_bt_SfogliaActionPerformed
 //______________________________________________________________________________
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
 
-      myftp.loadFile(path_img,IMG_REMOTE_FOLDER + "/" + tf_CodiceFiscale.getText() + ".jpg");
-      int ret = mysql.WritePersoneColumns(tf_CodiceFiscale.getText(), tf_NomeCandidato.getText(), tf_CognomeCandidato.getText(), cBox_InputSesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
+      myFTP.loadFile(pathImage,IMG_REMOTE_FOLDER + "/" + tf_CodiceFiscale.getText() + ".jpg");
+      int ret = mySQL.WritePersoneColumns(tf_CodiceFiscale.getText(), tf_NomeCandidato.getText(), tf_CognomeCandidato.getText(), cBox_InputSesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
       
-      int ret2 = mysql.WriteCandidatiColumns(tf_CodiceFiscale.getText(), tf_PartitoAppartenenza.getText(), 0, SERVER + tf_CodiceFiscale.getText() + ".jpg");
+      int ret2 = mySQL.WriteCandidatiColumns(tf_CodiceFiscale.getText(), tf_PartitoAppartenenza.getText(), 0, SERVER + tf_CodiceFiscale.getText() + ".jpg");
       if (ret != 0 && ret2 != 0) {
-          JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
-          this.dispose();
-      } else {
-           JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
+        JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
+        this.dispose();
+      }else{
+        JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
       }
     }//GEN-LAST:event_bt_ConfermaActionPerformed
 //______________________________________________________________________________
@@ -274,8 +272,9 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_ResetActionPerformed
 //______________________________________________________________________________
+// Pulisce i campi della scheda candidato  
     
-    private void clear() { // pulisce i campi della scheda candidato
+    private void clear() { 
         tf_NomeCandidato.setText(null);
         tf_CognomeCandidato.setText(null);
         tf_CodiceFiscale.setText(null);

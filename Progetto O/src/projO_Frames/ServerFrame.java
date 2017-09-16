@@ -60,7 +60,7 @@ public class ServerFrame extends javax.swing.JFrame {
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
     
     MySQlConnection mySQL = new MySQlConnection();
-    INIFile myINI = new INIFile(Utility.INI_PATH);
+    INIFile myINI = new INIFile(Utility.INIPath);
     FTPConnection myFTP = new FTPConnection();
     JPanel pieUominiDonne;
     JPanel lineAffluenza;
@@ -99,10 +99,10 @@ public class ServerFrame extends javax.swing.JFrame {
             panel_CakeChart.add(pieUominiDonne,BorderLayout.CENTER);
             panel_CakeChart.validate();
             
-            lb_Logo1.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
-            lb_Logo2.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
+            lb_Logo1.setIcon(Utility.setUrlIcon(Utility.imgLogoServer)); // RELATIVE PATH
+            lb_Logo2.setIcon(Utility.setUrlIcon(Utility.imgLogoServer)); // RELATIVE PATH
             
-            File f = new File(Utility.INI_PATH);
+            File f = new File(Utility.INIPath);
                 if (!f.exists() && !f.isDirectory()) {
                     Calendar cal = Calendar.getInstance();   
                     DateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
@@ -113,14 +113,14 @@ public class ServerFrame extends javax.swing.JFrame {
                 }
                     
 
-            lb_Refresh.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.IMG_REFRESH), lb_Refresh.getWidth(), lb_Refresh.getHeight()));
+            lb_Refresh.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.imgRefresh), lb_Refresh.getWidth(), lb_Refresh.getHeight()));
             
-            lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
+            lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.imgProfilo)); // RELATIVE PATH
             
             
             
             if (Votazione.readStatoVotazione()) { // se le votazione sono aperte
-                lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.imgVotazioniAperte));
                 refreshGrafici();
                 bt_AvvioElezioni.setEnabled(false);
                 bt_StopElezioni.setEnabled(true);
@@ -137,7 +137,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 
                 
             } else {    // se le votazioni sono chiuse
-                lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
+                lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.imgVotazioniChiuse));
                 bt_AvvioElezioni.setEnabled(true);
                 bt_StopElezioni.setEnabled(false);
                 tf_IdElezione.setEditable(true);
@@ -826,7 +826,7 @@ public class ServerFrame extends javax.swing.JFrame {
     
     private void bt_StopElezioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StopElezioniActionPerformed
         
-        ProgettoO.StatoVotazioni = false;
+        ProgettoO.statoVotazioni = false;
         myINI.setBooleanProperty("Votazione", "VotazioneAperta", false, "Stato votazioni");
         myINI.save();
         Votazione.chiudiVotazione();
@@ -839,9 +839,9 @@ public class ServerFrame extends javax.swing.JFrame {
         tf_DataFine.setText(null);
         tf_DataInizio.setText(null);
         bt_ScegliData.setEnabled(true);
-        lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
+        lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.imgVotazioniChiuse));
         ProgettoO.getRegistrazione().setEnabled(false);
-        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
+        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.imgRegistrazioneDisabilitata));
         bt_AggiungiCandidato.setEnabled(true);
         bt_ModificaCandidato.setEnabled(true);
         bt_RimuoviCandidato.setEnabled(true);
@@ -875,13 +875,13 @@ public class ServerFrame extends javax.swing.JFrame {
                         lanciaBotMenuItem.setEnabled(true);
                         
                         ProgettoO.getRegistrazione().setEnabled(true);
-                        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
-                        lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.imgRegistrazioneAbilitata));
+                        lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.imgVotazioniAperte));
                         bt_AggiungiCandidato.setEnabled(false);
                         bt_ModificaCandidato.setEnabled(false);
                         bt_RimuoviCandidato.setEnabled(false);
                         refreshGrafici();
-                        myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
+                        myFTP.loadFile(Utility.INIPath, Utility.remoteINIPath + "progettoO.ini");
                     }else { lb_ErroreAvvio.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
                 }else  { lb_ErroreAvvio.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
             }else  { lb_ErroreAvvio.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
@@ -923,14 +923,14 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lanciaBotMenuItemActionPerformed
 
     private void eseguiBackupMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eseguiBackupMenuItemActionPerformed
-        myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
+        myFTP.loadFile(Utility.INIPath, Utility.remoteINIPath + "progettoO.ini");
         JOptionPane.showMessageDialog(null,"Caricamento file di impostazioni riuscito.","Operazione completata", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_eseguiBackupMenuItemActionPerformed
 
     private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
         int res = JOptionPane.showConfirmDialog(null,"Sei sicueo di voler resettare la macchina?\nQuesta operazione cancellerà il file di impostazioni.", "Richiesta conferma operazione", JOptionPane.OK_CANCEL_OPTION);
         if (res == JOptionPane.OK_OPTION) {
-            File f = new File(Utility.INI_PATH);
+            File f = new File(Utility.INIPath);
             if ( f.delete() ){
                 JOptionPane.showMessageDialog(null,"Operazione riuscita","", JOptionPane.INFORMATION_MESSAGE);
                 Utility.downloadINI();                

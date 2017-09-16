@@ -10,9 +10,9 @@ import java.net.URL;
  */
 public class Candidati extends Persone {
     
-    private String Partito;
-    private URL Immagine;
-    private int Voti;
+    private String partito;
+    private URL immagine;
+    private int voti;
     
     /**
      *
@@ -28,22 +28,22 @@ public class Candidati extends Persone {
      */
     public Candidati(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune,  String Partito, int Voti,URL Immagine) {
         super(CF, Nome, Cognome,Sesso, DataNascita, Comune);
-        this.Partito = Partito;
-        this.Voti = Voti;
-        this.Immagine = Immagine;
+        this.partito = Partito;
+        this.voti = Voti;
+        this.immagine = Immagine;
     }
 //__________________________________GETTER/SETTER__________________________________   
 
-    public String getPartito() { return Partito; }
+    public String getPartito() { return partito; }
 
-    public URL getImmagine() { return Immagine; }
+    public URL getImmagine() { return immagine; }
 
-    public int getVoti() { return Voti; }
+    public int getVoti() { return voti; }
     
-    public void setPartito(String Partito) { this.Partito = Partito; }
+    public void setPartito(String Partito) { this.partito = Partito; }
 
-    public void setImmagine(URL Immagine) { this.Immagine = Immagine; }
+    public void setImmagine(URL Immagine) { this.immagine = Immagine; }
 
-    public void setVoti(int Voti) { this.Voti = Voti; }
+    public void setVoti(int Voti) { this.voti = Voti; }
     
 }

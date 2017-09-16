@@ -26,26 +26,26 @@ public class MySQlConnection {
      * @see MySQlConnection#MySQlConnection() 
      */
     // JDBC Driver and db URL
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String jdbcDriver = "com.mysql.jdbc.Driver";
     /**
      * Stringa (costante) che identifica l' indirizzo del database
      * per questo progetto si è scelto di utilizzare una base di dati
      * remota montata su una VPS all' indirizzo specificato
      * @see MySQlConnection#MySQlConnection() 
      */
-    static final String DB_URL = "jdbc:mysql://91.134.138.244/db"; // 91.134.138.244 remote url db and 'db' database name
+    static final String dbUrl = "jdbc:mysql://91.134.138.244/db"; // 91.134.138.244 remote url db and 'db' database name
     
     /**
-     * Stringa che contiene l' username associato alla connesione
+     * Stringa che contiene l' userName associato alla connesione
      * @see MySQlConnection#MySQlConnection() 
      * @see MySQlConnection#password
      */
     // database connection
-    static final String username = "root";
+    static final String userName = "root";
      /**
      * Stringa che contiene la password associata alla connesione
      * @see MySQlConnection#MySQlConnection() 
-     * @see MySQlConnection#username
+     * @see MySQlConnection#userName
      */
     static final String password = "progettoO";
     
@@ -54,17 +54,17 @@ public class MySQlConnection {
      * Oggetto Connection per la connessione
      * @see java.sql.Connection
      */
-    Connection conn = null;
+    Connection objConnessione = null;
     /**
      * Oggetto Statement per l' invio delle query SQL
      * @see java.sql.Statement
      */
-    Statement stmt = null;
+    Statement statement = null;
     /**
      * Oggetto ResultSet per il fetching dei dati
      * @see java.sql.ResultSet
      */
-    ResultSet res = null;
+    ResultSet resultSet = null;
     
 //______________________________________________________________________________
     
@@ -72,39 +72,39 @@ public class MySQlConnection {
      Costanti con i nomi delle tabelle della base di dati
     */
     
-    static final String DB_PERSONE = "PERSONE";
-    static final String DB_VOTANTI = "VOTANTI";
-    static final String DB_CANDIDATI = "CANDIDATI";
-    static final String DB_VOTAZIONI = "VOTAZIONI";
+    static final String dbPERSONE = "PERSONE";
+    static final String dbVOTANTI = "VOTANTI";
+    static final String dbCANDIDATI = "CANDIDATI";
+    static final String dbVOTAZIONI = "VOTAZIONI";
    
     
     /*
         Costanti con i nomi delle colonne della base di dati
     */
-    static final String TABCODICEFISCALE = "CodiceFiscale";
-    static final String TABNOME = "Nome";
-    static final String TABCOGNOME = "Cognome";
-    static final String TABSESSO = "Sesso";
-    static final String TABDATANASCITA = "DataNascita";
-    static final String TABCOMUNE = "Comune";
-    static final String TABCODICETESSERA = "CodiceTessera";
-    static final String TABPARTITO = "Partito";
-    static final String TABVOTI = "Voti";
-    static final String TABIMMAGINE = "Immagine";
-    static final String TABFLAGVOTATO = "FlagVotato";
+    static final String tabCodiceFiscale = "CodiceFiscale";
+    static final String tabNome = "Nome";
+    static final String tabCognome = "Cognome";
+    static final String tabSesso = "Sesso";
+    static final String tabDataDiNascita = "DataNascita";
+    static final String tabComune = "Comune";
+    static final String tabCodiceTessera = "CodiceTessera";
+    static final String tabPartito = "Partito";
+    static final String tabVoti = "Voti";
+    static final String tabImmagine = "Immagine";
+    static final String tabFlagVotato = "FlagVotato";
     
 //______________________________________________________________________________
     
     /**
      * Metodo costruttore, inizializza la connessione e il caricamento del driver
-     * @see MySQlConnection#JDBC_DRIVER
+     * @see MySQlConnection#jdbcDriver
      * @see MySQlConnection#MySQlConnectionClose() 
      */
     public MySQlConnection() {
         try{ 
             
-        Class.forName(JDBC_DRIVER); // register JDBC driver
-        conn = DriverManager.getConnection(DB_URL,username,password);
+        Class.forName(jdbcDriver); // register JDBC driver
+        objConnessione = DriverManager.getConnection(dbUrl,userName,password);
        
         }catch(SQLException se){
             se.printStackTrace();
@@ -122,9 +122,9 @@ public class MySQlConnection {
     // close connection
     public void MySQlConnectionClose(){
         try{
-           conn.close();
-           stmt.close();
-           res.close();
+           objConnessione.close();
+           statement.close();
+           resultSet.close();
         }catch(SQLException se){
             se.printStackTrace();
         }catch(Exception e){ //handles error for Class.forName
@@ -141,23 +141,23 @@ public class MySQlConnection {
 
     public  ArrayList<Persone> ReadPersoneColumns() {
        
-        String QUERY = String.format("SELECT * FROM %s;" , DB_PERSONE );
+        String QUERY = String.format("SELECT * FROM %s;" , dbPERSONE );
         ArrayList<Persone> pers = new ArrayList();
         try{
             
-            stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY); //submit query    
+            statement = objConnessione.createStatement();
+            resultSet = statement.executeQuery(QUERY); //submit query    
             
-            while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
+            while(resultSet.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
                 Persone p;
           
-                String CF = res.getString(TABCODICEFISCALE);
-                String Nome = res.getString(TABNOME);
-                String Cognome = res.getString(TABCOGNOME);
-                String Sesso = res.getString(TABSESSO);
-                String DataNascita = res.getString(TABDATANASCITA);
-                String Comune = res.getString(TABCOMUNE);
+                String CF = resultSet.getString(tabCodiceFiscale);
+                String Nome = resultSet.getString(tabNome);
+                String Cognome = resultSet.getString(tabCognome);
+                String Sesso = resultSet.getString(tabSesso);
+                String DataNascita = resultSet.getString(tabDataDiNascita);
+                String Comune = resultSet.getString(tabComune);
                 
                 p = new Persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
                 pers.add(p); // inserimento nell' ArrayList del nuovo record p
@@ -171,8 +171,8 @@ public class MySQlConnection {
         }finally{
             try {
                 // rilascia le risorse
-            stmt.close();   
-            res.close();
+            statement.close();   
+            resultSet.close();
             } catch (SQLException se) {
                 se.printStackTrace();
             }
@@ -198,21 +198,21 @@ public class MySQlConnection {
         try
         {
             
-            stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY); //submit query    
+            statement = objConnessione.createStatement();
+            resultSet = statement.executeQuery(QUERY); //submit query    
             
-            while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
+            while(resultSet.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
                 Votanti v;
 
-                String CF = res.getString(TABCODICEFISCALE);
-                String Nome = res.getString(TABNOME);
-                String Cognome = res.getString(TABCOGNOME);
-                String Sesso = res.getString(TABSESSO);
-                String DataNascita = res.getString(TABDATANASCITA);
-                String Comune = res.getString(TABCOMUNE);
-                String CodiceTessera = res.getString(TABCODICETESSERA);
-                int FlagVotato = res.getInt(TABFLAGVOTATO);
+                String CF = resultSet.getString(tabCodiceFiscale);
+                String Nome = resultSet.getString(tabNome);
+                String Cognome = resultSet.getString(tabCognome);
+                String Sesso = resultSet.getString(tabSesso);
+                String DataNascita = resultSet.getString(tabDataDiNascita);
+                String Comune = resultSet.getString(tabComune);
+                String CodiceTessera = resultSet.getString(tabCodiceTessera);
+                int FlagVotato = resultSet.getInt(tabFlagVotato);
                 
                 v = new Votanti(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato);
                 vot.add(v);
@@ -226,8 +226,8 @@ public class MySQlConnection {
         }finally{
             try {
             // rilascia le risorse
-            stmt.close();   
-            res.close();
+            statement.close();   
+            resultSet.close();
             } catch (SQLException se) {
                 se.printStackTrace();
             }
@@ -251,22 +251,22 @@ public class MySQlConnection {
         try
         {
             
-            stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY); //submit query    
+            statement = objConnessione.createStatement();
+            resultSet = statement.executeQuery(QUERY); //submit query    
             
-            while(res.next()){  // cicla fino a che esiste una nuova riga da leggere
+            while(resultSet.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
                 Candidati c;
 
-                String CF = res.getString(TABCODICEFISCALE);
-                String Nome = res.getString(TABNOME);
-                String Cognome = res.getString(TABCOGNOME);
-                String Sesso = res.getString(TABSESSO);
-                String DataNascita = res.getString(TABDATANASCITA);
-                String Comune = res.getString(TABCOMUNE);
-                String Partito = res.getString(TABPARTITO);
-                int Voti = res.getInt(TABVOTI);
-                URL Immagine = res.getURL(TABIMMAGINE);
+                String CF = resultSet.getString(tabCodiceFiscale);
+                String Nome = resultSet.getString(tabNome);
+                String Cognome = resultSet.getString(tabCognome);
+                String Sesso = resultSet.getString(tabSesso);
+                String DataNascita = resultSet.getString(tabDataDiNascita);
+                String Comune = resultSet.getString(tabComune);
+                String Partito = resultSet.getString(tabPartito);
+                int Voti = resultSet.getInt(tabVoti);
+                URL Immagine = resultSet.getURL(tabImmagine);
                 c = new Candidati(CF,Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
                 can.add(c);
 
@@ -279,8 +279,8 @@ public class MySQlConnection {
         }finally{
             try {
                 // rilascia le risorse
-            stmt.close();   
-            res.close();
+            statement.close();   
+            resultSet.close();
             } catch (SQLException se) {
                 se.printStackTrace();
             }
@@ -302,12 +302,12 @@ public class MySQlConnection {
             if (!QUERY.endsWith(";")) {  // se la query non termina con ; lo aggiungo
                 QUERY = QUERY.concat(";"); 
             }
-            stmt = conn.createStatement();
-            res = stmt.executeQuery(QUERY); //submit query   
+            statement = objConnessione.createStatement();
+            resultSet = statement.executeQuery(QUERY); //submit query   
         }catch(SQLException se){
             se.printStackTrace();
         }
-        return res;
+        return resultSet;
     }
 
 //______________________________________________________________________________
@@ -322,13 +322,13 @@ public class MySQlConnection {
             if (!QUERY.endsWith(";")) {
                 QUERY = QUERY.concat(";");
             }
-            stmt = conn.createStatement();
-            return stmt.executeUpdate(QUERY);
+            statement = objConnessione.createStatement();
+            return statement.executeUpdate(QUERY);
         } catch (SQLException se) {
             se.printStackTrace();
         } finally {
             try {
-                stmt.close();
+                statement.close();
             } catch (SQLException se) {
                 se.printStackTrace();
             }
@@ -351,13 +351,13 @@ public class MySQlConnection {
                 "VALUES ('" + CodiceFiscale + "','" + Partito + "'," + Voti + ",'" + Immagine + "');";
 
         try {
-            stmt = conn.createStatement();
-           return stmt.executeUpdate(QUERY);
+            statement = objConnessione.createStatement();
+           return statement.executeUpdate(QUERY);
         }catch(SQLException se) {
             se.printStackTrace();
         }finally{
             try {
-                stmt.close();
+                statement.close();
             }catch(SQLException se){
                 se.printStackTrace();
             }
@@ -383,13 +383,13 @@ public class MySQlConnection {
                 "VALUES ('" + CodiceFiscale + "','" + Nome + "','" + Cognome + "','" + Sesso + "','" + DataNascita + "','" + Comune + "');";
               
         try {
-            stmt = conn.createStatement();
-            return stmt.executeUpdate(QUERY);
+            statement = objConnessione.createStatement();
+            return statement.executeUpdate(QUERY);
         }catch(SQLException se) {
             se.printStackTrace();
         }finally{
             try {
-                stmt.close();
+                statement.close();
             }catch(SQLException se){
                 se.printStackTrace();
             }
@@ -412,13 +412,13 @@ public class MySQlConnection {
         String QUERY = "INSERT INTO VOTAZIONI (" + Votazione +  ") VALUES ('" + CodiceTessera + "');";
               
         try {
-            stmt = conn.createStatement();
-            return stmt.executeUpdate(QUERY);
+            statement = objConnessione.createStatement();
+            return statement.executeUpdate(QUERY);
         }catch(SQLException se) {
             se.printStackTrace();
         }finally{
             try {
-                stmt.close();
+                statement.close();
             }catch(SQLException se){
                 se.printStackTrace();
             }
@@ -435,10 +435,10 @@ public class MySQlConnection {
     public int CountRows(String TableName) {
         String QUERY = "select count(*) from " + TableName + ";" ;
         try {
-                stmt = conn.createStatement();
-                res = stmt.executeQuery(QUERY);
-                while (res.next()) {
-                return res.getInt(1);
+                statement = objConnessione.createStatement();
+                resultSet = statement.executeQuery(QUERY);
+                while (resultSet.next()) {
+                return resultSet.getInt(1);
  }
         } catch (SQLException se) {}
         return 0;

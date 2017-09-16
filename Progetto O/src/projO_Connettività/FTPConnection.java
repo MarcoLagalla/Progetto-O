@@ -17,28 +17,28 @@ import org.apache.commons.net.ftp.FTPClient;
  */
 public class FTPConnection {
     
-    static String SERVER = "91.134.138.244";
-    static int PORT = 21;
+    static String serverIp = "91.134.138.244";
+    static int port = 21;
     
-    static String USERNAME = "root";
-    static String PASSWORD = "marco7539";
+    static String userName = "root";
+    static String password = "marco7539";
     
-    FTPClient ftpclient;
+    FTPClient ftpClient;
 
-//______________________________________________________________________________
+//________________________________COSTRUTTORE___________________________________
 
     public FTPConnection() {
        
        try {
                   
-       ftpclient = new FTPClient();
-       ftpclient.connect(SERVER, PORT);
+       ftpClient = new FTPClient();
+       ftpClient.connect(serverIp, port);
 
             try {
-                ftpclient.login(USERNAME, PASSWORD);
-                ftpclient.setFileType(FTP.BINARY_FILE_TYPE);
+                ftpClient.login(userName, password);
+                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
                 
-                ftpclient.enterLocalPassiveMode();
+                ftpClient.enterLocalPassiveMode();
             }catch(java.io.IOException ex) {
                 System.out.print("FTP - Unable to login");
             }
@@ -61,7 +61,7 @@ public class FTPConnection {
        
        try {
         InputStream input = new FileInputStream(new File(localPath));
-        boolean done = ftpclient.storeFile(remotePath, input);
+        boolean done = ftpClient.storeFile(remotePath, input);
         
         return done;
        }catch(java.io.IOException ex) {
@@ -77,7 +77,7 @@ public class FTPConnection {
      */
     public void FTPConnectionClose() {
        try {
-            ftpclient.disconnect();
+            ftpClient.disconnect();
        } catch(java.io.IOException ex) {
            System.out.print("FTP - Error closing connection");
        }

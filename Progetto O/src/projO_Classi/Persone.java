@@ -6,12 +6,12 @@ package projO_Classi;
  * @author Team
  */
 public class Persone {
-    private String CF;
-    private String Nome;
-    private String Cognome;
-    private String Sesso;
-    private String DataNascita;
-    private String Comune;
+    private String codiceFiscale;
+    private String nome;
+    private String cognome;
+    private String sesso;
+    private String dataNascita;
+    private String comune;
 //______________________________________________________________________________
     /**
      *
@@ -23,90 +23,85 @@ public class Persone {
      * @param Comune
      */
     public Persone(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
-        this.CF = CF;
-        this.Nome = Nome;
-        this.Cognome = Cognome;
-        this.Sesso = Sesso;
-        this.DataNascita = DataNascita;
-        this.Comune = Comune;
+        this.codiceFiscale = CF;
+        this.nome = Nome;
+        this.cognome = Cognome;
+        this.sesso = Sesso;
+        this.dataNascita = DataNascita;
+        this.comune = Comune;
     }
-//______________________________________________________________________________
-    
-    // Metodi Getter
-    
+//__________________________________GETTER/SETTER_______________________________
+      
     /**
      *
      * @return CodiceFiscale
      */
-    public String getCF() { return CF; }
+    public String getCF() { return codiceFiscale; }
 
     /**
      *
-     * @return Nome
+     * @return nome
      */
-    public String getNome() { return Nome; }
+    public String getNome() { return nome; }
 
     /**
      *
-     * @return Cognome
+     * @return cognome
      */
-    public String getCognome() { return Cognome; }
+    public String getCognome() { return cognome; }
 
     /**
      *
-     * @return Sesso
+     * @return sesso
      */
-    public String getSesso() { return Sesso; }
+    public String getSesso() { return sesso; }
 
     /**
      *
      * @return Data di Nascita
      */
-    public String getDataNascita() { return DataNascita; }
+    public String getDataNascita() { return dataNascita; }
 
     /**
      *
-     * @return Comune
+     * @return comune
      */
-    public String getComune() { return Comune; }
+    public String getComune() { return comune; }
  
-//______________________________________________________________________________
-    
-    // Metodi Setter
-    
+
     /**
      *
      * @param CF
      */
-    public void setCF(String CF) { this.CF = CF; }
+    public void setCF(String CF) { this.codiceFiscale = CF; }
 
     /**
      *
      * @param Nome
      */
-    public void setNome(String Nome) { this.Nome = Nome; } 
+    public void setNome(String Nome) { this.nome = Nome; } 
 
     /**
      *
      * @param Cognome
      */
-    public void setCognome(String Cognome) { this.Cognome = Cognome; }
+    public void setCognome(String Cognome) { this.cognome = Cognome; }
 
     /**
      *
      * @param Sesso
      */
-    public void setSesso(String Sesso) { this.Sesso = Sesso; }
+    public void setSesso(String Sesso) { this.sesso = Sesso; }
 
     /**
      *
      * @param DataNascita
      */
-    public void setDataNascita(String DataNascita) { this.DataNascita = DataNascita; }
+    public void setDataNascita(String DataNascita) { this.dataNascita = DataNascita; }
 
     /**
      *
      * @param Comune
      */
-    public void setComune(String Comune) { this.Comune = Comune; }
+    public void setComune(String Comune) { this.comune = Comune; }
 }

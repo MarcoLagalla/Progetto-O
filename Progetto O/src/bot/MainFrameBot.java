@@ -11,22 +11,22 @@ import projO_Classi.Candidati;
 import projO_Classi.Votazione;
 import projO_Connettività.MySQlConnection;
 
-//______________________________________________________________________________
 /**
  *
  * @author Team
  */
+
 public class MainFrameBot extends javax.swing.JFrame {
     
     String log = "";
-    MySQlConnection mysql = new MySQlConnection();
-    ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+    MySQlConnection mySQL = new MySQlConnection();
+    ArrayList<Candidati> candidatiArray = mySQL.ReadCandidatiColumns();
     DefaultListModel listModel = new javax.swing.DefaultListModel();
     
 //____________________________COSTRUTTORE________________________________________
     public MainFrameBot() {
         initComponents();
-        mysql = new MySQlConnection();
+        mySQL = new MySQlConnection();
         
     }
 
@@ -34,7 +34,7 @@ public class MainFrameBot extends javax.swing.JFrame {
        
     private int getNumCandidati() {
 
-       return can.size();  // Utilizzo Funzione Interna ad ArrayList per ottenere la Size
+       return candidatiArray.size();  // Utilizzo Funzione Interna ad ArrayList per ottenere la Size
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -107,17 +107,18 @@ public class MainFrameBot extends javax.swing.JFrame {
         
         for(int i=0; i < fidget_Value; i++) {
             //canditato_random 
-            String cf_cand = can.get(randomRange(getNumCandidati())).getCF(); //prende il codice fiscale di un candidato scelto randomicamente
-            ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
+            String cf_cand = candidatiArray.get(randomRange(getNumCandidati())).getCF(); //prende il codice fiscale di un candidato scelto randomicamente
+            ResultSet voti_ = mySQL.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
             try {
                 while (voti_.next()) {
                     
                    voti = voti_.getInt("Voti") + 1;  // voti ++
-                   int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
+                   int res = mySQL.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
                    Votazione.addAffluenza();
                    // stampo la stringa per il log
                    log = "+1 voti per il candidato "+ cf_cand;
-                   listModel.addElement(log);                   
+                   listModel.addElement(log);
+                   
                 }
                 
                 ls_logger.setModel(listModel);

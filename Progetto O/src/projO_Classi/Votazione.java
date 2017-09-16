@@ -1,18 +1,10 @@
 package projO_Classi;
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
-import java.awt.Image;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 // imports interni
@@ -26,23 +18,21 @@ import projO_Frames.ServerFrame;
  *
  * @author Team
  */
+
 public class Votazione {    
     private static String idVotazione;
-    private static final DateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+    private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private static Calendar dataCorrente = Calendar.getInstance();
     private static Calendar dataInizioVot;
     private static Calendar dataFineVot;
-    private static MySQlConnection mysql = new MySQlConnection();
+    private static MySQlConnection mySQL = new MySQlConnection();
     private static int affluenza = 0;
     private static String winner = "";
     private static int lenghtEle;
 
-    /**
-     *
-     */
-    public static boolean VotazioneAperta = false;
+    public static boolean votazioneAperta = false;
     
-    static INIFile myINI = new INIFile(Utility.INI_PATH);
+    static INIFile myINI = new INIFile(Utility.INIPath);
         
     
     private Votazione(){} // Costruttore Privato in Quanto Classe di Metodi Statici
@@ -64,7 +54,7 @@ public class Votazione {
      * @return FormatoData
      */
     public static DateFormat getF() {
-        return f;
+        return dateFormat;
     }
 
     /**
@@ -121,12 +111,12 @@ public class Votazione {
      */
    public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
         idVotazione = _idVotazione; // Nome Tabella 
-        myINI = new INIFile(Utility.INI_PATH);
+        myINI = new INIFile(Utility.INIPath);
         if (!(existsVotazione(idVotazione))) { // controlla che esista la tabella
 
-            VotazioneAperta = true; 
+            votazioneAperta = true; 
             try {   
-                int res = mysql.UpdateQuery("CREATE TABLE " + idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
+                int res = mySQL.UpdateQuery("CREATE TABLE " + idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
                 Calendar cal = Calendar.getInstance();
                 dataCorrente = cal;
                 dataInizioVot = dataCorrente;     
@@ -134,14 +124,14 @@ public class Votazione {
                 dataFineVot = Calendar.getInstance();
                 String[] parsing = dataFine.split("-");
                 dataFineVot.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]), Integer.parseInt(parsing[0]));
-                ProgettoO.StatoVotazioni = true;
+                ProgettoO.statoVotazioni = true;
                 
                 // aggiornamento del file .INI               
                 myINI.setBooleanProperty("Votazione", "VotazioneAperta", true, "VotazioneAperta");
                 myINI.setStringProperty("Votazione", "ID", idVotazione, "ID" );
                 myINI.setStringProperty("Votazione", "DataFine", dataFine, "DataFine" );
-                myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
-                myINI.setStringProperty("Votazione", "DataInizio", f.format(dataInizioVot.getTime()), "DataInizio");
+                myINI.setStringProperty("Votazione", "DataCorrente", dateFormat.format(dataCorrente.getTime()), "DataCorrente");
+                myINI.setStringProperty("Votazione", "DataInizio", dateFormat.format(dataInizioVot.getTime()), "DataInizio");
                 myINI.setIntegerProperty("Votazione", "AffluenzaOggi", 0 , "AffluenzaOggi");
                 myINI.save();
                 
@@ -150,15 +140,15 @@ public class Votazione {
                 winner = "";
                 
                 // Resetta il campo FlagVotato nella tabella VOTANTI
-                ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+                ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
                 for (Votanti obj: vot) {
-                    mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta il FlagVotato = 0 per tutti           
+                    mySQL.UpdateQuery("UPDATE VOTANTI SET FlagVotato='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta il FlagVotato = 0 per tutti           
                 }
                 
                 // Resetta i voti nella tabella CANDIDATI
-                ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+                ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
                 for (Candidati obj: can) {
-                    mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta i voti a 0           
+                    mySQL.UpdateQuery("UPDATE CANDIDATI SET Voti='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta i voti a 0           
                 }                
 
             }catch(Exception ex){ ex.printStackTrace();}   
@@ -192,7 +182,7 @@ public class Votazione {
     public static ArrayList<Affluenza> getAffluenza(){
         ArrayList<Affluenza> aff = new ArrayList();
         try {
-            ResultSet res = mysql.ExecuteQuery("SELECT * from " + getIdVotazione() + ";");
+            ResultSet res = mySQL.ExecuteQuery("SELECT * from " + getIdVotazione() + ";");
             while (res.next()) {
                 Affluenza af = new Affluenza(res.getString("Data"), res.getInt("Affluenza"));
                 aff.add(af);
@@ -212,10 +202,10 @@ public class Votazione {
            int  res = JOptionPane.showConfirmDialog(null,"Vuoi procedere a impostare un secondo turno di elezioni?\nQuesta operazione cancellerà i candidati che non sono passati al secondo turno.\nQuesta operazione non può essere annullata.","ATTENZIONE", JOptionPane.YES_NO_OPTION);
            if ( res == JOptionPane.YES_OPTION ) {
                
-               ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+               ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
                for (Candidati obj: can) {
                    if (!vincitori.contains(obj.getCF())) {
-                       mysql.UpdateQuery("DELETE FROM db.CANDIDATI WHERE CodiceFiscale='" + obj.getCF() + "';");
+                       mySQL.UpdateQuery("DELETE FROM db.CANDIDATI WHERE CodiceFiscale='" + obj.getCF() + "';");
                        
                    }
                }
@@ -229,7 +219,7 @@ public class Votazione {
             winner = vincitori.get(0).toString();
 
             
-            ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+            ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
             
             for (Candidati obj: can) {          
                 if (obj.getCF().equals(winner)) {
@@ -241,7 +231,7 @@ public class Votazione {
             }
         }
         
-        VotazioneAperta = false; 
+        votazioneAperta = false; 
     }
 //__________________________________________________________________________________________________________________________________________      
 
@@ -249,7 +239,7 @@ public class Votazione {
      * Metodo che Incrementa il numero dei voti nella giornata corrente, nella tabella (idVotazione) 
      */
     public static void addAffluenza() { 
-                myINI = new INIFile(Utility.INI_PATH);
+                myINI = new INIFile(Utility.INIPath);
         int old = myINI.getIntegerProperty("Votazione", "AffluenzaOggi");
         old++; // aggiungo + 1 per l' affluenza
         myINI.setIntegerProperty("Votazione", "AffluenzaOggi", old, "AffluenzaOggi");
@@ -263,17 +253,17 @@ public class Votazione {
      */
     public static void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno   
         // Update dell'Attributo AFFLUENZA e Azzeramento
-        myINI = new INIFile(Utility.INI_PATH);
+        myINI = new INIFile(Utility.INIPath);
         try {
             affluenza = myINI.getIntegerProperty("Votazione", "AffluenzaOggi");
-            mysql.UpdateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
+            mySQL.UpdateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
         } catch (Exception ex) {ex.printStackTrace();}
         
         affluenza = 0;
         myINI.setIntegerProperty("Votazione", "AffluenzaOggi", 0, "AffluenzaOggi");
         dataCorrente = getDataCorrente();
         dataCorrente.add(Calendar.DATE, 1);
-        myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
+        myINI.setStringProperty("Votazione", "DataCorrente", dateFormat.format(dataCorrente.getTime()), "DataCorrente");
         myINI.save();
         ServerFrame.lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
 }
@@ -284,7 +274,7 @@ public class Votazione {
      * codici fiscali di tutti i candidati che dovranno accedere al secondo turno.
      */
     private static ArrayList<String> findWinner() {       // chiamato a votazione finita: trova nel db il candidato vincitore
-        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
         int max = 0;
         ArrayList<String> CF = new ArrayList();
         for(Candidati obj: can) {
@@ -305,9 +295,9 @@ public class Votazione {
      * Metodo per effettuare il Reset dei Voti nel DataBase
      */
     private static void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
-        ArrayList<Persone> pers = mysql.ReadPersoneColumns();
+        ArrayList<Persone> pers = mySQL.ReadPersoneColumns();
         for (Persone obj: pers) {
-            mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
+            mySQL.UpdateQuery("UPDATE VOTANTI SET FlagVotato=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
         }   
     }   
     
@@ -319,7 +309,7 @@ public class Votazione {
     public static boolean existsVotazione(String idVotazione) {
         boolean exists = false;
         try {
-            ResultSet res = mysql.ExecuteQuery("SHOW TABLES FROM db;");
+            ResultSet res = mySQL.ExecuteQuery("SHOW TABLES FROM db;");
             while(res.next()){ 
                 if (res.getString(1).equals(idVotazione)) { exists = true; }
             }

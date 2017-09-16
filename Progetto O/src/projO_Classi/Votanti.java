@@ -7,8 +7,8 @@ package projO_Classi;
  */
 public class Votanti extends Persone {
     
-    private String CodiceTessera;
-    private boolean Votato;
+    private String codiceTessera;
+    private boolean votato;
  
     /**
      *
@@ -23,43 +23,38 @@ public class Votanti extends Persone {
      */
     public Votanti(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String CodiceTessera, int Votato) {
         super(CF, Nome, Cognome, Sesso, DataNascita, Comune);
-        this.CodiceTessera = CodiceTessera;
+        this.codiceTessera = CodiceTessera;
         if (Votato == 0) {
-            this.Votato = false;
+            this.votato = false;
         }
         else if (Votato == 1) {
-            this.Votato = true;
+            this.votato = true;
         }
     }
-//______________________________________________________________________________
+//__________________________________GETTER/SETTER_______________________________
     
-    // Metodo Getter
-
     /**
      *
      * @return Codice Tessera
      */
-    public String getCodiceTessera() { return CodiceTessera; }
+    public String getCodiceTessera() { return codiceTessera; }
 
-//______________________________________________________________________________
-    
-    // Metodo Setter
 
     /**
      *
      * @param CodiceTessera
      */
-    public void setCodiceTessera(String CodiceTessera) { this.CodiceTessera = CodiceTessera; }
+    public void setCodiceTessera(String CodiceTessera) { this.codiceTessera = CodiceTessera; }
     
     /**
      *
      * @return
      */
-    public boolean getVotato() {return Votato; }
+    public boolean getVotato() {return votato; }
     
     /**
      *
      * @param Votato
      */
-    public void setVotato(boolean Votato) { this.Votato = Votato; }
+    public void setVotato(boolean Votato) { this.votato = Votato; }
 }
