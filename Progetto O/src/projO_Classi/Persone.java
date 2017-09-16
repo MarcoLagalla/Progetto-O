@@ -23,7 +23,6 @@ public class Persone {
      * @param Comune
      */
     public Persone(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
-
         this.CF = CF;
         this.Nome = Nome;
         this.Cognome = Cognome;

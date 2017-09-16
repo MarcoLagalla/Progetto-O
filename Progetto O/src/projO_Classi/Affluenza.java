@@ -55,8 +55,8 @@ public class Affluenza implements Comparable<Affluenza>{
 
 //______________________________COMPARE TO_______________________________________    
     @Override
-    public int compareTo(Affluenza s){
-        return this.data - s.data;     //Sorts the objects in ascending order
+    public int compareTo(Affluenza obj){
+        return this.data - obj.data;     //Sorts the objects in ascending order
     }
 
     
