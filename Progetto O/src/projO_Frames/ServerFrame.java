@@ -213,6 +213,7 @@ public class ServerFrame extends javax.swing.JFrame {
 
         ArrayList<Affluenza> aff = Votazione.getAffluenza();
         Collections.sort(aff);
+        
         int i = 1;
         for(Affluenza obj: aff){
             series1.add(obj.getData(),obj.getDato()); 
@@ -917,11 +918,15 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lanciaBotMenuItemActionPerformed
 
     private void eseguiBackupMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eseguiBackupMenuItemActionPerformed
-        // TODO add your handling code here:
         myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
     }//GEN-LAST:event_eseguiBackupMenuItemActionPerformed
 
 //______________________________________________________________________________
+
+    /**
+     *
+     * @param args
+     */
 
     public static void main(String args[]) {
         /* Create and display the form */

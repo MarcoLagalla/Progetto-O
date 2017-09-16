@@ -36,6 +36,10 @@ public class Votazione {
     private static int affluenza = 0;
     private static String winner = "";
     private static int lenghtEle;
+
+    /**
+     *
+     */
     public static boolean VotazioneAperta = false;
     
     static INIFile myINI = new INIFile(Utility.INI_PATH);
@@ -43,25 +47,37 @@ public class Votazione {
     
     private Votazione(){} // Costruttore Privato in Quanto Classe di Metodi Statici
    
-//_______________________________GETTER/SETTER_________________________________________
-  
+//______________________________GETTER/SETTER___________________________________
+
+    /**
+     *
+     * @return ID Votazione
+     */
+
     public static String getIdVotazione() {    
         String res = myINI.getStringProperty("Votazione","ID");
         return res;
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public static DateFormat getF() {
         return f;
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public static Calendar getDataInizioVot() {
         return dataInizioVot;
     }
     
     
-//___________________________METODI___________________________________________________ 
-    
+//________________________________METODI________________________________________
+ 
     /**
      * Lettura data corrente dal file .ini
      * @return DataCorrente

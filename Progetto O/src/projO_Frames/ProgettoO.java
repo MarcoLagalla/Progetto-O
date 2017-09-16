@@ -603,8 +603,6 @@ private boolean canVoteCT(String CT) {
             return false;
         }
 
-
-// Metodo Timer
     /**
      * Metodo Timer per AdminLogin
      */
