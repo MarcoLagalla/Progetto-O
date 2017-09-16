@@ -93,30 +93,21 @@ public class ProgettoO {
 //___________________________________COSTRUTTORE___________________________________________
 
     public ProgettoO() {
+        
         if ( netIsAvailable() ) {
             
-            File f = new File(Utility.INI_PATH);
-                if (!f.exists() && !f.isDirectory()) { 
-                    try {
-                        URL website = new URL(Utility.URL_REMOTE_INI_PATH);
-                        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-                        FileOutputStream fos = new FileOutputStream(Utility.INI_PATH);
-                        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-                    } catch (MalformedURLException ex) {} 
-                   catch (IOException ex) {}
-
-            }
-
+            Utility.downloadINI();
             myINI = new INIFile(Utility.INI_PATH);
             StatoVotazioni = myINI.getBooleanProperty("Votazione","VotazioneAperta");
-           
             mysql = new MySQlConnection();
             prepareGUI();
 
         }
         else {
+            
             JOptionPane.showMessageDialog(null,"Non è stata rilevata alcuna connessione a internet.\nPer il funzionamento del programma è necessaria la connesiona a internet.\nVerificare la connessione di rete e riprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
+            
         }
     }
     
@@ -176,8 +167,7 @@ public class ProgettoO {
             "Sei sicuro di volere uscire da questa finestra?", "Richiesta conferma azione.", 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-            myftp = new FTPConnection();
-            myftp.loadFile(Utility.INI_PATH,Utility.REMOTE_INI_PATH);
+            mainFrame.dispose();
             System.exit(0);
         }
     }
@@ -469,7 +459,8 @@ public class ProgettoO {
                             if (!avoidDoubleReg(CF.getText(),CT.getText())) {
                                 int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + CF.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
-                                    Votazione.addAffluenza();                                           
+                                    Votazione.addAffluenza();
+                                    prepareClientGUI(); 
                                 }   
                             } else {
                                 JOptionPane.showMessageDialog(null,"Sembra che risulti già espresso un voto dalla persona identificata dai seguenti dati:\nCodice Fiscale: " + CF.getText() + "\nCodice Tessera: " + CT.getText(), "Errore" , JOptionPane.ERROR_MESSAGE);

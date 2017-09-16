@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
@@ -27,13 +26,9 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset; 
 
 // imports per DatePicker
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -332,7 +327,8 @@ public class ServerFrame extends javax.swing.JFrame {
         lanciaBotMenuItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         eseguiBackupMenuItem = new javax.swing.JMenuItem();
-        menu_Storico = new javax.swing.JMenu();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        resetMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PANNELLO GESTIONE");
@@ -766,11 +762,17 @@ public class ServerFrame extends javax.swing.JFrame {
             }
         });
         menu_Tools.add(eseguiBackupMenuItem);
+        menu_Tools.add(jSeparator2);
+
+        resetMenuItem.setText("Reset");
+        resetMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetMenuItemActionPerformed(evt);
+            }
+        });
+        menu_Tools.add(resetMenuItem);
 
         jMenuBar1.add(menu_Tools);
-
-        menu_Storico.setText("Storico");
-        jMenuBar1.add(menu_Storico);
 
         setJMenuBar(jMenuBar1);
 
@@ -877,6 +879,7 @@ public class ServerFrame extends javax.swing.JFrame {
                         Modifica_Candidato.setEnabled(false);
                         Rimuovi_Candidato.setEnabled(false);
                         refreshGrafici();
+                        myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
                     }else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
                 }else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
             }else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
@@ -919,7 +922,22 @@ public class ServerFrame extends javax.swing.JFrame {
 
     private void eseguiBackupMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eseguiBackupMenuItemActionPerformed
         myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
+        JOptionPane.showMessageDialog(null,"Caricamento file di impostazioni riuscito.","Operazione completata", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_eseguiBackupMenuItemActionPerformed
+
+    private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
+        // TODO add your handling code here:
+        int res = JOptionPane.showConfirmDialog(null,"Sei sicueo di voler resettare la macchina?\nQuesta operazione cancellerà il file di impostazioni.", "Richiesta conferma operazione", JOptionPane.OK_CANCEL_OPTION);
+        if (res == JOptionPane.OK_OPTION) {
+            File f = new File(Utility.INI_PATH);
+            if ( f.delete() ){
+                JOptionPane.showMessageDialog(null,"Operazione riuscita","", JOptionPane.INFORMATION_MESSAGE);
+                Utility.downloadINI();                
+            } else {
+                JOptionPane.showMessageDialog(null,"Errore nella eliminazione del file.", "", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_resetMenuItemActionPerformed
 
 //______________________________________________________________________________
 
@@ -1024,6 +1042,7 @@ private void refreshGrafici(){
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem lanciaBotMenuItem;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
@@ -1033,7 +1052,6 @@ private void refreshGrafici(){
     public static javax.swing.JLabel lb_NomeVincitore;
     private javax.swing.JLabel lb_PercentualeSesso;
     private javax.swing.JLabel lb_Vincitore;
-    private javax.swing.JMenu menu_Storico;
     private javax.swing.JMenu menu_Tools;
     private javax.swing.JButton openDatePicker;
     private javax.swing.JPanel panel_AllContainer;
@@ -1045,6 +1063,7 @@ private void refreshGrafici(){
     private javax.swing.JPanel panel_LineChart;
     private javax.swing.JPanel panel_SituazioneEle;
     private javax.swing.JLabel refreshLabel;
+    private javax.swing.JMenuItem resetMenuItem;
     private javax.swing.JButton stop_Vot;
     private javax.swing.JLabel vot_Status;
     private javax.swing.JLabel vot_Status_Lab;
