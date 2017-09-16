@@ -265,7 +265,6 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         if ( ( ret != 0 ) && ( ret2 != 0) ) {
             JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-            new ServerFrame().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
         }

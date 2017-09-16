@@ -261,8 +261,6 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
       int ret2 = mysql.WriteCandidatiColumns(tf_CodiceFiscale.getText(), tf_PartitoAppartenenza.getText(), 0, SERVER + tf_CodiceFiscale.getText() + ".jpg");
       if (ret != 0 && ret2 != 0) {
           JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
-          
-          new ServerFrame().setVisible(true);
           this.dispose();
       } else {
            JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
