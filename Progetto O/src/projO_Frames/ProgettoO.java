@@ -8,22 +8,12 @@ import java.io.IOException;
 import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.*;
-
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
-import static java.awt.event.KeyEvent.VK_A;
-
 import javax.swing.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+
 // imports per database
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 
 // imports interni
 import projO_Connettività.MySQlConnection;
@@ -48,10 +38,10 @@ public class ProgettoO {
     // <editor-fold defaultstate="collapsed" desc="DICHIARAZIONE VARIABILI">
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
-    private JTextField CF;
-    private JTextField CT;
-    private JLabel CodiceFis;
-    private JLabel CodiceTes;
+    private JTextField codiceFiscale;
+    private JTextField codiceTessera;
+    private JLabel lb_CodiceFiscale;
+    private JLabel lb_CodiceTessera;
     private JLabel Image_Icon;
     private JLabel Image_Icon_2;
     private JPanel r1,r2,r3,r4,r5,r6,r7,r8; //Pannelli di Riempimento Grid
@@ -218,68 +208,68 @@ public class ProgettoO {
         background_panel.add(r4);
 
    
-        CodiceFis = new JLabel("Inserire CODICE FISCALE",SwingConstants.CENTER);
-        CodiceFis.setFont(new Font("CF",Font.BOLD,25));
-        CodiceFis.setSize(450,5);
-        background_panel.add(CodiceFis);
+        lb_CodiceFiscale = new JLabel("Inserire CODICE FISCALE",SwingConstants.CENTER);
+        lb_CodiceFiscale.setFont(new Font("CF",Font.BOLD,25));
+        lb_CodiceFiscale.setSize(450,5);
+        background_panel.add(lb_CodiceFiscale);
 
-        CF = new JTextField();
-        CF.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        CF.setText("Inserire qui il Codice Fiscale");
-        CF.setFont(new Font("CF_Field",Font.ITALIC,20));
-        CF.setForeground(Color.LIGHT_GRAY);
-        CF.setSize(450, 20);
-        CF.addFocusListener(new FocusListener() {
+        codiceFiscale = new JTextField();
+        codiceFiscale.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        codiceFiscale.setText("Inserire qui il Codice Fiscale");
+        codiceFiscale.setFont(new Font("CF_Field",Font.ITALIC,20));
+        codiceFiscale.setForeground(Color.LIGHT_GRAY);
+        codiceFiscale.setSize(450, 20);
+        codiceFiscale.addFocusListener(new FocusListener() {
         @Override
             public void focusGained(FocusEvent e) {
-                if (CF.getText().equals("Inserire qui il Codice Fiscale")) {
-                    CF.setText("");
-                    CF.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
-                    CF.setForeground(Color.BLACK);
+                if (codiceFiscale.getText().equals("Inserire qui il Codice Fiscale")) {
+                    codiceFiscale.setText("");
+                    codiceFiscale.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+                    codiceFiscale.setForeground(Color.BLACK);
                 }
             }
             @Override
             public void focusLost(FocusEvent e) {
-                if(CF.getText().equals("")) {
-                    CF.setText("Inserire qui il Codice Fiscale");
-                    CF.setFont(new Font("CT_Field",Font.ITALIC,20));
-                    CF.setForeground(Color.LIGHT_GRAY);
+                if(codiceFiscale.getText().equals("")) {
+                    codiceFiscale.setText("Inserire qui il Codice Fiscale");
+                    codiceFiscale.setFont(new Font("CT_Field",Font.ITALIC,20));
+                    codiceFiscale.setForeground(Color.LIGHT_GRAY);
                 }
             }
          });
-        background_panel.add(CF);
+        background_panel.add(codiceFiscale);
 
         
-        CodiceTes = new JLabel("Inserire CODICE TESSERA",SwingConstants.CENTER);
-        CodiceTes.setFont(new Font("CT",Font.BOLD,25));
-        CodiceTes.setSize(450, 5);
-        background_panel.add(CodiceTes);
+        lb_CodiceTessera = new JLabel("Inserire CODICE TESSERA",SwingConstants.CENTER);
+        lb_CodiceTessera.setFont(new Font("CT",Font.BOLD,25));
+        lb_CodiceTessera.setSize(450, 5);
+        background_panel.add(lb_CodiceTessera);
         
-        CT = new JTextField();
-        CT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        CT.setText("Inserire qui il codice della Tessera Elettorale");
-        CT.setFont(new Font("CT_Field",Font.ITALIC,20));
-        CT.setForeground(Color.LIGHT_GRAY);
-        CT.setSize(450, 20);
-        CT.addFocusListener(new FocusListener() {
+        codiceTessera = new JTextField();
+        codiceTessera.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        codiceTessera.setText("Inserire qui il codice della Tessera Elettorale");
+        codiceTessera.setFont(new Font("CT_Field",Font.ITALIC,20));
+        codiceTessera.setForeground(Color.LIGHT_GRAY);
+        codiceTessera.setSize(450, 20);
+        codiceTessera.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (CT.getText().equals("Inserire qui il codice della Tessera Elettorale")) {
-                    CT.setText("");
-                    CT.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
-                    CT.setForeground(Color.BLACK);
+                if (codiceTessera.getText().equals("Inserire qui il codice della Tessera Elettorale")) {
+                    codiceTessera.setText("");
+                    codiceTessera.setFont(new Font("CF_Field",Font.ROMAN_BASELINE,20));
+                    codiceTessera.setForeground(Color.BLACK);
                 }
             }
             @Override
             public void focusLost(FocusEvent e) {
-                if(CT.getText().equals("")) {
-                    CT.setText("Inserire qui il codice della Tessera Elettorale");
-                    CT.setFont(new Font("CT_Field",Font.ITALIC,20));
-                    CT.setForeground(Color.LIGHT_GRAY);
+                if(codiceTessera.getText().equals("")) {
+                    codiceTessera.setText("Inserire qui il codice della Tessera Elettorale");
+                    codiceTessera.setFont(new Font("CT_Field",Font.ITALIC,20));
+                    codiceTessera.setForeground(Color.LIGHT_GRAY);
                 }
             }
          });
-        background_panel.add(CT);
+        background_panel.add(codiceTessera);
         
         r5=new JPanel();
         r5.setSize(450,35);
@@ -451,43 +441,43 @@ public class ProgettoO {
                
                case "Registrazione": 
                {
-                if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_regex)){
-                        boolean founded_CF = canVoteCF(CF.getText()); // Booleano definito dal Metodo
-                        boolean founded_CT = canVoteCT(CT.getText()); // Booleano definito dal Metodo
+                if(codiceFiscale.getText().matches(CF_regex) && codiceTessera.getText().matches(CT_regex)){
+                        boolean founded_CF = canVoteCF(codiceFiscale.getText()); // Booleano definito dal Metodo
+                        boolean founded_CT = canVoteCT(codiceTessera.getText()); // Booleano definito dal Metodo
                         
-                        if (founded_CF==true && founded_CT==true) { // Se VERE sia CF sia CT allora Spawna la ClientGUI
-                            if (!avoidDoubleReg(CF.getText(),CT.getText())) {
-                                int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + CF.getText() + "';");        // setta il flag votato --> impedisce doppio voto
+                        if (founded_CF==true && founded_CT==true) { // Se VERE sia codiceFiscale sia codiceTessera allora Spawna la ClientGUI
+                            if (!avoidDoubleReg(codiceFiscale.getText(),codiceTessera.getText())) {
+                                int res = mysql.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + codiceFiscale.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
                                     Votazione.addAffluenza();
                                     prepareClientGUI(); 
                                 }   
                             } else {
-                                JOptionPane.showMessageDialog(null,"Sembra che risulti già espresso un voto dalla persona identificata dai seguenti dati:\nCodice Fiscale: " + CF.getText() + "\nCodice Tessera: " + CT.getText(), "Errore" , JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null,"Sembra che risulti già espresso un voto dalla persona identificata dai seguenti dati:\nCodice Fiscale: " + codiceFiscale.getText() + "\nCodice Tessera: " + codiceTessera.getText(), "Errore" , JOptionPane.ERROR_MESSAGE);
                             }
 
                         }
                         else if(founded_CF==true && founded_CT==false) {
                             JOptionPane.showMessageDialog(null,"Codice Tessera Elettorale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
-                            CT.setText("");
+                            codiceTessera.setText("");
                         }
                         else if(founded_CF==false && founded_CT==true){
                             JOptionPane.showMessageDialog(null,"Codice Fiscale non Trovato,se corretto è possibile che lei non sia residente nel comune dove si vuole Votare.\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
-                            CF.setText("");
+                            codiceFiscale.setText("");
                         }
                         else if(founded_CF==false && founded_CT==false){
                            JOptionPane.showMessageDialog(null,"Codice Fiscale e Codice Tessera non Trovati.\nRiprovare","ERRORE",JOptionPane.ERROR_MESSAGE);
-                           CF.setText("");
-                           CT.setText("");
+                           codiceFiscale.setText("");
+                           codiceTessera.setText("");
                         }
                         
-                } else if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_regex)) {
+                } else if(codiceFiscale.getText().matches(CF_INV_regex) && codiceTessera.getText().matches(CT_regex)) {
                       JOptionPane.showMessageDialog(null,"Il Codice Fiscale inserito non sembra avere un formato corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
                   }
-                else if(CF.getText().matches(CF_regex) && CT.getText().matches(CT_INV_regex)) {
+                else if(codiceFiscale.getText().matches(CF_regex) && codiceTessera.getText().matches(CT_INV_regex)) {
                       JOptionPane.showMessageDialog(null,"Il Codice della Tessera Elettorale inserito non sembra avere un formato corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
                   } 
-                else if(CF.getText().matches(CF_INV_regex) && CT.getText().matches(CT_INV_regex)) {
+                else if(codiceFiscale.getText().matches(CF_INV_regex) && codiceTessera.getText().matches(CT_INV_regex)) {
                       JOptionPane.showMessageDialog(null,"Entrabi i Dati non sono nel Formato Corretto.\nRiprovare.", "ERRORE", JOptionPane.ERROR_MESSAGE);
                   }
                     break;
@@ -573,7 +563,7 @@ private boolean canVoteCF(String CF) {
 
         for (Votanti v: vot){
             if(v.getCF().equals(CF)){  
-                     return true; // Vuol dire che il CF del Votante Esiste ed è Abilitato
+                     return true; // Vuol dire che il codiceFiscale del Votante Esiste ed è Abilitato
             }
 
         }
@@ -587,7 +577,7 @@ private boolean canVoteCT(String CT) {
 
             for (Votanti v: vot){
                 if(v.getCodiceTessera().equals(CT)){  
-                         return true; // Vuol dire che il CT del Votante Esiste ed è Abilitato
+                         return true; // Vuol dire che il codiceTessera del Votante Esiste ed è Abilitato
                 }
 
             }

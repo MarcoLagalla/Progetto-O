@@ -78,10 +78,13 @@ public class Utility {
     final static public int DAY = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
     
     /**
-     * Folder immagini IMG Remote Folder
+     * Indirizzo Web immagini IMG Remote Folder
      */
     final static public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     
+    /**
+     * Directory interna al server Remoto per Immagini
+     */
     final static public String URL_IMG_REMOTE = "http://91.134.138.244/progettoO/img/";
     
     /**
@@ -94,6 +97,9 @@ public class Utility {
      */
     final static public String URL_REMOTE_INI_PATH = "http://91.134.138.244/progettoO/ini/progettoO.ini";
     
+    /**
+     * Indirizzo Web File INI
+     */
     final static public String REMOTE_INI_PATH = "/var/www/progettoO/ini/";
 
 //_____________________________METODI UTILITY___________________________________
@@ -145,6 +151,10 @@ public class Utility {
         return new ImageIcon(resizedImage);
     }
 
+    /**
+     * Metodo per Download .ini File affinchè sia possibie una sincronizzazione tra le macchine
+     * @return boolean che indica l'avvenuto Download o possibili problemi
+     */
     public static boolean downloadINI() {
         File f = new File(Utility.INI_PATH);
         if (!f.exists() && !f.isDirectory()) { 

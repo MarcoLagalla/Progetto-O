@@ -19,14 +19,13 @@ import projO_Connettività.MySQlConnection;
  *
  * @author Team
  */
+
 public class SchedaCandidatoFrame extends javax.swing.JPanel {
 
-    MySQlConnection mysql = new MySQlConnection();
-    private static boolean votato = false;     // controlla se l'utente vota o meno
+    MySQlConnection mySQL = new MySQlConnection();
+    private static boolean votato = false;     // Controlla se l'utente vota o meno
     
-    /**
-     * Creates new form schedaCandidato
-     */
+
     public SchedaCandidatoFrame() {
         initComponents();
         votato = false; // alla creazione imposta di default la votazione a falso
@@ -189,13 +188,13 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler votare per: " + lb_Nome.getText() + " " + lb_Cognome.getText() + " del " + lb_Partito.getText() + "?", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
                int voti;
-               ResultSet voti_ = mysql.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + lb_CF.getText() + "';");
+               ResultSet voti_ = mySQL.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + lb_CF.getText() + "';");
 
             try {
                 while (voti_.next()) {
                    voti = voti_.getInt("Voti");
                    voti = voti +1;
-                   int res = mysql.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + lb_CF.getText() + "';");
+                   int res = mySQL.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + lb_CF.getText() + "';");
                    
                    if ((res != 0 )) {
                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);

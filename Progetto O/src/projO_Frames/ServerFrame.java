@@ -55,15 +55,16 @@ import projO_Connettività.FTPConnection;
  *
  * @author Team
  */
+
 public class ServerFrame extends javax.swing.JFrame {
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
     
-    MySQlConnection mysql = new MySQlConnection();
+    MySQlConnection mySQL = new MySQlConnection();
     INIFile myINI = new INIFile(Utility.INI_PATH);
     FTPConnection myFTP = new FTPConnection();
-    JPanel tortona_UominiDonne;
-    JPanel line_Affluenza;
-    JPanel istogramma_Voti;
+    JPanel pieUominiDonne;
+    JPanel lineAffluenza;
+    JPanel istogrammaVoti;
     DefaultPieDataset resultPie = new DefaultPieDataset(); // Dataset PieChart 
     DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( ); //Dataset BarChart 
 
@@ -84,70 +85,71 @@ public class ServerFrame extends javax.swing.JFrame {
     
             loadCandidati(); 
 
-            // creazione grafici
-            istogramma_Voti = createLineChart();
-            panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER);
+            // Creazione Grafici
+            
+            istogrammaVoti = createLineChart();
+            panel_ColumnChart.add(istogrammaVoti,BorderLayout.CENTER);
             panel_ColumnChart.validate();
             
-            line_Affluenza = createBarChart("");
-            panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
+            lineAffluenza = createBarChart("");
+            panel_LineChart.add(lineAffluenza,BorderLayout.CENTER);
             panel_LineChart.validate();
             
-            tortona_UominiDonne = createPieChart("");
-            panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
+            pieUominiDonne = createPieChart("");
+            panel_CakeChart.add(pieUominiDonne,BorderLayout.CENTER);
             panel_CakeChart.validate();
             
-            Logo01.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
-            Logo02.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
+            lb_Logo1.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
+            lb_Logo2.setIcon(Utility.setUrlIcon(Utility.IMG_LOGO_SERVER)); // RELATIVE PATH
             
             File f = new File(Utility.INI_PATH);
                 if (!f.exists() && !f.isDirectory()) {
                     Calendar cal = Calendar.getInstance();   
                     DateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
-                    dataLabel.setText("Data Corrente: " + f1.format(cal.getTime()));
+                    lb_DataCorrente.setText("Data Corrente: " + f1.format(cal.getTime()));
 
                 } else {
-                    dataLabel.setText("Data Corrente: " + Votazione.readDataCorrente());
+                    lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
                 }
                     
 
-            refreshLabel.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.IMG_REFRESH), refreshLabel.getWidth(), refreshLabel.getHeight()));
+            lb_Refresh.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.IMG_REFRESH), lb_Refresh.getWidth(), lb_Refresh.getHeight()));
             
             lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.IMG_PROFILO)); // RELATIVE PATH
             
             
             
             if (Votazione.readStatoVotazione()) { // se le votazione sono aperte
-                vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
                 refreshGrafici();
-                avvia_Vot.setEnabled(false);
-                stop_Vot.setEnabled(true);
-                id_elezione.setEditable(false);
-                openDatePicker.setEnabled(false);
-                dataAvvio.setText(myINI.getStringProperty("Votazione", "DataInizio"));
-                dataChiusura.setText(myINI.getStringProperty("Votazione", "DataFine"));
-                id_elezione.setText(myINI.getStringProperty("Votazione", "ID"));
+                bt_AvvioElezioni.setEnabled(false);
+                bt_StopElezioni.setEnabled(true);
+                tf_IdElezione.setEditable(false);
+                bt_ScegliData.setEnabled(false);
+                tf_DataInizio.setText(myINI.getStringProperty("Votazione", "DataInizio"));
+                tf_DataFine.setText(myINI.getStringProperty("Votazione", "DataFine"));
+                tf_IdElezione.setText(myINI.getStringProperty("Votazione", "ID"));
                 avanzaGiornataMenuItem.setEnabled(true);
                 lanciaBotMenuItem.setEnabled(true);
-                Aggiungi_Candidato.setEnabled(false);
-                Modifica_Candidato.setEnabled(false);
-                Rimuovi_Candidato.setEnabled(false);
+                bt_AggiungiCandidato.setEnabled(false);
+                bt_ModificaCandidato.setEnabled(false);
+                bt_RimuoviCandidato.setEnabled(false);
                 
                 
             } else {    // se le votazioni sono chiuse
-                vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
-                avvia_Vot.setEnabled(true);
-                stop_Vot.setEnabled(false);
-                id_elezione.setEditable(true);
-                openDatePicker.setEnabled(true);
-                dataAvvio.setText("");
-                dataChiusura.setText("");
-                id_elezione.setText("");
+                lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
+                bt_AvvioElezioni.setEnabled(true);
+                bt_StopElezioni.setEnabled(false);
+                tf_IdElezione.setEditable(true);
+                bt_ScegliData.setEnabled(true);
+                tf_DataInizio.setText("");
+                tf_DataFine.setText("");
+                tf_IdElezione.setText("");
                 avanzaGiornataMenuItem.setEnabled(false);
                 lanciaBotMenuItem.setEnabled(false);
-                Aggiungi_Candidato.setEnabled(true);
-                Modifica_Candidato.setEnabled(true);
-                Rimuovi_Candidato.setEnabled(true);
+                bt_AggiungiCandidato.setEnabled(true);
+                bt_ModificaCandidato.setEnabled(true);
+                bt_RimuoviCandidato.setEnabled(true);
             }
         }
     
@@ -159,7 +161,7 @@ public class ServerFrame extends javax.swing.JFrame {
        }
     
     private CategoryDataset createBarChartDataset( ) {  
-        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
         for (Candidati object: can) {
             datasetBarChart.addValue( object.getVoti(), object.getNome() +  " " + object.getCognome(), "" ); 
         }
@@ -241,7 +243,7 @@ public class ServerFrame extends javax.swing.JFrame {
     
     private  PieDataset createPieChartDataset() {
 
-        ArrayList<Votanti> vot = mysql.ReadVotantiColumns();
+        ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
         
         int maschi = 0;
         int femmine = 0;
@@ -266,7 +268,7 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________  
  
     private void loadCandidati() {
-        ArrayList<Candidati> can = mysql.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
         javax.swing.DefaultListModel listModel;
         listModel = new javax.swing.DefaultListModel();
         listModel.removeAllElements();
@@ -285,29 +287,29 @@ public class ServerFrame extends javax.swing.JFrame {
         panel_AllContainer = new javax.swing.JPanel();
         panel_ColumnChart = new javax.swing.JPanel();
         panel_GestioneCandidati = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        lb_Gestione = new javax.swing.JLabel();
+        scroll_Gestione = new javax.swing.JScrollPane();
         Candidati_list = new javax.swing.JList<>();
-        Aggiungi_Candidato = new javax.swing.JButton();
-        Rimuovi_Candidato = new javax.swing.JButton();
-        Modifica_Candidato = new javax.swing.JButton();
+        bt_AggiungiCandidato = new javax.swing.JButton();
+        bt_RimuoviCandidato = new javax.swing.JButton();
+        bt_ModificaCandidato = new javax.swing.JButton();
         panel_SituazioneEle = new javax.swing.JPanel();
-        vot_Status_Lab = new javax.swing.JLabel();
-        vot_Status = new javax.swing.JLabel();
-        DataAvvio_Lab1 = new javax.swing.JLabel();
-        id_elezione = new javax.swing.JTextField();
-        dataAvvio = new javax.swing.JTextField();
-        dataAvvio_Lab = new javax.swing.JLabel();
-        dataChiusura_Lab = new javax.swing.JLabel();
-        dataChiusura = new javax.swing.JTextField();
-        openDatePicker = new javax.swing.JButton();
-        avvia_Vot = new javax.swing.JButton();
-        stop_Vot = new javax.swing.JButton();
-        error_msg = new javax.swing.JLabel();
+        lb_StatusEle = new javax.swing.JLabel();
+        lb_ImmagineStatus = new javax.swing.JLabel();
+        lb_IdElezione = new javax.swing.JLabel();
+        tf_IdElezione = new javax.swing.JTextField();
+        tf_DataInizio = new javax.swing.JTextField();
+        lb_DataInizio = new javax.swing.JLabel();
+        lb_DataFine = new javax.swing.JLabel();
+        tf_DataFine = new javax.swing.JTextField();
+        bt_ScegliData = new javax.swing.JButton();
+        bt_AvvioElezioni = new javax.swing.JButton();
+        bt_StopElezioni = new javax.swing.JButton();
+        lb_ErroreAvvio = new javax.swing.JLabel();
         panel_Intestazione = new javax.swing.JPanel();
-        Intestazione = new javax.swing.JLabel();
-        Logo01 = new javax.swing.JLabel();
-        Logo02 = new javax.swing.JLabel();
+        lb_Intestazione = new javax.swing.JLabel();
+        lb_Logo1 = new javax.swing.JLabel();
+        lb_Logo2 = new javax.swing.JLabel();
         lb_AndamentoVoti = new javax.swing.JLabel();
         lb_Vincitore = new javax.swing.JLabel();
         panel_LineChart = new javax.swing.JPanel();
@@ -319,9 +321,9 @@ public class ServerFrame extends javax.swing.JFrame {
         lb_CognomeVincitore = new javax.swing.JLabel();
         panel_CakeChart = new javax.swing.JPanel();
         panel_BotContainer = new javax.swing.JPanel();
-        refreshLabel = new javax.swing.JLabel();
-        dataLabel = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        lb_Refresh = new javax.swing.JLabel();
+        lb_DataCorrente = new javax.swing.JLabel();
+        menu_Bar = new javax.swing.JMenuBar();
         menu_Tools = new javax.swing.JMenu();
         avanzaGiornataMenuItem = new javax.swing.JMenuItem();
         lanciaBotMenuItem = new javax.swing.JMenuItem();
@@ -349,8 +351,8 @@ public class ServerFrame extends javax.swing.JFrame {
         panel_GestioneCandidati.setBackground(new java.awt.Color(255, 255, 255));
         panel_GestioneCandidati.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel6.setText("Gestione candidati");
+        lb_Gestione.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        lb_Gestione.setText("Gestione candidati");
 
         Candidati_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         Candidati_list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -358,26 +360,26 @@ public class ServerFrame extends javax.swing.JFrame {
                 Candidati_listMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(Candidati_list);
+        scroll_Gestione.setViewportView(Candidati_list);
 
-        Aggiungi_Candidato.setText("Aggiungi");
-        Aggiungi_Candidato.addActionListener(new java.awt.event.ActionListener() {
+        bt_AggiungiCandidato.setText("Aggiungi");
+        bt_AggiungiCandidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Aggiungi_CandidatoActionPerformed(evt);
+                bt_AggiungiCandidatoActionPerformed(evt);
             }
         });
 
-        Rimuovi_Candidato.setText("Rimuovi");
-        Rimuovi_Candidato.addActionListener(new java.awt.event.ActionListener() {
+        bt_RimuoviCandidato.setText("Rimuovi");
+        bt_RimuoviCandidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Rimuovi_CandidatoActionPerformed(evt);
+                bt_RimuoviCandidatoActionPerformed(evt);
             }
         });
 
-        Modifica_Candidato.setText("Modifica");
-        Modifica_Candidato.addActionListener(new java.awt.event.ActionListener() {
+        bt_ModificaCandidato.setText("Modifica");
+        bt_ModificaCandidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Modifica_CandidatoActionPerformed(evt);
+                bt_ModificaCandidatoActionPerformed(evt);
             }
         });
 
@@ -388,98 +390,98 @@ public class ServerFrame extends javax.swing.JFrame {
             .addGroup(panel_GestioneCandidatiLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_GestioneCandidatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(scroll_Gestione)
                     .addGroup(panel_GestioneCandidatiLayout.createSequentialGroup()
                         .addGroup(panel_GestioneCandidatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_GestioneCandidatiLayout.createSequentialGroup()
-                                .addComponent(Aggiungi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bt_AggiungiCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(11, 11, 11)
-                                .addComponent(Modifica_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bt_ModificaCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Rimuovi_Candidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(bt_RimuoviCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lb_Gestione, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 316, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panel_GestioneCandidatiLayout.setVerticalGroup(
             panel_GestioneCandidatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_GestioneCandidatiLayout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lb_Gestione, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scroll_Gestione, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_GestioneCandidatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Rimuovi_Candidato)
-                    .addComponent(Modifica_Candidato)
-                    .addComponent(Aggiungi_Candidato))
+                    .addComponent(bt_RimuoviCandidato)
+                    .addComponent(bt_ModificaCandidato)
+                    .addComponent(bt_AggiungiCandidato))
                 .addContainerGap())
         );
 
         panel_SituazioneEle.setBackground(new java.awt.Color(255, 255, 255));
         panel_SituazioneEle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
-        vot_Status_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        vot_Status_Lab.setText("Status Votazioni :");
+        lb_ImmagineStatus.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        lb_StatusEle.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        lb_StatusEle.setText("Status Votazioni :");
 
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
-        DataAvvio_Lab1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        DataAvvio_Lab1.setText("ID elezione:");
+        lb_ImmagineStatus.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        lb_IdElezione.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        lb_IdElezione.setText("ID elezione:");
 
-        id_elezione.addActionListener(new java.awt.event.ActionListener() {
+        tf_IdElezione.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id_elezioneActionPerformed(evt);
+                tf_IdElezioneActionPerformed(evt);
             }
         });
 
-        dataAvvio.setEditable(false);
-        dataAvvio.setText(" ");
-        dataAvvio.addActionListener(new java.awt.event.ActionListener() {
+        tf_DataInizio.setEditable(false);
+        tf_DataInizio.setText(" ");
+        tf_DataInizio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataAvvioActionPerformed(evt);
+                tf_DataInizioActionPerformed(evt);
             }
         });
 
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
-        dataAvvio_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        dataAvvio_Lab.setText("Data Inizio Elezioni:");
+        lb_ImmagineStatus.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        lb_DataInizio.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        lb_DataInizio.setText("Data Inizio Elezioni:");
 
-        vot_Status.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
-        dataChiusura_Lab.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        dataChiusura_Lab.setText("Data Fine Elezioni:");
+        lb_ImmagineStatus.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
+        lb_DataFine.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        lb_DataFine.setText("Data Fine Elezioni:");
 
-        dataChiusura.setEditable(false);
-        dataChiusura.setText(" Selezionare una data");
-        dataChiusura.addActionListener(new java.awt.event.ActionListener() {
+        tf_DataFine.setEditable(false);
+        tf_DataFine.setText(" Selezionare una data");
+        tf_DataFine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataChiusuraActionPerformed(evt);
+                tf_DataFineActionPerformed(evt);
             }
         });
 
-        openDatePicker.setText("Scegli Data");
-        openDatePicker.addActionListener(new java.awt.event.ActionListener() {
+        bt_ScegliData.setText("Scegli Data");
+        bt_ScegliData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDatePickerActionPerformed(evt);
+                bt_ScegliDataActionPerformed(evt);
             }
         });
 
-        avvia_Vot.setText("Avvia");
-        avvia_Vot.addActionListener(new java.awt.event.ActionListener() {
+        bt_AvvioElezioni.setText("Avvia");
+        bt_AvvioElezioni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avvia_VotActionPerformed(evt);
+                bt_AvvioElezioniActionPerformed(evt);
             }
         });
 
-        stop_Vot.setText("Stop");
-        stop_Vot.setEnabled(false);
-        stop_Vot.addActionListener(new java.awt.event.ActionListener() {
+        bt_StopElezioni.setText("Stop");
+        bt_StopElezioni.setEnabled(false);
+        bt_StopElezioni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stop_VotActionPerformed(evt);
+                bt_StopElezioniActionPerformed(evt);
             }
         });
 
-        error_msg.setForeground(new java.awt.Color(255, 0, 0));
-        error_msg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_ErroreAvvio.setForeground(new java.awt.Color(255, 0, 0));
+        lb_ErroreAvvio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout panel_SituazioneEleLayout = new javax.swing.GroupLayout(panel_SituazioneEle);
         panel_SituazioneEle.setLayout(panel_SituazioneEleLayout);
@@ -490,74 +492,74 @@ public class ServerFrame extends javax.swing.JFrame {
                     .addGroup(panel_SituazioneEleLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataAvvio_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dataChiusura_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DataAvvio_Lab1))
+                            .addComponent(lb_DataInizio, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_DataFine, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_IdElezione))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(id_elezione, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_IdElezione, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel_SituazioneEleLayout.createSequentialGroup()
                                 .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dataAvvio)
-                                    .addComponent(dataChiusura, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tf_DataInizio)
+                                    .addComponent(tf_DataFine, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(openDatePicker))
+                                .addComponent(bt_ScegliData))
                             .addGroup(panel_SituazioneEleLayout.createSequentialGroup()
-                                .addComponent(avvia_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bt_AvvioElezioni, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bt_StopElezioni, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lb_ErroreAvvio, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_SituazioneEleLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(vot_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lb_ImmagineStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(168, 168, 168)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panel_SituazioneEleLayout.createSequentialGroup()
                     .addGap(35, 35, 35)
-                    .addComponent(vot_Status_Lab)
+                    .addComponent(lb_StatusEle)
                     .addGap(529, 529, 529)))
         );
         panel_SituazioneEleLayout.setVerticalGroup(
             panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_SituazioneEleLayout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(vot_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lb_ImmagineStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataAvvio_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataAvvio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_DataInizio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_DataInizio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataChiusura_Lab, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataChiusura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(openDatePicker))
+                    .addComponent(lb_DataFine, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_DataFine, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_ScegliData))
                 .addGap(18, 18, 18)
                 .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DataAvvio_Lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(id_elezione, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_IdElezione, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_IdElezione, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(avvia_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stop_Vot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bt_AvvioElezioni, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_StopElezioni, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(error_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lb_ErroreAvvio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panel_SituazioneEleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_SituazioneEleLayout.createSequentialGroup()
                     .addContainerGap(31, Short.MAX_VALUE)
-                    .addComponent(vot_Status_Lab)
+                    .addComponent(lb_StatusEle)
                     .addGap(300, 300, 300)))
         );
 
         panel_Intestazione.setBackground(new java.awt.Color(255, 255, 255));
 
-        Intestazione.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        Intestazione.setText("PANNELLO AMMINISTRAZIONE ELEZIONI");
+        lb_Intestazione.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        lb_Intestazione.setText("PANNELLO AMMINISTRAZIONE ELEZIONI");
 
-        Logo02.setMaximumSize(new java.awt.Dimension(145, 145));
-        Logo02.setMinimumSize(new java.awt.Dimension(145, 145));
-        Logo02.setPreferredSize(new java.awt.Dimension(145, 145));
+        lb_Logo2.setMaximumSize(new java.awt.Dimension(145, 145));
+        lb_Logo2.setMinimumSize(new java.awt.Dimension(145, 145));
+        lb_Logo2.setPreferredSize(new java.awt.Dimension(145, 145));
 
         javax.swing.GroupLayout panel_IntestazioneLayout = new javax.swing.GroupLayout(panel_Intestazione);
         panel_Intestazione.setLayout(panel_IntestazioneLayout);
@@ -565,23 +567,23 @@ public class ServerFrame extends javax.swing.JFrame {
             panel_IntestazioneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_IntestazioneLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(Logo01, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lb_Logo1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Intestazione)
+                .addComponent(lb_Intestazione)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Logo02, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lb_Logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panel_IntestazioneLayout.setVerticalGroup(
             panel_IntestazioneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_IntestazioneLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lb_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panel_IntestazioneLayout.createSequentialGroup()
                 .addGroup(panel_IntestazioneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Logo02, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Logo01, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_Logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_Logo1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -623,15 +625,15 @@ public class ServerFrame extends javax.swing.JFrame {
             .addGap(0, 126, Short.MAX_VALUE)
         );
 
-        refreshLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        refreshLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        refreshLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        lb_Refresh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lb_Refresh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lb_Refresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                refreshLabelMouseClicked(evt);
+                lb_RefreshMouseClicked(evt);
             }
         });
 
-        dataLabel.setText("Data Corrente: ");
+        lb_DataCorrente.setText("Data Corrente: ");
 
         javax.swing.GroupLayout panel_AllContainerLayout = new javax.swing.GroupLayout(panel_AllContainer);
         panel_AllContainer.setLayout(panel_AllContainerLayout);
@@ -641,11 +643,11 @@ public class ServerFrame extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
-                        .addComponent(dataLabel)
+                        .addComponent(lb_DataCorrente)
                         .addGap(461, 461, 461)
                         .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(refreshLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lb_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panel_SituazioneEle, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -693,10 +695,10 @@ public class ServerFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panel_Intestazione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(refreshLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lb_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(dataLabel)))
+                        .addComponent(lb_DataCorrente)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_AllContainerLayout.createSequentialGroup()
@@ -772,19 +774,19 @@ public class ServerFrame extends javax.swing.JFrame {
         });
         menu_Tools.add(resetMenuItem);
 
-        jMenuBar1.add(menu_Tools);
+        menu_Bar.add(menu_Tools);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menu_Bar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Aggiungi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Aggiungi_CandidatoActionPerformed
+    private void bt_AggiungiCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AggiungiCandidatoActionPerformed
         new AddCandidatiFrame().setVisible(true);
-    }//GEN-LAST:event_Aggiungi_CandidatoActionPerformed
+    }//GEN-LAST:event_bt_AggiungiCandidatoActionPerformed
 //______________________________________________________________________________
     
-    private void Rimuovi_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Rimuovi_CandidatoActionPerformed
+    private void bt_RimuoviCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_RimuoviCandidatoActionPerformed
 
         String candidato = Candidati_list.getSelectedValue();
         if (!(candidato.equals("")) ) {
@@ -794,15 +796,15 @@ public class ServerFrame extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione cancellerà in maniera definitiva il candidato " + tokens[0] + ".", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION){
                 try {
-                    mysql.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + _cf + "';");
+                    mySQL.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + _cf + "';");
                     loadCandidati();
                 } catch (Exception ex) {ex.printStackTrace();}
             }
         }
-    }//GEN-LAST:event_Rimuovi_CandidatoActionPerformed
+    }//GEN-LAST:event_bt_RimuoviCandidatoActionPerformed
 //______________________________________________________________________________
     
-    private void Modifica_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modifica_CandidatoActionPerformed
+    private void bt_ModificaCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ModificaCandidatoActionPerformed
 
         String candidato = Candidati_list.getSelectedValue();
         if (!(candidato.equals("")) ) {
@@ -811,84 +813,84 @@ public class ServerFrame extends javax.swing.JFrame {
              _cf = _cf.replace(" ", ""); // rimuove gli spazi bianchi dal CF
           new EditCandidatiFrame(_cf).setVisible(true);     
         }
-    }//GEN-LAST:event_Modifica_CandidatoActionPerformed
+    }//GEN-LAST:event_bt_ModificaCandidatoActionPerformed
 //______________________________________________________________________________
     
-    private void dataAvvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataAvvioActionPerformed
-    }//GEN-LAST:event_dataAvvioActionPerformed
+    private void tf_DataInizioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_DataInizioActionPerformed
+    }//GEN-LAST:event_tf_DataInizioActionPerformed
 //______________________________________________________________________________
     
-    private void dataChiusuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataChiusuraActionPerformed
-    }//GEN-LAST:event_dataChiusuraActionPerformed
+    private void tf_DataFineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_DataFineActionPerformed
+    }//GEN-LAST:event_tf_DataFineActionPerformed
 //______________________________________________________________________________
     
-    private void stop_VotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stop_VotActionPerformed
+    private void bt_StopElezioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StopElezioniActionPerformed
         
         ProgettoO.StatoVotazioni = false;
         myINI.setBooleanProperty("Votazione", "VotazioneAperta", false, "Stato votazioni");
         myINI.save();
         Votazione.chiudiVotazione();
-        avvia_Vot.setEnabled(true);
-        stop_Vot.setEnabled(false);
+        bt_AvvioElezioni.setEnabled(true);
+        bt_StopElezioni.setEnabled(false);
         avanzaGiornataMenuItem.setEnabled(false);
         lanciaBotMenuItem.setEnabled(false);
-        id_elezione.setEditable(true);
-        id_elezione.setText(null);
-        dataChiusura.setText(null);
-        dataAvvio.setText(null);
-        openDatePicker.setEnabled(true);
-        vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
+        tf_IdElezione.setEditable(true);
+        tf_IdElezione.setText(null);
+        tf_DataFine.setText(null);
+        tf_DataInizio.setText(null);
+        bt_ScegliData.setEnabled(true);
+        lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_CHIUSE));
         ProgettoO.getRegistrazione().setEnabled(false);
         ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_DISABLED));
-        Aggiungi_Candidato.setEnabled(true);
-        Modifica_Candidato.setEnabled(true);
-        Rimuovi_Candidato.setEnabled(true);
-    }//GEN-LAST:event_stop_VotActionPerformed
+        bt_AggiungiCandidato.setEnabled(true);
+        bt_ModificaCandidato.setEnabled(true);
+        bt_RimuoviCandidato.setEnabled(true);
+    }//GEN-LAST:event_bt_StopElezioniActionPerformed
 //______________________________________________________________________________
     
-    private void openDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDatePickerActionPerformed
+    private void bt_ScegliDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ScegliDataActionPerformed
          final JFrame f = new JFrame();
          //set text which is collected by date picker i.e. set date 
-         dataChiusura.setText(new DatePicker(f).setPickedDate());
-    }//GEN-LAST:event_openDatePickerActionPerformed
+         tf_DataFine.setText(new DatePicker(f).setPickedDate());
+    }//GEN-LAST:event_bt_ScegliDataActionPerformed
 //______________________________________________________________________________
     
-    private void avvia_VotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avvia_VotActionPerformed
-        if (!(dataChiusura.getText().equals(""))) { // controlla che sia impostata una data di fine
-            if (checkDate(dataChiusura.getText())) {    // preleva la data fine
-                if (!(id_elezione.getText().equals(""))) {  // controlla che sia impostato un id per la votazione
-                    if (!Votazione.existsVotazione(id_elezione.getText())) {
+    private void bt_AvvioElezioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AvvioElezioniActionPerformed
+        if (!(tf_DataFine.getText().equals(""))) { // controlla che sia impostata una data di fine
+            if (checkDate(tf_DataFine.getText())) {    // preleva la data fine
+                if (!(tf_IdElezione.getText().equals(""))) {  // controlla che sia impostato un id per la votazione
+                    if (!Votazione.existsVotazione(tf_IdElezione.getText())) {
                         refreshGrafici();
-                        Votazione.inizioVotazione(id_elezione.getText(), dataChiusura.getText());
+                        Votazione.inizioVotazione(tf_IdElezione.getText(), tf_DataFine.getText());
 
-                        dataAvvio.setText(Votazione.getF().format(Votazione.getDataInizioVot().getTime()));
+                        tf_DataInizio.setText(Votazione.getF().format(Votazione.getDataInizioVot().getTime()));
 
-                        error_msg.setText(""); 
-                        avvia_Vot.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
-                        stop_Vot.setEnabled(true);
-                        id_elezione.setEditable(false);
-                        openDatePicker.setEnabled(false);
+                        lb_ErroreAvvio.setText(""); 
+                        bt_AvvioElezioni.setEnabled(false);    // una volta avviata la votazione, il pulsante di avvio viene disattivato fin quando la votazione non finisce
+                        bt_StopElezioni.setEnabled(true);
+                        tf_IdElezione.setEditable(false);
+                        bt_ScegliData.setEnabled(false);
                         
                         avanzaGiornataMenuItem.setEnabled(true);
                         lanciaBotMenuItem.setEnabled(true);
                         
                         ProgettoO.getRegistrazione().setEnabled(true);
                         ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.IMG_REGISTRAZIONE_ENABLED));
-                        vot_Status.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
-                        Aggiungi_Candidato.setEnabled(false);
-                        Modifica_Candidato.setEnabled(false);
-                        Rimuovi_Candidato.setEnabled(false);
+                        lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.IMG_VOTAZIONI_APERTE));
+                        bt_AggiungiCandidato.setEnabled(false);
+                        bt_ModificaCandidato.setEnabled(false);
+                        bt_RimuoviCandidato.setEnabled(false);
                         refreshGrafici();
                         myFTP.loadFile(Utility.INI_PATH, Utility.REMOTE_INI_PATH + "progettoO.ini");
-                    }else { error_msg.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
-                }else  { error_msg.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
-            }else  { error_msg.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
-        } else { error_msg.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!"); }        
-    }//GEN-LAST:event_avvia_VotActionPerformed
+                    }else { lb_ErroreAvvio.setText("Errore: l' identificativo scelto non è ammissibile, cambiare ID.");}
+                }else  { lb_ErroreAvvio.setText("Errore: è necessario scegliere un identificativo per la votazione!"); }
+            }else  { lb_ErroreAvvio.setText("Errore: la data di fine elezioni non può essere precedente a quella di inizio!"); }
+        } else { lb_ErroreAvvio.setText("Errore: è necessario selezionare una data per la chiusura delle votazioni!"); }        
+    }//GEN-LAST:event_bt_AvvioElezioniActionPerformed
 //______________________________________________________________________________
     
-    private void id_elezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_elezioneActionPerformed
-    }//GEN-LAST:event_id_elezioneActionPerformed
+    private void tf_IdElezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_IdElezioneActionPerformed
+    }//GEN-LAST:event_tf_IdElezioneActionPerformed
 //______________________________________________________________________________
     
     private void Candidati_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Candidati_listMouseClicked
@@ -911,9 +913,9 @@ public class ServerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_avanzaGiornataMenuItemActionPerformed
 
-    private void refreshLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshLabelMouseClicked
+    private void lb_RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_RefreshMouseClicked
         refreshGrafici();
-    }//GEN-LAST:event_refreshLabelMouseClicked
+    }//GEN-LAST:event_lb_RefreshMouseClicked
 
     private void lanciaBotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lanciaBotMenuItemActionPerformed
        MainFrameBot bot = new MainFrameBot();
@@ -926,7 +928,6 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_eseguiBackupMenuItemActionPerformed
 
     private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
-        // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(null,"Sei sicueo di voler resettare la macchina?\nQuesta operazione cancellerà il file di impostazioni.", "Richiesta conferma operazione", JOptionPane.OK_CANCEL_OPTION);
         if (res == JOptionPane.OK_OPTION) {
             File f = new File(Utility.INI_PATH);
@@ -993,26 +994,28 @@ private boolean checkDate(String Date) {
     }
     return false;
 }  // Il parametro Date deve contenere la data di FINE
-    
+
+//______________________________________________________________________________
+
 // Metodo REFRESH Grafici
 
 private void refreshGrafici(){
 
-    panel_ColumnChart.remove(istogramma_Voti);
-    panel_LineChart.remove(line_Affluenza);
-    panel_CakeChart.remove(tortona_UominiDonne);
+    panel_ColumnChart.remove(istogrammaVoti);
+    panel_LineChart.remove(lineAffluenza);
+    panel_CakeChart.remove(pieUominiDonne);
 
 
-    istogramma_Voti = createLineChart();
-    panel_ColumnChart.add(istogramma_Voti,BorderLayout.CENTER); 
+    istogrammaVoti = createLineChart();
+    panel_ColumnChart.add(istogrammaVoti,BorderLayout.CENTER); 
     panel_ColumnChart.validate();
 
-    line_Affluenza = createBarChart("");
-    panel_LineChart.add(line_Affluenza,BorderLayout.CENTER);
+    lineAffluenza = createBarChart("");
+    panel_LineChart.add(lineAffluenza,BorderLayout.CENTER);
     panel_LineChart.validate();
 
-    tortona_UominiDonne = createPieChart("");
-    panel_CakeChart.add(tortona_UominiDonne,BorderLayout.CENTER);
+    pieUominiDonne = createPieChart("");
+    panel_CakeChart.add(pieUominiDonne,BorderLayout.CENTER);
     panel_CakeChart.validate();
 
 }
@@ -1020,27 +1023,15 @@ private void refreshGrafici(){
 //______________________________________________________________________________
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Aggiungi_Candidato;
     private javax.swing.JList<String> Candidati_list;
-    private javax.swing.JLabel DataAvvio_Lab1;
-    private javax.swing.JLabel Intestazione;
-    private javax.swing.JLabel Logo01;
-    private javax.swing.JLabel Logo02;
-    private javax.swing.JButton Modifica_Candidato;
-    private javax.swing.JButton Rimuovi_Candidato;
     private javax.swing.JMenuItem avanzaGiornataMenuItem;
-    private javax.swing.JButton avvia_Vot;
-    private javax.swing.JTextField dataAvvio;
-    private javax.swing.JLabel dataAvvio_Lab;
-    private javax.swing.JTextField dataChiusura;
-    private javax.swing.JLabel dataChiusura_Lab;
-    public static javax.swing.JLabel dataLabel;
-    private javax.swing.JLabel error_msg;
+    private javax.swing.JButton bt_AggiungiCandidato;
+    private javax.swing.JButton bt_AvvioElezioni;
+    private javax.swing.JButton bt_ModificaCandidato;
+    private javax.swing.JButton bt_RimuoviCandidato;
+    private javax.swing.JButton bt_ScegliData;
+    private javax.swing.JButton bt_StopElezioni;
     private javax.swing.JMenuItem eseguiBackupMenuItem;
-    private javax.swing.JTextField id_elezione;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem lanciaBotMenuItem;
@@ -1048,12 +1039,24 @@ private void refreshGrafici(){
     private javax.swing.JLabel lb_AndamentoVoti;
     public static javax.swing.JLabel lb_CF;
     public static javax.swing.JLabel lb_CognomeVincitore;
+    public static javax.swing.JLabel lb_DataCorrente;
+    private javax.swing.JLabel lb_DataFine;
+    private javax.swing.JLabel lb_DataInizio;
+    private javax.swing.JLabel lb_ErroreAvvio;
     public static javax.swing.JLabel lb_FotoWinner;
+    private javax.swing.JLabel lb_Gestione;
+    private javax.swing.JLabel lb_IdElezione;
+    private javax.swing.JLabel lb_ImmagineStatus;
+    private javax.swing.JLabel lb_Intestazione;
+    private javax.swing.JLabel lb_Logo1;
+    private javax.swing.JLabel lb_Logo2;
     public static javax.swing.JLabel lb_NomeVincitore;
     private javax.swing.JLabel lb_PercentualeSesso;
+    private javax.swing.JLabel lb_Refresh;
+    private javax.swing.JLabel lb_StatusEle;
     private javax.swing.JLabel lb_Vincitore;
+    private javax.swing.JMenuBar menu_Bar;
     private javax.swing.JMenu menu_Tools;
-    private javax.swing.JButton openDatePicker;
     private javax.swing.JPanel panel_AllContainer;
     private javax.swing.JPanel panel_BotContainer;
     private javax.swing.JPanel panel_CakeChart;
@@ -1062,11 +1065,11 @@ private void refreshGrafici(){
     private javax.swing.JPanel panel_Intestazione;
     private javax.swing.JPanel panel_LineChart;
     private javax.swing.JPanel panel_SituazioneEle;
-    private javax.swing.JLabel refreshLabel;
     private javax.swing.JMenuItem resetMenuItem;
-    private javax.swing.JButton stop_Vot;
-    private javax.swing.JLabel vot_Status;
-    private javax.swing.JLabel vot_Status_Lab;
+    private javax.swing.JScrollPane scroll_Gestione;
+    private javax.swing.JTextField tf_DataFine;
+    private javax.swing.JTextField tf_DataInizio;
+    private javax.swing.JTextField tf_IdElezione;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -61,7 +61,7 @@ public class Votazione {
     
     /**
      *
-     * @return
+     * @return FormatoData
      */
     public static DateFormat getF() {
         return f;
@@ -69,7 +69,7 @@ public class Votazione {
 
     /**
      *
-     * @return
+     * @return DataInizioVotazioni
      */
     public static Calendar getDataInizioVot() {
         return dataInizioVot;
@@ -275,7 +275,7 @@ public class Votazione {
         dataCorrente.add(Calendar.DATE, 1);
         myINI.setStringProperty("Votazione", "DataCorrente", f.format(dataCorrente.getTime()), "DataCorrente");
         myINI.save();
-        ServerFrame.dataLabel.setText("Data Corrente: " + Votazione.readDataCorrente());
+        ServerFrame.lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
 }
 //______________________________________________________________________________
     /*
