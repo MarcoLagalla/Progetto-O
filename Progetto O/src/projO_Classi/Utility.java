@@ -37,8 +37,8 @@ public class Utility {
      */
     final static public String imgLogo = "http://91.134.138.244/progettoO/img/Logo.png";    
 
-    /** Immagine LogoRepubblica usato nel Server
-     *
+    /** 
+     * Immagine LogoRepubblica usato nel Server
      */
     final static public String imgLogoServer = "http://91.134.138.244/progettoO/img/Logo_Server.png";      
 

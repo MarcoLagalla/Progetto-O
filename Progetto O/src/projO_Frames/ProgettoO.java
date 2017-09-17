@@ -25,7 +25,6 @@ import projO_Classi.Votazione;
 import projO_Connettività.FTPConnection;
 // </editor-fold>
 
-
 //______________________________________________________________________________
 /**
  *
@@ -446,10 +445,12 @@ public class ProgettoO {
                         
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia codiceFiscale sia codiceTessera allora Spawna la ClientGUI
                             if (!avoidDoubleReg(codiceFiscale.getText(),codiceTessera.getText())) {
-                                int res = mySQL.updateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + codiceFiscale.getText() + "';");        // setta il flag votato --> impedisce doppio voto
+                                int res = mySQL.updateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + codiceFiscale.getText() + "';"); // Setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
                                     Votazione.addAffluenza();
-                                    prepareClientGUI(); 
+                                    prepareClientGUI();
+                                    JOptionPane.showMessageDialog(null,"Se non viene effettuata nessuna azione e si chiude la finestra la Votazione risulterà Nulla","INFORMAZIONE DI SERVIZIO",JOptionPane.INFORMATION_MESSAGE);
+
                                 }   
                             } else {
                                 JOptionPane.showMessageDialog(null,"Sembra che risulti già espresso un voto dalla persona identificata dai seguenti dati:\nCodice Fiscale: " + codiceFiscale.getText() + "\nCodice Tessera: " + codiceTessera.getText(), "Errore" , JOptionPane.ERROR_MESSAGE);
@@ -502,6 +503,8 @@ public class ProgettoO {
                case "Vota": // è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "ServerFrame"
                {
                    prepareGUI();    // ricrea la home e killa la clientGUI 
+                   codiceFiscale.setText("");
+                   codiceTessera.setText("");
                    clientFrame.dispose();
                    break;
                }

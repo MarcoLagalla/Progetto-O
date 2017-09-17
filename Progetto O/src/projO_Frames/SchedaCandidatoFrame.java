@@ -189,7 +189,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
         if (reply == JOptionPane.YES_OPTION){
                int voti;
                ResultSet voti_ = mySQL.executeQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + lb_CF.getText() + "';");
-
+               
             try {
                 while (voti_.next()) {
                    voti = voti_.getInt("Voti");
