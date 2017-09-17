@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JTextField;
 import projO_Classi.Utility;
 
 // imports interni
@@ -25,7 +26,6 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
     MySQlConnection mySQL = new MySQlConnection();
     private static boolean votato = false;     // Controlla se l'utente vota o meno
     
-
     public SchedaCandidatoFrame() {
         initComponents();
         votato = false; // alla creazione imposta di default la votazione a falso
@@ -200,7 +200,8 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);
                       votato = true;
                       ProgettoO.clientFrame.dispose();
-                       
+                      Utility.resetTextField(ProgettoO.getCodiceFiscale(), "Inserire qui il Codice Fiscale"); // reset del JtextField nell'interfaccia principale
+                      Utility.resetTextField(ProgettoO.getCodiceTessera(), "Inserire qui il codice della Tessera Elettorale"); // reset del JtextField nell'interfaccia principale                       
                    } else {
                        JOptionPane.showMessageDialog(null,"Votazione non andata a buon fine!", "Errore", JOptionPane.ERROR_MESSAGE);
                    }

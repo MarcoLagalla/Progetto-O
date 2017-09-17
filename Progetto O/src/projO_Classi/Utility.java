@@ -1,5 +1,7 @@
 package projO_Classi;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,13 +12,18 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Team
  */
 public class Utility {
-     
+
+    private Utility() {};     // Costuttore privato. La classe contiene solo variabili e metodi statici, non va istanziata.
+    
+//_______________________________________________________________________
+
     /**
      * Immagini Profilo
      */
@@ -119,7 +126,6 @@ public class Utility {
      * @param resizedWidth
      * @return image as icon (resized)
      */
-    
     public static Icon setUrlIcon(String remoteURL , int resizedWidth, int resizedHeight ) {
         ImageIcon img;
         Image resizedImage = null;
@@ -132,6 +138,7 @@ public class Utility {
         }
         return new ImageIcon(resizedImage);
     }
+    
     /**
      * Metodo ResizeIcon per ridimensionare l'Immagine con l'elemento Swing al quale verrà applicata
      * @param icon immagine
@@ -139,11 +146,21 @@ public class Utility {
      * @param resizedHeight nuova altezza
      * @return image as icon (resized)
      */
-    
     public static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {     // resize foto dei Candidati (nei pannelli di createPan) per fit jButton
         Image img = icon.getImage();  
         Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
         return new ImageIcon(resizedImage);
+    }
+   
+      /**
+     * Metodo resetTestField per impostare i JTextField dell'interfaccia principale allo stato di default
+     * @param textField textField da modificare
+     * @param newText nuova testo del JTextField
+     */
+    public static void resetTextField (JTextField textField, String newText) {
+            textField.setText(newText);
+            textField.setFont(new Font("CT_Field",Font.ITALIC,20));
+            textField.setForeground(Color.LIGHT_GRAY);
     }
 
     /**
@@ -164,10 +181,4 @@ public class Utility {
         return true;
         }
     
-    
-//______________________________________________________________________________
-    
-    // Costuttore privato
-    
-    private Utility() {};
 }

@@ -37,8 +37,8 @@ public class ProgettoO {
     // <editor-fold defaultstate="collapsed" desc="DICHIARAZIONE VARIABILI">
     // Elementi Grafici Swing per MAINFRAME
     private JFrame mainFrame;
-    private JTextField codiceFiscale;
-    private JTextField codiceTessera;
+    private static JTextField codiceFiscale;
+    private static JTextField codiceTessera;
     private JLabel lb_CodiceFiscale;
     private JLabel lb_CodiceTessera;
     private JLabel lb_ImageIcon;
@@ -112,14 +112,26 @@ public class ProgettoO {
 
     
     /**
-     *
      * @return reference bottone bt_Registrazione
      */
     public static JButton getRegistrazione() {
         return bt_Registrazione;
     }
-    
-    
+
+       /**
+     * @return referenceJTextField codiceFiscale
+     */
+    public static JTextField getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
+     /**
+     * @return referenceJTextField codiceTessera
+     */
+    public static JTextField getCodiceTessera() {
+        return codiceTessera;
+    }
+
 //________________________________METODI GUI______________________________________________
     
 // <editor-fold defaultstate="collapsed" desc="MAIN FRAME">
@@ -204,18 +216,14 @@ public class ProgettoO {
         panel_Riempimento4.setSize(450,55);
         panel_Riempimento4.setBackground(Color.WHITE);
         panel_Background.add(panel_Riempimento4);
-
-   
-        lb_CodiceFiscale = new JLabel("Inserire CODICE FISCALE",SwingConstants.CENTER);
+        
+        lb_CodiceFiscale = new JLabel("CODICE FISCALE:",SwingConstants.CENTER);
         lb_CodiceFiscale.setFont(new Font("CF",Font.BOLD,25));
-        lb_CodiceFiscale.setSize(450,5);
         panel_Background.add(lb_CodiceFiscale);
 
         codiceFiscale = new JTextField();
         codiceFiscale.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        codiceFiscale.setText("Inserire qui il Codice Fiscale");
-        codiceFiscale.setFont(new Font("CF_Field",Font.ITALIC,20));
-        codiceFiscale.setForeground(Color.LIGHT_GRAY);
+        Utility.resetTextField(codiceFiscale, "Inserire qui il Codice Fiscale");
         codiceFiscale.setSize(450, 20);
         codiceFiscale.addFocusListener(new FocusListener() {
         @Override
@@ -229,25 +237,20 @@ public class ProgettoO {
             @Override
             public void focusLost(FocusEvent e) {
                 if(codiceFiscale.getText().equals("")) {
-                    codiceFiscale.setText("Inserire qui il Codice Fiscale");
-                    codiceFiscale.setFont(new Font("CT_Field",Font.ITALIC,20));
-                    codiceFiscale.setForeground(Color.LIGHT_GRAY);
+                    Utility.resetTextField(codiceFiscale, "Inserire qui il Codice Fiscale");
                 }
             }
          });
         panel_Background.add(codiceFiscale);
 
         
-        lb_CodiceTessera = new JLabel("Inserire CODICE TESSERA",SwingConstants.CENTER);
+        lb_CodiceTessera = new JLabel("CODICE TESSERA:",SwingConstants.CENTER);
         lb_CodiceTessera.setFont(new Font("CT",Font.BOLD,25));
-        lb_CodiceTessera.setSize(450, 5);
         panel_Background.add(lb_CodiceTessera);
         
         codiceTessera = new JTextField();
         codiceTessera.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        codiceTessera.setText("Inserire qui il codice della Tessera Elettorale");
-        codiceTessera.setFont(new Font("CT_Field",Font.ITALIC,20));
-        codiceTessera.setForeground(Color.LIGHT_GRAY);
+        Utility.resetTextField(codiceTessera, "Inserire qui il codice della Tessera Elettorale");
         codiceTessera.setSize(450, 20);
         codiceTessera.addFocusListener(new FocusListener() {
             @Override
@@ -261,9 +264,7 @@ public class ProgettoO {
             @Override
             public void focusLost(FocusEvent e) {
                 if(codiceTessera.getText().equals("")) {
-                    codiceTessera.setText("Inserire qui il codice della Tessera Elettorale");
-                    codiceTessera.setFont(new Font("CT_Field",Font.ITALIC,20));
-                    codiceTessera.setForeground(Color.LIGHT_GRAY);
+                    Utility.resetTextField(codiceTessera, "Inserire qui il codice della Tessera Elettorale");
                 }
             }
          });
@@ -374,7 +375,8 @@ public class ProgettoO {
                         "Non è stata espressa alcuna preferenza.\nSei sicuro di voler uscire da questa finestra?\nNon sarà più possibile registrarsi con questi dati in futuro.", "Richiesta conferma azione.", 
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             clientFrame.dispose();
-                            prepareGUI();
+                            Utility.resetTextField(codiceFiscale, "Inserire qui il Codice Fiscale"); // reset del JtextField nell'interfaccia principale
+                            Utility.resetTextField(codiceTessera, "Inserire qui il codice della Tessera Elettorale"); // reset del JtextField nell'interfaccia principale
                     }
             }
         });
@@ -449,7 +451,7 @@ public class ProgettoO {
                                 if (res != 0) {
                                     Votazione.addAffluenza();
                                     prepareClientGUI();
-                                    JOptionPane.showMessageDialog(null,"Se non viene effettuata nessuna azione e si chiude la finestra la Votazione risulterà Nulla","INFORMAZIONE DI SERVIZIO",JOptionPane.INFORMATION_MESSAGE);
+                                    JOptionPane.showMessageDialog(null,"Per votare \"Scheda Bianca\" è sufficiente chiudere la finestra senza esprimere alcuna preferenza.","INFORMAZIONE DI SERVIZIO",JOptionPane.INFORMATION_MESSAGE);
 
                                 }   
                             } else {
@@ -525,77 +527,65 @@ public class ProgettoO {
 // </editor-fold>
     
 //_____________________________________METODI_________________________________________
-    
-// Metodo AvoidDoubleReg    
 
-    /**
-     * Metodo per evitare doppia bt_Registrazione dell'Utente
-     * @param CF Codice Fiscale Utente
-     * @param CT Codice Tessera
-     * @return Se l'utente risulta già registrato
-     */
-public boolean avoidDoubleReg(String CF, String CT){
-    
-    ArrayList<Votanti> vot = mySQL.readVotantiColumns();
-    for (Votanti obj: vot) {
-        if ((obj.getCodiceTessera().equals(CT))  && (obj.getCF().equals(CF)) ) {
-            return obj.getVotato();
-        }
-    }
-    return false;
-}
-
-private static boolean netIsAvailable() {
-        try {
-            final URL url = new URL("http://www.google.com");
-            final URLConnection conn = url.openConnection();
-            conn.connect();
-            return true;
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            return false;
-        }
-    }
-    
-// Metodo di Ricerca Dati Elettorali
-private boolean canVoteCF(String CF) {
+        /**
+         * Metodo per evitare doppia bt_Registrazione dell'Utente
+         * @param CF Codice Fiscale Utente
+         * @param CT Codice Tessera
+         * @return Se l'utente risulta già registrato
+         */
+    public boolean avoidDoubleReg(String CF, String CT){
 
         ArrayList<Votanti> vot = mySQL.readVotantiColumns();
-
-        for (Votanti v: vot){
-            if(v.getCF().equals(CF)){  
-                     return true; // Vuol dire che il codiceFiscale del Votante Esiste ed è Abilitato
+        for (Votanti obj: vot) {
+            if ((obj.getCodiceTessera().equals(CT))  && (obj.getCF().equals(CF)) ) {
+                return obj.getVotato();
             }
-
         }
         return false;
     }
 
-//______________________________________________________________________________
-private boolean canVoteCT(String CT) {
+    private static boolean netIsAvailable() {
+            try {
+                final URL url = new URL("http://www.google.com");
+                final URLConnection conn = url.openConnection();
+                conn.connect();
+                return true;
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                return false;
+            }
+        }
+    
+    // Metodo di Ricerca Dati Elettorali
+    private boolean canVoteCF(String CF) {
 
             ArrayList<Votanti> vot = mySQL.readVotantiColumns();
 
             for (Votanti v: vot){
-                if(v.getCodiceTessera().equals(CT)){  
-                         return true; // Vuol dire che il codiceTessera del Votante Esiste ed è Abilitato
+                if(v.getCF().equals(CF)){  
+                         return true; // Vuol dire che il codiceFiscale del Votante Esiste ed è Abilitato
                 }
 
             }
             return false;
         }
 
-    /**
-     * Metodo Timer per AdminLogin
-     */
-public class MyTask extends TimerTask {
-        @Override
-        public void run() {
-            lb_ErrorPassword.setText(null);
-            password_Admin.setText(null);
-        }
-    }
+    //______________________________________________________________________________
+    private boolean canVoteCT(String CT) {
+
+                ArrayList<Votanti> vot = mySQL.readVotantiColumns();
+
+                for (Votanti v: vot){
+                    if(v.getCodiceTessera().equals(CT)){  
+                             return true; // Vuol dire che il codiceTessera del Votante Esiste ed è Abilitato
+                    }
+
+                }
+                return false;
+            }
+
 
 }
 
