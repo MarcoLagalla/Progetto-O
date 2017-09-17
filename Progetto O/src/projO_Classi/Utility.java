@@ -58,17 +58,12 @@ public class Utility {
     final static public String imgRefresh =  "http://91.134.138.244/progettoO/img/Refresh_icon.png";
     
     /**
-     * Immagine Loading_GIF
-     */
-    final static public String imgGIF = "http://91.134.138.244/progettoO/img/page-loader.gif";  
-    
-    /**
      * Anno per Calendar
      */
     final static public int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
 
     /**
-     * Mese per Calendar
+     * Mese per Calendar 
      */
     final static public int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1;
 

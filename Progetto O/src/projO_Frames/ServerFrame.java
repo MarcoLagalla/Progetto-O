@@ -906,7 +906,7 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Candidati_listMouseClicked
 
     private void avanzaGiornataMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzaGiornataMenuItemActionPerformed
-        Votazione.AvanzaGiornata();
+        Votazione.avanzaGiornata();
         if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) { // se la data corrente ha superato quella di fine, chiude le elezioni
             JOptionPane.showMessageDialog(panel_AllContainer, "Votazioni concluse");
             Votazione.chiudiVotazione();

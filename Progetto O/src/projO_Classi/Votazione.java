@@ -106,11 +106,11 @@ public class Votazione {
     
     /**
      * Metodo di Inizio Votazioni
-     * @param _idVotazione Nome della tabella della votazione sul database
+     * @param id Nome della tabella della votazione sul database
      * @param dataFine data di fine delle elezioni
      */
-   public static void inizioVotazione(String _idVotazione, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
-        idVotazione = _idVotazione; // Nome Tabella 
+   public static void inizioVotazione(String id, String dataFine) { // il costruttore di N_TURNO crea una tabella nel db, rileva la data corrente e definisce lo stato interno
+        idVotazione = id; // Nome Tabella 
         myINI = new INIFile(Utility.INIPath);
         if (!(existsVotazione(idVotazione))) { // controlla che esista la tabella
 
@@ -251,7 +251,7 @@ public class Votazione {
     /**
      * Metodo per effettuare Avanzamento della Giornata
      */
-    public static void AvanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno   
+    public static void avanzaGiornata() { // incrementa la data corrente. Questo verrà chiamato dal Bottone AvanzaGiorno   
         // Update dell'Attributo AFFLUENZA e Azzeramento
         myINI = new INIFile(Utility.INIPath);
         try {
