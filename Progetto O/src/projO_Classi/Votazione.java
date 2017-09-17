@@ -116,7 +116,7 @@ public class Votazione {
 
             votazioneAperta = true; 
             try {   
-                int res = mySQL.UpdateQuery("CREATE TABLE " + idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
+                int res = mySQL.updateQuery("CREATE TABLE " + idVotazione + " (Data VARCHAR(45) NULL DEFAULT NULL, Affluenza INT NULL DEFAULT 0, PRIMARY KEY (Data))");
                 Calendar cal = Calendar.getInstance();
                 dataCorrente = cal;
                 dataInizioVot = dataCorrente;     
@@ -140,15 +140,15 @@ public class Votazione {
                 winner = "";
                 
                 // Resetta il campo FlagVotato nella tabella VOTANTI
-                ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
+                ArrayList<Votanti> vot = mySQL.readVotantiColumns();
                 for (Votanti obj: vot) {
-                    mySQL.UpdateQuery("UPDATE VOTANTI SET FlagVotato='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta il FlagVotato = 0 per tutti           
+                    mySQL.updateQuery("UPDATE VOTANTI SET FlagVotato='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta il FlagVotato = 0 per tutti           
                 }
                 
                 // Resetta i voti nella tabella CANDIDATI
-                ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+                ArrayList<Candidati> can = mySQL.readCandidatiColumns();
                 for (Candidati obj: can) {
-                    mySQL.UpdateQuery("UPDATE CANDIDATI SET Voti='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta i voti a 0           
+                    mySQL.updateQuery("UPDATE CANDIDATI SET Voti='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta i voti a 0           
                 }                
 
             }catch(Exception ex){ ex.printStackTrace();}   
@@ -182,7 +182,7 @@ public class Votazione {
     public static ArrayList<Affluenza> getAffluenza(){
         ArrayList<Affluenza> aff = new ArrayList();
         try {
-            ResultSet res = mySQL.ExecuteQuery("SELECT * from " + getIdVotazione() + ";");
+            ResultSet res = mySQL.executeQuery("SELECT * from " + getIdVotazione() + ";");
             while (res.next()) {
                 Affluenza af = new Affluenza(res.getString("Data"), res.getInt("Affluenza"));
                 aff.add(af);
@@ -202,10 +202,10 @@ public class Votazione {
            int  res = JOptionPane.showConfirmDialog(null,"Vuoi procedere a impostare un secondo turno di elezioni?\nQuesta operazione cancellerà i candidati che non sono passati al secondo turno.\nQuesta operazione non può essere annullata.","ATTENZIONE", JOptionPane.YES_NO_OPTION);
            if ( res == JOptionPane.YES_OPTION ) {
                
-               ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+               ArrayList<Candidati> can = mySQL.readCandidatiColumns();
                for (Candidati obj: can) {
                    if (!vincitori.contains(obj.getCF())) {
-                       mySQL.UpdateQuery("DELETE FROM db.CANDIDATI WHERE CodiceFiscale='" + obj.getCF() + "';");
+                       mySQL.updateQuery("DELETE FROM db.CANDIDATI WHERE CodiceFiscale='" + obj.getCF() + "';");
                        
                    }
                }
@@ -219,7 +219,7 @@ public class Votazione {
             winner = vincitori.get(0).toString();
 
             
-            ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+            ArrayList<Candidati> can = mySQL.readCandidatiColumns();
             
             for (Candidati obj: can) {          
                 if (obj.getCF().equals(winner)) {
@@ -256,7 +256,7 @@ public class Votazione {
         myINI = new INIFile(Utility.INIPath);
         try {
             affluenza = myINI.getIntegerProperty("Votazione", "AffluenzaOggi");
-            mySQL.UpdateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
+            mySQL.updateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
         } catch (Exception ex) {ex.printStackTrace();}
         
         affluenza = 0;
@@ -274,7 +274,7 @@ public class Votazione {
      * codici fiscali di tutti i candidati che dovranno accedere al secondo turno.
      */
     private static ArrayList<String> findWinner() {       // chiamato a votazione finita: trova nel db il candidato vincitore
-        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
         int max = 0;
         ArrayList<String> CF = new ArrayList();
         for(Candidati obj: can) {
@@ -295,9 +295,9 @@ public class Votazione {
      * Metodo per effettuare il Reset dei Voti nel DataBase
      */
     private static void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
-        ArrayList<Persone> pers = mySQL.ReadPersoneColumns();
+        ArrayList<Persone> pers = mySQL.readPersoneColumns();
         for (Persone obj: pers) {
-            mySQL.UpdateQuery("UPDATE VOTANTI SET FlagVotato=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
+            mySQL.updateQuery("UPDATE VOTANTI SET FlagVotato=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
         }   
     }   
     
@@ -309,7 +309,7 @@ public class Votazione {
     public static boolean existsVotazione(String idVotazione) {
         boolean exists = false;
         try {
-            ResultSet res = mySQL.ExecuteQuery("SHOW TABLES FROM db;");
+            ResultSet res = mySQL.executeQuery("SHOW TABLES FROM db;");
             while(res.next()){ 
                 if (res.getString(1).equals(idVotazione)) { exists = true; }
             }

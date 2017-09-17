@@ -188,13 +188,13 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler votare per: " + lb_Nome.getText() + " " + lb_Cognome.getText() + " del " + lb_Partito.getText() + "?", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
                int voti;
-               ResultSet voti_ = mySQL.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + lb_CF.getText() + "';");
+               ResultSet voti_ = mySQL.executeQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + lb_CF.getText() + "';");
 
             try {
                 while (voti_.next()) {
                    voti = voti_.getInt("Voti");
                    voti = voti +1;
-                   int res = mySQL.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + lb_CF.getText() + "';");
+                   int res = mySQL.updateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + lb_CF.getText() + "';");
                    
                    if ((res != 0 )) {
                       JOptionPane.showMessageDialog(null,"Votazione andata a buon fine!", "Conferma", JOptionPane.INFORMATION_MESSAGE);

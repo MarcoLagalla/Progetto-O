@@ -256,11 +256,11 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
         
         myFTP.loadFile(pathImage,Utility.imgRemoteFolder + "/" + tf_CF.getText() + ".jpg"); // upload immagine tramite FTP
-        mySQL.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in CANDIDATI
-        mySQL.UpdateQuery("DELETE FROM PERSONE WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in PERSONE sul CF
+        mySQL.updateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in CANDIDATI
+        mySQL.updateQuery("DELETE FROM PERSONE WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in PERSONE sul CF
         
-        int ret = mySQL.WritePersoneColumns(tf_CF.getText(), tf_NomeCandidato.getText(), tf_Cognome.getText(), cBox_Sesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
-        int ret2 = mySQL.WriteCandidatiColumns(tf_CF.getText(), tf_Partito.getText(), 0, Utility.urlImageRemote + "/" + tf_CF.getText() + ".jpg");
+        int ret = mySQL.writePersoneColumns(tf_CF.getText(), tf_NomeCandidato.getText(), tf_Cognome.getText(), cBox_Sesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
+        int ret2 = mySQL.writeCandidatiColumns(tf_CF.getText(), tf_Partito.getText(), 0, Utility.urlImageRemote + "/" + tf_CF.getText() + ".jpg");
         
         if ( ( ret != 0 ) && ( ret2 != 0) ) {
             JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
@@ -281,8 +281,8 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void fill() {
-        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
-        ArrayList<Persone> pers = mySQL.ReadPersoneColumns();
+        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
+        ArrayList<Persone> pers = mySQL.readPersoneColumns();
            
         for (Candidati object: can) {
             if (object.getCF().equals(candidatoCodiceFiscale)) {  // match 

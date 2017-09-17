@@ -20,7 +20,7 @@ public class MainFrameBot extends javax.swing.JFrame {
     
     String log = "";
     MySQlConnection mySQL = new MySQlConnection();
-    ArrayList<Candidati> candidatiArray = mySQL.ReadCandidatiColumns();
+    ArrayList<Candidati> candidatiArray = mySQL.readCandidatiColumns();
     DefaultListModel listModel = new javax.swing.DefaultListModel();
     
 //____________________________COSTRUTTORE________________________________________
@@ -108,12 +108,12 @@ public class MainFrameBot extends javax.swing.JFrame {
         for(int i=0; i < fidget_Value; i++) {
             //canditato_random 
             String cf_cand = candidatiArray.get(randomRange(getNumCandidati())).getCF(); //prende il codice fiscale di un candidato scelto randomicamente
-            ResultSet voti_ = mySQL.ExecuteQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
+            ResultSet voti_ = mySQL.executeQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
             try {
                 while (voti_.next()) {
                     
                    voti = voti_.getInt("Voti") + 1;  // voti ++
-                   int res = mySQL.UpdateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
+                   int res = mySQL.updateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
                    Votazione.addAffluenza();
                    // stampo la stringa per il log
                    log = "+1 voti per il candidato "+ cf_cand;

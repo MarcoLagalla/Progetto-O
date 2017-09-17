@@ -17,11 +17,11 @@ import org.apache.commons.net.ftp.FTPClient;
  */
 public class FTPConnection {
     
-    static String serverIp = "91.134.138.244";
-    static int port = 21;
+    private static final String SERVER_IP = "91.134.138.244";
+    private static final int PORT = 21;
     
-    static String userName = "root";
-    static String password = "marco7539";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "marco7539";
     
     FTPClient ftpClient;
 
@@ -32,10 +32,10 @@ public class FTPConnection {
        try {
                   
        ftpClient = new FTPClient();
-       ftpClient.connect(serverIp, port);
+       ftpClient.connect(SERVER_IP, PORT);
 
             try {
-                ftpClient.login(userName, password);
+                ftpClient.login(USERNAME, PASSWORD);
                 ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
                 
                 ftpClient.enterLocalPassiveMode();
@@ -75,7 +75,7 @@ public class FTPConnection {
     /**
      * Metodo di Chiusura dell' FTPConnection
      */
-    public void FTPConnectionClose() {
+    public void close() {
        try {
             ftpClient.disconnect();
        } catch(java.io.IOException ex) {

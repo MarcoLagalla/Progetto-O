@@ -392,7 +392,7 @@ public class ProgettoO {
         
         panel_Client = new JPanel(experimentLayout); 
         panel_Client.setBackground(Color.WHITE);
-        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
        
         for (Candidati object: can) {  
             SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
@@ -446,7 +446,7 @@ public class ProgettoO {
                         
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia codiceFiscale sia codiceTessera allora Spawna la ClientGUI
                             if (!avoidDoubleReg(codiceFiscale.getText(),codiceTessera.getText())) {
-                                int res = mySQL.UpdateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + codiceFiscale.getText() + "';");        // setta il flag votato --> impedisce doppio voto
+                                int res = mySQL.updateQuery("UPDATE VOTANTI SET FlagVotato='1' WHERE CodiceFiscale='" + codiceFiscale.getText() + "';");        // setta il flag votato --> impedisce doppio voto
                                 if (res != 0) {
                                     Votazione.addAffluenza();
                                     prepareClientGUI(); 
@@ -533,7 +533,7 @@ public class ProgettoO {
      */
 public boolean avoidDoubleReg(String CF, String CT){
     
-    ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
+    ArrayList<Votanti> vot = mySQL.readVotantiColumns();
     for (Votanti obj: vot) {
         if ((obj.getCodiceTessera().equals(CT))  && (obj.getCF().equals(CF)) ) {
             return obj.getVotato();
@@ -558,7 +558,7 @@ private static boolean netIsAvailable() {
 // Metodo di Ricerca Dati Elettorali
 private boolean canVoteCF(String CF) {
 
-        ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
+        ArrayList<Votanti> vot = mySQL.readVotantiColumns();
 
         for (Votanti v: vot){
             if(v.getCF().equals(CF)){  
@@ -572,7 +572,7 @@ private boolean canVoteCF(String CF) {
 //______________________________________________________________________________
 private boolean canVoteCT(String CT) {
 
-            ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
+            ArrayList<Votanti> vot = mySQL.readVotantiColumns();
 
             for (Votanti v: vot){
                 if(v.getCodiceTessera().equals(CT)){  

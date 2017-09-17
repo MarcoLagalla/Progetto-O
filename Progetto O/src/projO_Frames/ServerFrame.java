@@ -161,7 +161,7 @@ public class ServerFrame extends javax.swing.JFrame {
        }
     
     private CategoryDataset createBarChartDataset( ) {  
-        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
         for (Candidati object: can) {
             datasetBarChart.addValue( object.getVoti(), object.getNome() +  " " + object.getCognome(), "" ); 
         }
@@ -243,7 +243,7 @@ public class ServerFrame extends javax.swing.JFrame {
     
     private  PieDataset createPieChartDataset() {
 
-        ArrayList<Votanti> vot = mySQL.ReadVotantiColumns();
+        ArrayList<Votanti> vot = mySQL.readVotantiColumns();
         
         int maschi = 0;
         int femmine = 0;
@@ -268,7 +268,7 @@ public class ServerFrame extends javax.swing.JFrame {
 //______________________________________________________________________________  
  
     private void loadCandidati() {
-        ArrayList<Candidati> can = mySQL.ReadCandidatiColumns();
+        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
         javax.swing.DefaultListModel listModel;
         listModel = new javax.swing.DefaultListModel();
         listModel.removeAllElements();
@@ -796,7 +796,7 @@ public class ServerFrame extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione cancellerà in maniera definitiva il candidato " + tokens[0] + ".", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION){
                 try {
-                    mySQL.UpdateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + _cf + "';");
+                    mySQL.updateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + _cf + "';");
                     loadCandidati();
                 } catch (Exception ex) {ex.printStackTrace();}
             }

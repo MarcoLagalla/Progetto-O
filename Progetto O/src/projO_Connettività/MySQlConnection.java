@@ -6,6 +6,8 @@ import java.util.ArrayList;
 // imports per database
 import java.sql.*;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // imports interni
 import projO_Classi.Persone;
@@ -26,28 +28,28 @@ public class MySQlConnection {
      * @see MySQlConnection#MySQlConnection() 
      */
     // JDBC Driver and db URL
-    static final String jdbcDriver = "com.mysql.jdbc.Driver";
+    static final String JDBCDRIVER = "com.mysql.jdbc.Driver";
     /**
      * Stringa (costante) che identifica l' indirizzo del database
      * per questo progetto si è scelto di utilizzare una base di dati
      * remota montata su una VPS all' indirizzo specificato
      * @see MySQlConnection#MySQlConnection() 
      */
-    static final String dbUrl = "jdbc:mysql://91.134.138.244/db"; // 91.134.138.244 remote url db and 'db' database name
+    static final String DBURL = "jdbc:mysql://91.134.138.244/db"; // 91.134.138.244 remote url db and 'db' database name
     
     /**
-     * Stringa che contiene l' userName associato alla connesione
+     * Stringa che contiene l' USERNAME associato alla connesione
      * @see MySQlConnection#MySQlConnection() 
-     * @see MySQlConnection#password
+     * @see MySQlConnection#PASSWORD
      */
     // database connection
-    static final String userName = "root";
+    static final String USERNAME = "root";
      /**
-     * Stringa che contiene la password associata alla connesione
+     * Stringa che contiene la PASSWORD associata alla connesione
      * @see MySQlConnection#MySQlConnection() 
-     * @see MySQlConnection#userName
+     * @see MySQlConnection#USERNAME
      */
-    static final String password = "progettoO";
+    static final String PASSWORD = "progettoO";
     
     // mysql objects for connection and query
     /**
@@ -72,44 +74,41 @@ public class MySQlConnection {
      Costanti con i nomi delle tabelle della base di dati
     */
     
-    static final String dbPERSONE = "PERSONE";
-    static final String dbVOTANTI = "VOTANTI";
-    static final String dbCANDIDATI = "CANDIDATI";
-    static final String dbVOTAZIONI = "VOTAZIONI";
+    static final String DB_PERSONE = "PERSONE";
+    static final String DB_VOTANTI = "VOTANTI";
+    static final String DB_CANDIDATI = "CANDIDATI";
+    static final String DB_VOTAZIONI = "VOTAZIONI";
    
     
     /*
         Costanti con i nomi delle colonne della base di dati
     */
-    static final String tabCodiceFiscale = "CodiceFiscale";
-    static final String tabNome = "Nome";
-    static final String tabCognome = "Cognome";
-    static final String tabSesso = "Sesso";
-    static final String tabDataDiNascita = "DataNascita";
-    static final String tabComune = "Comune";
-    static final String tabCodiceTessera = "CodiceTessera";
-    static final String tabPartito = "Partito";
-    static final String tabVoti = "Voti";
-    static final String tabImmagine = "Immagine";
-    static final String tabFlagVotato = "FlagVotato";
+    static final String TAB_CODICEFISCALE = "CodiceFiscale";
+    static final String TAB_NOME = "Nome";
+    static final String TAB_COGNOME = "Cognome";
+    static final String TAB_SESSO = "Sesso";
+    static final String TAB_DATANASCITA = "DataNascita";
+    static final String TAB_COMUNE = "Comune";
+    static final String TAB_CODICETESSERA = "CodiceTessera";
+    static final String TAB_PARTITO = "Partito";
+    static final String TAB_VOTI = "Voti";
+    static final String TAB_IMMAGINE = "Immagine";
+    static final String TAB_FLAGVOTATO = "FlagVotato";
     
 //______________________________________________________________________________
     
     /**
      * Metodo costruttore, inizializza la connessione e il caricamento del driver
-     * @see MySQlConnection#jdbcDriver
-     * @see MySQlConnection#MySQlConnectionClose() 
+     * @see MySQlConnection#JDBCDRIVER
+     * @see MySQlConnection#close() 
      */
     public MySQlConnection() {
         try{ 
             
-        Class.forName(jdbcDriver); // register JDBC driver
-        objConnessione = DriverManager.getConnection(dbUrl,userName,password);
+        Class.forName(JDBCDRIVER); // register JDBC driver
+        objConnessione = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
        
-        }catch(SQLException se){
-            se.printStackTrace();
-        }catch(Exception e){ //handles error for Class.forName
-            e.printStackTrace();
+        }catch(SQLException | ClassNotFoundException se){
         }
     }
  
@@ -120,16 +119,15 @@ public class MySQlConnection {
      * @see MySQlConnection#MySQlConnection() 
      */
     // close connection
-    public void MySQlConnectionClose(){
+    public void close(){
         try{
            objConnessione.close();
            statement.close();
            resultSet.close();
         }catch(SQLException se){
-            se.printStackTrace();
-        }catch(Exception e){ //handles error for Class.forName
-            e.printStackTrace();
-        }
+        }catch(Exception e){
+            //handles error for Class.forName
+                    }
     }    
 
 //______________________________________________________________________________
@@ -139,9 +137,9 @@ public class MySQlConnection {
      * @return Oggetto della classe Persone
      */
 
-    public  ArrayList<Persone> ReadPersoneColumns() {
+    public  ArrayList<Persone> readPersoneColumns() {
        
-        String QUERY = String.format("SELECT * FROM %s;" , dbPERSONE );
+        String QUERY = String.format("SELECT * FROM %s;" , DB_PERSONE );
         ArrayList<Persone> pers = new ArrayList();
         try{
             
@@ -152,12 +150,12 @@ public class MySQlConnection {
                 
                 Persone p;
           
-                String CF = resultSet.getString(tabCodiceFiscale);
-                String Nome = resultSet.getString(tabNome);
-                String Cognome = resultSet.getString(tabCognome);
-                String Sesso = resultSet.getString(tabSesso);
-                String DataNascita = resultSet.getString(tabDataDiNascita);
-                String Comune = resultSet.getString(tabComune);
+                String CF = resultSet.getString(TAB_CODICEFISCALE);
+                String Nome = resultSet.getString(TAB_NOME);
+                String Cognome = resultSet.getString(TAB_COGNOME);
+                String Sesso = resultSet.getString(TAB_SESSO);
+                String DataNascita = resultSet.getString(TAB_DATANASCITA);
+                String Comune = resultSet.getString(TAB_COMUNE);
                 
                 p = new Persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
                 pers.add(p); // inserimento nell' ArrayList del nuovo record p
@@ -165,16 +163,14 @@ public class MySQlConnection {
             }
             
         }catch(SQLException se){
-            se.printStackTrace();   
-        }catch(Exception e){ //handles error for Class.forName
-            e.printStackTrace();
-        }finally{
+        }catch(Exception e){
+            //handles error for Class.forName
+                    }finally{
             try {
                 // rilascia le risorse
             statement.close();   
             resultSet.close();
             } catch (SQLException se) {
-                se.printStackTrace();
             }
         }
         
@@ -188,7 +184,7 @@ public class MySQlConnection {
      * @return Oggetto della classe Persone
      */
 
-    public ArrayList<Votanti> ReadVotantiColumns() {
+    public ArrayList<Votanti> readVotantiColumns() {
        
         
         String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato FROM db.PERSONE\n" +
@@ -205,14 +201,14 @@ public class MySQlConnection {
                 
                 Votanti v;
 
-                String CF = resultSet.getString(tabCodiceFiscale);
-                String Nome = resultSet.getString(tabNome);
-                String Cognome = resultSet.getString(tabCognome);
-                String Sesso = resultSet.getString(tabSesso);
-                String DataNascita = resultSet.getString(tabDataDiNascita);
-                String Comune = resultSet.getString(tabComune);
-                String CodiceTessera = resultSet.getString(tabCodiceTessera);
-                int FlagVotato = resultSet.getInt(tabFlagVotato);
+                String CF = resultSet.getString(TAB_CODICEFISCALE);
+                String Nome = resultSet.getString(TAB_NOME);
+                String Cognome = resultSet.getString(TAB_COGNOME);
+                String Sesso = resultSet.getString(TAB_SESSO);
+                String DataNascita = resultSet.getString(TAB_DATANASCITA);
+                String Comune = resultSet.getString(TAB_COMUNE);
+                String CodiceTessera = resultSet.getString(TAB_CODICETESSERA);
+                int FlagVotato = resultSet.getInt(TAB_FLAGVOTATO);
                 
                 v = new Votanti(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato);
                 vot.add(v);
@@ -242,7 +238,7 @@ public class MySQlConnection {
      * @return Oggetto della classe Persone
      */
 
-    public ArrayList<Candidati> ReadCandidatiColumns() {
+    public ArrayList<Candidati> readCandidatiColumns() {
        
         String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine FROM db.PERSONE\n" +
                        "JOIN db.CANDIDATI on PERSONE.CodiceFiscale = CANDIDATI.CodiceFiscale;";
@@ -258,15 +254,15 @@ public class MySQlConnection {
                 
                 Candidati c;
 
-                String CF = resultSet.getString(tabCodiceFiscale);
-                String Nome = resultSet.getString(tabNome);
-                String Cognome = resultSet.getString(tabCognome);
-                String Sesso = resultSet.getString(tabSesso);
-                String DataNascita = resultSet.getString(tabDataDiNascita);
-                String Comune = resultSet.getString(tabComune);
-                String Partito = resultSet.getString(tabPartito);
-                int Voti = resultSet.getInt(tabVoti);
-                URL Immagine = resultSet.getURL(tabImmagine);
+                String CF = resultSet.getString(TAB_CODICEFISCALE);
+                String Nome = resultSet.getString(TAB_NOME);
+                String Cognome = resultSet.getString(TAB_COGNOME);
+                String Sesso = resultSet.getString(TAB_SESSO);
+                String DataNascita = resultSet.getString(TAB_DATANASCITA);
+                String Comune = resultSet.getString(TAB_COMUNE);
+                String Partito = resultSet.getString(TAB_PARTITO);
+                int Voti = resultSet.getInt(TAB_VOTI);
+                URL Immagine = resultSet.getURL(TAB_IMMAGINE);
                 c = new Candidati(CF,Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
                 can.add(c);
 
@@ -293,17 +289,17 @@ public class MySQlConnection {
     
     /**
      * Esegue una query SQL generica
-     * @param QUERY contiene la query da eseguire
+     * @param query contiene la query da eseguire
      * @return Restituisce un oggetto ResultSet
      */
-    public ResultSet ExecuteQuery(String QUERY) {
+    public ResultSet executeQuery(String query) {
         try {
             
-            if (!QUERY.endsWith(";")) {  // se la query non termina con ; lo aggiungo
-                QUERY = QUERY.concat(";"); 
+            if (!query.endsWith(";")) {  // se la query non termina con ; lo aggiungo
+                query = query.concat(";"); 
             }
             statement = objConnessione.createStatement();
-            resultSet = statement.executeQuery(QUERY); //submit query   
+            resultSet = statement.executeQuery(query); //submit query   
         }catch(SQLException se){
             se.printStackTrace();
         }
@@ -314,16 +310,16 @@ public class MySQlConnection {
     
     /**
      *
-     * @param QUERY
+     * @param query
      * @return
      */
-    public int UpdateQuery(String QUERY) {
+    public int updateQuery(String query) {
         try {
-            if (!QUERY.endsWith(";")) {
-                QUERY = QUERY.concat(";");
+            if (!query.endsWith(";")) {
+                query = query.concat(";");
             }
             statement = objConnessione.createStatement();
-            return statement.executeUpdate(QUERY);
+            return statement.executeUpdate(query);
         } catch (SQLException se) {
             se.printStackTrace();
         } finally {
@@ -340,26 +336,24 @@ public class MySQlConnection {
     
     /**
      * Metodo che popola la tabella CANDIDATI
-     * @param CodiceFiscale Codice Fiscale del candidato
-     * @param Partito Partito di appartenenza
-     * @param Voti Numero Voti
-     * @param Immagine URL Immagine profilo
+     * @param codiceFiscale Codice Fiscale del candidato
+     * @param partito Partito di appartenenza
+     * @param voti Numero Voti
+     * @param immagine URL Immagine profilo
      * @return 
      */
-    public int WriteCandidatiColumns(String CodiceFiscale, String Partito, int Voti, String Immagine) {
-        String QUERY = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
-                "VALUES ('" + CodiceFiscale + "','" + Partito + "'," + Voti + ",'" + Immagine + "');";
+    public int writeCandidatiColumns(String codiceFiscale, String partito, int voti, String immagine) {
+        String query = "INSERT INTO CANDIDATI (CodiceFiscale, Partito, Voti, Immagine)\n" +
+                "VALUES ('" + codiceFiscale + "','" + partito + "'," + voti + ",'" + immagine + "');";
 
         try {
             statement = objConnessione.createStatement();
-           return statement.executeUpdate(QUERY);
+           return statement.executeUpdate(query);
         }catch(SQLException se) {
-            se.printStackTrace();
         }finally{
             try {
                 statement.close();
             }catch(SQLException se){
-                se.printStackTrace();
             }
             
         }
@@ -370,28 +364,26 @@ public class MySQlConnection {
     
     /**
      * Metodo che popola la tabella PERSONE
-     * @param CodiceFiscale Codice Fiscale della persona
-     * @param Nome nome persona
-     * @param Cognome cognome persona
-     * @param Sesso sesso persona
-     * @param DataNascita data di nascita
-     * @param Comune comune di orgine
+     * @param codiceFiscale Codice Fiscale della persona
+     * @param nome nome persona
+     * @param cognome cognome persona
+     * @param sesso sesso persona
+     * @param dataNascita data di nascita
+     * @param comune comune di orgine
      * @return 
      */
-    public int WritePersoneColumns(String CodiceFiscale, String Nome, String Cognome, String Sesso, String DataNascita, String Comune) {
-        String QUERY = "INSERT INTO PERSONE (CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune)\n" +
-                "VALUES ('" + CodiceFiscale + "','" + Nome + "','" + Cognome + "','" + Sesso + "','" + DataNascita + "','" + Comune + "');";
+    public int writePersoneColumns(String codiceFiscale, String nome, String cognome, String sesso, String dataNascita, String comune) {
+        String query = "INSERT INTO PERSONE (CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune)\n" +
+                "VALUES ('" + codiceFiscale + "','" + nome + "','" + cognome + "','" + sesso + "','" + dataNascita + "','" + comune + "');";
               
         try {
             statement = objConnessione.createStatement();
-            return statement.executeUpdate(QUERY);
+            return statement.executeUpdate(query);
         }catch(SQLException se) {
-            se.printStackTrace();
         }finally{
             try {
                 statement.close();
             }catch(SQLException se){
-                se.printStackTrace();
             }
             
         }
@@ -404,23 +396,21 @@ public class MySQlConnection {
      * Metodo che inserisce il codice tessera elettorale di chi ha votato nella rispettiva colonna indicante la votazione
      * Questo sistema impedisce voti multipli dalla stessa persona.
      * 
-     * @param Votazione Identifica un turno elettorale o una votazione
-     * @param CodiceTessera Identifica in maniera univoca una persona e tiene traccia dell' avvenuto voto.
+     * @param votazione Identifica un turno elettorale o una votazione
+     * @param codiceTessera Identifica in maniera univoca una persona e tiene traccia dell' avvenuto voto.
      * @return 
      */
-    public int WriteVotazioniColumns(String Votazione, String CodiceTessera) {
-        String QUERY = "INSERT INTO VOTAZIONI (" + Votazione +  ") VALUES ('" + CodiceTessera + "');";
+    public int writeVotazioniColumns(String votazione ,String codiceTessera) {
+        String QUERY = "INSERT INTO VOTAZIONI (" + votazione +  ") VALUES ('" + codiceTessera + "');";
               
         try {
             statement = objConnessione.createStatement();
             return statement.executeUpdate(QUERY);
         }catch(SQLException se) {
-            se.printStackTrace();
         }finally{
             try {
                 statement.close();
             }catch(SQLException se){
-                se.printStackTrace();
             }
             
         }
@@ -429,14 +419,14 @@ public class MySQlConnection {
     
     /**
      *
-     * @param TableName
+     * @param tableName
      * @return
      */
-    public int CountRows(String TableName) {
-        String QUERY = "select count(*) from " + TableName + ";" ;
+    public int countRows(String tableName) {
+        String query = "select count(*) from " + tableName + ";" ;
         try {
                 statement = objConnessione.createStatement();
-                resultSet = statement.executeQuery(QUERY);
+                resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {
                 return resultSet.getInt(1);
  }
