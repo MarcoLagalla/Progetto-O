@@ -442,8 +442,8 @@ public class ProgettoO {
                case "Registrazione": 
                {
                 if(codiceFiscale.getText().toUpperCase().matches(CF_regex) && codiceTessera.getText().matches(CT_regex)){
-                        boolean founded_CF = canVoteCF(codiceFiscale.getText().toUpperCase()); // Booleano definito dal Metodo
-                        boolean founded_CT = canVoteCT(codiceTessera.getText()); // Booleano definito dal Metodo
+                        boolean founded_CF = canVoteCF(codiceFiscale.getText().toUpperCase(), codiceTessera.getText()); // Booleano definito dal Metodo
+                        boolean founded_CT = canVoteCT(codiceFiscale.getText().toUpperCase(), codiceTessera.getText()); // Booleano definito dal Metodo
                         
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia codiceFiscale sia codiceTessera allora Spawna la ClientGUI
                             if (!avoidDoubleReg(codiceFiscale.getText(),codiceTessera.getText())) {
@@ -534,7 +534,7 @@ public class ProgettoO {
          * @param CT Codice Tessera
          * @return Se l'utente risulta già registrato
          */
-    public boolean avoidDoubleReg(String CF, String CT){
+    private boolean avoidDoubleReg(String CF, String CT){
 
         ArrayList<Votanti> vot = mySQL.readVotantiColumns();
         for (Votanti obj: vot) {
@@ -559,12 +559,12 @@ public class ProgettoO {
         }
     
     // Metodo di Ricerca Dati Elettorali
-    private boolean canVoteCF(String CF) {
+    private boolean canVoteCF(String CF, String CT) {
 
             ArrayList<Votanti> vot = mySQL.readVotantiColumns();
 
             for (Votanti v: vot){
-                if(v.getCF().equals(CF)){  
+                if ( (v.getCF().equals(CF)) && ( v.getCodiceTessera().equals(CT)) ){  
                          return true; // Vuol dire che il codiceFiscale del Votante Esiste ed è Abilitato
                 }
 
@@ -573,14 +573,14 @@ public class ProgettoO {
         }
 
     //______________________________________________________________________________
-    private boolean canVoteCT(String CT) {
+    private boolean canVoteCT(String CF, String CT) {
 
                 ArrayList<Votanti> vot = mySQL.readVotantiColumns();
 
                 for (Votanti v: vot){
-                    if(v.getCodiceTessera().equals(CT)){  
-                             return true; // Vuol dire che il codiceTessera del Votante Esiste ed è Abilitato
-                    }
+                    if ( (v.getCF().equals(CF)) && ( v.getCodiceTessera().equals(CT)) ){  
+                         return true; // Vuol dire che il codiceTessera del Votante Esiste ed è Abilitato
+                }
 
                 }
                 return false;
