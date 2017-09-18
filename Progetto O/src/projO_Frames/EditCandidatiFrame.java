@@ -255,19 +255,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
         
-        myFTP.loadFile(pathImage,Utility.imgRemoteFolder + "/" + tf_CF.getText() + ".jpg"); // upload immagine tramite FTP
-        mySQL.updateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in CANDIDATI
-        mySQL.updateQuery("DELETE FROM PERSONE WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in PERSONE sul CF
-        
-        int ret = mySQL.writePersoneColumns(tf_CF.getText(), tf_NomeCandidato.getText(), tf_Cognome.getText(), cBox_Sesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
-        int ret2 = mySQL.writeCandidatiColumns(tf_CF.getText(), tf_Partito.getText(), 0, Utility.urlImageRemote + "/" + tf_CF.getText() + ".jpg");
-        
-        if ( ( ret != 0 ) && ( ret2 != 0) ) {
-            JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
-        }
+        editCandidato();
     }//GEN-LAST:event_bt_ConfermaActionPerformed
 //______________________________________________________________________________
     //______________________________________________________________________________
@@ -332,6 +320,21 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
     
 //_________________________________MAIN_____________________________________________
     
+    private void editCandidato() {
+        myFTP.loadFile(pathImage,Utility.imgRemoteFolder + "/" + tf_CF.getText() + ".jpg"); // upload immagine tramite FTP
+        mySQL.updateQuery("DELETE FROM CANDIDATI WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in CANDIDATI
+        mySQL.updateQuery("DELETE FROM PERSONE WHERE CodiceFiscale='" + tf_CF.getText() + "';"); // elimina il record in PERSONE sul CF
+        
+        int ret = mySQL.writePersoneColumns(tf_CF.getText(), tf_NomeCandidato.getText(), tf_Cognome.getText(), cBox_Sesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
+        int ret2 = mySQL.writeCandidatiColumns(tf_CF.getText(), tf_Partito.getText(), 0, Utility.urlImageRemote + "/" + tf_CF.getText() + ".jpg");
+        
+        if ( ( ret != 0 ) && ( ret2 != 0) ) {
+            JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
+        }
+    }
     /**
      * @param args the command line arguments
      */

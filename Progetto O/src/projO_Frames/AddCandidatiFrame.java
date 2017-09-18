@@ -253,16 +253,7 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
 
-      myFTP.loadFile(pathImage,IMG_REMOTE_FOLDER + "/" + tf_CodiceFiscale.getText() + ".jpg");
-      int ret = mySQL.writePersoneColumns(tf_CodiceFiscale.getText(), tf_NomeCandidato.getText(), tf_CognomeCandidato.getText(), cBox_InputSesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
-      
-      int ret2 = mySQL.writeCandidatiColumns(tf_CodiceFiscale.getText(), tf_PartitoAppartenenza.getText(), 0, SERVER + tf_CodiceFiscale.getText() + ".jpg");
-      if (ret != 0 && ret2 != 0) {
-        JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
-        this.dispose();
-      }else{
-        JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
-      }
+        addCandidato();
     }//GEN-LAST:event_bt_ConfermaActionPerformed
 //______________________________________________________________________________
     private void bt_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ResetActionPerformed
@@ -320,6 +311,19 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
                 new AddCandidatiFrame().setVisible(true);
             }
         });
+    }
+    
+    private void addCandidato() {
+        myFTP.loadFile(pathImage,IMG_REMOTE_FOLDER + "/" + tf_CodiceFiscale.getText() + ".jpg");
+        int ret = mySQL.writePersoneColumns(tf_CodiceFiscale.getText(), tf_NomeCandidato.getText(), tf_CognomeCandidato.getText(), cBox_InputSesso.getSelectedItem().toString(), tf_DataNascita.getText(), tf_Comune.getText());
+      
+        int ret2 = mySQL.writeCandidatiColumns(tf_CodiceFiscale.getText(), tf_PartitoAppartenenza.getText(), 0, SERVER + tf_CodiceFiscale.getText() + ".jpg");
+        if (ret != 0 && ret2 != 0) {
+            JOptionPane.showMessageDialog(null,"Inserimento completato.\nDB Aggiornato.", "Conferma", JOptionPane.OK_OPTION);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
+        }
     }
 //______________________________________________________________________________
     
