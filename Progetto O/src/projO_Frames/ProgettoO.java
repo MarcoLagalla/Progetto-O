@@ -441,8 +441,8 @@ public class ProgettoO {
                
                case "Registrazione": 
                {
-                if(codiceFiscale.getText().matches(CF_regex) && codiceTessera.getText().matches(CT_regex)){
-                        boolean founded_CF = canVoteCF(codiceFiscale.getText()); // Booleano definito dal Metodo
+                if(codiceFiscale.getText().toUpperCase().matches(CF_regex) && codiceTessera.getText().matches(CT_regex)){
+                        boolean founded_CF = canVoteCF(codiceFiscale.getText().toUpperCase()); // Booleano definito dal Metodo
                         boolean founded_CT = canVoteCT(codiceTessera.getText()); // Booleano definito dal Metodo
                         
                         if (founded_CF==true && founded_CT==true) { // Se VERE sia codiceFiscale sia codiceTessera allora Spawna la ClientGUI
