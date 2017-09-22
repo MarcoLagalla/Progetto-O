@@ -223,10 +223,12 @@ public class Votazione {
             
             for (Candidati obj: can) {          
                 if (obj.getCF().equals(winner)) {
+                    printWinner();
+                    /*
                     ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
                     ServerFrame.lb_NomeVincitore.setText(obj.getNome());
                     ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
-                    ServerFrame.lb_partito.setText(obj.getPartito());
+                    ServerFrame.lb_partito.setText(obj.getPartito()); */
                 }
             }
         }
@@ -316,8 +318,20 @@ public class Votazione {
         } catch (Exception ex) {ex.printStackTrace();}
         return exists;
     }
-
-        
+    
+    public static void printWinner() { // riempie i jtext del vincitore con i suoi dati
+            ArrayList<Candidati> can = mySQL.readCandidatiColumns();
+            
+            for (Candidati obj: can) {          
+                if (obj.getCF().equals(winner)) {
+                    ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
+                    ServerFrame.lb_NomeVincitore.setText(obj.getNome());
+                    ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
+                    ServerFrame.lb_partito.setText(obj.getPartito());
+                }
+            }   
+    }
+    
 }
 
 

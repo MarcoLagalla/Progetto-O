@@ -102,6 +102,7 @@ public class ServerFrame extends javax.swing.JFrame {
             lb_Logo1.setIcon(Utility.setUrlIcon(Utility.imgLogoServer)); // RELATIVE PATH
             lb_Logo2.setIcon(Utility.setUrlIcon(Utility.imgLogoServer)); // RELATIVE PATH
             
+            /*
             File f = new File(Utility.INIPath);
                 if (!f.exists() && !f.isDirectory()) {
                     Calendar cal = Calendar.getInstance();   
@@ -111,6 +112,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 } else {
                     lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
                 }
+            */
                     
 
             lb_Refresh.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.imgRefresh), lb_Refresh.getWidth(), lb_Refresh.getHeight()));
@@ -936,6 +938,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 Utility.downloadINI();  // scarica il file ini dal server
                 
                 refreshGrafici();
+                Votazione.printWinner();
             } else {
                 JOptionPane.showMessageDialog(null,"Errore nella eliminazione del file.", "", JOptionPane.ERROR_MESSAGE);
             }
