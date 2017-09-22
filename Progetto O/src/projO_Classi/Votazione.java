@@ -222,14 +222,8 @@ public class Votazione {
             ArrayList<Candidati> can = mySQL.readCandidatiColumns();
             
             for (Candidati obj: can) {          
-                if (obj.getCF().equals(winner)) {
+                if (obj.getCF().equals(winner))
                     printWinner();
-                    /*
-                    ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
-                    ServerFrame.lb_NomeVincitore.setText(obj.getNome());
-                    ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
-                    ServerFrame.lb_partito.setText(obj.getPartito()); */
-                }
             }
         }
         
@@ -318,8 +312,11 @@ public class Votazione {
         } catch (Exception ex) {ex.printStackTrace();}
         return exists;
     }
-    
-    public static void printWinner() { // riempie i jtext del vincitore con i suoi dati
+
+    /**
+     *  Metodo che riempie i campi appositi sull'interfaccia con i dati del vincitore
+     */
+    public static void printWinner() {
             ArrayList<Candidati> can = mySQL.readCandidatiColumns();
             
             for (Candidati obj: can) {          

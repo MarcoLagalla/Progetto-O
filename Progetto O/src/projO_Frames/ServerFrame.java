@@ -102,19 +102,8 @@ public class ServerFrame extends javax.swing.JFrame {
             lb_Logo1.setIcon(Utility.setUrlIcon(Utility.imgLogoServer)); // RELATIVE PATH
             lb_Logo2.setIcon(Utility.setUrlIcon(Utility.imgLogoServer)); // RELATIVE PATH
             
-            /*
-            File f = new File(Utility.INIPath);
-                if (!f.exists() && !f.isDirectory()) {
-                    Calendar cal = Calendar.getInstance();   
-                    DateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
-                    lb_DataCorrente.setText("Data Corrente: " + f1.format(cal.getTime()));
-
-                } else {
-                    lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
-                }
-            */
+            printDataCorrente();
                     
-
             lb_Refresh.setIcon(Utility.resizeIcon((ImageIcon) Utility.setUrlIcon(Utility.imgRefresh), lb_Refresh.getWidth(), lb_Refresh.getHeight()));
             
             lb_FotoWinner.setIcon(Utility.setUrlIcon(Utility.imgProfilo)); // RELATIVE PATH
@@ -939,6 +928,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 
                 refreshGrafici();
                 Votazione.printWinner();
+                printDataCorrente();
             } else {
                 JOptionPane.showMessageDialog(null,"Errore nella eliminazione del file.", "", JOptionPane.ERROR_MESSAGE);
             }
@@ -1024,6 +1014,20 @@ private void refreshGrafici(){
     panel_CakeChart.validate();
 
 }
+
+private static void printDataCorrente() {
+    File f = new File(Utility.INIPath);
+        if (!f.exists() && !f.isDirectory()) {
+            Calendar cal = Calendar.getInstance();   
+            DateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
+            lb_DataCorrente.setText("Data Corrente: " + f1.format(cal.getTime()));
+
+        } else {
+            lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
+        }
+}
+
+
 
 //______________________________________________________________________________
     
