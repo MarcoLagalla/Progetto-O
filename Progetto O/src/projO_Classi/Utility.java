@@ -72,7 +72,7 @@ public class Utility {
     /**
      * Mese per Calendar 
      */
-    final static public int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1;
+    final static public int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
 
     /**
      * Giorno per Calendar

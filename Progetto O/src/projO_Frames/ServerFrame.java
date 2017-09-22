@@ -315,7 +315,7 @@ public class ServerFrame extends javax.swing.JFrame {
         panel_LineChart = new javax.swing.JPanel();
         lb_AffluenzaUrne = new javax.swing.JLabel();
         lb_FotoWinner = new javax.swing.JLabel();
-        lb_CF = new javax.swing.JLabel();
+        lb_partito = new javax.swing.JLabel();
         lb_PercentualeSesso = new javax.swing.JLabel();
         lb_NomeVincitore = new javax.swing.JLabel();
         lb_CognomeVincitore = new javax.swing.JLabel();
@@ -600,12 +600,12 @@ public class ServerFrame extends javax.swing.JFrame {
         lb_AffluenzaUrne.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         lb_AffluenzaUrne.setText("Affluenza alle urne");
 
-        lb_CF.setText("Cod.Fiscale");
+        lb_partito.setText("Partito");
 
         lb_PercentualeSesso.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         lb_PercentualeSesso.setText("Percentuale uomini/donne");
 
-        lb_NomeVincitore.setText("NomeVincitore");
+        lb_NomeVincitore.setText("Nome");
 
         lb_CognomeVincitore.setText("Cognome");
 
@@ -667,7 +667,7 @@ public class ServerFrame extends javax.swing.JFrame {
                                         .addGroup(panel_AllContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(lb_CognomeVincitore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lb_NomeVincitore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lb_CF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(lb_partito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(panel_AllContainerLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(panel_ColumnChart, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -716,7 +716,7 @@ public class ServerFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lb_CognomeVincitore, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lb_CF, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lb_partito, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_AllContainerLayout.createSequentialGroup()
                                 .addComponent(lb_FotoWinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -928,12 +928,14 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_eseguiBackupMenuItemActionPerformed
 
     private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
-        int res = JOptionPane.showConfirmDialog(null,"Sei sicueo di voler resettare la macchina?\nQuesta operazione cancellerà il file di impostazioni.", "Richiesta conferma operazione", JOptionPane.OK_CANCEL_OPTION);
+        int res = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler resettare la macchina?\nQuesta operazione cancellerà il file di impostazioni.", "Richiesta conferma operazione", JOptionPane.OK_CANCEL_OPTION);
         if (res == JOptionPane.OK_OPTION) {
             File f = new File(Utility.INIPath);
-            if ( f.delete() ){
+            if ( f.delete() ){ // elimina il file ini dal pc
                 JOptionPane.showMessageDialog(null,"Operazione riuscita","", JOptionPane.INFORMATION_MESSAGE);
-                Utility.downloadINI();                
+                Utility.downloadINI();  // scarica il file ini dal server
+                
+                refreshGrafici();
             } else {
                 JOptionPane.showMessageDialog(null,"Errore nella eliminazione del file.", "", JOptionPane.ERROR_MESSAGE);
             }
@@ -1037,7 +1039,6 @@ private void refreshGrafici(){
     private javax.swing.JMenuItem lanciaBotMenuItem;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
-    public static javax.swing.JLabel lb_CF;
     public static javax.swing.JLabel lb_CognomeVincitore;
     public static javax.swing.JLabel lb_DataCorrente;
     private javax.swing.JLabel lb_DataFine;
@@ -1055,6 +1056,7 @@ private void refreshGrafici(){
     private javax.swing.JLabel lb_Refresh;
     private javax.swing.JLabel lb_StatusEle;
     private javax.swing.JLabel lb_Vincitore;
+    public static javax.swing.JLabel lb_partito;
     private javax.swing.JMenuBar menu_Bar;
     private javax.swing.JMenu menu_Tools;
     private javax.swing.JPanel panel_AllContainer;
