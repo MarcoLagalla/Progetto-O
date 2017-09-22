@@ -262,6 +262,10 @@ public class Votazione {
         myINI.setStringProperty("Votazione", "DataCorrente", dateFormat.format(dataCorrente.getTime()), "DataCorrente");
         myINI.save();
         ServerFrame.lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
+        if(dataCorrente.after(dataFineVot)) { // se la data corrente ha superato quella di fine, chiude le elezioni
+            JOptionPane.showMessageDialog(ServerFrame.panel_AllContainer, "Votazioni concluse");
+            stopVotazioniButton();
+        }
 }
 //______________________________________________________________________________
     /*
@@ -327,6 +331,28 @@ public class Votazione {
                     ServerFrame.lb_partito.setText(obj.getPartito());
                 }
             }   
+    }
+    
+    public static void stopVotazioniButton() {
+        ProgettoO.statoVotazioni = false;
+        myINI.setBooleanProperty("Votazione", "VotazioneAperta", false, "Stato votazioni");
+        myINI.save();
+        Votazione.chiudiVotazione();
+        ServerFrame.bt_AvvioElezioni.setEnabled(true);
+        ServerFrame.bt_StopElezioni.setEnabled(false);
+        ServerFrame.avanzaGiornataMenuItem.setEnabled(false);
+        ServerFrame.lanciaBotMenuItem.setEnabled(false);
+        ServerFrame.tf_IdElezione.setEditable(true);
+        ServerFrame.tf_IdElezione.setText(null);
+        ServerFrame.tf_DataFine.setText(null);
+        ServerFrame.tf_DataInizio.setText(null);
+        ServerFrame.bt_ScegliData.setEnabled(true);
+        ServerFrame.lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.imgVotazioniChiuse));
+        ProgettoO.getRegistrazione().setEnabled(false);
+        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.imgRegistrazioneDisabilitata));
+        ServerFrame.bt_AggiungiCandidato.setEnabled(true);
+        ServerFrame.bt_ModificaCandidato.setEnabled(true);
+        ServerFrame.bt_RimuoviCandidato.setEnabled(true);
     }
     
 }

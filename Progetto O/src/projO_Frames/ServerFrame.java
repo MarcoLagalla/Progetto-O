@@ -817,7 +817,7 @@ public class ServerFrame extends javax.swing.JFrame {
     
     private void bt_StopElezioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StopElezioniActionPerformed
         
-        ProgettoO.statoVotazioni = false;
+        /*ProgettoO.statoVotazioni = false;
         myINI.setBooleanProperty("Votazione", "VotazioneAperta", false, "Stato votazioni");
         myINI.save();
         Votazione.chiudiVotazione();
@@ -835,7 +835,7 @@ public class ServerFrame extends javax.swing.JFrame {
         ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.imgRegistrazioneDisabilitata));
         bt_AggiungiCandidato.setEnabled(true);
         bt_ModificaCandidato.setEnabled(true);
-        bt_RimuoviCandidato.setEnabled(true);
+        bt_RimuoviCandidato.setEnabled(true);*/
     }//GEN-LAST:event_bt_StopElezioniActionPerformed
 //______________________________________________________________________________
     
@@ -898,10 +898,6 @@ public class ServerFrame extends javax.swing.JFrame {
 
     private void avanzaGiornataMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzaGiornataMenuItemActionPerformed
         Votazione.avanzaGiornata();
-        if(Votazione.getDataCorrente().after(Votazione.getDataFineVot())) { // se la data corrente ha superato quella di fine, chiude le elezioni
-            JOptionPane.showMessageDialog(panel_AllContainer, "Votazioni concluse");
-            Votazione.chiudiVotazione();
-        }
     }//GEN-LAST:event_avanzaGiornataMenuItemActionPerformed
 
     private void lb_RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_RefreshMouseClicked
@@ -1033,17 +1029,17 @@ private static void printDataCorrente() {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> Candidati_list;
-    private javax.swing.JMenuItem avanzaGiornataMenuItem;
-    private javax.swing.JButton bt_AggiungiCandidato;
-    private javax.swing.JButton bt_AvvioElezioni;
-    private javax.swing.JButton bt_ModificaCandidato;
-    private javax.swing.JButton bt_RimuoviCandidato;
-    private javax.swing.JButton bt_ScegliData;
-    private javax.swing.JButton bt_StopElezioni;
+    public static javax.swing.JMenuItem avanzaGiornataMenuItem;
+    public static javax.swing.JButton bt_AggiungiCandidato;
+    public static javax.swing.JButton bt_AvvioElezioni;
+    public static javax.swing.JButton bt_ModificaCandidato;
+    public static javax.swing.JButton bt_RimuoviCandidato;
+    public static javax.swing.JButton bt_ScegliData;
+    public static javax.swing.JButton bt_StopElezioni;
     private javax.swing.JMenuItem eseguiBackupMenuItem;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JMenuItem lanciaBotMenuItem;
+    public static javax.swing.JMenuItem lanciaBotMenuItem;
     private javax.swing.JLabel lb_AffluenzaUrne;
     private javax.swing.JLabel lb_AndamentoVoti;
     public static javax.swing.JLabel lb_CognomeVincitore;
@@ -1054,7 +1050,7 @@ private static void printDataCorrente() {
     public static javax.swing.JLabel lb_FotoWinner;
     private javax.swing.JLabel lb_Gestione;
     private javax.swing.JLabel lb_IdElezione;
-    private javax.swing.JLabel lb_ImmagineStatus;
+    public static javax.swing.JLabel lb_ImmagineStatus;
     private javax.swing.JLabel lb_Intestazione;
     private javax.swing.JLabel lb_Logo1;
     private javax.swing.JLabel lb_Logo2;
@@ -1066,7 +1062,7 @@ private static void printDataCorrente() {
     public static javax.swing.JLabel lb_partito;
     private javax.swing.JMenuBar menu_Bar;
     private javax.swing.JMenu menu_Tools;
-    private javax.swing.JPanel panel_AllContainer;
+    public static javax.swing.JPanel panel_AllContainer;
     private javax.swing.JPanel panel_BotContainer;
     private javax.swing.JPanel panel_CakeChart;
     private javax.swing.JPanel panel_ColumnChart;
@@ -1076,9 +1072,9 @@ private static void printDataCorrente() {
     private javax.swing.JPanel panel_SituazioneEle;
     private javax.swing.JMenuItem resetMenuItem;
     private javax.swing.JScrollPane scroll_Gestione;
-    private javax.swing.JTextField tf_DataFine;
-    private javax.swing.JTextField tf_DataInizio;
-    private javax.swing.JTextField tf_IdElezione;
+    public static javax.swing.JTextField tf_DataFine;
+    public static javax.swing.JTextField tf_DataInizio;
+    public static javax.swing.JTextField tf_IdElezione;
     // End of variables declaration//GEN-END:variables
 
 }
