@@ -1,3 +1,7 @@
+/**
+ * Rappresenta i Votanti nel Comune
+*/
+
 package projO_Classi;
 
 

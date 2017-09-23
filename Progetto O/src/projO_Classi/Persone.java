@@ -1,5 +1,9 @@
-package projO_Classi;
+/**
+ * Rappresenta le Personeinserite nel Database
+ * 
+*/
 
+package projO_Classi;
 
 /**
  *

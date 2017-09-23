@@ -204,7 +204,7 @@ public class ServerFrame extends javax.swing.JFrame {
         
         int i = 1;
         for(Affluenza obj: aff){
-            series1.add(obj.getData(),obj.getDato()); 
+            series1.add(obj.getData(),obj.getDato()); // Vedere Classe Affluenza
             i++;                        
         }
 
@@ -419,19 +419,8 @@ public class ServerFrame extends javax.swing.JFrame {
         lb_IdElezione.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         lb_IdElezione.setText("ID elezione:");
 
-        tf_IdElezione.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_IdElezioneActionPerformed(evt);
-            }
-        });
-
         tf_DataInizio.setEditable(false);
         tf_DataInizio.setText(" ");
-        tf_DataInizio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_DataInizioActionPerformed(evt);
-            }
-        });
 
         lb_ImmagineStatus.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
         lb_DataInizio.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
@@ -443,11 +432,6 @@ public class ServerFrame extends javax.swing.JFrame {
 
         tf_DataFine.setEditable(false);
         tf_DataFine.setText(" Selezionare una data");
-        tf_DataFine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_DataFineActionPerformed(evt);
-            }
-        });
 
         bt_ScegliData.setText("Scegli Data");
         bt_ScegliData.addActionListener(new java.awt.event.ActionListener() {
@@ -806,36 +790,9 @@ public class ServerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_ModificaCandidatoActionPerformed
 //______________________________________________________________________________
-    
-    private void tf_DataInizioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_DataInizioActionPerformed
-    }//GEN-LAST:event_tf_DataInizioActionPerformed
-//______________________________________________________________________________
-    
-    private void tf_DataFineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_DataFineActionPerformed
-    }//GEN-LAST:event_tf_DataFineActionPerformed
-//______________________________________________________________________________
-    
+   
     private void bt_StopElezioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StopElezioniActionPerformed
-        
-        /*ProgettoO.statoVotazioni = false;
-        myINI.setBooleanProperty("Votazione", "VotazioneAperta", false, "Stato votazioni");
-        myINI.save();
-        Votazione.chiudiVotazione();
-        bt_AvvioElezioni.setEnabled(true);
-        bt_StopElezioni.setEnabled(false);
-        avanzaGiornataMenuItem.setEnabled(false);
-        lanciaBotMenuItem.setEnabled(false);
-        tf_IdElezione.setEditable(true);
-        tf_IdElezione.setText(null);
-        tf_DataFine.setText(null);
-        tf_DataInizio.setText(null);
-        bt_ScegliData.setEnabled(true);
-        lb_ImmagineStatus.setIcon(Utility.setUrlIcon(Utility.imgVotazioniChiuse));
-        ProgettoO.getRegistrazione().setEnabled(false);
-        ProgettoO.getRegistrazione().setIcon(Utility.setUrlIcon(Utility.imgRegistrazioneDisabilitata));
-        bt_AggiungiCandidato.setEnabled(true);
-        bt_ModificaCandidato.setEnabled(true);
-        bt_RimuoviCandidato.setEnabled(true);*/
+        Votazione.stopVotazioniButton();
     }//GEN-LAST:event_bt_StopElezioniActionPerformed
 //______________________________________________________________________________
     
@@ -880,10 +837,6 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_AvvioElezioniActionPerformed
 //______________________________________________________________________________
     
-    private void tf_IdElezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_IdElezioneActionPerformed
-    }//GEN-LAST:event_tf_IdElezioneActionPerformed
-//______________________________________________________________________________
-    
     private void Candidati_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Candidati_listMouseClicked
         if (evt.getClickCount() == 2) {
             String candidato = Candidati_list.getSelectedValue();
@@ -921,10 +874,13 @@ public class ServerFrame extends javax.swing.JFrame {
             if ( f.delete() ){ // elimina il file ini dal pc
                 JOptionPane.showMessageDialog(null,"Operazione riuscita","", JOptionPane.INFORMATION_MESSAGE);
                 Utility.downloadINI();  // scarica il file ini dal server
+               
                 
                 refreshGrafici();
                 Votazione.printWinner();
                 printDataCorrente();
+                myINI.setStringProperty("Votazione", "DataCorrente", Votazione.getF().format(Calendar.getInstance()), "DataCorrente"); // Scrive nell'Ini la DataCorrente
+                Votazione.setDataCorrente(Calendar.getInstance());
             } else {
                 JOptionPane.showMessageDialog(null,"Errore nella eliminazione del file.", "", JOptionPane.ERROR_MESSAGE);
             }

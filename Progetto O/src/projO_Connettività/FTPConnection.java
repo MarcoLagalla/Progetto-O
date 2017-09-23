@@ -1,3 +1,7 @@
+/**
+ * Necessaria per la Connessione al server
+*/
+
 package projO_Connettività;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">

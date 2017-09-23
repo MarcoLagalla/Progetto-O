@@ -1,3 +1,7 @@
+/**
+ * Rappresenta i Candidati alle Elezioni
+*/
+
 package projO_Classi;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">

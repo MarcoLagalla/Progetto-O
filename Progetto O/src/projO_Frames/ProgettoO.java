@@ -1,4 +1,6 @@
-/*      MAIN CLASS      */
+/** 
+ *  Classe di prima istanza all'Avvio del Programma 
+ */
 
 package projO_Frames;
 

@@ -254,11 +254,9 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
-        
-        editCandidato();
+    editCandidato();
     }//GEN-LAST:event_bt_ConfermaActionPerformed
 //______________________________________________________________________________
-    //______________________________________________________________________________
     
     private void bt_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ResetActionPerformed
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro? Questa operazione svuoterà tutti i campi.", "Richiesta conferma", JOptionPane.YES_NO_OPTION);
@@ -335,6 +333,8 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Inserimento non completato.", "Errore", JOptionPane.ERROR);
         }
     }
+//______________________________________________________________________________
+    
     /**
      * @param args the command line arguments
      */

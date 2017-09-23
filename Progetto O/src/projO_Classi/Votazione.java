@@ -1,3 +1,7 @@
+/**
+ *  Vengono definiti Variabili e Metodi statici necessari per la gestione dei Voti
+*/
+
 package projO_Classi;
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
 import java.sql.ResultSet;
@@ -64,6 +68,15 @@ public class Votazione {
     public static Calendar getDataInizioVot() {
         return dataInizioVot;
     }
+
+    /**
+     *
+     * @param dataCorrente
+     */
+    public static void setDataCorrente(Calendar dataCorrente) {
+        Votazione.dataCorrente = dataCorrente;
+    }
+    
     
     
 //________________________________METODI________________________________________
@@ -258,7 +271,7 @@ public class Votazione {
         affluenza = 0;
         myINI.setIntegerProperty("Votazione", "AffluenzaOggi", 0, "AffluenzaOggi");
         dataCorrente = getDataCorrente();
-        dataCorrente.add(Calendar.DATE, 1);
+        dataCorrente.add(Calendar.DATE, 1); //Avanzamento 1 Giorno
         myINI.setStringProperty("Votazione", "DataCorrente", dateFormat.format(dataCorrente.getTime()), "DataCorrente");
         myINI.save();
         ServerFrame.lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
@@ -333,6 +346,9 @@ public class Votazione {
             }   
     }
     
+    /**
+     * Metodo per Terminare immediatamente le Elezioni e che disabilita tutti gli elementi grafici corrispondenti
+     */
     public static void stopVotazioniButton() {
         ProgettoO.statoVotazioni = false;
         myINI.setBooleanProperty("Votazione", "VotazioneAperta", false, "Stato votazioni");

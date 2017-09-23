@@ -1,4 +1,6 @@
-// Classe per il Bot di Votazione Automatica
+/**
+ * Bot di Votazione Automatica
+*/
 
 package bot;
 
@@ -126,6 +128,8 @@ public class MainFrameBot extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bt_StartActionPerformed
+
+//______________________________________________________________________________
     
     /**
      * @param args the command line arguments

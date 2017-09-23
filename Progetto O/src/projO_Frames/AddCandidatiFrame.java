@@ -68,12 +68,6 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
 
         lb_NomeCandidato.setText("Nome:");
 
-        tf_NomeCandidato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_NomeCandidatoActionPerformed(evt);
-            }
-        });
-
         lb_CognomeCandidato.setText("Cognome:");
 
         lb_Partito.setText("Partito:");
@@ -227,10 +221,6 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tf_NomeCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_NomeCandidatoActionPerformed
- 
-    }//GEN-LAST:event_tf_NomeCandidatoActionPerformed
 //______________________________________________________________________________
     
     private void bt_SfogliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SfogliaActionPerformed
@@ -252,7 +242,6 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void bt_ConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConfermaActionPerformed
-
         addCandidato();
     }//GEN-LAST:event_bt_ConfermaActionPerformed
 //______________________________________________________________________________
@@ -312,6 +301,7 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
             }
         });
     }
+//______________________________________________________________________________
     
     private void addCandidato() {
         myFTP.loadFile(pathImage,IMG_REMOTE_FOLDER + "/" + tf_CodiceFiscale.getText() + ".jpg");

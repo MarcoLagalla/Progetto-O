@@ -1,3 +1,8 @@
+/** 
+ *  Classe per la gestione di una connessione ad un database MySQL
+ *  La classe utilizza i driver JDBC per gestire la connessione.
+ */
+
 package projO_Connettività;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
@@ -16,11 +21,6 @@ import projO_Classi.Votanti;
 // </editor-fold>
 
 //______________________________________________________________________________
-
-/** 
- *  Classe per la gestione di una connessione ad un database MySQL
- *  La classe utilizza i driver JDBC per gestire la connessione.
- */
 public class MySQlConnection {
     
     /**

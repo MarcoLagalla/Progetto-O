@@ -1,3 +1,6 @@
+/**
+ * Strumento necessario per la creazione del Calendario nella selezione delle Date nel ServerFrame
+*/
 package projO_Classi;
 
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
@@ -9,7 +12,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Team
+ * @author DatePicker
  */
 
 public class DatePicker  {

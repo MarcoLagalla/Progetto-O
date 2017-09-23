@@ -1,3 +1,6 @@
+/**
+ * Necesaria per Variabili e Metodi Statici richiamati in vari punti del programma
+*/
 package projO_Classi;
 
 import java.awt.Color;
