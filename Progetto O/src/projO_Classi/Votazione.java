@@ -174,7 +174,7 @@ public class Votazione {
      */
     public static Calendar getDataCorrente() {
         String[] parsing = Votazione.readDataCorrente().split("-");
-        dataCorrente.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]), Integer.parseInt(parsing[0]));
+        dataCorrente.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]) -1, Integer.parseInt(parsing[0]));
         return dataCorrente;
     }
 
@@ -184,7 +184,7 @@ public class Votazione {
      */
     public static Calendar getDataFineVot() {
         String[] parsing = Votazione.readDataFine().split("-");
-        dataFineVot.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]), Integer.parseInt(parsing[0]));
+        dataFineVot.set(Integer.parseInt(parsing[2]), Integer.parseInt(parsing[1]) -1, Integer.parseInt(parsing[0]));
         return dataFineVot;
     }
 
