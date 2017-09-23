@@ -922,22 +922,22 @@ private boolean checkDate(String Date) {
         return false;
     }
 
-    int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-    int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
-    int day = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
-
     String tokens[] = Date.split("-");
 
     int _year =  Integer.parseInt(tokens[2]);
     int _month = Integer.parseInt(tokens[1]);
     int _day = Integer.parseInt(tokens[0]);
 
-    if (_year >= year) {
-        if (_month >= month) {
-            if (_day >= day) {
+    JOptionPane.showMessageDialog(null,"Giorno: " + Utility.day + "\nMese: "+ Utility.month + " mese "+ _month + "\nAnno" + Utility.year, "",0);
+    if (_year >= Utility.year) {
+        if (_month > Utility.month) {
+            return true;
+        } else if (_month == Utility.month ) {
+        if (_day >= Utility.day) {
                 return true;
             }
         }
+                
     }
     return false;
 }  // Il parametro Date deve contenere la data di FINE

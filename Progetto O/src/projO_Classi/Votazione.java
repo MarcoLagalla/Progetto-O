@@ -266,7 +266,7 @@ public class Votazione {
         try {
             affluenza = myINI.getIntegerProperty("Votazione", "AffluenzaOggi");
             mySQL.updateQuery( "INSERT INTO db." + getIdVotazione() + " (Data,Affluenza) VALUES ('" + readDataCorrente() + "', " + affluenza +");" );
-        } catch (Exception ex) {ex.printStackTrace();}
+        } catch (Exception ex) {}
         
         affluenza = 0;
         myINI.setIntegerProperty("Votazione", "AffluenzaOggi", 0, "AffluenzaOggi");
@@ -275,6 +275,7 @@ public class Votazione {
         myINI.setStringProperty("Votazione", "DataCorrente", dateFormat.format(dataCorrente.getTime()), "DataCorrente");
         myINI.save();
         ServerFrame.lb_DataCorrente.setText("Data Corrente: " + Votazione.readDataCorrente());
+        dataFineVot = getDataFineVot();
         if(dataCorrente.after(dataFineVot)) { // se la data corrente ha superato quella di fine, chiude le elezioni
             JOptionPane.showMessageDialog(ServerFrame.panel_AllContainer, "Votazioni concluse");
             stopVotazioniButton();
