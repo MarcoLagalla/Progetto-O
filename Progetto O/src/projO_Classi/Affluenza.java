@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Necessaria per costruzione DataSet del grafico LineChart per ottenere i dati relativi alla X e Y del grafico 
+ * Necessaria per la costruzione del DataSet del grafico LineChart.
+ *  In questo caso il dataset corrisponde alla normalizzazione dei giorni di votazione, calcolati rispetto alla data di inizio.
+ *  Per esempio: il giorno corrispondente alla data di inizio delle elezioni sarà "Giorno 1", quello successivo sarà "Giorno 2"...
  * @author Team
  */
 
@@ -16,9 +18,8 @@ public class Affluenza implements Comparable<Affluenza>{
     private int dato;
     
     /**
-     * 
-     * @param data Affluenza nel Giorno di Votazione
-     * @param dato Giorno Normalizzato da inserire sull'Asse X del LineChart
+     * @param data Affluenza nel giorno di votazione
+     * @param dato Giorno normalizzato (inseririto sull'asse delle ascisse del LineChart)
      */
     public Affluenza(String data, int dato) {
        try {
@@ -40,16 +41,14 @@ public class Affluenza implements Comparable<Affluenza>{
     }
 //______________________________GETTER/SETTER___________________________________    
     /**
-     *
-     * @return Data ovvero la Data del Giorno di Votazione
+     * @return Data del giorno di votazione in esame
      */
     public int getData() {
         return data;
     }
 
     /**
-     *
-     * @return Dato ovvero il Giorno Normalizzato
+     * @return Giorno normalizzato,  (p.e. "giorno 1", "giorno 2"..)
      */
     public int getDato() {
         return dato;
