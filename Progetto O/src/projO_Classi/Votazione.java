@@ -1,6 +1,3 @@
-/**
- *  Vengono definiti Variabili e Metodi statici necessari per la gestione dei Voti
-*/
 
 package projO_Classi;
 // <editor-fold defaultstate="collapsed" desc="IMPORTS">
@@ -19,7 +16,7 @@ import projO_Frames.ServerFrame;
 
 
 /**
- *
+ * Vengono definiti Variabili e Metodi statici necessari per la gestione del Voto
  * @author Team
  */
 
@@ -33,7 +30,6 @@ public class Votazione {
     private static int affluenza = 0;
     private static String winner = "";
     private static int lenghtEle;
-
     public static boolean votazioneAperta = false;
     
     static INIFile myINI = new INIFile(Utility.INIPath);
@@ -45,7 +41,7 @@ public class Votazione {
 
     /**
      *
-     * @return ID Votazione
+     * @return ID Votazione ovvero il nome dato alla Tabella relativa all'elezione indetta runtime
      */
 
     public static String getIdVotazione() {    
@@ -55,7 +51,7 @@ public class Votazione {
     
     /**
      *
-     * @return FormatoData
+     * @return FormatoData rappresenta il formato della Data come Giorno Mese Anno
      */
     public static DateFormat getF() {
         return dateFormat;
@@ -153,14 +149,14 @@ public class Votazione {
                 winner = "";
                 
                 // Resetta il campo FlagVotato nella tabella VOTANTI
-                ArrayList<Votanti> vot = mySQL.readVotantiColumns();
-                for (Votanti obj: vot) {
+                ArrayList<Votante> vot = mySQL.readVotantiColumns();
+                for (Votante obj: vot) {
                     mySQL.updateQuery("UPDATE VOTANTI SET FlagVotato='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta il FlagVotato = 0 per tutti           
                 }
                 
                 // Resetta i voti nella tabella CANDIDATI
-                ArrayList<Candidati> can = mySQL.readCandidatiColumns();
-                for (Candidati obj: can) {
+                ArrayList<Candidato> can = mySQL.readCandidatiColumns();
+                for (Candidato obj: can) {
                     mySQL.updateQuery("UPDATE CANDIDATI SET Voti='0' WHERE CodiceFiscale='" + obj.getCF() + "';");        // setta i voti a 0           
                 }                
 
@@ -215,8 +211,8 @@ public class Votazione {
            int  res = JOptionPane.showConfirmDialog(null,"Vuoi procedere a impostare un secondo turno di elezioni?\nQuesta operazione cancellerà i candidati che non sono passati al secondo turno.\nQuesta operazione non può essere annullata.","ATTENZIONE", JOptionPane.YES_NO_OPTION);
            if ( res == JOptionPane.YES_OPTION ) {
                
-               ArrayList<Candidati> can = mySQL.readCandidatiColumns();
-               for (Candidati obj: can) {
+               ArrayList<Candidato> can = mySQL.readCandidatiColumns();
+               for (Candidato obj: can) {
                    if (!vincitori.contains(obj.getCF())) {
                        mySQL.updateQuery("DELETE FROM db.CANDIDATI WHERE CodiceFiscale='" + obj.getCF() + "';");
                        
@@ -232,9 +228,9 @@ public class Votazione {
             winner = vincitori.get(0).toString();
 
             
-            ArrayList<Candidati> can = mySQL.readCandidatiColumns();
+            ArrayList<Candidato> can = mySQL.readCandidatiColumns();
             
-            for (Candidati obj: can) {          
+            for (Candidato obj: can) {          
                 if (obj.getCF().equals(winner))
                     printWinner();
             }
@@ -288,15 +284,15 @@ public class Votazione {
      * codici fiscali di tutti i candidati che dovranno accedere al secondo turno.
      */
     private static ArrayList<String> findWinner() {       // chiamato a votazione finita: trova nel db il candidato vincitore
-        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
+        ArrayList<Candidato> can = mySQL.readCandidatiColumns();
         int max = 0;
         ArrayList<String> CF = new ArrayList();
-        for(Candidati obj: can) {
+        for(Candidato obj: can) {
             if ( obj.getVoti() > max ) {
                 max = obj.getVoti();
             }
         }
-        for(Candidati obj: can) {
+        for(Candidato obj: can) {
             if (obj.getVoti() == max) {
                 CF.add(obj.getCF());
             }
@@ -309,8 +305,8 @@ public class Votazione {
      * Metodo per effettuare il Reset dei Voti nel DataBase
      */
     private static void resetVoti() {      // setta tutti i voti nella tabella votanti a 0. Private perchè viene usato solo in questa classe
-        ArrayList<Persone> pers = mySQL.readPersoneColumns();
-        for (Persone obj: pers) {
+        ArrayList<Persona> pers = mySQL.readPersoneColumns();
+        for (Persona obj: pers) {
             mySQL.updateQuery("UPDATE VOTANTI SET FlagVotato=0 WHERE CodiceFiscale='" + obj.getCF() + "';");
         }   
     }   
@@ -335,9 +331,9 @@ public class Votazione {
      *  Metodo che riempie i campi appositi sull'interfaccia con i dati del vincitore
      */
     public static void printWinner() {
-            ArrayList<Candidati> can = mySQL.readCandidatiColumns();
+            ArrayList<Candidato> can = mySQL.readCandidatiColumns();
             
-            for (Candidati obj: can) {          
+            for (Candidato obj: can) {          
                 if (obj.getCF().equals(winner)) {
                     ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
                     ServerFrame.lb_NomeVincitore.setText(obj.getNome());

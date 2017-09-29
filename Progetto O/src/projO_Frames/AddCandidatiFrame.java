@@ -13,7 +13,7 @@ import projO_Connettività.MySQlConnection;
 // </editor-fold>
 
 /**
- *
+ * Frame per Aggiungere un nuovo Candidato inserendo i dati nei TextField
  * @author Team
  */
 public class AddCandidatiFrame extends javax.swing.JFrame {
@@ -21,6 +21,7 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
     MySQlConnection mySQL = new MySQlConnection();
     FTPConnection myFTP = new FTPConnection();
 
+    // Indirizzo Server
     final public String IMG_REMOTE_FOLDER = "/var/www/progettoO/img";
     String pathImage = "";
     
@@ -302,6 +303,7 @@ public class AddCandidatiFrame extends javax.swing.JFrame {
         });
     }
 //______________________________________________________________________________
+//Metodo di Aggiunta del Candidato
     
     private void addCandidato() {
         myFTP.loadFile(pathImage,IMG_REMOTE_FOLDER + "/" + tf_CodiceFiscale.getText() + ".jpg");

@@ -1,6 +1,4 @@
-/**
- * Necessaria per costruzione DataSet del grafico LineChart
-*/
+
 package projO_Classi;
 
 import java.text.ParseException;
@@ -8,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- *
+ * Necessaria per costruzione DataSet del grafico LineChart per ottenere i dati relativi alla X e Y del grafico 
  * @author Team
  */
 
@@ -19,8 +17,8 @@ public class Affluenza implements Comparable<Affluenza>{
     
     /**
      * 
-     * @param data
-     * @param dato
+     * @param data Affluenza nel Giorno di Votazione
+     * @param dato Giorno Normalizzato da inserire sull'Asse X del LineChart
      */
     public Affluenza(String data, int dato) {
        try {
@@ -43,7 +41,7 @@ public class Affluenza implements Comparable<Affluenza>{
 //______________________________GETTER/SETTER___________________________________    
     /**
      *
-     * @return Data
+     * @return Data ovvero la Data del Giorno di Votazione
      */
     public int getData() {
         return data;
@@ -51,7 +49,7 @@ public class Affluenza implements Comparable<Affluenza>{
 
     /**
      *
-     * @return Dato
+     * @return Dato ovvero il Giorno Normalizzato
      */
     public int getDato() {
         return dato;

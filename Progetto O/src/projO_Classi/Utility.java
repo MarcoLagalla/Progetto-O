@@ -1,6 +1,4 @@
-/**
- * Necesaria per Variabili e Metodi Statici richiamati in vari punti del programma
-*/
+
 package projO_Classi;
 
 import java.awt.Color;
@@ -18,7 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
 /**
- *
+ * Necesaria per Variabili e Metodi Statici richiamati in vari punti del programma utili per evitare ripetizioni di codice
  * @author Team
  */
 public class Utility {

@@ -1,7 +1,3 @@
-/** 
- *  Classe per la gestione di una connessione ad un database MySQL
- *  La classe utilizza i driver JDBC per gestire la connessione.
- */
 
 package projO_Connettività;
 
@@ -15,10 +11,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 // imports interni
-import projO_Classi.Persone;
-import projO_Classi.Candidati;
-import projO_Classi.Votanti;
+import projO_Classi.Persona;
+import projO_Classi.Candidato;
+import projO_Classi.Votante;
 // </editor-fold>
+
+/** 
+ *  Classe per la gestione di una connessione ad un database MySQL
+ *  La classe utilizza i driver JDBC per gestire la connessione.
+ * 
+ *  @author Team
+ */
+
+
 
 //______________________________________________________________________________
 public class MySQlConnection {
@@ -133,14 +138,14 @@ public class MySQlConnection {
 //______________________________________________________________________________
     
     /**
-     * Funzione che legge tutti i campi della tabella PERSONE nel db e restituisce un ArrayList di oggetti 'Persone' per ogni record estratto.                                    
-     * @return Oggetto della classe Persone
+     * Funzione che legge tutti i campi della tabella PERSONE nel db e restituisce un ArrayList di oggetti 'Persona' per ogni record estratto.                                    
+     * @return Oggetto della classe Persona
      */
 
-    public  ArrayList<Persone> readPersoneColumns() {
+    public  ArrayList<Persona> readPersoneColumns() {
        
         String QUERY = String.format("SELECT * FROM %s;" , DB_PERSONE );
-        ArrayList<Persone> pers = new ArrayList();
+        ArrayList<Persona> pers = new ArrayList();
         try{
             
             statement = objConnessione.createStatement();
@@ -148,7 +153,7 @@ public class MySQlConnection {
             
             while(resultSet.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
-                Persone p;
+                Persona p;
           
                 String CF = resultSet.getString(TAB_CODICEFISCALE);
                 String Nome = resultSet.getString(TAB_NOME);
@@ -157,7 +162,7 @@ public class MySQlConnection {
                 String DataNascita = resultSet.getString(TAB_DATANASCITA);
                 String Comune = resultSet.getString(TAB_COMUNE);
                 
-                p = new Persone(CF, Nome, Cognome, Sesso, DataNascita, Comune);
+                p = new Persona(CF, Nome, Cognome, Sesso, DataNascita, Comune);
                 pers.add(p); // inserimento nell' ArrayList del nuovo record p
               
             }
@@ -180,17 +185,17 @@ public class MySQlConnection {
 //______________________________________________________________________________
     
     /**
-     * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce un ArrayList di oggetti 'Votanti' per ogni record estratto.
-     * @return Oggetto della classe Persone
+     * Funzione che legge tutti i campi della tabella VOTANTI nel db e restituisce un ArrayList di oggetti 'Votante' per ogni record estratto.
+     * @return Oggetto della classe Persona
      */
 
-    public ArrayList<Votanti> readVotantiColumns() {
+    public ArrayList<Votante> readVotantiColumns() {
        
         
         String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato FROM db.PERSONE\n" +
                        "JOIN db.VOTANTI on PERSONE.CodiceFiscale = VOTANTI.CodiceFiscale;";
         
-        ArrayList<Votanti> vot = new ArrayList();
+        ArrayList<Votante> vot = new ArrayList();
         try
         {
             
@@ -199,7 +204,7 @@ public class MySQlConnection {
             
             while(resultSet.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
-                Votanti v;
+                Votante v;
 
                 String CF = resultSet.getString(TAB_CODICEFISCALE);
                 String Nome = resultSet.getString(TAB_NOME);
@@ -210,7 +215,7 @@ public class MySQlConnection {
                 String CodiceTessera = resultSet.getString(TAB_CODICETESSERA);
                 int FlagVotato = resultSet.getInt(TAB_FLAGVOTATO);
                 
-                v = new Votanti(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato);
+                v = new Votante(CF,Nome, Cognome, Sesso, DataNascita, Comune, CodiceTessera, FlagVotato);
                 vot.add(v);
 
             }
@@ -234,16 +239,16 @@ public class MySQlConnection {
     
 //______________________________________________________________________________   
      /**
-     * Funzione che legge tutti i campi della tabella CANDIDATI nel db e restituisce un ArrayList di oggetti 'Candidati' per ogni record estratto.
-     * @return Oggetto della classe Persone
+     * Funzione che legge tutti i campi della tabella CANDIDATI nel db e restituisce un ArrayList di oggetti 'Candidato' per ogni record estratto.
+     * @return Oggetto della classe Persona
      */
 
-    public ArrayList<Candidati> readCandidatiColumns() {
+    public ArrayList<Candidato> readCandidatiColumns() {
        
         String QUERY = "SELECT PERSONE.CodiceFiscale, Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine FROM db.PERSONE\n" +
                        "JOIN db.CANDIDATI on PERSONE.CodiceFiscale = CANDIDATI.CodiceFiscale;";
         
-        ArrayList<Candidati> can = new ArrayList();
+        ArrayList<Candidato> can = new ArrayList();
         try
         {
             
@@ -252,7 +257,7 @@ public class MySQlConnection {
             
             while(resultSet.next()){  // cicla fino a che esiste una nuova riga da leggere
                 
-                Candidati c;
+                Candidato c;
 
                 String CF = resultSet.getString(TAB_CODICEFISCALE);
                 String Nome = resultSet.getString(TAB_NOME);
@@ -263,7 +268,7 @@ public class MySQlConnection {
                 String Partito = resultSet.getString(TAB_PARTITO);
                 int Voti = resultSet.getInt(TAB_VOTI);
                 URL Immagine = resultSet.getURL(TAB_IMMAGINE);
-                c = new Candidati(CF,Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
+                c = new Candidato(CF,Nome, Cognome, Sesso, DataNascita, Comune, Partito, Voti, Immagine);
                 can.add(c);
 
             }

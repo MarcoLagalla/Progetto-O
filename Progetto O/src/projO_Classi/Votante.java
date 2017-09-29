@@ -1,15 +1,12 @@
-/**
- * Rappresenta i Votanti nel Comune
-*/
 
 package projO_Classi;
 
 
 /**
- *
+ * Rappresenta le persone Votanti nel Comune del seggio
  * @author Team
  */
-public class Votanti extends Persone {
+public class Votante extends Persona {
     
     private String codiceTessera;
     private boolean votato;
@@ -22,10 +19,10 @@ public class Votanti extends Persone {
      * @param Sesso
      * @param DataNascita
      * @param Comune
-     * @param CodiceTessera
-     * @param Votato
+     * @param CodiceTessera rappresenta con un formato a 9 numeri il codice di riconoscimento della Tessera Elettorale di ogni persona, abbinata al Codice Fiscale
+     * @param Votato rappresenta il flag del votato
      */
-    public Votanti(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String CodiceTessera, int Votato) {
+    public Votante(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune, String CodiceTessera, int Votato) {
         super(CF, Nome, Cognome, Sesso, DataNascita, Comune);
         this.codiceTessera = CodiceTessera;
         if (Votato == 0) {
@@ -52,7 +49,7 @@ public class Votanti extends Persone {
     
     /**
      *
-     * @return
+     * @return votato ovvero un int che permette di pcapire se una persona ha votato o meno
      */
     public boolean getVotato() {return votato; }
     

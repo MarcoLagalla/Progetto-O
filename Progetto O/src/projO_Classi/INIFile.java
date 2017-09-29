@@ -1,7 +1,4 @@
-/**
- *INIFile class provides methods for manipulating (Read/Write) windows ini files. 
- */
- 
+
 package projO_Classi;
 
 import java.io.BufferedReader;
@@ -25,6 +22,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
+ * INIFile class provides methods for manipulating (Read/Write) windows ini files. 
  * @author Prasad P. Khandekar
  * @version 1.0
  */

@@ -1,15 +1,11 @@
-/**
- * Rappresenta le Personeinserite nel Database
- * 
-*/
 
 package projO_Classi;
 
 /**
- *
+ * Rappresenta le Persone inserite nel Database che rappresentano le persone censite dal Comune
  * @author Team
  */
-public class Persone {
+public class Persona {
     private String codiceFiscale;
     private String nome;
     private String cognome;
@@ -24,9 +20,9 @@ public class Persone {
      * @param Cognome
      * @param Sesso
      * @param DataNascita
-     * @param Comune
+     * @param Comune di appartenenza della Persona per evitare che vada a votare una persona di un altro comune
      */
-    public Persone(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
+    public Persona(String CF, String Nome, String Cognome, String Sesso, String DataNascita, String Comune){
         this.codiceFiscale = CF;
         this.nome = Nome;
         this.cognome = Cognome;
@@ -75,7 +71,7 @@ public class Persone {
 
     /**
      *
-     * @param CF
+     * @param CF rappresenta il codice fiscale della persona
      */
     public void setCF(String CF) { this.codiceFiscale = CF; }
 

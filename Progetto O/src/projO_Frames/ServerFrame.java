@@ -41,8 +41,8 @@ import org.jfree.util.Rotation;
 import projO_Classi.DatePicker;
 import projO_Connettività.MySQlConnection;
 import projO_Classi.Votazione;
-import projO_Classi.Candidati;
-import projO_Classi.Votanti;
+import projO_Classi.Candidato;
+import projO_Classi.Votante;
 import projO_Classi.INIFile;
 import projO_Classi.Utility;
 import projO_Classi.Affluenza;
@@ -52,7 +52,7 @@ import projO_Connettività.FTPConnection;
 
 
 /**
- *
+ * Frame dove l'amministrazione comunale può impostare l'avvio delle elezioni e vedere le statistiche di riferimento, il vincitore e avviare il bot
  * @author Team
  */
 
@@ -69,6 +69,10 @@ public class ServerFrame extends javax.swing.JFrame {
     DefaultCategoryDataset datasetBarChart = new DefaultCategoryDataset( ); //Dataset BarChart 
 
 //___________________________________COSTRUTTORE___________________________________________
+
+    /**
+     * Costruttore di ServerFrame per impostarlo a FULL Screen e inizializzarlo
+     */
 
     public ServerFrame() {
             super("SERVER");
@@ -152,8 +156,8 @@ public class ServerFrame extends javax.swing.JFrame {
        }
     
     private CategoryDataset createBarChartDataset( ) {  
-        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
-        for (Candidati object: can) {
+        ArrayList<Candidato> can = mySQL.readCandidatiColumns();
+        for (Candidato object: can) {
             datasetBarChart.addValue( object.getVoti(), object.getNome() +  " " + object.getCognome(), "" ); 
         }
 
@@ -234,11 +238,11 @@ public class ServerFrame extends javax.swing.JFrame {
     
     private  PieDataset createPieChartDataset() {
 
-        ArrayList<Votanti> vot = mySQL.readVotantiColumns();
+        ArrayList<Votante> vot = mySQL.readVotantiColumns();
         
         int maschi = 0;
         int femmine = 0;
-        for (Votanti object: vot) {
+        for (Votante object: vot) {
 
             if (object.getVotato()) {
                 if ( object.getSesso().equals("M")) {
@@ -257,13 +261,14 @@ public class ServerFrame extends javax.swing.JFrame {
     }
 
 //______________________________________________________________________________  
- 
+// Metodo di Caricamento dei Candidati in un ArrayList
+    
     private void loadCandidati() {
-        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
+        ArrayList<Candidato> can = mySQL.readCandidatiColumns();
         javax.swing.DefaultListModel listModel;
         listModel = new javax.swing.DefaultListModel();
         listModel.removeAllElements();
-        for (Candidati object: can) {
+        for (Candidato object: can) {
             String str = String.format("%s %s - %s",object.getNome().toString(), object.getCognome().toString(), object.getCF().toString());
             listModel.addElement(str);
         }
@@ -866,7 +871,7 @@ public class ServerFrame extends javax.swing.JFrame {
         myFTP.loadFile(Utility.INIPath, Utility.remoteINIPath + "progettoO.ini");
         JOptionPane.showMessageDialog(null,"Caricamento file di impostazioni riuscito.","Operazione completata", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_eseguiBackupMenuItemActionPerformed
-
+// Il Reset permette di azzerare la situazione su ServerFrame
     private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
         int res = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler resettare la macchina?\nQuesta operazione cancellerà il file di impostazioni.", "Richiesta conferma operazione", JOptionPane.OK_CANCEL_OPTION);
         if (res == JOptionPane.OK_OPTION) {
@@ -903,7 +908,7 @@ public class ServerFrame extends javax.swing.JFrame {
         });
     }
 //______________________________________________________________________________
-    
+// Metodo per verificare che la Data di fine elezioni scelta non sia scelta prima della Data Corrente e che non sia lei stessa    
 private boolean checkDate(String Date) {
 
     if ( Date.length() != 10 ) {
@@ -966,7 +971,7 @@ private void refreshGrafici(){
     panel_CakeChart.validate();
 
 }
-
+// Metodo per Stampa data corrente usato su un Label
 private static void printDataCorrente() {
     File f = new File(Utility.INIPath);
         if (!f.exists() && !f.isDirectory()) {

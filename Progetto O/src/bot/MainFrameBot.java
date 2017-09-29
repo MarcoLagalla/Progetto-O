@@ -1,7 +1,3 @@
-/**
- * Bot di Votazione Automatica
-*/
-
 package bot;
 
 import java.sql.ResultSet;
@@ -9,12 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.DefaultListModel;
-import projO_Classi.Candidati;
+import projO_Classi.Candidato;
 import projO_Classi.Votazione;
 import projO_Connettività.MySQlConnection;
 
 /**
- *
+ * Bot di Votazione Automatica creato per automatizzare le votazioni
  * @author Team
  */
 
@@ -22,10 +18,14 @@ public class MainFrameBot extends javax.swing.JFrame {
     
     String log = "";
     MySQlConnection mySQL = new MySQlConnection();
-    ArrayList<Candidati> candidatiArray = mySQL.readCandidatiColumns();
+    ArrayList<Candidato> candidatiArray = mySQL.readCandidatiColumns();
     DefaultListModel listModel = new javax.swing.DefaultListModel();
     
 //____________________________COSTRUTTORE________________________________________
+
+    /**
+     * Costruttore MainFrameBot
+     */
     public MainFrameBot() {
         initComponents();
         mySQL = new MySQlConnection();
@@ -144,7 +144,7 @@ public class MainFrameBot extends javax.swing.JFrame {
         });
     }
    
-    private int randomRange(int High) {    // ritorna un intero random (High = numero Candidati)
+    private int randomRange(int High) {    // ritorna un intero random (High = numero Candidato)
         Random r = new Random(System.currentTimeMillis());  // Uso un SEED per evitare errori di porting
         int Low = 0;
         return r.nextInt(High-Low) + Low;

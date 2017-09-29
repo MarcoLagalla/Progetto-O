@@ -17,7 +17,7 @@ import projO_Connettività.MySQlConnection;
 
 
 /**
- *
+ * Frame necessario per creare la ClientFrame nella quale vengono indicati tutti i candidati in 'gara'
  * @author Team
  */
 
@@ -26,6 +26,9 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
     MySQlConnection mySQL = new MySQlConnection();
     private static boolean votato = false;     // Controlla se l'utente vota o meno
     
+    /**
+     * Csotruttore con inizializzazione dei componenti
+     */
     public SchedaCandidatoFrame() {
         initComponents();
         votato = false; // alla creazione imposta di default la votazione a falso
@@ -38,7 +41,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
      * @param Nome
      * @param Cognome
      * @param Partito
-     * @param Immagine
+     * @param Immagine rappresenta l'immagine del profilo del candidato
      */
     public SchedaCandidatoFrame(String CF, String Nome, String Cognome, String Partito, URL Immagine) {
         initComponents();
@@ -50,6 +53,10 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
     }
 //______________________________GETTER/SETTER________________________________________________
 
+    /**
+     * Setta l'Immagine caricandola oppure inserendo quella del NotFound se non trovata
+     * @param img_ 
+     */
     public void setImage(URL img_) {
         ImageIcon img;
        try {
@@ -64,18 +71,38 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
         lb_Foto.setIcon(Utility.resizeIcon(img, lb_Foto.getWidth(), lb_Foto.getHeight()));
     }
     
+    /**
+     *
+     * @param cf Codice Fiscale del Candidato
+     */
     public void setCF(String cf) {
         lb_CF.setText(cf);
     }
+
+    /**
+     *
+     * @param nome
+     */
     public void setNome(String nome) {
         lb_Nome.setText(nome);
     }
+
+    /**
+     *
+     * @param cognome
+     */
     public void setCognome(String cognome) {
         lb_Cognome.setText(cognome);
     }
+
+    /**
+     *
+     * @param partito ovvero il partito di appartenenza
+     */
     public void setPartito(String partito) {
         lb_Partito.setText(partito);
     }
+
     public static boolean isVotato() {
         return votato;
     }
@@ -182,7 +209,7 @@ public class SchedaCandidatoFrame extends javax.swing.JPanel {
             .addComponent(panel_AllContainer, 535, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+// Metodo che Effettua il vero e proprio VOTO
     private void bt_VotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_VotaActionPerformed
   
         int reply = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler votare per: " + lb_Nome.getText() + " " + lb_Cognome.getText() + " del " + lb_Partito.getText() + "?", "Richiesta conferma", JOptionPane.YES_NO_OPTION);

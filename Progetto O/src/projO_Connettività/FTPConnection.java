@@ -1,6 +1,3 @@
-/**
- * Necessaria per la Connessione al server
-*/
 
 package projO_Connettività;
 
@@ -16,7 +13,7 @@ import org.apache.commons.net.ftp.FTPClient;
 
 //______________________________________________________________________________
 /**
- *
+ * Necessaria per la Connessione al server tramite protocollo FTP
  * @author Team
  */
 public class FTPConnection {

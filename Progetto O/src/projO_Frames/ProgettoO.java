@@ -1,6 +1,3 @@
-/** 
- *  Classe di prima istanza all'Avvio del Programma 
- */
 
 package projO_Frames;
 
@@ -19,17 +16,17 @@ import java.net.MalformedURLException;
 
 // imports interni
 import projO_Connettività.MySQlConnection;
-import projO_Classi.Candidati;
-import projO_Classi.Votanti;
+import projO_Classi.Candidato;
+import projO_Classi.Votante;
 import projO_Classi.Utility;
 import projO_Classi.INIFile;
 import projO_Classi.Votazione;
 import projO_Connettività.FTPConnection;
 // </editor-fold>
 
-//______________________________________________________________________________
+
 /**
- *
+ * Classe di prima istanza all'Avvio del Programma 
  * @author Team
  */
 
@@ -51,6 +48,10 @@ public class ProgettoO {
     private JPanel panel_Background;
     
     // Elementi Grafici Swing per CLIENT_FRAME
+
+    /**
+     *
+     */
     public static JFrame clientFrame;
     private JLabel lb_Client;
     private JPanel panel_Client; //GRIGLIA
@@ -76,12 +77,19 @@ public class ProgettoO {
     public static Boolean statoVotazioni = false;
    
     // Istanzio ServerFrame creato con JFrame Form
+
+    /**
+     *
+     */
     public static ServerFrame prepareServerGUI;
   
     private KeyStroke keyShortCut = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK); 
     // </editor-fold>
 //___________________________________COSTRUTTORE___________________________________________
 
+    /**
+     * Costruttore PrgettoO dove viene verificata in prima istanza la connessione a Internet, fondamentale per il funzionamento del programma
+     */
     public ProgettoO() {
         
         if ( netIsAvailable() ) {
@@ -395,9 +403,9 @@ public class ProgettoO {
         
         panel_Client = new JPanel(experimentLayout); 
         panel_Client.setBackground(Color.WHITE);
-        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
-       
-        for (Candidati object: can) {  
+        ArrayList<Candidato> can = mySQL.readCandidatiColumns();
+       // Aggiunta delle schede sul Frame
+        for (Candidato object: can) {  
             SchedaCandidatoFrame scheda = new SchedaCandidatoFrame(object.getCF(), object.getNome(),object.getCognome(),object.getPartito(),object.getImmagine());
             panel_Client.add(scheda);       
         }
@@ -504,7 +512,7 @@ public class ProgettoO {
                    break;
                }
 //______________________________________________________________________________ 
-               case "Vota": // è necessario un metodo che salva Numero Votanti e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "ServerFrame"
+               case "Vota": // è necessario un metodo che salva Numero Votante e Giorno in modo da poi venir GETTATO dal metodo "createDataSet" in "ServerFrame"
                {
                    prepareGUI();    // ricrea la home e killa la clientGUI 
                    codiceFiscale.setText("");
@@ -533,20 +541,20 @@ public class ProgettoO {
         /**
          * Metodo per evitare doppia bt_Registrazione dell'Utente
          * @param CF Codice Fiscale Utente
-         * @param CT Codice Tessera
+         * @param CT Codice Tessera definito come sempre come formato a 9 numeri collegato al Codice Fiscale della persona
          * @return Se l'utente risulta già registrato
          */
     private boolean avoidDoubleReg(String CF, String CT){
 
-        ArrayList<Votanti> vot = mySQL.readVotantiColumns();
-        for (Votanti obj: vot) {
+        ArrayList<Votante> vot = mySQL.readVotantiColumns();
+        for (Votante obj: vot) {
             if ((obj.getCodiceTessera().equals(CT))  && (obj.getCF().equals(CF)) ) {
                 return obj.getVotato();
             }
         }
         return false;
     }
-
+// Metodo per verificare la Connessione a Internet
     private static boolean netIsAvailable() {
             try {
                 final URL url = new URL("http://www.google.com");
@@ -560,12 +568,13 @@ public class ProgettoO {
             }
         }
     
-    // Metodo di Ricerca Dati Elettorali
+    // Metodi di Ricerca Dati Elettorali
+    
     private boolean canVoteCF(String CF, String CT) {
 
-            ArrayList<Votanti> vot = mySQL.readVotantiColumns();
+            ArrayList<Votante> vot = mySQL.readVotantiColumns();
 
-            for (Votanti v: vot){
+            for (Votante v: vot){
                 if ( (v.getCF().equals(CF)) && ( v.getCodiceTessera().equals(CT)) ){  
                          return true; // Vuol dire che il codiceFiscale del Votante Esiste ed è Abilitato
                 }
@@ -574,12 +583,11 @@ public class ProgettoO {
             return false;
         }
 
-    //______________________________________________________________________________
     private boolean canVoteCT(String CF, String CT) {
 
-                ArrayList<Votanti> vot = mySQL.readVotantiColumns();
+                ArrayList<Votante> vot = mySQL.readVotantiColumns();
 
-                for (Votanti v: vot){
+                for (Votante v: vot){
                     if ( (v.getCF().equals(CF)) && ( v.getCodiceTessera().equals(CT)) ){  
                          return true; // Vuol dire che il codiceTessera del Votante Esiste ed è Abilitato
                 }

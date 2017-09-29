@@ -10,14 +10,14 @@ import javax.swing.filechooser.*;
 // imports interni
 import projO_Connettività.FTPConnection;
 import projO_Connettività.MySQlConnection;
-import projO_Classi.Candidati;
-import projO_Classi.Persone;
+import projO_Classi.Candidato;
+import projO_Classi.Persona;
 import projO_Classi.Utility;
 // </editor-fold>
 
 
 /**
- *
+ * Frame per Edit delle informazioni di un candidato attraverso TextField per modifica dati
  * @author Team
  */
 public class EditCandidatiFrame extends javax.swing.JFrame {
@@ -267,10 +267,10 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
 //______________________________________________________________________________
     
     private void fill() {
-        ArrayList<Candidati> can = mySQL.readCandidatiColumns();
-        ArrayList<Persone> pers = mySQL.readPersoneColumns();
+        ArrayList<Candidato> can = mySQL.readCandidatiColumns();
+        ArrayList<Persona> pers = mySQL.readPersoneColumns();
            
-        for (Candidati object: can) {
+        for (Candidato object: can) {
             if (object.getCF().equals(candidatoCodiceFiscale)) {  // match 
                ImageIcon img;
                tf_Partito.setText(object.getPartito());
@@ -289,7 +289,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
            }
         }
        
-        for (Persone object: pers) {
+        for (Persona object: pers) {
             if (object.getCF().equals(candidatoCodiceFiscale)) {  // match 
                 tf_NomeCandidato.setText(object.getNome());
                 tf_Cognome.setText(object.getCognome());
@@ -305,7 +305,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
     }
     
 //______________________________________________________________________________
-    
+// Metodo per svuotare i TextField
     private void clear() {
         tf_NomeCandidato.setText(null);
         tf_Cognome.setText(null);
@@ -316,7 +316,7 @@ public class EditCandidatiFrame extends javax.swing.JFrame {
         lb_FotoCandidato.setIcon(null);
     }
     
-//_________________________________MAIN_____________________________________________
+//_________________________________MAIN_________________________________________
     
     private void editCandidato() {
         myFTP.loadFile(pathImage,Utility.imgRemoteFolder + "/" + tf_CF.getText() + ".jpg"); // upload immagine tramite FTP
