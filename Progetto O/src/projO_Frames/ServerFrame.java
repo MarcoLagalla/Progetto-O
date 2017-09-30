@@ -426,6 +426,11 @@ public class ServerFrame extends javax.swing.JFrame {
 
         tf_DataInizio.setEditable(false);
         tf_DataInizio.setText(" ");
+        tf_DataInizio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_DataInizioActionPerformed(evt);
+            }
+        });
 
         lb_ImmagineStatus.setIcon(new ImageIcon("Immagini/Vot_Chiuse.png"));
         lb_DataInizio.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
@@ -891,6 +896,10 @@ public class ServerFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_resetMenuItemActionPerformed
+
+    private void tf_DataInizioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_DataInizioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_DataInizioActionPerformed
 
 //______________________________________________________________________________
 
