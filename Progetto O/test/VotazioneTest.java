@@ -74,7 +74,7 @@ public class VotazioneTest {
     @Test
     public void testReadDataInizio() {
         System.out.println("readDataInizio");
-        String expResult = Votazione.getF().format(Votazione.getDataInizioVot());; // la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
+        String expResult = Votazione.getF().format(Votazione.getDataInizioVot()); // la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
         String result = Votazione.readDataInizio();
         assertEquals(expResult, result);
     }
