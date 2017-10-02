@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,8 +12,8 @@ import projO_Classi.Utility;
 import projO_Frames.SchedaCandidatoFrame;
 
 /**
- *
- * @author marco
+ * Test sul Frame SchedaCandidato per verificare la corretta costruzione delle schede di ogni Candidato al seggio elettorale
+ * @author Team
  */
 public class SchedaCandidatoFrameTest {
     

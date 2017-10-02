@@ -9,9 +9,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projO_Classi.Affluenza;
 import projO_Classi.Votazione;
+import projO_Frames.ProgettoO;
+import projO_Frames.ServerFrame;
 
 /**
- *
+ * Test per la Creazione del Turno(tab nel db), delle letture delle Date necessarie ad istanziare l'Elezione e dei metodi necessari a gestirla.
  * @author Team
  */
 public class VotazioneTest {
@@ -19,44 +21,37 @@ public class VotazioneTest {
     public VotazioneTest() {
     }
     
+    /**
+     * Si asserisce che il Test inizi dopo che la Votazione è stata Avviata da un amministratore comunale.
+     */
     @BeforeClass
     public static void setUpClass() {
-        Votazione.inizioVotazione("giaoettr", "04-10-2017");
+        Votazione.inizioVotazione("TestJUnit3", "04-10-2017");
+        
     }
-
+//______________________________________________________________________________
     /**
-     * Test of getIdVotazione method, of class Votazione.
+     * Test of getIdVotazione method, of class Votazione, necessario per verificare la corretta c reazione nel db del Turno.
      */
     @Test
     public void testGetIdVotazione() {
         System.out.println("getIdVotazione");
-        String expResult = "giaoettr"; // metto lo stesso voto dichiarato in beforeClass
+        String expResult = "TestJUnit3"; // Metto lo stesso Id dichiarato in beforeClass
         String result = Votazione.getIdVotazione();
         assertEquals(expResult, result);
     }
     
     /**
-     * Test 2 of getIdVotazione method, of class Votazione.
+     * Test 2 of getIdVotazione method, of class Votazione, necesssario per verificare l'inserimento errato dovuto ad un Id elezione già utilizzato.
      */
     @Test
     public void testGetIdVotazione2() {
         System.out.println("getIdVotazione");
-        String expResult = "Babbo Natale"; // metto un nome diverso da quello dichiarato in beforeClass
+        String expResult = "BabboNatale"; // metto un Id diverso da quello dichiarato in beforeClass
         String result = Votazione.getIdVotazione();
         assertNotEquals(expResult, result);
     }
-
-    /**
-     * Test of readDataCorrente method, of class Votazione.
-     */
-    @Test
-    public void testReadDataCorrente() {
-        System.out.println("readDataCorrente");
-        String expResult = Votazione.getF().format(Calendar.getInstance()); // la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
-        String result = Votazione.readDataCorrente();
-        assertEquals(expResult, result);
-    }
-
+//______________________________________________________________________________
     /**
      * Test of readDataFine method, of class Votazione.
      */
@@ -78,7 +73,7 @@ public class VotazioneTest {
         String result = Votazione.readDataInizio();
         assertEquals(expResult, result);
     }
-
+//______________________________________________________________________________
     /**
      * Test of readStatoVotazione method, of class Votazione.
      */
@@ -89,21 +84,9 @@ public class VotazioneTest {
         boolean result = Votazione.readStatoVotazione();
         assertEquals(expResult, result);
     }
+//______________________________________________________________________________
+/*    
 
-    /**
-     * Test of getDataCorrente method, of class Votazione.
-     */
-    @Test
-    public void testGetDataCorrente() {
-        System.out.println("getDataCorrente");
-        Calendar expResult = Calendar.getInstance();
-        Calendar result = Votazione.getDataCorrente();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getAffluenza method, of class Votazione.
-     */
     @Test
     public void testGetAffluenza() {
         System.out.println("getAffluenza");
@@ -113,7 +96,9 @@ public class VotazioneTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+*/  
+    
+//______________________________________________________________________________
     /**
      * Test of chiudiVotazione method, of class Votazione.
      */
@@ -121,13 +106,11 @@ public class VotazioneTest {
     public void testChiudiVotazione() {
         System.out.println("chiudiVotazione");
         Votazione.chiudiVotazione();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of addAffluenza method, of class Votazione.
-     */
+    }
+//______________________________________________________________________________
+    
+/*
     @Test
     public void testAddAffluenza() {
         System.out.println("addAffluenza");
@@ -135,7 +118,9 @@ public class VotazioneTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+*/
+    
+//______________________________________________________________________________
     /**
      * Test of avanzaGiornata method, of class Votazione.
      */
@@ -143,10 +128,11 @@ public class VotazioneTest {
     public void testAvanzaGiornata() {
         System.out.println("avanzaGiornata");
         Votazione.avanzaGiornata();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Calendar expResult = Calendar.getInstance();
+        Calendar result = Votazione.getDataCorrente();
+        assertNotEquals(expResult, result); // Mi aspetto che la Data del sistema sia diversa da quella ottenuta avanzando la giornata
     }
-
+//______________________________________________________________________________
     /**
      * Test of existsVotazione method, of class Votazione.
      */
@@ -156,31 +142,31 @@ public class VotazioneTest {
         String idVotazione = "";
         boolean expResult = false;
         boolean result = Votazione.existsVotazione(idVotazione);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);    
     }
-
+//______________________________________________________________________________
     /**
      * Test of printWinner method, of class Votazione.
      */
     @Test
     public void testPrintWinner() {
         System.out.println("printWinner");
-        Votazione.printWinner();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ArrayList<String> expResult = Votazione.findWinner();
+        String result = Votazione.winner;
+        assertEquals(expResult, result);    
     }
-
+//______________________________________________________________________________
     /**
-     * Test of stopVotazioniButton method, of class Votazione.
+     * Test of stopVotazioniButton method, of class Votazione, Verifica che i seggi siano stati effettivamente chiusi.
      */
     @Test
     public void testStopVotazioniButton() {
         System.out.println("stopVotazioniButton");
         Votazione.stopVotazioniButton();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean expResult = false;
+        boolean result = Votazione.readStatoVotazione();
+        assertEquals(expResult, result);
+
     }
     
 }

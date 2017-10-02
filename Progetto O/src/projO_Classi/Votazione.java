@@ -28,7 +28,7 @@ public class Votazione {
     private static Calendar dataFineVot;
     private static MySQlConnection mySQL = new MySQlConnection();
     private static int affluenza = 0;
-    private static String winner = "";
+    public static String winner = "";
     private static int lenghtEle;
     public static boolean votazioneAperta = false;
     
@@ -283,7 +283,7 @@ public class Votazione {
      * In caso di chiusura elezioni con candidati a pari merito ritorna un array con i 
      * codici fiscali di tutti i candidati che dovranno accedere al secondo turno.
      */
-    private static ArrayList<String> findWinner() {       // chiamato a votazione finita: trova nel db il candidato vincitore
+    public static ArrayList<String> findWinner() {       // chiamato a votazione finita: trova nel db il candidato vincitore
         ArrayList<Candidato> can = mySQL.readCandidatiColumns();
         int max = 0;
         ArrayList<String> CF = new ArrayList();
