@@ -1,22 +1,22 @@
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projO_Classi.Affluenza;
 import projO_Classi.Votazione;
-import projO_Frames.ProgettoO;
-import projO_Frames.ServerFrame;
 
 /**
  * Test per la Creazione del Turno(tab nel db), delle letture delle Date necessarie ad istanziare l'Elezione e dei metodi necessari a gestirla.
  * @author Team
  */
 public class VotazioneTest {
+    
+    static String testDataInizio; 
+    static String testDataFine;
+    static String testDataCorrente;
     
     public VotazioneTest() {
     }
@@ -26,17 +26,19 @@ public class VotazioneTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Votazione.inizioVotazione("TestJUnit3", "04-10-2017");
-        
+        Votazione.inizioVotazione("TestJUnit12", "04-10-2017");
+        testDataInizio = Votazione.getF().format(Votazione.getDataInizioVot().getTime());
+        testDataFine = Votazione.getF().format(Votazione.getDataFineVot().getTime());
+        testDataCorrente =  Votazione.getF().format(Calendar.getInstance().getTime());
     }
-//______________________________________________________________________________
+    
     /**
      * Test of getIdVotazione method, of class Votazione, necessario per verificare la corretta c reazione nel db del Turno.
      */
     @Test
     public void testGetIdVotazione() {
         System.out.println("getIdVotazione");
-        String expResult = "TestJUnit3"; // Metto lo stesso Id dichiarato in beforeClass
+        String expResult = "TestJUnit12"; // Metto lo stesso Id dichiarato in beforeClass
         String result = Votazione.getIdVotazione();
         assertEquals(expResult, result);
     }
@@ -51,25 +53,36 @@ public class VotazioneTest {
         String result = Votazione.getIdVotazione();
         assertNotEquals(expResult, result);
     }
-//______________________________________________________________________________
+                                                                                                                                            /*
+        /**
+     * Test of readDataCorrente method, of class Votazione.
+     */
+    @Test
+    public void testReadDataCorrente() {
+        System.out.println("readDataCorrente");
+        String expResult = testDataCorrente;// la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
+        String result = Votazione.readDataCorrente();
+        assertEquals(expResult, result);
+    }
+
     /**
      * Test of readDataFine method, of class Votazione.
      */
     @Test
     public void testReadDataFine() {
         System.out.println("readDataFine");
-        String expResult = Votazione.getF().format(Votazione.getDataFineVot()); // la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
+        String expResult = testDataFine ; // la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
         String result = Votazione.readDataFine();
         assertEquals(expResult, result);
     }
-
+                                                                                                                            /*
     /**
      * Test of readDataInizio method, of class Votazione.
      */
     @Test
     public void testReadDataInizio() {
         System.out.println("readDataInizio");
-        String expResult = Votazione.getF().format(Votazione.getDataInizioVot()); // la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
+        String expResult = testDataInizio;  // la data letta dall'INI deve essere uguale a quella nello stato interno di Votazione
         String result = Votazione.readDataInizio();
         assertEquals(expResult, result);
     }
@@ -84,9 +97,7 @@ public class VotazioneTest {
         boolean result = Votazione.readStatoVotazione();
         assertEquals(expResult, result);
     }
-//______________________________________________________________________________
-/*    
-
+                                                                                                                    
     @Test
     public void testGetAffluenza() {
         System.out.println("getAffluenza");
@@ -96,7 +107,7 @@ public class VotazioneTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-*/  
+
     
 //______________________________________________________________________________
     /**
@@ -110,7 +121,6 @@ public class VotazioneTest {
     }
 //______________________________________________________________________________
     
-/*
     @Test
     public void testAddAffluenza() {
         System.out.println("addAffluenza");
@@ -118,9 +128,7 @@ public class VotazioneTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-*/
     
-//______________________________________________________________________________
     /**
      * Test of avanzaGiornata method, of class Votazione.
      */
@@ -132,7 +140,7 @@ public class VotazioneTest {
         Calendar result = Votazione.getDataCorrente();
         assertNotEquals(expResult, result); // Mi aspetto che la Data del sistema sia diversa da quella ottenuta avanzando la giornata
     }
-//______________________________________________________________________________
+
     /**
      * Test of existsVotazione method, of class Votazione.
      */
@@ -144,7 +152,7 @@ public class VotazioneTest {
         boolean result = Votazione.existsVotazione(idVotazione);
         assertEquals(expResult, result);    
     }
-//______________________________________________________________________________
+
     /**
      * Test of printWinner method, of class Votazione.
      */
@@ -155,7 +163,7 @@ public class VotazioneTest {
         String result = Votazione.winner;
         assertEquals(expResult, result);    
     }
-//______________________________________________________________________________
+
     /**
      * Test of stopVotazioniButton method, of class Votazione, Verifica che i seggi siano stati effettivamente chiusi.
      */
