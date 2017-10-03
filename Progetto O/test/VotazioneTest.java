@@ -1,22 +1,33 @@
+import bot.MainFrameBot;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import projO_Classi.Affluenza;
+import projO_Classi.Candidato;
 import projO_Classi.Votazione;
+import projO_Connettività.MySQlConnection;
 
 /**
  * Test per la Creazione del Turno(tab nel db), delle letture delle Date necessarie ad istanziare l'Elezione e dei metodi necessari a gestirla.
  * @author Team
  */
 public class VotazioneTest {
-    
+    final static String idVotTest = "TestJUnit19";
     static String testDataInizio; 
     static String testDataFine;
     static String testDataCorrente;
+    
+    static MySQlConnection mySQL = new MySQlConnection();
+    static ArrayList<Candidato> candidatiArray = mySQL.readCandidatiColumns();
     
     public VotazioneTest() {
     }
@@ -26,10 +37,23 @@ public class VotazioneTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Votazione.inizioVotazione("TestJUnit12", "04-10-2017");
+        Votazione.inizioVotazione(idVotTest, "04-10-2017");
         testDataInizio = Votazione.getF().format(Votazione.getDataInizioVot().getTime());
         testDataFine = Votazione.getF().format(Votazione.getDataFineVot().getTime());
         testDataCorrente =  Votazione.getF().format(Calendar.getInstance().getTime());
+        
+        // VOTO UN CANDIDATO 
+        try{ 
+            int voti;
+            String cf_cand = candidatiArray.get(0).getCF(); 
+            ResultSet voti_ = mySQL.executeQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
+            voti = voti_.getInt("Voti") + 1;  // voti ++
+            int res = mySQL.updateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
+            Votazione.addAffluenza();
+        
+        }catch (SQLException ex) {ex.printStackTrace();} 
+
+        Votazione.chiudiVotazione();
     }
     
     /**
@@ -38,7 +62,7 @@ public class VotazioneTest {
     @Test
     public void testGetIdVotazione() {
         System.out.println("getIdVotazione");
-        String expResult = "TestJUnit12"; // Metto lo stesso Id dichiarato in beforeClass
+        String expResult = idVotTest; // Metto lo stesso Id dichiarato in beforeClass
         String result = Votazione.getIdVotazione();
         assertEquals(expResult, result);
     }
@@ -54,7 +78,7 @@ public class VotazioneTest {
         assertNotEquals(expResult, result);
     }
                                                                                                                                             /*
-        /**
+    /**
      * Test of readDataCorrente method, of class Votazione.
      */
     @Test
@@ -104,41 +128,14 @@ public class VotazioneTest {
         ArrayList<Affluenza> expResult = null;
         ArrayList<Affluenza> result = Votazione.getAffluenza();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    
-//______________________________________________________________________________
-    /**
-     * Test of chiudiVotazione method, of class Votazione.
-     */
-    @Test
-    public void testChiudiVotazione() {
-        System.out.println("chiudiVotazione");
-        Votazione.chiudiVotazione();
 
     }
-//______________________________________________________________________________
     
     @Test
     public void testAddAffluenza() {
         System.out.println("addAffluenza");
         Votazione.addAffluenza();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
-    /**
-     * Test of avanzaGiornata method, of class Votazione.
-     */
-    @Test
-    public void testAvanzaGiornata() {
-        System.out.println("avanzaGiornata");
-        Votazione.avanzaGiornata();
-        Calendar expResult = Calendar.getInstance();
-        Calendar result = Votazione.getDataCorrente();
-        assertNotEquals(expResult, result); // Mi aspetto che la Data del sistema sia diversa da quella ottenuta avanzando la giornata
+
     }
 
     /**
@@ -151,30 +148,21 @@ public class VotazioneTest {
         boolean expResult = false;
         boolean result = Votazione.existsVotazione(idVotazione);
         assertEquals(expResult, result);    
-    }
+    }  
 
     /**
-     * Test of printWinner method, of class Votazione.
+     * Test of findWinner method, of class Votazione.
      */
     @Test
-    public void testPrintWinner() {
-        System.out.println("printWinner");
-        ArrayList<String> expResult = Votazione.findWinner();
-        String result = Votazione.winner;
-        assertEquals(expResult, result);    
-    }
-
-    /**
-     * Test of stopVotazioniButton method, of class Votazione, Verifica che i seggi siano stati effettivamente chiusi.
-     */
-    @Test
-    public void testStopVotazioniButton() {
-        System.out.println("stopVotazioniButton");
-        Votazione.stopVotazioniButton();
-        boolean expResult = false;
-        boolean result = Votazione.readStatoVotazione();
-        assertEquals(expResult, result);
-
-    }
     
+    public void testFindWinner() {
+        System.out.println("findWinner");
+        ArrayList<String> wins = new ArrayList<>();
+        wins.add(Votazione.winner);
+        ArrayList<String> expResult = wins;
+        ArrayList<String> result = Votazione.findWinner();
+        assertEquals(expResult, result);
+    }
+
+
 }

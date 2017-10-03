@@ -207,7 +207,7 @@ public class Votazione {
         resetVoti();
         ArrayList<String> vincitori = findWinner();
         if ( vincitori.size() > 1 ) {
-            JOptionPane.showMessageDialog(null,"Necessario secondo turno!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+           JOptionPane.showMessageDialog(null,"Necessario secondo turno!", "Attenzione", JOptionPane.WARNING_MESSAGE);
            int  res = JOptionPane.showConfirmDialog(null,"Vuoi procedere a impostare un secondo turno di elezioni?\nQuesta operazione cancellerà i candidati che non sono passati al secondo turno.\nQuesta operazione non può essere annullata.","ATTENZIONE", JOptionPane.YES_NO_OPTION);
            if ( res == JOptionPane.YES_OPTION ) {
                
