@@ -332,7 +332,7 @@ public class Votazione {
      */
     public static void printWinner() {
             ArrayList<Candidato> can = mySQL.readCandidatiColumns();
-            
+            try {
             for (Candidato obj: can) {          
                 if (obj.getCF().equals(winner)) {
                     ServerFrame.lb_FotoWinner.setIcon(Utility.setUrlIcon(obj.getImmagine().toString(), 150, 150)); 
@@ -340,7 +340,8 @@ public class Votazione {
                     ServerFrame.lb_CognomeVincitore.setText(obj.getCognome());
                     ServerFrame.lb_partito.setText(obj.getPartito());
                 }
-            }   
+            } 
+        } catch (Exception ex) {}
     }
     
     /**

@@ -21,7 +21,7 @@ import projO_Connettività.MySQlConnection;
  * @author Team
  */
 public class VotazioneTest {
-    final static String idVotTest = "TestJUnit19";
+    final static String idVotTest = "TestJUnit21";
     static String testDataInizio; 
     static String testDataFine;
     static String testDataCorrente;
@@ -47,10 +47,13 @@ public class VotazioneTest {
             int voti;
             String cf_cand = candidatiArray.get(0).getCF(); 
             ResultSet voti_ = mySQL.executeQuery("SELECT Voti FROM CANDIDATI WHERE CodiceFiscale='" + cf_cand + "';");
-            voti = voti_.getInt("Voti") + 1;  // voti ++
-            int res = mySQL.updateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
-            Votazione.addAffluenza();
-        
+            while (voti_.next()) {
+                voti = voti_.getInt("Voti") + 1;  // voti ++
+                int res = mySQL.updateQuery("UPDATE CANDIDATI SET Voti='" + voti + "' WHERE CodiceFiscale='" + cf_cand + "';");
+                Votazione.addAffluenza();
+            }
+
+            
         }catch (SQLException ex) {ex.printStackTrace();} 
 
         Votazione.chiudiVotazione();
@@ -125,9 +128,9 @@ public class VotazioneTest {
     @Test
     public void testGetAffluenza() {
         System.out.println("getAffluenza");
-        ArrayList<Affluenza> expResult = null;
+        int expResult = 0;          // mi aspetto che l' array di affluenza sia vuoto quindi di dimensione 0
         ArrayList<Affluenza> result = Votazione.getAffluenza();
-        assertEquals(expResult, result);
+        assertEquals(expResult, result.size());
 
     }
     
